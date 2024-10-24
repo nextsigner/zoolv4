@@ -1,1 +1,1 @@
-Se comienza a agregar documentación de ayuda
+Se elimina carpeta Python

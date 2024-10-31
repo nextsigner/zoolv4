@@ -24,7 +24,7 @@ Rectangle {
     property int itemIndex: -1
     onVisibleChanged: {
         //if(visible)zoolVoicePlayer.stop()
-        if(visible)zoolVoicePlayer.speak('Sección para buscar y cargar archivos.', true)
+        //if(visible)zoolVoicePlayer.speak('Sección para buscar y cargar archivos.', true)
     }
     Settings{
         id: s

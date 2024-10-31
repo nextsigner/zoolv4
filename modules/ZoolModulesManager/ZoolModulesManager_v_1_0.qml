@@ -23,7 +23,7 @@ Rectangle{
     }
     onVisibleChanged: {
         //if(visible)zoolVoicePlayer.stop()
-        if(visible)zoolVoicePlayer.speak('Sección de gestión de modulos.', true)
+      //if(visible)zoolVoicePlayer.speak('Sección de gestión de modulos.', true)
     }
     Flickable{
         id: flk

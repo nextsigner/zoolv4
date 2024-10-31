@@ -37,7 +37,7 @@ Rectangle {
 
     onVisibleChanged: {
         //if(visible)zoolVoicePlayer.stop()
-        if(visible)zoolVoicePlayer.speak('Sección para crear archivos.', true)
+        //if(visible)zoolVoicePlayer.speak('Sección para crear archivos.', true)
     }
     MouseArea{
         anchors.fill: parent

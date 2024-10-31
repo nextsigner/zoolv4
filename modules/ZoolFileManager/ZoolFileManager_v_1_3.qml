@@ -44,7 +44,7 @@ Rectangle {
     }
     onVisibleChanged: {
         //if(visible)zoolVoicePlayer.stop()
-        if(visible)zoolVoicePlayer.speak('Sección para administrar archivos.', true)
+        //if(visible)zoolVoicePlayer.speak('Sección para administrar archivos.', true)
     }
     Timer{
         id: tF

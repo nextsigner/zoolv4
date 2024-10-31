@@ -42,7 +42,7 @@ Rectangle {
 
     onVisibleChanged: {
         //if(visible)zoolVoicePlayer.stop()
-        if(visible)zoolVoicePlayer.speak('Sección de Simbología de los 360 grados del zodíaco.', true)
+      //if(visible)zoolVoicePlayer.speak('Sección de Simbología de los 360 grados del zodíaco.', true)
     }
     Behavior on x{enabled: apps.enableFullAnimation;NumberAnimation{duration: app.msDesDuration}}
     Flickable{

@@ -31,7 +31,7 @@ Rectangle {
         //if(visible)zoolVoicePlayer.stop()
         if(visible){
             updateList()
-            zoolVoicePlayer.speak('Sección para gestionar mapas externos.', true)
+            //zoolVoicePlayer.speak('Sección para gestionar mapas externos.', true)
         }
     }
 

@@ -11,7 +11,8 @@ Rectangle{
     property int svIndex: zsm.currentIndex
     property int itemIndex: -1
     property int fs: app.fs*0.75
-    property var aAsuntos: ['Inicio', 'Teclado', 'Mouse', 'Advertencias', 'Agradecimientos']
+    property var aAsuntos: ['Inicio', 'Teclado', 'Mouse', 'Mapa Astrológico', 'Panel Cuerpos', 'Panel Secciones', 'Advertencias', 'Agradecimientos', 'Sobre Qt']
+    property string uAsunto: 'Inicio'
     Column{
         id: col0
         spacing: app.fs*0.25
@@ -33,7 +34,9 @@ Rectangle{
                     model: r.aAsuntos
                     ZoolButton{
                         text: modelData
+                        colorInverted: r.uAsunto===modelData
                         onClicked:{
+                            r.uAsunto=modelData
                             getData(index)
                         }
                     }
@@ -56,7 +59,7 @@ Rectangle{
                 Text{
                     id: txtData
                     text: '<b>Ayuda (Area en construcción)</b>'
-                    font.pixelSize: r.fs*0.5
+                    font.pixelSize: r.fs*0.65
                     color: apps.fontColor
                     textFormat: Text.MarkdownText
                     width: xTxtData.width-app.fs

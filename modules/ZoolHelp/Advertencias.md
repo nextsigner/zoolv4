@@ -1,7 +1,7 @@
 #
 ## Advertencias
 #
-### ¿Esta aplicacio depende si o si de internet?
+### ¿Esta aplicacio depende o necesita estar conectada a internet?
 #
 Esta aplicacion, utiliza internet únicamente al momento de crear un mapa. En el formulario de lugar de nacimiento, realiza una busqueda en internet sobre las coordenadas del lugar especificado. Para no depender de internet, habría que ingresar las coordenadas de geolocalización del lugar de modo manual.
 #

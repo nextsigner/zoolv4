@@ -797,7 +797,7 @@ ApplicationWindow {
         }
     }
     //Mostrar/Ocultar ZoolMediaLive
-    Shortcut{
+    /*Shortcut{
         sequence: 'Ctrl+l'
         onActivated: {
             if(zoolMediaLive.settings.stateShowOrHide==='hide'){
@@ -807,7 +807,7 @@ ApplicationWindow {
             }
 
         }
-    }
+    }*/
     //Mostrar/Ocultar ZoolVoicePlayer
     Shortcut{
         sequence: 'Ctrl+p'

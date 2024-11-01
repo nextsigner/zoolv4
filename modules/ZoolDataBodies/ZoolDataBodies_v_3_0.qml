@@ -61,7 +61,7 @@ Rectangle {
     function loadJson(json){
         r.latFocus=0
         xBodiesInt.loadJson(json)
-        zoolMediaLive.loadJson(json)
+        //zoolMediaLive.loadJson(json)
     }
     function loadJsonBack(json){
         xBodiesExt.loadJson(json)

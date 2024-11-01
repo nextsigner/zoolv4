@@ -1,1 +1,1 @@
-Se elimina ZoolVoicePlayer
+Se elimina ZoolDataText

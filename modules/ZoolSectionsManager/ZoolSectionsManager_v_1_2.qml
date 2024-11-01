@@ -2,7 +2,6 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import '../../comps' as Comps
 
-import ZoolDataText 1.0
 import ZoolFileExtDataManager 1.2
 import ZoolFileManager 1.3
 import ZoolListLunar 1.0
@@ -61,14 +60,8 @@ Item{
             width: r.width
             height: r.height-xPanelesTits.height-xIndicadorSV.height
 
-            //10
+            //7
             Comps.XPaneles{ZoolHelp{id: zoolHelp;}}
-
-            //9
-            Comps.XPaneles{ZoolDataText{id: panelZoolText;}}
-
-            //8
-            Comps.XPaneles{Comps.PanelZoolData{id: panelZoolData}}
 
             //6
             Comps.XPaneles{ZoolSabianos{id: panelSabianos}}

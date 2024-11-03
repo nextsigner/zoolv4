@@ -66,7 +66,7 @@ Item{
             if(zm.currentHouseIndex===0){
                 zm.currentHouseIndex=1
             }
-            zpn.addNot('chi: '+zm.currentHouseIndex, true, 20000)
+            //zpn.addNot('chi: '+zm.currentHouseIndex, true, 20000)
             if(zm.currentHouseIndex===12){
                 stop()
             }
@@ -86,7 +86,10 @@ Item{
         onTriggered: {
             //log.lv('tMultiCap2....')
             let fn=zm.objPlanetsCircle.getAs(zm.currentPlanetIndex).getAsFileNameForCap()
-            //zpn.addNot('fn: '+fn, true, 20000)
+            let jsonNot={}
+            jsonNot.id='cap_planeta'
+            jsonNot.text='Capturando '+fn
+            zpn.addNot(jsonNot, true, 20000)
             captureToPng(fn, zm.parent, false)
         }
     }
@@ -97,13 +100,17 @@ Item{
         interval: 100
         onTriggered: {
             //log.lv('tMultiCap2Houses....')
-            let fn=unik.getPath(3)+'/Zool/caps/'+zm.currentNom.replace(/ /g, '_')+'/casa_'+zm.currentHouseIndex+'.png'//zm.objPlanetsCircle.getAs(zm.currentPlanetIndex).getAsFileNameForCap()
-            //zpn.addNot('fn: '+fn, false, 0)
+            let fnFolder=unik.getPath(3)+'/Zool/caps/'+zm.currentNom.replace(/ /g, '_')
+            let fn=fnFolder+'/casa_'+zm.currentHouseIndex+'.png'//zm.objPlanetsCircle.getAs(zm.currentPlanetIndex).getAsFileNameForCap()
+            let jsonNot={}
+            jsonNot.text='Capturando '+fn
+            zpn.addNot(jsonNot, true, 5000)
             //log.lv('fn: '+fn)
             //fn=fn.toLowerCase()
             //fn=app.j.quitarAcentos(fn)
             captureToPng(fn, zm.parent, false)
             if(zm.currentHouseIndex===12){
+                tSetFinishedMultiCap.folder=fnFolder
                 tSetFinishedMultiCap.start()
 
             }
@@ -123,9 +130,13 @@ Item{
     Timer{
         id: tSetFinishedMultiCap
         interval: 1000
+        property string folder: ''
         onTriggered: {
             //log.lv('tFinishedMultiCap....')
-            zpn.addNot('Se finalizó la multicaptura.', true, 10000)
+            let jsonNot={}
+            jsonNot.text='Se finalizó la multicaptura.'
+            jsonNot.url='file://'+folder
+            zpn.addNot(jsonNot, true, 15000)
             zm.currentHouseIndex=0
             zm.objHousesCircle.currentHouse=-1
             zm.centerZoomAndPos()
@@ -170,7 +181,10 @@ Item{
                     Qt.openUrlExternally("file://" + fnp)
                 }
             }else{
-                //zpn.addNot('Capturando '+fn, 8000, false)
+                //Captura lo que se está viendo en el mapa.
+                let jsonNot={}
+                jsonNot.text='Capturando '+fn
+                zpn.addNot(jsonNot, true, 8000)
                 captureToPng(fn, zm.parent, true)
             }
         }

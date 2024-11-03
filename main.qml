@@ -46,7 +46,7 @@ import ZoolSectionsManager 1.2
 import ZoolDataBodies 3.1
 import ZoolElementsBack 1.0
 
-import comps.ZoolPanelNotifications 1.0
+import comps.ZoolPanelNotifications 1.1
 import web.ZoolWebStatusManager 1.0
 //import MinymaClient 1.0
 

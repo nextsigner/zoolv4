@@ -121,10 +121,10 @@ ZoolMenus{
                 zm.zmc.startMultiCap()
             }
         }
-        Action {text: qsTr("Capturar"); onTriggered: {
-                Cap.captureSweg()
+        /*Action {text: qsTr("Capturar"); onTriggered: {
+                app.c.captureSweg()
             }
-        }
+        }*/
         Action {text: qsTr("Crear imagen acutal y abrir"); onTriggered: {
                 zm.zmc.startSinNombreYAbrir()
             }

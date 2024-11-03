@@ -50,8 +50,6 @@ import comps.ZoolPanelNotifications 1.0
 import web.ZoolWebStatusManager 1.0
 //import MinymaClient 1.0
 
-import ZoolMediaLive 1.1
-import ZoolVoicePlayer 1.0
 import ZoolDataEditor 1.0
 import ZoolVideoPlayer 1.0
 import ZoolInfoDataView 1.0
@@ -71,7 +69,7 @@ ZoolMainWindow{
     minimumWidth: Screen.desktopAvailableWidth-app.fs*4
     minimumHeight: Screen.desktopAvailableHeight-app.fs*4
     color: apps.enableBackgroundColor?apps.backgroundColor:'black'
-    title: argtitle && argtitle.length>1?argtitle:'Zool '+version
+    title: 'Zool '+version
     property bool dev: Qt.application.arguments.indexOf('-dev')>=0
     property string version: '0.0.-1'
     property string sweBodiesPythonFile: Qt.platform.os==='linux'?'astrologica_swe_v4.py':'astrologica_swe.py'
@@ -197,84 +195,6 @@ ZoolMainWindow{
     ZoolRemoteDataManager{id: zrdm}
     ZoolFileDataManager{id: zfdm}
     ZoolServerFileDataManager{id: zsfdm}
-    NodeIOQml{
-        id: nioqml
-        user: 'zool'
-        to: 'all'
-        onDataReceibed:{
-            //log.lv("onDataReceibed:"+data+'\n\n')
-            let json=JSON.parse(data)
-            if(apps.dev){
-                log.lv("From:"+json.from+'\n\n')
-                log.lv("To:"+json.to+'\n\n')
-                log.lv("Data:"+json.data+'\n\n')
-            }
-
-            /*
-            let d = new Date(Date.now())
-            let sd=d.toString()
-
-            let txt=''
-            txt+='From: '+json.from+' '+sd+'\n'
-            txt+='To: '+json.to+'\n'
-            txt+='Data: '+json.data
-            txt+='\n\n'
-            log.lv('nioqml std:'+txt)
-            */
-            /*if(json.data.indexOf('qmlcode=')>=0){
-                let m0=data.split('qmlcode=')
-                let c=''
-                c+='import QtQuick 2.0\n'
-                c+='Item{\n'
-                c+='    Component.onCompleted:{\n'
-                c+=m0[1]+'\n'
-                c+='    }\n'
-                c+='}\n'
-                let obj=Qt.createQmlObject(c, xApp, 'nioqmlcode')
-            }*/
-            if(json.data==='isWindowTool'){
-                if(app.flags===Qt.Tool){
-                    send(json.from, 'isWindowTool=true')
-                }else{
-                    send(json.from, 'isWindowTool=false')
-                }
-            }
-            if(json.data==='windowToWindow'){
-                app.flags=Qt.Window
-            }
-            if(json.data==='windowToTool'){
-                app.flags=Qt.Tool
-            }
-            if(json.data.indexOf('load=')===0){
-                app.j.loadJson('/home/ns/gd/Zool/Ricardo.json')
-                zm.automatic=true
-            }
-            if(json.data==='showDec'){
-                apps.showDec=!apps.showDec
-            }
-            if(json.data==='za'){
-                zm.automatic=!zm.automatic
-            }
-            if(json.data==='centerZoomAndPan'){
-                zm.centerZoomAndPos()
-            }
-            if(json.data.indexOf('zl|')===0){
-                let m0=json.data.split('|')
-                app.j.loadJson('/home/ns/gd/Zool/'+m0[1]+'.json')
-            }
-            if(json.data.indexOf('zi|')===0){
-                let m0=json.data.split('|')
-                let b=m0[1]
-                let s=m0[2]
-                let h=parseInt(m0[3])+1
-                zm.getZiData(b, s, h)
-            }
-        }
-        onDataError:{
-            log.lv('Error:\n'+e+'\n\n')
-        }
-        //Component.onCompleted: init()
-    }
     Item{
         id: xApp
         anchors.fill: parent
@@ -584,7 +504,6 @@ ZoolMainWindow{
                 //PanelControlsSign{id: panelControlsSign}
                 ZoolDataBodies{id: zoolDataBodies}
                 //PanelPronEdit{id: panelPronEdit;}
-                ZoolVoicePlayer{id: zoolVoicePlayer}
                 Rectangle{
                     width: parent.width
                     height: 3
@@ -662,7 +581,7 @@ ZoolMainWindow{
     ZoolMapMenuCtx{id: menuRuedaZodiacal}
     ZoolMenuPlanetsCtxAsc{id: menuPlanetsCtxAsc}
     ZoolMenuCtxHouses{id: menuCtxHouses}
-    ZoolMediaLive{id: zoolMediaLive;parent: zoolDataBodies}
+    //ZoolMediaLive{id: zoolMediaLive;parent: zoolDataBodies}
 
     //Este esta en el centro
     Rectangle{
@@ -702,32 +621,8 @@ ZoolMainWindow{
         if(args.indexOf('-dev')>=0){
             apps.dev=true
         }
-        let localhost=false
-        if(args.indexOf('-localhost')>=0)localhost=true
-        let setPortByConfigCFG=true
-        if(unik.fileExist('./tcpclient.conf')){
-            let data=unik.getFile('./tcpclient.conf')
 
-            let lines=data.split('\n')
-            nioqml.user=lines[0].replace('user=', '')
-            //nioqml.host=lines[1].replace('ip=', '')
-            if(localhost){
-                nioqml.host='127.0.0.1'
-            }else{
-                nioqml.host=lines[1].replace('ip=', '')
-            }
-            if(!setPortByConfigCFG)nioqml.port=parseInt(lines[2].replace('port=', ''))
 
-            //log.lv('User: ['+nioqml.user+']')
-            //log.lv('Host: ['+nioqml.host+']')
-            //log.lv('Port: ['+nioqml.port+']')
-        }
-
-            if(setPortByConfigCFG){
-                let portByCfg=unik.getFile('/home/ns/.config/nodeiosport.cfg').replace(/\n/g,'')
-               nioqml.port=parseInt(portByCfg)
-            }
-            nioqml.init()
 
 
 
@@ -831,7 +726,7 @@ ZoolMainWindow{
         }
         //JS.getRD('https://github.com/nextsigner/nextsigner.github.io/raw/master/zool/zool', setHost)
         apps.host='https://zool.loca.lt'
-        app.j.loadModules()
+        //app.j.loadModules()
         app.requestActivate()
         //log.focus=true
     }

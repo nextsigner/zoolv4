@@ -181,7 +181,7 @@ Item{
         }
         Image {
             id: img
-            source: app.planetasRes[r.numAstro]?"../../resources/imgs/planetas/"+app.planetasRes[r.numAstro]+(apps.xAsShowIcon&&r.aIcons.indexOf(r.numAstro)>=0?"_i.png":".svg"):""
+            source: app.planetasRes[r.numAstro]?"../../imgs/planetas/"+app.planetasRes[r.numAstro]+(apps.xAsShowIcon&&r.aIcons.indexOf(r.numAstro)>=0?"_i.png":".svg"):""
             //width: r.parent.parent.objectName==='sweg'?!r.selected?parent.width:parent.width*2:!r.selected?parent.width:parent.width*1.25
             width: parent.width*0.8
             height: width
@@ -226,7 +226,7 @@ Item{
     }
     Image {
         id: imgEarth
-        source: "../../resources/imgs/planetas/earth.png"
+        source: "../../imgs/planetas/earth.png"
         width: sweg.width*0.05
         height: width
         rotation: -45

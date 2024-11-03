@@ -144,7 +144,7 @@ Item {
             //Behavior on width{enabled: apps.enableFullAnimation;NumberAnimation{duration: 250;easing.type: Easing.InOutQuad}}
             Image {
                 id: img
-                source: "../../resources/imgs/signos/"+r.isAsc+".svg"
+                source: "../../imgs/signos/"+r.isAsc+".svg"
                 width: parent.width*0.65
                 height: width
                 anchors.centerIn: parent
@@ -319,7 +319,7 @@ Item {
             //Behavior on width{enabled: apps.enableFullAnimation;NumberAnimation{duration: 250;easing.type: Easing.InOutQuad}}
             Image {
                 id: img2
-                source: "../../resources/imgs/signos/"+r.isMC+".svg"
+                source: "../../imgs/signos/"+r.isMC+".svg"
                 width: parent.width*0.65
                 height: width
                 anchors.centerIn: parent

@@ -34,7 +34,7 @@ Rectangle{
                 Image{
                     id: img
                     //source: modelData?'../../resources/imgs/planetas/'+app.planetasRes[modelData]+'.svg':''
-                    source: modelData?'../../../../resources/imgs/planetas/'+app.planetasRes[modelData]+'.svg':''
+                    source: modelData?'../../../../imgs/planetas/'+app.planetasRes[modelData]+'.svg':''
                     //source: '../../../../resources/imgs/planetas/jupiter.svg'
                     anchors.fill: parent
                 }

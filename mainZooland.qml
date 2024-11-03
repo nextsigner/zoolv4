@@ -44,7 +44,7 @@ import ZoolMediaLive 1.1
 import ZoolVoicePlayer 1.0
 import ZoolDataEditor 1.0
 import ZoolVideoPlayer 1.0
-import ZoolInfoDataView 1.0
+//import ZoolInfoDataView 1.0
 import ZoolBottomBar 1.0
 
 

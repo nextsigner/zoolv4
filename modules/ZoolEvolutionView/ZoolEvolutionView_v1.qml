@@ -133,7 +133,7 @@ Rectangle{
             Image{
                 width: parent.height
                 height: width
-                source: '../../resources/imgs/signos/'+xSign.is+'.svg'
+                source: '../../imgs/signos/'+xSign.is+'.svg'
                 anchors.centerIn: parent
             }
         }
@@ -164,7 +164,7 @@ Rectangle{
                     id: imgIconHouse
                     width: parent.width*0.5
                     height: width
-                    source: '/home/ns/nsp/zool-release/resources/imgs/casa.svg'
+                    source: '../../imgs/casa.svg'
                     anchors.centerIn: parent
                     visible: false
                 }

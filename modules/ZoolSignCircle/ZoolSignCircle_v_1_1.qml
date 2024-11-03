@@ -157,7 +157,7 @@ Item {
                 anchors.centerIn: parent
                 Image {
                     id: iconoSigno
-                    source: "../../resources/imgs/signos/"+index+".svg"
+                    source: "../../imgs/signos/"+index+".svg"
                     width: !app.ev?r.w*0.8:r.w*0.4
                     height: width
                     //rotation: 360-parent.parent.rotation+parent.rotation//+30
@@ -191,7 +191,7 @@ Item {
                 anchors.centerIn: parent
                 Image {
                     id: iconoSignoDec
-                    source: "../../resources/imgs/signos/"+index+".svg"
+                    source: "../../imgs/signos/"+index+".svg"
                     width: !app.ev?r.w*0.8:r.w*0.4
                     height: width
                     rotation: 360-r.rot-parent.rotation
@@ -223,7 +223,7 @@ Item {
                 anchors.centerIn: parent
                 Image {
                     id: iconoSignoDec24
-                    source: "../../resources/imgs/signos/"+index+".svg"
+                    source: "../../imgs/signos/"+index+".svg"
                     width: !app.ev?r.w*0.8:r.w*0.4
                     height: width
                     rotation: 360-r.rot-parent.rotation
@@ -255,7 +255,7 @@ Item {
                 anchors.centerIn: parent
                 Image {
                     id: iconoSignoDec36
-                    source: "../../resources/imgs/signos/"+index+".svg"
+                    source: "../../imgs/signos/"+index+".svg"
                     width: !app.ev?r.w*0.8:r.w*0.4
                     height: width
                     rotation: 360-r.rot-parent.rotation

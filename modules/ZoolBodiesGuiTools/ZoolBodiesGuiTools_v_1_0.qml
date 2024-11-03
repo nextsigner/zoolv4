@@ -310,13 +310,14 @@ Rectangle {
                         onClicked: {
                             log.visible=false
                             zsm.showPanel('ZoolSabianos')
-                            if(zsm.currentIndex!==4||zsm.getPanel('ZoolSabianos').uSAM!=='S'){
+                            let sabianosPanelIndex=zsm.getPanelIndex('ZoolSabianos')
+                            if(zsm.currentIndex!==sabianosPanelIndex||zsm.getPanel('ZoolSabianos').uSAM!=='S'){
                                 let h1=zm.currentJson.pc.c0
                                 let gf=h1.rsgdeg//app.currentGradoSolar-gr
                                 zm.uSon='sun_'+zm.objSignsNames[h1.is]+'_'+h1.ih
                                 //log.lv('zm.uSon: '+zm.uSon)
                                 JS.showSABIANOS(zm.objSignsNames.indexOf(zm.uSon.split('_')[1]), gf-1)
-                                zsm.currentIndex=4
+                                zsm.currentIndex=sabianosPanelIndex
                             }else{
                                 zsm.getPanel('ZoolSabianos').view.numSign=zsm.getPanel('ZoolSabianos').numSign
                                 zsm.getPanel('ZoolSabianos').view.numDegree=zsm.getPanel('ZoolSabianos').numDegree
@@ -334,13 +335,15 @@ Rectangle {
                             log.visible=false
                             //zsm.currentIndex=4
                             zsm.showPanel('ZoolSabianos')
-                            if(zsm.currentIndex!==4||zsm.getPanel('ZoolSabianos').uSAM!=='A'){
+                            let sabianosPanelIndex=zsm.getPanelIndex('ZoolSabianos')
+                            //log.lv('sabianosPanelIndex: '+sabianosPanelIndex)
+                            if(zsm.currentIndex!==sabianosPanelIndex||zsm.getPanel('ZoolSabianos').uSAM!=='A'){
                                 let h1=zm.currentJson.ph.h1
                                 zm.uSon='asc_'+zm.objSignsNames[h1.is]+'_1'
                                 //log.lv('zm.uSon: '+zm.uSon)
                                 //log.lv('zm.uAscDegree: '+zm.uAscDegree)
                                 JS.showSABIANOS(zm.objSignsNames.indexOf(zm.uSon.split('_')[1]), zm.uAscDegree-1)
-                                zsm.currentIndex=4
+                                zsm.currentIndex=sabianosPanelIndex
                             }else{
                                 zsm.getPanel('ZoolSabianos').view.numSign=zsm.getPanel('ZoolSabianos').numSign
                                 zsm.getPanel('ZoolSabianos').view.numDegree=zsm.getPanel('ZoolSabianos').numDegree
@@ -358,12 +361,13 @@ Rectangle {
                             log.visible=false
                             //zsm.currentIndex=4
                             zsm.showPanel('ZoolSabianos')
-                            if(zsm.currentIndex!==4||zsm.getPanel('ZoolSabianos').uSAM!=='M'){
+                            let sabianosPanelIndex=zsm.getPanelIndex('ZoolSabianos')
+                            if(zsm.currentIndex!==sabianosPanelIndex||zsm.getPanel('ZoolSabianos').uSAM!=='M'){
                                 let h1=zm.currentJson.ph.h10
                                 zm.uSon='mc_'+zm.objSignsNames[h1.is]+'_10'
                                 //log.lv('zm.uSon: '+zm.uSon)
                                 JS.showSABIANOS(zm.objSignsNames.indexOf(zm.uSon.split('_')[1]), zm.uMcDegree-1)
-                                zsm.currentIndex=4
+                                zsm.currentIndex=sabianosPanelIndex
                             }else{
                                 zsm.getPanel('ZoolSabianos').view.numSign=zsm.getPanel('ZoolSabianos').numSign
                                 zsm.getPanel('ZoolSabianos').view.numDegree=zsm.getPanel('ZoolSabianos').numDegree
@@ -392,6 +396,7 @@ Rectangle {
                         onClicked: {
                             log.visible=false
                             zsm.showPanel('ZoolSabianos')
+                            let sabianosPanelIndex=zsm.getPanelIndex('ZoolSabianos')
                             if(zsm.getPanel('ZoolSabianos').state==='hide'){
                                 let h1=zm.currentJsonBack.pc.c0
                                 let gf=h1.rsgdeg//zm.currentGradoSolar-gr

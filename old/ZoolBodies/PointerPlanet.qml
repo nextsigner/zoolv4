@@ -105,7 +105,7 @@ Item {
                             anchors.verticalCenter: parent.verticalCenter
                             Image {
                                 id: img0
-                                //source: "../../resources/imgs/planetas/"+app.planetasRes[r.p]+".svg"
+                                //source: "../../imgs/planetas/"+app.planetasRes[r.p]+".svg"
                                 source: r.folderImg+"/"+app.planetasRes[r.p]+".svg"
                                 width: parent.width*0.8
                                 height: width
@@ -136,7 +136,7 @@ Item {
                             anchors.verticalCenter: parent.verticalCenter
                             Image {
                                 id: img1
-                                source: r.is>=0?"../../resources/imgs/signos/"+r.is+".svg":""
+                                source: r.is>=0?"../../imgs/signos/"+r.is+".svg":""
                                 width: parent.width*0.8
                                 height: width
                                 anchors.centerIn: parent
@@ -193,7 +193,7 @@ Item {
                             anchors.verticalCenter: parent.verticalCenter
                             Image {
                                 id: img2
-                                source: "../../resources/imgs/casa.svg"
+                                source: "../../imgs/casa.svg"
                                 width: parent.width*0.8
                                 height: width
                                 rotation: r.iconoSignRot + 180 - r.rotation

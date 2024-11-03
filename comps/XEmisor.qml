@@ -57,7 +57,8 @@ Item {
             id: blip
             anchors.fill: parent
             system: particleSys
-            source: "../resources/imgs/planetas/moon_i.png"            
+            source: '../imgs/planetas/moon.svg'
+            //source: "./imgs/planetas/moon_i.png"
             //clip: true
         }
 

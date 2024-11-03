@@ -36,7 +36,7 @@ Item {
                     width: parent.width*0.25
                     height: 1*index+app.fs*0.55
                     //color: 'red'
-                    img1: r.numAstro<=9?"../resources/imgs/planetas/"+app.planetasRes[r.numAstro]+"_i.png":"../resources/imgs/sol1.png"
+                    img1: r.numAstro<=9?"../imgs/planetas/"+app.planetasRes[r.numAstro]+"_i.png":"../imgs/sol1.png"
                     lifeSpan1: 500+((index+1))
                     sizeVariation1: 1*((index+1)*0.1)
                     size1: 1*((index+1)*0.01)

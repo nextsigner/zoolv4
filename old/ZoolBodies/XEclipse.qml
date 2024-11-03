@@ -10,7 +10,7 @@ Rectangle {
     property int typeEclipse: -1
     Image {
         id: sol
-        source: "../../resources/imgs/sol1.png"
+        source: "../../imgs/sol1.png"
         width: parent.width*1.8
         height: width
         anchors.centerIn: parent
@@ -19,7 +19,7 @@ Rectangle {
     }
     Image {
         id: luna
-        source: "../../resources/imgs/luna1.png"
+        source: "../../imgs/luna1.png"
         width: parent.width+parent.width*0.1
         height: width
         anchors.centerIn: parent

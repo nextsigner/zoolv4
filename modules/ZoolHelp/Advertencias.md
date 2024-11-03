@@ -1,6 +1,11 @@
 #
 ## Advertencias
 #
+## ADVERTENCIA MUY IMPORTANTE
+Esta aplicación tiene que ser utilizada únicamente por personas mayores de 18 años. Si tienes menos de 18 años, no es una buena idea que continues utilizando esta aplicación.
+#
+Si continuas utlizando esta aplicacion, es bajo tu única responsabilidad. Si tienes alguna duda sobre si deberías utlizar o no esta aplicacion, consultalo con una persona mayor de edad, tus padres, tutores o personas adultas de confianza.
+#
 ### ¿Esta aplicacio depende o necesita estar conectada a internet?
 #
 Esta aplicacion, utiliza internet únicamente al momento de crear un mapa. En el formulario de lugar de nacimiento, realiza una busqueda en internet sobre las coordenadas del lugar especificado. Para no depender de internet, habría que ingresar las coordenadas de geolocalización del lugar de modo manual.

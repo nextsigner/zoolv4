@@ -1,1 +1,1 @@
-Se optimiza ZoolPanelNot 2
+Se elimina carpeta resources-

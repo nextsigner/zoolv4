@@ -87,8 +87,8 @@ Item{
             //log.lv('tMultiCap2....')
             let fn=zm.objPlanetsCircle.getAs(zm.currentPlanetIndex).getAsFileNameForCap()
             let jsonNot={}
-            jsonNot.id='cap_planeta'
-            jsonNot.text='Capturando '+fn
+            jsonNot.id='captura'
+            jsonNot.text='Capturando Cuerpos '+fn
             zpn.addNot(jsonNot, true, 20000)
             captureToPng(fn, zm.parent, false)
         }
@@ -103,7 +103,8 @@ Item{
             let fnFolder=unik.getPath(3)+'/Zool/caps/'+zm.currentNom.replace(/ /g, '_')
             let fn=fnFolder+'/casa_'+zm.currentHouseIndex+'.png'//zm.objPlanetsCircle.getAs(zm.currentPlanetIndex).getAsFileNameForCap()
             let jsonNot={}
-            jsonNot.text='Capturando '+fn
+            jsonNot.id='captura'
+            jsonNot.text='Capturando casa '+fn
             zpn.addNot(jsonNot, true, 5000)
             //log.lv('fn: '+fn)
             //fn=fn.toLowerCase()

@@ -12,6 +12,7 @@ Rectangle{
     property int fs: app.fs
     MouseArea{
         anchors.fill: parent
+        enabled: r.text!==''
         onClicked: r.text=''
     }
 

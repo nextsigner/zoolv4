@@ -59,12 +59,14 @@ Item{
             property var jsonNot
             property bool ad: false
             property int adTimerInterval: 10000
-            MouseArea{
-                anchors.fill: parent
-                //                onDoubleClicked: {
-                //                    addNot('Not agregado n°'+col.children.length+' ', false, 3500)
-                //                }
-            }
+
+//            MouseArea{
+//                anchors.fill: parent
+//                //                onDoubleClicked: {
+//                //                    addNot('Not agregado n°'+col.children.length+' ', false, 3500)
+//                //                }
+//            }
+
             Timer{
                 running: parent.ad
                 repeat: false

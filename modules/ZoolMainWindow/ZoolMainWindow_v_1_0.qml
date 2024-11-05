@@ -327,10 +327,6 @@ ApplicationWindow {
             //                log.visible=false
             //                return
             //            }
-            if(videoListEditor.visible){
-                videoListEditor.visible=false
-                return
-            }
             //Efecto sobre los paneles
             if(zsm.getPanel('ZoolFileManager').visible&&zsm.getPanel('ZoolFileManager').ti.focus){
                 zsm.getPanel('ZoolFileManager').ti.focus=false

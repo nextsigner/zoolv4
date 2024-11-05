@@ -1,1 +1,1 @@
-Se elimina ZoolDataText
+Se quita ZoolVideoPlayer

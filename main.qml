@@ -51,7 +51,6 @@ import web.ZoolWebStatusManager 1.0
 //import MinymaClient 1.0
 
 import ZoolDataEditor 1.0
-import ZoolVideoPlayer 1.0
 import ZoolInfoDataView 1.0
 import ZoolBottomBar 1.0
 
@@ -525,8 +524,6 @@ ZoolMainWindow{
         ZoolInfoDataView{id: xInfoData}
         ZoolDataEditor{id: xEditor}
         //Num.PanelLog{id: panelLog}
-        ZoolVideoPlayer{id: panelVideLectura;}
-        Comps.VideoListEditor{id: videoListEditor}
         ZoolEvolutionView{id: zev}
     }
     Comps.XSelectColor{

@@ -42,6 +42,7 @@ Rectangle{
     property var bodie9
     property var bodie10
     property var bodie11
+    property var bodie12
 
     /*property var icon3 //Comineza a gatear
     property var icon4 //Comineza a caminar
@@ -176,7 +177,7 @@ Rectangle{
         Rectangle{
             id: xIcon
             width: 1
-            height: hs*0.5+(sen.width*i)
+            height: hs*0.5+(sen.width*0.25*i)
             radius: width*0.5
             color: apps.backgroundColor
             border.width: 2
@@ -190,21 +191,27 @@ Rectangle{
             property string strImg: 'ego.png'
             Rectangle{
                 id: sen
-                width: app.fs*0.5
+                width: app.fs*0.75
                 height: width
                 radius: width*0.5
-                color: apps.backgroundColor
-                border.width: 1
+                color: 'transparent'
+                border.width: 0
                 border.color: apps.fontColor
                 anchors.top: parent.bottom
                 anchors.horizontalCenter: parent.horizontalCenter
                 visible: xIcon.strImg!==''
+                Rectangle{
+                    anchors.fill: parent
+                    color: apps.backgroundColor
+                    opacity: 0.5
+                    radius: width*0.5
+                }
                 Image{
                     id: imgIcon
                     width: parent.width*xIcon.s
                     height: width
                     //source: '../../modules/ZoolEvolutionView/imgs/ev'+xIcon.i+'.png'
-                    source: xIcon.strImg!==''?'../../imgs/planetas/sun.svg':''
+                    source: xIcon.strImg!==''?'../../imgs/planetas/'+xIcon.strImg:''
                     anchors.centerIn: parent
                     visible: false
                 }
@@ -401,6 +408,18 @@ Rectangle{
 
         //Bodies
         r.bodie0 = compBodie.createObject(xSigns, {i: 0, s: 0.8, strImg: 'sun.svg'})
+        r.bodie1 = compBodie.createObject(xSigns, {i: 1, s: 0.8, strImg: 'moon.svg'})
+        r.bodie2 = compBodie.createObject(xSigns, {i: 2, s: 0.8, strImg: 'mercury.svg'})
+        r.bodie3 = compBodie.createObject(xSigns, {i: 3, s: 0.8, strImg: 'venus.svg'})
+        r.bodie4 = compBodie.createObject(xSigns, {i: 4, s: 0.8, strImg: 'mars.svg'})
+        r.bodie5 = compBodie.createObject(xSigns, {i: 5, s: 0.8, strImg: 'jupiter.svg'})
+        r.bodie6 = compBodie.createObject(xSigns, {i: 6, s: 0.8, strImg: 'saturn.svg'})
+        r.bodie7 = compBodie.createObject(xSigns, {i: 7, s: 0.8, strImg: 'uranus.svg'})
+        r.bodie8 = compBodie.createObject(xSigns, {i: 8, s: 0.8, strImg: 'neptune.svg'})
+        r.bodie9 = compBodie.createObject(xSigns, {i: 9, s: 0.8, strImg: 'pluto.svg'})
+        r.bodie10 = compBodie.createObject(xSigns, {i: 10, s: 0.8, strImg: 'nn.svg'})
+        r.bodie11 = compBodie.createObject(xSigns, {i: 11, s: 0.8, strImg: 'ns.svg'})
+        r.bodie12 = compBodie.createObject(xSigns, {i: 12, s: 0.8, strImg: 'hiron.svg'})
 
         return
         let icon4 = compIconEv.createObject(xSigns, {i: 4, ih: 3, s: 1.0, strImg: 'ev3.png'})
@@ -486,6 +505,56 @@ Rectangle{
         nx=(r.wdeg*(j.pc.c0.gdeg+(360-gdegAsc)))
         if(nx>=r.icon16.parent.width)nx=nx-r.icon16.parent.width
         r.bodie0.x=nx
+
+        nx=(r.wdeg*(j.pc.c1.gdeg+(360-gdegAsc)))
+        if(nx>=r.icon16.parent.width)nx=nx-r.icon16.parent.width
+        r.bodie1.x=nx
+
+        nx=(r.wdeg*(j.pc.c2.gdeg+(360-gdegAsc)))
+        if(nx>=r.icon16.parent.width)nx=nx-r.icon16.parent.width
+        r.bodie2.x=nx
+
+        nx=(r.wdeg*(j.pc.c3.gdeg+(360-gdegAsc)))
+        if(nx>=r.icon16.parent.width)nx=nx-r.icon16.parent.width
+        r.bodie3.x=nx
+
+        nx=(r.wdeg*(j.pc.c4.gdeg+(360-gdegAsc)))
+        if(nx>=r.icon16.parent.width)nx=nx-r.icon16.parent.width
+        r.bodie4.x=nx
+
+        nx=(r.wdeg*(j.pc.c5.gdeg+(360-gdegAsc)))
+        if(nx>=r.icon16.parent.width)nx=nx-r.icon16.parent.width
+        r.bodie5.x=nx
+
+        nx=(r.wdeg*(j.pc.c6.gdeg+(360-gdegAsc)))
+        if(nx>=r.icon16.parent.width)nx=nx-r.icon16.parent.width
+        r.bodie6.x=nx
+
+        nx=(r.wdeg*(j.pc.c7.gdeg+(360-gdegAsc)))
+        if(nx>=r.icon16.parent.width)nx=nx-r.icon16.parent.width
+        r.bodie7.x=nx
+
+        nx=(r.wdeg*(j.pc.c8.gdeg+(360-gdegAsc)))
+        if(nx>=r.icon16.parent.width)nx=nx-r.icon16.parent.width
+        r.bodie8.x=nx
+
+        nx=(r.wdeg*(j.pc.c9.gdeg+(360-gdegAsc)))
+        if(nx>=r.icon16.parent.width)nx=nx-r.icon16.parent.width
+        r.bodie9.x=nx
+
+        nx=(r.wdeg*(j.pc.c10.gdeg+(360-gdegAsc)))
+        if(nx>=r.icon16.parent.width)nx=nx-r.icon16.parent.width
+        r.bodie10.x=nx
+
+        nx=(r.wdeg*(j.pc.c11.gdeg+(360-gdegAsc)))
+        if(nx>=r.icon16.parent.width)nx=nx-r.icon16.parent.width
+        r.bodie11.x=nx
+
+        nx=(r.wdeg*(j.pc.c12.gdeg+(360-gdegAsc)))
+        if(nx>=r.icon16.parent.width)nx=nx-r.icon16.parent.width
+        r.bodie12.x=nx
+
+
 
         let posInicial=r.iconC12.x
         let posFinal=r.icon16.x

@@ -181,6 +181,19 @@ Item{
                 }else{
                     Qt.openUrlExternally("file://" + fnp)
                 }
+            }else if(zev.visible){
+                let fnp=unik.getPath(3)+'/Zool/caps/Evo'
+                if(!unik.folderExist(fnp)){
+                    unik.mkdir(fnp)
+                }
+                fn=fnp
+                fn+='/evolucion.png'
+                captureToPng(fn, capa101, true)
+                if (Qt.platform.os === "windows") {
+                    Qt.openUrlExternally("file:///" + fnp)
+                }else{
+                    Qt.openUrlExternally("file://" + fnp)
+                }
             }else{
                 //Captura lo que se está viendo en el mapa.
                 let jsonNot={}

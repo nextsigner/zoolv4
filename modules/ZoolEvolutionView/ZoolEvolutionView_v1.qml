@@ -64,7 +64,7 @@ Rectangle{
             anchors.horizontalCenter: parent.horizontalCenter
         }
         //Espacio vertical para separar título del contenido
-        Item{width: 1; height: app.height*0.4}
+        Item{width: 1; height: app.height*0.2}
         Rectangle{
             id: xSigns
             width: r.wdeg*360
@@ -176,11 +176,12 @@ Rectangle{
         Rectangle{
             id: xIcon
             width: 1
-            height: hs
+            height: hs*0.5+(sen.width*i)
             radius: width*0.5
             color: apps.backgroundColor
             border.width: 2
             border.color: apps.fontColor
+            property int i: 0
             property int is: -1
             property int ih: -1
             property real gdeg: 0.0
@@ -221,7 +222,7 @@ Rectangle{
         Rectangle{
             id: xIcon
             width: 2
-            height: hs
+            height: hs*2
             radius: width*0.5
             color: apps.backgroundColor
             border.width: 2
@@ -236,7 +237,7 @@ Rectangle{
                 width: app.fs*2
                 height: width
                 anchors.verticalCenter: parent.verticalCenter
-                anchors.verticalCenterOffset: width*0.25
+                anchors.verticalCenterOffset: width//*0.25
                 anchors.horizontalCenter: parent.horizontalCenter
                 visible: parent.ih>=1
                 Image{
@@ -480,6 +481,11 @@ Rectangle{
 
 
         r.icon16.x=r.icon16.parent.width
+
+        //Bodies
+        nx=(r.wdeg*(j.pc.c0.gdeg+(360-gdegAsc)))
+        if(nx>=r.icon16.parent.width)nx=nx-r.icon16.parent.width
+        r.bodie0.x=nx
 
         let posInicial=r.iconC12.x
         let posFinal=r.icon16.x

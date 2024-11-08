@@ -1,6 +1,5 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.12
-import "../../js/Funcs.js" as JS
 import comps.MouseAreaView 1.0
 
 import ZoolMap.ZoolMapSignCircle 1.1
@@ -252,7 +251,7 @@ Item{
     //    onCurrentDateBackChanged: {
     //        controlsTimeBack.setTime(currentDateBack)
     //        if(app.t==='trans'){
-    //            JS.loadTransFromTime(app.currentDateBack)
+    //            app.j.loadTransFromTime(app.currentDateBack)
     //        }
     //        //xDataBar.state='show'
     //        let a=currentDateBack.getFullYear()

@@ -6,7 +6,6 @@ import "../"
 import ZoolButton 1.2
 
 import "../../comps" as Comps
-import "../../js/Funcs.js" as JS
 
 import ZoolNumPit.ZoolNumPitLog 1.0
 
@@ -106,7 +105,7 @@ XSection{
         let m = currentDate.getMonth() + 1
         let a = currentDate.getFullYear()
         let f = d + '/' + m + '/' + a
-        let aGetNums=JS.getNums(f)
+        let aGetNums=app.j.getNums(f)
         currentNumNacimiento=aGetNums[0]
         r.currentNumNatalicio=d
         r.sFormulaNatalicio=aGetNums[1]
@@ -945,7 +944,7 @@ XSection{
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             calc()
-                            let aGetNums=JS.getNums(zm.currentFecha)
+                            let aGetNums=app.j.getNums(zm.currentFecha)
                             r.currentIndexAG=aGetNums[2]
                             r.log.clear()
                             r.log.l(getTodo(checkBoxFormula.checked))
@@ -973,7 +972,7 @@ XSection{
                             let mes=parseInt(m0[1])
                             let anio=parseInt(m0[2])
                             let nfecha=''+dia+'/'+mes+'/'+anio
-                            let aGetNums=JS.getNums(nfecha)
+                            let aGetNums=app.j.getNums(nfecha)
                             r.currentIndexAG=aGetNums[2]
                             r.log.clear()
                             r.log.l(getTodo(checkBoxFormula.checked))
@@ -1003,7 +1002,7 @@ XSection{
                                 let mes=parseInt(m0[1])
                                 let anio=parseInt(m0[2])
                                 let nfecha=''+dia+'/'+mes+'/'+anio
-                                let aGetNums=JS.getNums(nfecha)
+                                let aGetNums=app.j.getNums(nfecha)
                                 r.currentIndexAG=aGetNums[2]
                                 let folder=apps.numCurrentFolder.replace('file://', '')
                                 if(!unik.folderExist(folder)){
@@ -1432,7 +1431,7 @@ XSection{
             var sform=''
             let a = i
             let sf=''+d+'/'+m+'/'+a
-            //let aGetNums=JS.getNums(sf)
+            //let aGetNums=app.j.getNums(sf)
             //currentNumAnioPersonal=aGetNums[0]
             let msfd=(''+d).split('')
             let sfd=''+msfd[0]
@@ -1497,7 +1496,7 @@ XSection{
         let m = date.getMonth() + 1
         let a = date.getFullYear()
         let f = d + '/' + m + '/' + a
-        let aGetNums=JS.getNums(f)
+        let aGetNums=app.j.getNums(f)
         let vcurrentNumNacimiento=aGetNums[0]
         r.currentIndexAG=aGetNums[2]
         //log.ls('l1396: r.currentIndexAG: '+r.currentIndexAG, 500, 500)
@@ -1618,7 +1617,7 @@ XSection{
         let m=mfecha[1]
         let a = mfecha[2]
         let sf=''+d+'/'+m+'/'+a
-        let aGetNums=JS.getNums(sf)
+        let aGetNums=app.j.getNums(sf)
         currentNumNacimiento=aGetNums[0]
         r.currentIndexAG=aGetNums[2]
         //log.ls('l1518: r.currentIndexAG: '+r.currentIndexAG, 500, 500)
@@ -1678,7 +1677,7 @@ XSection{
     }
     //    function setIndexAG(){
     //        let fechaConPuntos=txtDataSearchFecha.text.split('.').join('.')
-    //        let d = JS.getNums(fechaConPuntos)
+    //        let d = app.j.getNums(fechaConPuntos)
     //        let ag=parseInt(d[2])
     //        r.currentIndexAG=ag
     //    }

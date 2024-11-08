@@ -1,6 +1,5 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
-import "../../js/Funcs.js" as JS
 import "../../js/Capture.js" as Cap
 
 ApplicationWindow {
@@ -885,7 +884,7 @@ ApplicationWindow {
                 return
             }
             if(app.fileData!==app.currentData){
-                JS.saveJson()
+                app.j.saveJson()
                 let s ='Se ha grabado el archivo '+apps.url+' correctamente.'
                 log.ls(s, xApp.width*0.2, xApp.width*0.2)
                 return

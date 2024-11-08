@@ -1,7 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Dialogs 1.1
-import "../../js/Funcs.js" as JS
+
 
 MenuBar{
     id: r
@@ -95,7 +95,7 @@ MenuBar{
         title: qsTr("&Archivo")
         Action {text: qsTr("&Nuevo"); onTriggered: zsm.getPanel('ZoolFileManager').showSection('ZoolFileMaker')}
         Action { text: qsTr("&Abrir"); onTriggered: zsm.getPanel('ZoolFileManager').showSection('ZoolFileLoader') }
-        Action {enabled: app.fileData!==app.currentData; text: qsTr("&Guardar"); onTriggered: JS.saveJson() }
+        Action {enabled: app.fileData!==app.currentData; text: qsTr("&Guardar"); onTriggered: app.j.saveJson() }
         //Action { text: qsTr("Save &As...") }
         MenuSeparator { }
         Action { text: qsTr("&Salir"); onTriggered: Qt.quit() }
@@ -205,15 +205,15 @@ MenuBar{
     XMenu {
         title: qsTr("&Opciones")
         Action { text: qsTr("Activar todas las animaciones"); onTriggered: apps.enableFullAnimation=!apps.enableFullAnimation; checkable: true; checked: apps.enableFullAnimation}
-        Action { text: qsTr("Actualizar Panel Remoto");onTriggered: JS.getRD('https://github.com/nextsigner/nextsigner.github.io/raw/master/zool/panelremoto/main.qml', panelRemoto)}
+        Action { text: qsTr("Actualizar Panel Remoto");onTriggered: app.j.getRD('https://github.com/nextsigner/nextsigner.github.io/raw/master/zool/panelremoto/main.qml', panelRemoto)}
         Action { text: qsTr("Centellar Planetas"); onTriggered: apps.anColorXAs=!apps.anColorXAs; checkable: true; checked: apps.anColorXAs}
 
     }
     XMenu {
         title: qsTr("&Ayuda")
-        Action { text: qsTr("Manual de Ayuda de Zool");onTriggered: JS.getRD('https://github.com/nextsigner/nextsigner.github.io/raw/master/zool/ayuda/main.qml', setZoolStart)}
-        Action { text: qsTr("Desarrolladores y Patrocinadores");onTriggered: JS.getRD('https://github.com/nextsigner/nextsigner.github.io/raw/master/zool/somos/main.qml', setZoolStart)}
-        Action { text: qsTr("&Novedades Sobre Zool");onTriggered: JS.getRD('https://github.com/nextsigner/nextsigner.github.io/raw/master/zool/windowstart/main.qml', setZoolStart)}
+        Action { text: qsTr("Manual de Ayuda de Zool");onTriggered: app.j.getRD('https://github.com/nextsigner/nextsigner.github.io/raw/master/zool/ayuda/main.qml', setZoolStart)}
+        Action { text: qsTr("Desarrolladores y Patrocinadores");onTriggered: app.j.getRD('https://github.com/nextsigner/nextsigner.github.io/raw/master/zool/somos/main.qml', setZoolStart)}
+        Action { text: qsTr("&Novedades Sobre Zool");onTriggered: app.j.getRD('https://github.com/nextsigner/nextsigner.github.io/raw/master/zool/windowstart/main.qml', setZoolStart)}
         Action { text: qsTr("&Sobre Zool");onTriggered: mdSA.visible=true}
         Action { text: qsTr("&Sobre Qt");onTriggered: mdSQ.visible=true}
     }

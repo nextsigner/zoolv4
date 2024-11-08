@@ -2,7 +2,7 @@ import QtQuick 2.7
 import QtQuick.Controls 2.0
 import Qt.labs.settings 1.1
 import "../../comps" as Comps
-import "../../js/Funcs.js" as JS
+
 
 import ZoolText 1.0
 import ZoolTextInput 1.0

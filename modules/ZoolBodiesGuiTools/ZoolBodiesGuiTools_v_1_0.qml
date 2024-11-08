@@ -1,7 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
 import "../../comps"
-import "../../js/Funcs.js" as JS
 import "../../js/Capture.js" as Cap
 
 import ZoolButton 1.1
@@ -72,7 +71,7 @@ Rectangle {
         //            anchors.horizontalCenter: parent.horizontalCenter
         //            visible: app.uSon!==''
         //            onClicked: {
-        //                JS.showIW()
+        //                app.j.showIW()
         //            }
         //        }
 
@@ -316,7 +315,7 @@ Rectangle {
                                 let gf=h1.rsgdeg//app.currentGradoSolar-gr
                                 zm.uSon='sun_'+zm.objSignsNames[h1.is]+'_'+h1.ih
                                 //log.lv('zm.uSon: '+zm.uSon)
-                                JS.showSABIANOS(zm.objSignsNames.indexOf(zm.uSon.split('_')[1]), gf-1)
+                                app.j.showSABIANOS(zm.objSignsNames.indexOf(zm.uSon.split('_')[1]), gf-1)
                                 zsm.currentIndex=sabianosPanelIndex
                             }else{
                                 zsm.getPanel('ZoolSabianos').view.numSign=zsm.getPanel('ZoolSabianos').numSign
@@ -342,7 +341,7 @@ Rectangle {
                                 zm.uSon='asc_'+zm.objSignsNames[h1.is]+'_1'
                                 //log.lv('zm.uSon: '+zm.uSon)
                                 //log.lv('zm.uAscDegree: '+zm.uAscDegree)
-                                JS.showSABIANOS(zm.objSignsNames.indexOf(zm.uSon.split('_')[1]), zm.uAscDegree-1)
+                                app.j.showSABIANOS(zm.objSignsNames.indexOf(zm.uSon.split('_')[1]), zm.uAscDegree-1)
                                 zsm.currentIndex=sabianosPanelIndex
                             }else{
                                 zsm.getPanel('ZoolSabianos').view.numSign=zsm.getPanel('ZoolSabianos').numSign
@@ -366,7 +365,7 @@ Rectangle {
                                 let h1=zm.currentJson.ph.h10
                                 zm.uSon='mc_'+zm.objSignsNames[h1.is]+'_10'
                                 //log.lv('zm.uSon: '+zm.uSon)
-                                JS.showSABIANOS(zm.objSignsNames.indexOf(zm.uSon.split('_')[1]), zm.uMcDegree-1)
+                                app.j.showSABIANOS(zm.objSignsNames.indexOf(zm.uSon.split('_')[1]), zm.uMcDegree-1)
                                 zsm.currentIndex=sabianosPanelIndex
                             }else{
                                 zsm.getPanel('ZoolSabianos').view.numSign=zsm.getPanel('ZoolSabianos').numSign
@@ -401,7 +400,7 @@ Rectangle {
                                 let h1=zm.currentJsonBack.pc.c0
                                 let gf=h1.rsgdeg//zm.currentGradoSolar-gr
                                 zm.uSon='sun_'+zm.objSignsNames[h1.is]+'_'+h1.ih
-                                JS.showSABIANOS(zm.objSignsNames.indexOf(zm.uSon.split('_')[1]), gf-1)
+                                app.j.showSABIANOS(zm.objSignsNames.indexOf(zm.uSon.split('_')[1]), gf-1)
                                 zsm.getPanel('ZoolSabianos').state='show'
                             }else{
                                 zsm.getPanel('ZoolSabianos').state='hide'
@@ -416,7 +415,7 @@ Rectangle {
                             if(zsm.getPanel('ZoolSabianos').state==='hide'){
                                 let h1=zm.currentJsonBack.ph.h1
                                 zm.uSon='asc_'+zm.objSignsNames[h1.is]+'_1'
-                                JS.showSABIANOS(zm.objSignsNames.indexOf(zm.uSon.split('_')[1]), zm.uAscDegree-1)
+                                app.j.showSABIANOS(zm.objSignsNames.indexOf(zm.uSon.split('_')[1]), zm.uAscDegree-1)
                                 zsm.getPanel('ZoolSabianos').state='show'
                             }else{
                                 zsm.getPanel('ZoolSabianos').state='hide'
@@ -433,7 +432,7 @@ Rectangle {
                             if(zsm.getPanel('ZoolSabianos').state==='hide'){
                                 let h1=app.currentJsonBack.ph.h10
                                 app.uSon='mc_'+app.objSignsNames[h1.is]+'_10'
-                                JS.showSABIANOS(app.objSignsNames.indexOf(app.uSon.split('_')[1]), app.uMcDegree-1)
+                                app.j.showSABIANOS(app.objSignsNames.indexOf(app.uSon.split('_')[1]), app.uMcDegree-1)
                                 zsm.getPanel('ZoolSabianos').state='show'
                             }else{
                                 zsm.getPanel('ZoolSabianos').state='hide'
@@ -453,7 +452,7 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter
                 visible: false//app.ev&&app.t!=='sin'&&app.t!=='rs'
                 onClicked: {
-                    JS.mkSinFile(apps.urlBack)
+                    app.j.mkSinFile(apps.urlBack)
                 }
             }
             Button{
@@ -481,7 +480,7 @@ Rectangle {
                 onCurrentIndexChanged: {
                     if(currentIndex===app.ahys.indexOf(apps.currentHsys))return
                     apps.currentHsys=app.ahys[currentIndex]
-                    //JS.showMsgDialog('Zool Informa', 'El sistema de casas ha cambiado.', 'Se ha seleccionado el sistema de casas '+app.ahysNames[currentIndex]+' ['+app.ahys[currentIndex]+'].')
+                    //app.j.showMsgDialog('Zool Informa', 'El sistema de casas ha cambiado.', 'Se ha seleccionado el sistema de casas '+app.ahysNames[currentIndex]+' ['+app.ahys[currentIndex]+'].')
                     //sweg.load(JSON.parse(app.currentData))
                     zm.loadJsonFromFilePath(apps.url)
                 }

@@ -44,15 +44,6 @@ Rectangle{
     property var bodie11
     property var bodie12
 
-    /*property var icon3 //Comineza a gatear
-    property var icon4 //Comineza a caminar
-    property var icon5 //Comineza a interactuar con el hogar
-    property var icon6 //Comineza Estudios
-    property var icon7 //Comineza Estudios Secundarios
-    property var icon8 //Termina los estudios o capacitación
-    property var icon10 //Logros
-    property var icon12 //Entra a la vejez de Casa 12*/
-
     property var icon16 //Para las patas
 
     property var signColors: ['red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6']

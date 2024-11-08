@@ -2,7 +2,7 @@ import QtQuick 2.7
 import QtQuick.Controls 2.0
 import Qt.labs.folderlistmodel 2.12
 import "../../comps" as Comps
-import "../../js/Funcs.js" as JS
+
 
 Rectangle {
     id: r
@@ -38,7 +38,7 @@ Rectangle {
     Behavior on y{enabled: apps.enableFullAnimation;NumberAnimation{duration: app.msDesDuration}}
     onStateChanged: {
         if(state==='show')tiCmd.t.focus=true
-        JS.raiseItem(r)
+        app.j.raiseItem(r)
     }
     onXChanged: {
         if(x===0){
@@ -182,7 +182,7 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
                     +'  let m0=o.sdgmt.split(" ")\n'
                     +'  let m1=m0[0].split("/")\n'
                     +'  let m2=m0[1].split(":")\n'
-                    +'  JS.setTitleData("Revolución Solar '+comando[1]+' de '+app.currentNom+'",  m1[0],m1[1], m1[2], m2[0], m2[1], '+app.currentGmt+', "'+app.currentLugar+'", '+app.currentLat+','+app.currentLon+', 1)\n'
+                    +'  app.j.setTitleData("Revolución Solar '+comando[1]+' de '+app.currentNom+'",  m1[0],m1[1], m1[2], m2[0], m2[1], '+app.currentGmt+', "'+app.currentLugar+'", '+app.currentLat+','+app.currentLon+', 1)\n'
         }
         if(comando[0]==='rsl'){
             if(cmd===r.uCmd){
@@ -216,7 +216,7 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
         if(comando[0]==='info'){
             if(comando.length<1)return
             app.uSon=comando[1]
-            JS.showIW()
+            app.j.showIW()
             return
         }
 
@@ -343,7 +343,7 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
                 +'      let m0=o.sdgmt.split(" ")\n'
                 +'      let m1=m0[0].split("/")\n'
                 +'      let m2=m0[1].split(":")\n'
-                +'      JS.setTitleData("Revolución Solar '+date.getFullYear()+' de '+app.currentNom+'",  m1[0],m1[1], m1[2], m2[0], m2[1], '+app.currentGmt+', "'+app.currentLugar+'", '+app.currentLat+','+app.currentLon+', 1)\n'
+                +'      app.j.setTitleData("Revolución Solar '+date.getFullYear()+' de '+app.currentNom+'",  m1[0],m1[1], m1[2], m2[0], m2[1], '+app.currentGmt+', "'+app.currentLugar+'", '+app.currentLat+','+app.currentLon+', 1)\n'
                 +'      logData=""\n'
                 +'} catch(e) {\n'
                 +'  console.log("Error makeRS Code: "+e+" "+logData);\n'
@@ -391,7 +391,7 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
                 +'      let m0=o.sdgmt.split(" ")\n'
                 +'      let m1=m0[0].split("/")\n'
                 +'      let m2=m0[1].split(":")\n'
-                +'      JS.setTitleData("Revolución Solar '+date.getFullYear()+' de '+app.currentNom+'",  m1[0],m1[1], m1[2], m2[0], m2[1], '+app.currentGmt+', "'+app.currentLugar+'", '+app.currentLat+','+app.currentLon+', 1)\n'
+                +'      app.j.setTitleData("Revolución Solar '+date.getFullYear()+' de '+app.currentNom+'",  m1[0],m1[1], m1[2], m2[0], m2[1], '+app.currentGmt+', "'+app.currentLugar+'", '+app.currentLat+','+app.currentLon+', 1)\n'
                 +'      logData=""\n'
                 +'} catch(e) {\n'
                 +'  console.log("Error makeRS Code: "+e+" "+logData);\n'

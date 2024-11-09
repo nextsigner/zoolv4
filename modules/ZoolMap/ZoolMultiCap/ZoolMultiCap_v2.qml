@@ -157,6 +157,7 @@ Item{
         interval: 500
         onTriggered: {
             //log.lv('tCap2....')
+            var fnp
             let d=new Date(Date.now())
             let vd=d.getDate()
             let vm=d.getMonth() + 1
@@ -169,7 +170,7 @@ Item{
             //fn=fn.toLowerCase()
             //fn=app.j.quitarAcentos(fn)
             if(zsm.getPanel('ZoolSabianos').view.visible){
-                let fnp=unik.getPath(3)+'/Zool/caps/sabianos'
+                fnp=unik.getPath(3)+'/Zool/caps/sabianos'
                 if(!unik.folderExist(fnp)){
                     unik.mkdir(fnp)
                 }
@@ -181,14 +182,22 @@ Item{
                 }else{
                     Qt.openUrlExternally("file://" + fnp)
                 }
-            }else if(zev.visible){
-                let fnp=unik.getPath(3)+'/Zool/caps/Evo'
+            }else if(r.itemForCap){
+                fnp=unik.getPath(3)+'/Zool/caps'
                 if(!unik.folderExist(fnp)){
                     unik.mkdir(fnp)
                 }
+                let date = new Date(Date.now())
+                let dia=date.getDate()
+                let mes=date.getMonth() + 1
+                let anio=date.getFullYear()
+                let hora=date.getHours()
+                let minuto=date.getMinutes()
+                let segundo=date.getSeconds()
+                let strFn='cap_'+dia+'_'+mes+'_'+anio+'_'+hora+'_'+minuto+'_'+segundo
                 fn=fnp
-                fn+='/evolucion.png'
-                captureToPng(fn, capa101, true)
+                fn+='/'+strFn+'.png'
+                captureToPng(fn, r.itemForCap, true)
                 if (Qt.platform.os === "windows") {
                     Qt.openUrlExternally("file:///" + fnp)
                 }else{
@@ -213,7 +222,13 @@ Item{
         zm.currentHouseIndex=0
         tInitMultiCap.start()
     }
-    function startSinNombreYAbrir(){
+    property var itemForCap
+    function startSinNombreYAbrir(item){
+        if(!item){
+            r.itemForCap=xVisibleItems
+        }else{
+            r.itemForCap=item
+        }
         zm.capturing=true
         tCap2.restart()
     }
@@ -236,7 +251,7 @@ Item{
             c+='        nameFilters: ["Imagen PNG (*.png)"]\n'
             c+='        onAccepted: {\n'
             //c+='            log.lv(fileUrl)\n'
-            c+='            app.c.savePng(fileUrl+".png")\n'
+            c+='            savePng(fileUrl+".png")\n'
             c+='            fileDialog.destroy(10000)\n'
             c+='        }\n'
             c+='        onRejected: {\n'
@@ -258,6 +273,7 @@ Item{
             result.saveToFile(fn);
             if(openInExternal)Qt.openUrlExternally(fileUrl)
             zm.capturing=false
+            r.itemForCap=undefined
         });
     }
 }

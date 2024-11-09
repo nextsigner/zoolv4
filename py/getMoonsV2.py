@@ -121,9 +121,8 @@ def calcular_evento_lunar(jd):
 
 def iterar_julian_day(jd):
     hayEvento=False
-    """Iterar sobre un día juliano, avanzando cada 15 minutos durante 24 horas."""
+    """Iterar sobre un día juliano, avanzando cada cierta cantidad de minutos durante 24 horas."""
     #incremento = 0.01041667  # Incremento de 15 minutos en días julianos (1/97 de un día)
-    #incremento = 0.01041667*0.5  # Incremento de 7.5 minutos en días julianos (1/97*2 de un día)
     incremento = 0.01041667*0.25  # Incremento de 7.5 minutos en días julianos (1/97*4 de un día)
 
     # Iteramos durante 24 horas en intervalos de 15 minutos (97 pasos para incluir 00:00 del día siguiente)
@@ -140,12 +139,12 @@ def iterar_julian_day(jd):
                 'd':int(f"{dia}"),
                 'm':int(f"{mes}"),
                 'a':int(f"{anio}"),
-                'h':int(f"{hora}"),
-                'min':int(f"{minuto}"),
-                'gs': int(evento['gs']),
-                'ms': int(evento['ms']),
-                'gl': int(evento['gl']),
-                'ml': int(evento['ml'])
+                'h':int(f"{hora}"), # hora del tiempo del evento
+                'min':int(f"{minuto}"), # minuto del tiempo del evento
+                'gs': int(evento['gs']), # grado solar
+                'ms': int(evento['ms']), # minuto solar
+                'gl': int(evento['gl']), # grado lunar
+                'ml': int(evento['ml']) # minuto lunar
                 #'eclipse': find_eclipses(2024)
             }
             #print(json.dumps(resultado, indent=4))

@@ -1,1 +1,1 @@
-Se retira Funcs.js
+Se optimiza Capturar y Abrir en carpeta

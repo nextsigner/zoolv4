@@ -300,6 +300,7 @@ Rectangle {
                 anchors.fill: parent
                 onClicked: {
                     lv.currentIndex=index
+                    //log.lv('\n\n\njson item: '+JSON.stringify(json, null, 2))
                     loadToZm(json, ste)
                 }
             }
@@ -393,6 +394,7 @@ Rectangle {
                     sd+=' °'+rsdeg+' \''+minDege
                 }
                 txtData.text=sd
+                //txtData.text+='<br>'+ste
             }
         }
     }
@@ -537,7 +539,7 @@ Rectangle {
         j.params.d=json.d
         j.params.m=json.m
         j.params.a=json.a
-        if(ste!==''){
+        if(ste!=='' && ste!=='||'){
             let mste=ste.split('|')
             let te=mste[0]
             let matTe=mste[1].split('-')
@@ -546,8 +548,13 @@ Rectangle {
             j.params.h=parseInt(hte)
             j.params.min=parseInt(minte)
             j.params.gmt=0
+        }else{
+            j.params.gmt=0
+            j.params.h=json.h
+            j.params.min=json.min
         }
         j.params.t='trans'
+        //log.lv('JSON Lunar: '+JSON.stringify(j, null, 2))
         zm.loadBack(j)
         let t=j.params.t
         let hsys=j.params.hsys

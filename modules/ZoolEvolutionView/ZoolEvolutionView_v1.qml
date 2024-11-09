@@ -7,6 +7,7 @@ Rectangle{
     color: apps.backgroundColor
     border.width: 1
     border.color: apps.fontColor
+    visible: false
     onVisibleChanged: if(visible)updateData()
     property int wdeg: (r.width-app.fs*3)/360
     property int currentAscDeg: 0

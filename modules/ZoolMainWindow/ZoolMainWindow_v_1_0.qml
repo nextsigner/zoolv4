@@ -83,7 +83,7 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+Shift+c'
         onActivated: {
-            zm.zmc.startSinNombreYAbrir()
+            zm.zmc.startSinNombreYAbrir(xVisibleItems)
         }
     }
     Shortcut{

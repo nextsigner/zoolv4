@@ -304,14 +304,113 @@ Item{
             visible: planetsCircleBack.visible
         }
     }
-    Flickable{
-        id: flick
-        anchors.fill: parent
+//    Flickable{
+//        id: flick
+//        anchors.fill: parent
+    Item{
+        id: container
+        clip: true
+        //anchors.fill: parent
+        width: xMed.width
+        height: parent.height
+        //anchors.left: parent.left
+        //anchors.leftMargin: (width-r.width)*2
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.top
+        anchors.topMargin: r.height*0.5
+        anchors.horizontalCenterOffset: r.width*0.5
+        //anchors.vertic
+        //Este MouseAreaView es para ver la zona de acción del mouse en toda la app sobre ZoolMap
+//        MouseAreaView{
+//            anchors.fill: parent
+//            v:2
+//            bw:30
+//        }
+        MouseAreaView{
+            //z:parent.z-1
+            id: dragArea
+            hoverEnabled: true
+            anchors.fill: parent
+            drag.target: rect
+            drag.filterChildren: true
+            onWheel: {
+                let sent=wheel.angleDelta.y > 0
+                setZoom(sent, mouseX, mouseY)
+                let jsonNot={}
+                jsonNot.id='onWheel'
+                jsonNot.text='mouseX: '+mouseX+' xLatIzq.width: '+xLatIzq.width
+                //zpn.addNot(jsonNot, true, 20000)
+                r.uMouseX=mouseX
+                r.uMouseY=mouseY
+                /*return
+                r.enableAnZoomAndPos=false
+                pinchArea.m_x1 = scaler.origin.x
+                pinchArea.m_y1 = scaler.origin.y
+                pinchArea.m_zoom1 = scaler.xScale
+                pinchArea.m_x2 = mouseX
+                pinchArea.m_y2 = mouseY
+
+                var newZoom
+                if (wheel.angleDelta.y > 0) {
+                    newZoom = pinchArea.m_zoom1+0.1
+                    if (newZoom <= pinchArea.m_max) {
+                        pinchArea.m_zoom2 = newZoom
+                    } else {
+                        pinchArea.m_zoom2 = pinchArea.m_max
+                    }
+                } else {
+                    newZoom = pinchArea.m_zoom1-0.1
+                    if (newZoom >= pinchArea.m_min) {
+                        pinchArea.m_zoom2 = newZoom
+                    } else {
+                        pinchArea.m_zoom2 = pinchArea.m_min
+                    }
+                }
+                rect.x = rect.x + (pinchArea.m_x1-pinchArea.m_x2)*(1-pinchArea.m_zoom1)
+                rect.y = rect.y + (pinchArea.m_y1-pinchArea.m_y2)*(1-pinchArea.m_zoom1)
+                //console.debug(rect.width+" -- "+rect.height+"--"+rect.scale)
+                */
+            }
+            onClicked: {
+                apps.zFocus='xMed'
+                if (mouse.button === Qt.RightButton) {
+
+                    //menuRuedaZodiacal.uX=mouseX
+                    //menuRuedaZodiacal.uY=mouseY
+                    //menuRuedaZodiacal.isBack=false
+                    menuRuedaZodiacal.popup()
+                }
+            }
+            onDoubleClicked: {
+                centerZoomAndPos()
+            }
+            /*MouseAreaView{
+                anchors.fill: parent
+                acceptedButtons: Qt.AllButtons;
+                bgc: 'green'
+                //z:parent.z-1
+                onClicked: {
+                    apps.zFocus='xMed'
+                    if (mouse.button === Qt.RightButton) {
+
+                        //menuRuedaZodiacal.uX=mouseX
+                        //menuRuedaZodiacal.uY=mouseY
+                        //menuRuedaZodiacal.isBack=false
+                        menuRuedaZodiacal.popup()
+                    }
+                }
+                onDoubleClicked: {
+                    centerZoomAndPos()
+                }
+            }*/
+        }
         Rectangle {
             id: rect
             border.width: 0
-            width: Math.max(xSweg.width, flick.width)*2
-            height: Math.max(xSweg.height, flick.height)*2
+            //width: Math.max(xSweg.width, parent.width)*2
+            //height: Math.max(xSweg.height, parent.height)*2
+            width: parent.width*2
+            height: width
             border.color: '#ff8833'
             color: 'transparent'
             antialiasing: true
@@ -404,79 +503,80 @@ Item{
                     interval: 1500
                     onTriggered: r.enableAnZoomAndPos=true
                 }
-                MouseAreaView{
-                    //z:parent.z-1
-                    id: dragArea
-                    hoverEnabled: true
-                    anchors.fill: parent
-                    drag.target: rect
-                    drag.filterChildren: true
-                    onWheel: {
-                        let sent=wheel.angleDelta.y > 0
-                        setZoom(sent, mouseX, mouseY)
-                        let jsonNot={}
-                        jsonNot.id='onWheel'
-                        jsonNot.text='mouseX: '+mouseX+' xLatIzq.width: '+xLatIzq.width
-                        //zpn.addNot(jsonNot, true, 20000)
-                        r.uMouseX=mouseX
-                        r.uMouseY=mouseY
-                        /*return
-                        r.enableAnZoomAndPos=false
-                        pinchArea.m_x1 = scaler.origin.x
-                        pinchArea.m_y1 = scaler.origin.y
-                        pinchArea.m_zoom1 = scaler.xScale
-                        pinchArea.m_x2 = mouseX
-                        pinchArea.m_y2 = mouseY
+//                MouseAreaView{
+//                    //z:parent.z-1
+//                    id: dragArea
+//                    hoverEnabled: true
+//                    anchors.fill: parent
+//                    drag.target: rect
+//                    drag.filterChildren: true
+//                    onWheel: {
+//                        let sent=wheel.angleDelta.y > 0
+//                        setZoom(sent, mouseX, mouseY)
+//                        let jsonNot={}
+//                        jsonNot.id='onWheel'
+//                        jsonNot.text='mouseX: '+mouseX+' xLatIzq.width: '+xLatIzq.width
+//                        //zpn.addNot(jsonNot, true, 20000)
+//                        r.uMouseX=mouseX
+//                        r.uMouseY=mouseY
+//                        /*return
+//                        r.enableAnZoomAndPos=false
+//                        pinchArea.m_x1 = scaler.origin.x
+//                        pinchArea.m_y1 = scaler.origin.y
+//                        pinchArea.m_zoom1 = scaler.xScale
+//                        pinchArea.m_x2 = mouseX
+//                        pinchArea.m_y2 = mouseY
 
-                        var newZoom
-                        if (wheel.angleDelta.y > 0) {
-                            newZoom = pinchArea.m_zoom1+0.1
-                            if (newZoom <= pinchArea.m_max) {
-                                pinchArea.m_zoom2 = newZoom
-                            } else {
-                                pinchArea.m_zoom2 = pinchArea.m_max
-                            }
-                        } else {
-                            newZoom = pinchArea.m_zoom1-0.1
-                            if (newZoom >= pinchArea.m_min) {
-                                pinchArea.m_zoom2 = newZoom
-                            } else {
-                                pinchArea.m_zoom2 = pinchArea.m_min
-                            }
-                        }
-                        rect.x = rect.x + (pinchArea.m_x1-pinchArea.m_x2)*(1-pinchArea.m_zoom1)
-                        rect.y = rect.y + (pinchArea.m_y1-pinchArea.m_y2)*(1-pinchArea.m_zoom1)
-                        //console.debug(rect.width+" -- "+rect.height+"--"+rect.scale)
-                        */
-                    }
-                    MouseAreaView{
-                        anchors.fill: parent
-                        acceptedButtons: Qt.AllButtons;
-                        bgc: 'green'
-                        //z:parent.z-1
-                        onClicked: {
-                            apps.zFocus='xMed'
-                            if (mouse.button === Qt.RightButton) {
+//                        var newZoom
+//                        if (wheel.angleDelta.y > 0) {
+//                            newZoom = pinchArea.m_zoom1+0.1
+//                            if (newZoom <= pinchArea.m_max) {
+//                                pinchArea.m_zoom2 = newZoom
+//                            } else {
+//                                pinchArea.m_zoom2 = pinchArea.m_max
+//                            }
+//                        } else {
+//                            newZoom = pinchArea.m_zoom1-0.1
+//                            if (newZoom >= pinchArea.m_min) {
+//                                pinchArea.m_zoom2 = newZoom
+//                            } else {
+//                                pinchArea.m_zoom2 = pinchArea.m_min
+//                            }
+//                        }
+//                        rect.x = rect.x + (pinchArea.m_x1-pinchArea.m_x2)*(1-pinchArea.m_zoom1)
+//                        rect.y = rect.y + (pinchArea.m_y1-pinchArea.m_y2)*(1-pinchArea.m_zoom1)
+//                        //console.debug(rect.width+" -- "+rect.height+"--"+rect.scale)
+//                        */
+//                    }
+//                    MouseAreaView{
+//                        anchors.fill: parent
+//                        acceptedButtons: Qt.AllButtons;
+//                        bgc: 'green'
+//                        //z:parent.z-1
+//                        onClicked: {
+//                            apps.zFocus='xMed'
+//                            if (mouse.button === Qt.RightButton) {
 
-                                //menuRuedaZodiacal.uX=mouseX
-                                //menuRuedaZodiacal.uY=mouseY
-                                //menuRuedaZodiacal.isBack=false
-                                menuRuedaZodiacal.popup()
-                            }
-                        }
-                        onDoubleClicked: {
-                            centerZoomAndPos()
-                        }
-                    }
-                }
+//                                //menuRuedaZodiacal.uX=mouseX
+//                                //menuRuedaZodiacal.uY=mouseY
+//                                //menuRuedaZodiacal.isBack=false
+//                                menuRuedaZodiacal.popup()
+//                            }
+//                        }
+//                        onDoubleClicked: {
+//                            centerZoomAndPos()
+//                        }
+//                    }
+//                }
             }
             Item{
                 id: xSweg
                 width: r.width//*0.25
                 height: width
                 anchors.centerIn: parent
-                //anchors.horizontalCenterOffset: 0-r.width//*0.15
-                //anchors.verticalCenterOffset: 0-r.height//*0.15
+                anchors.horizontalCenterOffset: 0-container.width*0.5
+                anchors.verticalCenterOffset: 0-(container.width-ca.width)+app.fs*1.5
+                //anchors.verticalCenterOffset: 0-container.anchors.topMargin
                 Rectangle{
                     id: bg
                     width: parent.width*10

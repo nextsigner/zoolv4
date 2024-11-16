@@ -235,6 +235,8 @@ Item{
             expand: r.selected
             iconoSignRot: parent.objImg.rotation
             p: r.numAstro
+            cotaLong: app.fs*6
+            pointerFs: app.fs*4
             opacity: r.selected&&app.showPointerXAs?1.0:0.0// && JSON.parse(app.currentData).params.t!=='pron'
             onPointerRotChanged: {
                 r.uRot=pointerRot

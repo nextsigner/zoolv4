@@ -203,8 +203,8 @@ Item {
         let af=[parseFloat(rFuego).toFixed(1), parseFloat(rTierra).toFixed(1), parseFloat(rAire).toFixed(1), parseFloat(rAgua).toFixed(1)]
         //console.log('vi:'+v1.toString())
         updateListModel(af, v1, v2, v3, v4)
-        //let d = JS.getNums('20/06/1975 22:03')
-        let d = JS.getNums(zm.currentFechaBack)
+        //let d = app.j.getNums('20/06/1975 22:03')
+        let d = app.j.getNums(zm.currentFechaBack)
         xItemNums.nd=d[0]
         xItemNums.ns=d[1]
         xItemNums.ag=parseInt(d[2])

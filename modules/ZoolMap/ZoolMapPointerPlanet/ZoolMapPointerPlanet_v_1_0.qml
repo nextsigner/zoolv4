@@ -21,6 +21,7 @@ Item {
     property int p: -1
     property alias pointerRot: eje.rotation
     property int pointerFs: app.fs*5.5
+    property int cotaLong: r.pointerFs*4
     property real xs: zm.xs
     property var aMargins: [0.5, 0.3, 0.4, 0.4, 0.4, 0.5, 0.5, 0.5, 0.4, 0.3, 0.5, 0.5, 0.3, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
 
@@ -41,7 +42,7 @@ Item {
             f2+=0.1
             f3+=0.25
             if(r.xs>=f1&&r.xs<f2){
-                pointerFs=app.fs*5.5/f3
+                pointerFs=app.fs*4.5/f3
                 break
             }
         }
@@ -54,7 +55,7 @@ Item {
         //color: 'red'
         anchors.centerIn: parent
         Rectangle{
-            width: r.pointerFs*5
+            width: r.cotaLong
             height: apps.pointerLineWidth
             //color: apps.pointerLineColor
             //color: borde.border.color

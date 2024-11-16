@@ -27,7 +27,7 @@ import ZoolLogView 1.0
 import ZoolFileDataManager 1.0
 import web.ZoolServerFileDataManager 1.0
 //import ZoolBodies 1.10
-import ZoolMap 2.0
+import ZoolMap 3.0
 import ZoolBodiesGuiTools 1.0
 
 import ZoolMenus.ZoolMenuCtxAs 1.0

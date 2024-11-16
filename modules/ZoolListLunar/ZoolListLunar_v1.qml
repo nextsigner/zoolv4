@@ -1,7 +1,6 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import Qt.labs.settings 1.1
-//import "../../js/Funcs.js" as JS
 import "../../comps" as Comps
 
 import ZoolButton 1.2

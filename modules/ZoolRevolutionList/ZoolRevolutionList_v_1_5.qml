@@ -1,7 +1,6 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import Qt.labs.settings 1.1
-//import "../../js/Funcs.js" as JS
 import "../../comps" as Comps
 
 import ZoolButton 1.2
@@ -878,7 +877,6 @@ Rectangle {
         let ms=d.getTime()
         let c='import QtQuick 2.0\n'
         c+='import unik.UnikQProcess 1.0\n'
-        c+='import "../../js/Funcs.js" as JS\n'
         c+='UnikQProcess{\n'
         c+='    id: uqp'+ms+'\n'
         c+='    onLogDataChanged:{\n'

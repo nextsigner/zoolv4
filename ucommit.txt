@@ -1,1 +1,1 @@
-Se modifica ZoolText v1.1
+Se elimina carpeta ols

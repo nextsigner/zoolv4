@@ -27,7 +27,7 @@ import ZoolLogView 1.0
 import ZoolFileDataManager 1.0
 import web.ZoolServerFileDataManager 1.0
 //import ZoolBodies 1.10
-import ZoolMap 3.0
+import ZoolMap 4.0
 import ZoolBodiesGuiTools 1.0
 
 import ZoolMenus.ZoolMenuCtxAs 1.0
@@ -202,114 +202,135 @@ ZoolMainWindow{
             id: xApp
             anchors.fill: parent
             Rectangle{
-                id: xSwe1
-                //width: xApp.width-xLatIzq.width-xLatDer.width
-                width: zm.width
-                height: xLatIzq.height
-                color: apps.backgroundColor
+                id: xZoolMap
+                width: xMed.width
+                height: xMed.height
+                border.width: xZoolMap.showDevLines?10:0
+                border.color: '#ff8833'
+                color: xZoolMap.showDevLines?'gray':'transparent'
                 anchors.horizontalCenter: parent.horizontalCenter
-                anchors.horizontalCenterOffset: xLatIzq.visible?0:0-xLatIzq.width*0.5
                 anchors.bottom: parent.bottom
-                //clip: xLatIzq.visible
-                //ZoolBodies{id: sweg;objectName: 'sweg'; visible: !apps.dev}
-                ZoolMap{
-                    id: zm;
-                    rectXBackItems.width: xMed.width
-                    rectXBackItems.height: xMed.height
-                }
-                Image {
-                    id: xDataBarUItemGrabber
-                    //source: xDataBar.uItemGrabber
-                    source: zoolDataView.uItemGrabber
+                property bool showDevLines: false
+                Rectangle{
+                    id: xSwe1
                     width: parent.width
-                    fillMode: Image.PreserveAspectCrop
-                    visible: zm.capturing
-                }
-                Image{
-                    id: xAspsUItemGrabber
-                    source: zm.objZoolAspectsView.uItemGrabber
-                    width: parent.width*0.2
-                    height: parent.width*0.2
-                    fillMode: Image.PreserveAspectCrop
-                    anchors.bottom: parent.bottom
-                    visible: zm.capturing
+                    height: parent.height
+                    transform: Scale{ xScale: xZoolMap.showDevLines?0.25:1.0; yScale: xZoolMap.showDevLines?0.25:1.0 }
+                    color: apps.backgroundColor
+                    x: xZoolMap.showDevLines?(parent.width*0.5)-width*0.25*0.5:0
+                    y: xZoolMap.showDevLines?(parent.height*0.5)-height*0.25*0.5:0
+                    clip: true
+                    //ZoolBodies{id: sweg;objectName: 'sweg'; visible: !apps.dev}
+                    ZoolMap{
+                        id: zm;
+                        rectXBackItems.width: xMed.width
+                        rectXBackItems.height: xMed.height
+                    }
+                    Image {
+                        id: xDataBarUItemGrabber
+                        //source: xDataBar.uItemGrabber
+                        source: zoolDataView.uItemGrabber
+                        width: parent.width
+                        fillMode: Image.PreserveAspectCrop
+                        visible: zm.capturing
+                    }
+                    Image{
+                        id: xAspsUItemGrabber
+                        source: zm.objZoolAspectsView.uItemGrabber
+                        width: parent.width*0.2
+                        height: parent.width*0.2
+                        fillMode: Image.PreserveAspectCrop
+                        anchors.bottom: parent.bottom
+                        visible: zm.capturing
+                        Rectangle{
+                            anchors.fill: parent
+                            color: 'transparent'
+                            border.width: 1
+                            border.color: 'red'
+                            visible: apps.dev
+                        }
+                    }
+                    Image{
+                        id: xAspsUItemGrabberBack
+                        source: zm.objZoolAspectsViewBack.uItemGrabber
+                        width: parent.width*0.2
+                        height: parent.width*0.2
+                        fillMode: Image.PreserveAspectCrop
+                        anchors.top: parent.top
+                        visible: zm.capturing && zm.ev
+                        Rectangle{
+                            anchors.fill: parent
+                            color: 'transparent'
+                            border.width: 1
+                            border.color: 'red'
+                            visible: apps.dev
+                        }
+                    }
+                    Image {
+                        id: xElementsUItemGrabber
+                        //source: panelElements.uItemGrabber
+                        //source: zoolElementsView.uItemGrabber
+                        //width: panelElements.width
+                        //fillMode: Image.PreserveAspectFit
+                        fillMode: Image.PreserveAspectCrop
+                        anchors.top: xDataBarUItemGrabber.bottom
+                        anchors.right: parent.right
+                        anchors.rightMargin: 0-width*0.75
+                        transform: Scale {
+                            xScale: 0.25
+                            yScale: 0.25
+                        }
+                        visible: zm.capturing
+                    }
                     Rectangle{
                         anchors.fill: parent
                         color: 'transparent'
                         border.width: 1
-                        border.color: 'red'
+                        border.color: 'yellow'
                         visible: apps.dev
                     }
-                }
-                Image{
-                    id: xAspsUItemGrabberBack
-                    source: zm.objZoolAspectsViewBack.uItemGrabber
-                    width: parent.width*0.2
-                    height: parent.width*0.2
-                    fillMode: Image.PreserveAspectCrop
-                    anchors.top: parent.top
-                    visible: zm.capturing && zm.ev
                     Rectangle{
-                        anchors.fill: parent
-                        color: 'transparent'
+                        width: 6
+                        height: xApp.height*2
+                        color: 'transparent'//apps.fontColor
                         border.width: 1
                         border.color: 'red'
-                        visible: apps.dev
+                        anchors.centerIn: parent
+                        visible: app.showCenterLine
+                    }
+                    Rectangle{
+                        width: xApp.height*2
+                        height: 6
+                        color: 'transparent'//apps.fontColor
+                        border.width: 1
+                        border.color: 'red'
+                        anchors.centerIn: parent
+                        visible: app.showCenterLine
+                    }
+                    ZoolText{
+                        id: capDate
+                        text: 'Imagen creada por Zool'
+                        textFormat: Text.PlainText
+                        font.pixelSize: app.fs*0.5
+                        color: apps.fontColor
+                        anchors.bottom: parent.bottom
+                        anchors.right: parent.right
+                        visible: zm.capturing
                     }
                 }
-                Image {
-                    id: xElementsUItemGrabber
-                    //source: panelElements.uItemGrabber
-                    //source: zoolElementsView.uItemGrabber
-                    //width: panelElements.width
-                    //fillMode: Image.PreserveAspectFit
-                    fillMode: Image.PreserveAspectCrop
-                    anchors.top: xDataBarUItemGrabber.bottom
-                    anchors.right: parent.right
-                    anchors.rightMargin: 0-width*0.75
-                    transform: Scale {
-                        xScale: 0.25
-                        yScale: 0.25
+                Rectangle{
+                    id: xDevLines
+                    width: 4
+                    height: parent.height*4
+                    anchors.centerIn: parent
+                    visible: xZoolMap.showDevLines
+                    Rectangle{
+                        width: parent.parent.width*4
+                        height: 4
+                        anchors.centerIn: parent
                     }
-                    visible: zm.capturing
-                }
-                Rectangle{
-                    anchors.fill: parent
-                    color: 'transparent'
-                    border.width: 1
-                    border.color: 'yellow'
-                    visible: apps.dev
-                }
-                Rectangle{
-                    width: 6
-                    height: xApp.height*2
-                    color: 'transparent'//apps.fontColor
-                    border.width: 1
-                    border.color: 'red'
-                    anchors.centerIn: parent
-                    visible: app.showCenterLine
-                }
-                Rectangle{
-                    width: xApp.height*2
-                    height: 6
-                    color: 'transparent'//apps.fontColor
-                    border.width: 1
-                    border.color: 'red'
-                    anchors.centerIn: parent
-                    visible: app.showCenterLine
-                }
-                ZoolText{
-                    id: capDate
-                    text: 'Imagen creada por Zool'
-                    textFormat: Text.PlainText
-                    font.pixelSize: app.fs*0.5
-                    color: apps.fontColor
-                    anchors.bottom: parent.bottom
-                    anchors.right: parent.right
-                    visible: zm.capturing
                 }
             }
-
             Rectangle{
                 id: xMsgProcDatos
                 width: txtPD.contentWidth+app.fs
@@ -366,6 +387,7 @@ ZoolMainWindow{
                     id: xMed
                     width: xApp.width-xLatIzq.width-xLatDer.width
                     height: parent.height
+
 
                     //ZoolElementsView{id: zoolElementsView}
                     //ExtId

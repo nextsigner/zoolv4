@@ -3,7 +3,7 @@ import QtQuick.Controls 2.0
 //import "../"
 
 Item {
-    id: r
+    id: root
     width: xText.width
     height: xText.height
     property int w//: txt.width
@@ -27,22 +27,22 @@ Item {
     property alias verticalAlignment: txt.verticalAlignment
     Rectangle{
         id: xText
-        width: txt.contentWidth+r.padding*2+r.borderWidth*2//txt.width
-        height: txt.contentHeight+r.padding*2+r.borderWidth*2//r.fs*1.2
-        color: r.textBackgroundColor
-        border.width: r.borderWidth
-        border.color: r.borderColor
-        radius: r.borderRadius
-        opacity: r.textBackgroundOpacity
+        width: txt.contentWidth+root.padding*2+root.borderWidth*2//txt.width
+        height: txt.contentHeight+root.padding*2+root.borderWidth*2//root.fs*1.2
+        color: root.textBackgroundColor
+        border.width: root.borderWidth
+        border.color: root.borderColor
+        radius: root.borderRadius
+        opacity: root.textBackgroundOpacity
         anchors.centerIn: r
     }
     Text {
         id: txt
-        font.pixelSize: r.fs
+        font.pixelSize: root.fs
         color: 'white'
-        width: !r.w?txt.contentWidth:r.w
+        width: !root.w?txt.contentWidth:root.w
         textFormat: Text.RichText
-        wrapMode: !r.w?Text.NoWrap:Text.WordWrap
+        wrapMode: !root.w?Text.NoWrap:Text.WordWrap
         //horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         anchors.centerIn: xText

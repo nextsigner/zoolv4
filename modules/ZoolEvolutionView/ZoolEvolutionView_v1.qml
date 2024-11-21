@@ -107,6 +107,26 @@ Rectangle{
             }
         }
     }
+    Rectangle{
+        width: app.fs//*0.5
+        height: width
+        color: 'white'
+        anchors.right: parent.right
+        anchors.rightMargin: app.fs*0.25
+        anchors.top: parent.top
+        anchors.topMargin: app.fs*0.25
+        MouseArea{
+            anchors.fill: parent
+            onClicked: r.visible=false
+        }
+        Text {
+            text: 'X'
+            horizontalAlignment: Text.AlignHCenter
+            font.pixelSize: parent.width*0.6
+            color: 'black'
+            anchors.centerIn: parent
+        }
+    }
     Component{
         id: comp12Sign
         Rectangle{

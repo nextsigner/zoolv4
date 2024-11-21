@@ -652,12 +652,20 @@ ZoolMainWindow{
 
         let v=unik.getFile('./version')
         app.version=v.replace(/\n/g, '')
-        if(app.version!==apps.lastVersion || apps.dev){
+        /*if(app.version!==apps.lastVersion || apps.dev){
             apps.lastVersion=app.version
             let c='import QtQuick 2.0\n'
             c+='import ZoolNewsAndUpdates 3.4\n'
             c+='ZoolNewsAndUpdates{}\n'
             let obj=Qt.createQmlObject(c, xLatIzq, 'znaucode')
+            obj.z=log.z+1
+        }*/
+        //if(Qt.platform.os==='linux'){
+        if(Qt.platform.os==='windows'){
+            let c='import QtQuick 2.0\n'
+            c+='import comps.ZoolWinUpdate 1.0\n'
+            c+='ZoolWinUpdate{}\n'
+            let obj=Qt.createQmlObject(c, xLatIzq, 'zoolwinupdatecode')
             obj.z=log.z+1
         }
 

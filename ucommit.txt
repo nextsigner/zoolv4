@@ -1,1 +1,1 @@
-Se creó instalador v4.11.17.1 para SourceForge.net
+Se oculta menu Crear HTML Local en Windows

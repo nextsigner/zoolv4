@@ -15,6 +15,13 @@ ZoolMenus{
             zsm.currentIndex=1
         }
     }
+    Action {
+        enabled: app.t==='vn'
+        text: qsTr("Ver Mapa Evolutivo")
+        onTriggered: {
+            zev.visible=true
+        }
+    }
     //<--Clasificados
     /*ZoolMenus {
         title: qsTr("MMMM sdfas fas as a afsaa sd 1111 11111 22222");

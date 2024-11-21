@@ -17,7 +17,9 @@ ZoolMenus{
             mkHtml(genero, true)
         }
     }
-    Action {text: qsTr("Crear Html Local"); onTriggered: {
+    Action {
+        id: crearHtmlLocal
+        text: qsTr("Crear Html Local"); onTriggered: {
             let genero='femenino'
             let p=zfdm.getJsonAbs().params
             if(p.g && p.g==='m')genero='masculino'
@@ -49,5 +51,8 @@ ZoolMenus{
         let folderCaps=unik.getPath(3)+'/Zool/caps/'+zm.currentNom.replace(/ /g, '_')
         let url='http://'+host+'/getZoolDataMapFull?n='+n+'&d='+d+'&m='+m+'&a='+a+'&h='+h+'&min='+min+'&gmt='+gmt+'&lugarNacimiento='+ciudad+'&lat='+lat+'&lon='+lon+'&alt='+alt+'&ciudad='+ciudad+'&ms=0&msReq=0&adminId=zoolrelease&sexo='+sexo+'&onlyBodyData=FALSE&host='+host+'&printStd=FALSE&folderCaps='+folderCaps
         Qt.openUrlExternally(url)
+    }
+    Component.onCompleted: {
+        if(Qt.platform.os==='windows')r.removeAction(crearHtmlLocal)
     }
 }

@@ -81,7 +81,7 @@ Item{
                 //Invisible solo para calcular el ancho del texto
                 id: txt0
                 text: xTxt.jsonNot.text
-                width: parent.width-app.fs
+                width: parent.width-app.fs*1.5
                 font.pixelSize: app.fs*0.5
                 color: apps.fontColor
                 anchors.centerIn: parent
@@ -95,18 +95,28 @@ Item{
                 Text{
                     id: txt
                     text: xTxt.jsonNot.text
-                    width: xTxt.width-app.fs
+                    width: xTxt.width-app.fs*1.5
                     font.pixelSize: app.fs*0.5
                     color: apps.fontColor
-                    wrapMode: txt0.contentWidth>=xTxt.width-app.fs?Text.WrapAnywhere:Text.WordWrap
+                    //wrapMode: txt0.contentWidth>=xTxt.width-app.fs*1.5?Text.WrapAnywhere:Text.WordWrap
+                    wrapMode: Text.WordWrap
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
                 ZoolButton{
-                    text: 'Abrir'
+                    text: xTxt.jsonNot.bot1Text===undefined?'Abrir':xTxt.jsonNot.bot1Text
                     anchors.horizontalCenter: parent.horizontalCenter
                     visible: xTxt.jsonNot.url!==undefined
                     onClicked: {
                         Qt.openUrlExternally(xTxt.jsonNot.url)
+                    }
+                }
+                ZoolButton{
+                    id: botEjecutarQml
+                    text: 'Ejecutar'
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    visible: xTxt.jsonNot.qml!==undefined
+                    onClicked: {
+                        let obj=Qt.createQmlObject(xTxt.jsonNot.qml, app, 'qmlNotCode')
                     }
                 }
             }

@@ -250,7 +250,7 @@ Rectangle{
         tReloadBack.restart()
     }*/
     onCurrentDateChanged: {
-        controlsTime.setTime(currentDate)
+        //controlsTime.setTime(currentDate)
         //if(app.currentData===''||app.setFromFile)return
         //xDataBar.state='show'
         let a=currentDate.getFullYear()

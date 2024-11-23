@@ -2,6 +2,8 @@ import QtQuick 2.7
 import QtQuick.Controls 2.12
 
 //import ZoolMenus.ZoolMenuCtxSep 1.0
+import ZoolDataView.menus.MenuFecha 1.0
+
 
 Rectangle {
     id: r
@@ -229,6 +231,7 @@ Rectangle {
     Component{
         id: compCellData
         Rectangle{
+            id: xCellData
             width: txtRow.contentWidth+app.fs*0.3
             height: txtRow.contentHeight+app.fs*0.3
             color: apps.backgroundColor
@@ -264,6 +267,14 @@ Rectangle {
                     if (mouse.button === Qt.RightButton) { // 'mouse' is a MouseEvent argument passed into the onClicked signal handler
                         if(parent.cellIndex===0){
                             zMenuNom.popup()
+                        }
+                        if(parent.cellIndex===1){
+                            var item1=zoolDataView.parent
+                            var item2=xCellData
+                            var absolutePosition = item2.mapToItem(item1, 0, 0);
+                            //return {x: absolutePosition.x, y:absolutePosition.y}
+                            mFecha.parentX=absolutePosition.x//xCellData.x+((app.width-xCellData.parent.width)*0.5)
+                            mFecha.popup()
                         }
                     } else if (mouse.button === Qt.LeftButton) {
                         //Qt.quit()
@@ -301,6 +312,7 @@ Rectangle {
             //            }
         }
     }
+    MenuFecha{id:mFecha}
     function setDataView(sep, aL, aR){
         //row.visible=false
         r.fs=r.height*0.5

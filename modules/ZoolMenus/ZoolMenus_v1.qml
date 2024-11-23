@@ -4,11 +4,13 @@ import QtQuick.Controls 2.12
 Menu {
     id: r
     width: app.fs*8
+    parent: capa101
     onOpenedChanged:  menuBar.expanded=opened
     //onCurrentIndexChanged: menuBar.uCMI=aMI[currentIndex]
     Component.onCompleted: menuBar.aMenuItems.push(this)
     property int w: 400
     property int fs: app.fs*0.75
+    property real scaleExpandWidh: 0.5
     property bool isContainer: false
     property string text: title
     onVisibleChanged: {
@@ -45,7 +47,7 @@ Menu {
 //            log.lv('r.children['+i+']='+r.children[i].title)
 //        }
 
-        r.w=cantMaxCaracteres*r.fs*0.5
+        r.w=cantMaxCaracteres*r.fs*r.scaleExpandWidh
         r.width=r.w
         //bg.width=r.width
         //menuItem.implicitWidth= r.w*2

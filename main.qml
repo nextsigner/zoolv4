@@ -398,6 +398,7 @@ ZoolMainWindow{
                         anchors.horizontalCenter: parent.horizontalCenter
                         visible: apps.dev
                     }
+                    /*
                     Item{
                         id: xControlsTime
                         width: controlsTime.width
@@ -495,6 +496,7 @@ ZoolMainWindow{
                             Behavior on h{NumberAnimation{duration: 250; easing.type: Easing.InOutQuad}}
                         }
                     }
+                    */
                     Rectangle{
                         width: parent.width
                         height: 3
@@ -587,7 +589,7 @@ ZoolMainWindow{
                 let comp=Qt.createQmlObject(data, app, 'xzoolstart')
             }else{
                 console.log('setXZoolStart Data '+isData+': '+data)
-                JS.showMsgDialog('Error! - Zool Informa', 'Problemas de conexión a internet', 'Por alguna razón, la aplicación no está pudiendo acceder a internet para obtener los datos requeridos. Error: '+data)
+                app.j.showMsgDialog('Error! - Zool Informa', 'Problemas de conexión a internet', 'Por alguna razón, la aplicación no está pudiendo acceder a internet para obtener los datos requeridos. Error: '+data)
             }
         }
     }

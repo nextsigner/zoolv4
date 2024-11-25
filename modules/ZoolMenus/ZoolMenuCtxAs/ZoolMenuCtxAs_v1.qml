@@ -15,7 +15,7 @@ ZoolMenus {
             let s=r.currentIndexSign
             let h=r.currentIndexHouse
             //log.lv('b: '+b+' s: '+s+' h: '+h)
-            zm.getZiData(b, s, h)
+            zm.showInfoData(b, s, h)
         }
     }
 //    Action {text: qsTr(apps.anColorXAs?"No Centellar":"Centellar"); onTriggered: {

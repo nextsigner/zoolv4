@@ -50,6 +50,7 @@ import comps.ZoolPanelNotifications 1.1
 import web.ZoolWebStatusManager 1.0
 //import MinymaClient 1.0
 
+import ZoolDataManager 1.0
 import ZoolDataEditor 1.0
 import ZoolInfoDataView 1.0
 import ZoolBottomBar 1.0
@@ -562,6 +563,7 @@ ZoolMainWindow{
         }
         ZoolLogView{id: log}
         ZoolWebStatusManager{id: zwsm}
+        ZoolDataManager{id: zdm}
     }
     Item{id: xuqps}
     QtObject{

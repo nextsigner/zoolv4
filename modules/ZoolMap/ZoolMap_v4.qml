@@ -527,25 +527,25 @@ Rectangle{
                             anchors.centerIn: parent
                         }
                     }
-//                    MouseAreaView{
-//                        anchors.fill: parent
-//                        acceptedButtons: Qt.AllButtons;
-//                        bgc: 'green'
-//                        //z:parent.z-1
-//                        onClicked: {
-//                            apps.zFocus='xMed'
-//                            if (mouse.button === Qt.RightButton) {
+                    //                    MouseAreaView{
+                    //                        anchors.fill: parent
+                    //                        acceptedButtons: Qt.AllButtons;
+                    //                        bgc: 'green'
+                    //                        //z:parent.z-1
+                    //                        onClicked: {
+                    //                            apps.zFocus='xMed'
+                    //                            if (mouse.button === Qt.RightButton) {
 
-//                                //menuRuedaZodiacal.uX=mouseX
-//                                //menuRuedaZodiacal.uY=mouseY
-//                                //menuRuedaZodiacal.isBack=false
-//                                menuRuedaZodiacal.popup()
-//                            }
-//                        }
-//                        onDoubleClicked: {
-//                            centerZoomAndPos()
-//                        }
-//                    }
+                    //                                //menuRuedaZodiacal.uX=mouseX
+                    //                                //menuRuedaZodiacal.uY=mouseY
+                    //                                //menuRuedaZodiacal.isBack=false
+                    //                                menuRuedaZodiacal.popup()
+                    //                            }
+                    //                        }
+                    //                        onDoubleClicked: {
+                    //                            centerZoomAndPos()
+                    //                        }
+                    //                    }
 
                 }
             }
@@ -1529,10 +1529,44 @@ Rectangle{
         j.params.s=jsonFromAbs.params.s
         return j
     }
-    function getZiData(bodieIndex, signIndex, houseIndex){
+    function getData(file, bodie, sign, house){
+        let jd=unik.getFile(file)
+        let j=JSON.parse(jd)
+        let item=(''+bodie+'_en_'+sign).toLowerCase()
+        let s=''
+        let tit='<h2>'+zdm.cfl(bodie)+' en '+zdm.cfl(sign)+'</h2>'
+        s+=tit+'<br>'
+        s+='<h3>Manifestaciones</h3><br>'
+        let keys=Object.keys(j[item].manifestaciones)
+        for(var i=0;i<keys.length;i++){
+            let itemName=keys[i]
+            s+='<p><b>'+zdm.cfl(itemName).replace(/_/g, ' ')+': </b>'
+            s+=''+j[item].manifestaciones[itemName]+'</p><br>'
+        }
+        item=(''+bodie+'_en_'+house).toLowerCase()
+        tit='<h2>'+zdm.cfl(bodie)+' en '+zdm.cfl(house).replace(/_/g, ' ')+'</h2>'
+        s+=tit+'<br>'
+        s+='<h3>Manifestaciones Negativas</h3><br>'
+        keys=Object.keys(j[item].manifestaciones_negativas)
+        for(i=0;i<keys.length;i++){
+            let itemName=keys[i]
+            s+='<p><b>'+zdm.cfl(itemName).replace(/_/g, ' ')+': </b>'
+            s+=''+j[item].manifestaciones_negativas[itemName]+'</p><br>'
+        }
+        //log.lv('S:'+s)
+        return s
+    }
+    function showInfoData(bodieIndex, signIndex, houseIndex){
         let b=zm.aBodiesFiles[bodieIndex]
-        let s=zm.aSignsLowerStyle[signIndex]
-        let h=parseInt(houseIndex)
+               let s=zm.aSignsLowerStyle[signIndex]
+               let h=parseInt(houseIndex)
+               let data = getData('modules/ZoolMap/ZoolMapData/'+b+'.json', b, s, 'casa_'+h)
+               let t='<h1>'+b+' en '+s+' en Casa '+h+'</h1>'
+               zm.mkWindowDataView(t, data, app.width*0.5-app.fs*10, app.height*0.5-xApp.height*0.25, app.fs*20, xApp.height*0.5, app, app.fs*0.75)
+        return
+//        let b=zm.aBodiesFiles[bodieIndex]
+//        let s=zm.aSignsLowerStyle[signIndex]
+//        let h=parseInt(houseIndex)
         let c=''
         c+='import QtQuick 2.0\n'
         c+='import unik.UnikQProcess 1.0\n'

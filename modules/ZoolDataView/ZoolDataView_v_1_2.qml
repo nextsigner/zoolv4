@@ -1,8 +1,11 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.12
 
-//import ZoolMenus.ZoolMenuCtxSep 1.0
+import ZoolDataView.menus.MenuIsDataDiff 1.0
 import ZoolDataView.menus.MenuFecha 1.0
+import ZoolDataView.menus.MenuNom 1.0
+import ZoolDataView.menus.MenuSep 1.0
+
 
 
 Rectangle {
@@ -113,7 +116,7 @@ Rectangle {
                         //apps.sweFs=app.fs
                         if (mouse.button === Qt.RightButton) { // 'mouse' is a MouseEvent argument passed into the onClicked signal handler
                             //if(parent.cellIndex===0){
-                                zMenuIsDataDiff.popup()
+                                mIsDataDiff.popup()
                             //}
                         } else if (mouse.button === Qt.LeftButton) {
                             //Qt.quit()
@@ -172,8 +175,8 @@ Rectangle {
                 acceptedButtons: Qt.AllButtons;
                 onClicked: {
                     if (mouse.button === Qt.RightButton) {
-                        zMenuSep.stringMiddleSep=r.stringMiddleSeparator
-                        zMenuSep.popup()
+                        mSep.stringMiddleSep=r.stringMiddleSeparator
+                        mSep.popup()
 
                     } else if (mouse.button === Qt.LeftButton) {
                         //Qt.quit()
@@ -266,7 +269,7 @@ Rectangle {
                     //apps.sweFs=app.fs
                     if (mouse.button === Qt.RightButton) { // 'mouse' is a MouseEvent argument passed into the onClicked signal handler
                         if(parent.cellIndex===0){
-                            zMenuNom.popup()
+                            mNom.popup()
                         }
                         if(parent.cellIndex===1){
                             var item1=zoolDataView.parent
@@ -312,7 +315,10 @@ Rectangle {
             //            }
         }
     }
+    MenuIsDataDiff{id:mIsDataDiff}
+    MenuNom{id:mNom}
     MenuFecha{id:mFecha}
+    MenuSep{id:mSep}
     function setDataView(sep, aL, aR){
         //row.visible=false
         r.fs=r.height*0.5

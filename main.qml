@@ -31,9 +31,6 @@ import ZoolMap 4.0
 import ZoolBodiesGuiTools 1.0
 
 import ZoolMenus.ZoolMenuCtxAs 1.0
-import ZoolMenus.ZoolMenuCtxNom 1.0
-import ZoolMenus.ZoolMenuCtxIsDataDiff 1.0
-import ZoolMenus.ZoolMenuCtxSep 1.0
 
 import ZoolMenus.ZoolMapMenuCtx 1.0
 import ZoolMenuCtxPlanetsAsc 1.0
@@ -603,9 +600,6 @@ ZoolMainWindow{
     //    }
     //Comps.MenuPlanets{id: menuPlanets}
     ZoolMenuCtxAs{id: menuPlanets}
-    ZoolMenuCtxIsDataDiff{id: zMenuIsDataDiff}
-    ZoolMenuCtxNom{id: zMenuNom}
-    ZoolMenuCtxSep{id: zMenuSep}
     ZoolMapMenuCtx{id: menuRuedaZodiacal}
     ZoolMenuPlanetsCtxAsc{id: menuPlanetsCtxAsc}
     ZoolMenuCtxHouses{id: menuCtxHouses}

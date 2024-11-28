@@ -67,14 +67,14 @@ Rectangle {
         xBodiesExt.loadJson(json)
     }
     function toUp(){
-        if(panelDataBodies.latFocus===0){
+        if(zoolDataBodies.latFocus===0){
             if(currentIndex>-1){
                 currentIndex--
             }else{
                 currentIndex=21
             }
         }
-        if(panelDataBodies.latFocus===1){
+        if(zoolDataBodies.latFocus===1){
             if(currentIndexBack>-1){
                 currentIndexBack--
             }else{
@@ -83,14 +83,14 @@ Rectangle {
         }
     }
     function toDown(){
-        if(panelDataBodies.latFocus===0){
+        if(zoolDataBodies.latFocus===0){
             if(currentIndex<16){
                 currentIndex++
             }else{
                 currentIndex=-1
             }
         }
-        if(panelDataBodies.latFocus===1){
+        if(zoolDataBodies.latFocus===1){
             if(currentIndexBack<16){
                 currentIndexBack++
             }else{

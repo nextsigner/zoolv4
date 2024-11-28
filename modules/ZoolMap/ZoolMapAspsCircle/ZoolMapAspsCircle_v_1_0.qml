@@ -16,6 +16,28 @@ Rectangle {
     property int widthNodosAspSelected: 8
     property var aAspStr1: []
     property var aAspStr2: []
+    onOpacityChanged:{
+        if(opacity===0.0){
+            tShow.restart()
+        }
+    }
+    Timer{
+        id: tShow
+        running: false
+        repeat: false
+        interval: 250
+        onTriggered: {
+            na1.duration=2500
+            r.opacity=1.0
+        }
+    }
+    Behavior on opacity {
+        NumberAnimation{id: na1; duration: 2500}
+    }
+    function hideAndShow(){
+        na1.duration=1
+        r.opacity=0.0
+    }
     onWidthChanged: {
         tHideTapa.restart()
         currentAspSelected=-1

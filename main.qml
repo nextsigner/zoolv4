@@ -368,10 +368,24 @@ ZoolMainWindow{
                     ZoolSectionsManager{id: zsm}
                     Rectangle{
                         width: parent.width
-                        height: 3
+                        height: 5
                         color: 'red'
                         anchors.bottom: parent.bottom
                         visible: apps.zFocus==='xLatIzq'
+                        SequentialAnimation on color{
+                            running: parente.visible
+                            loops: Animation.Infinite
+                            ColorAnimation {
+                                from: "red"
+                                to: "yellow"
+                                duration: 300
+                            }
+                            ColorAnimation {
+                                from: "yellow"
+                                to: "red"
+                                duration: 300
+                            }
+                        }
                     }
                 }
                 Item{
@@ -497,10 +511,24 @@ ZoolMainWindow{
                     */
                     Rectangle{
                         width: parent.width
-                        height: 3
+                        height: 5
                         color: 'red'
                         anchors.bottom: parent.bottom
                         visible: apps.zFocus==='xMed'
+                        SequentialAnimation on color{
+                            running: parente.visible
+                            loops: Animation.Infinite
+                            ColorAnimation {
+                                from: "red"
+                                to: "yellow"
+                                duration: 300
+                            }
+                            ColorAnimation {
+                                from: "yellow"
+                                to: "red"
+                                duration: 300
+                            }
+                        }
                     }
                     Rectangle{
                         id: centro
@@ -531,10 +559,24 @@ ZoolMainWindow{
                     //PanelPronEdit{id: panelPronEdit;}
                     Rectangle{
                         width: parent.width
-                        height: 3
+                        height: 5
                         color: 'red'
                         anchors.bottom: parent.bottom
                         visible: apps.zFocus==='xLatDer'
+                        SequentialAnimation on color{
+                            running: parente.visible
+                            loops: Animation.Infinite
+                            ColorAnimation {
+                                from: "red"
+                                to: "yellow"
+                                duration: 300
+                            }
+                            ColorAnimation {
+                                from: "yellow"
+                                to: "red"
+                                duration: 300
+                            }
+                        }
                     }
                     ZoolPanelNotifications{id: zpn}
                 }
@@ -635,6 +677,9 @@ ZoolMainWindow{
 
     Component.onCompleted: {
         if(apps.workSpace==='')apps.workSpace=unik.getPath(3)+'/Zool'
+        if(!unik.folderExist(unik.getPath(3)+'/Zool')){
+            unik.mkdir(unik.getPath(3)+'/Zool')
+        }
         if(apps.dev)log.lv('Ultimo archivo cargado con anterioridad: '+apps.url)
         let args=Qt.application.arguments
         JS.setFs()

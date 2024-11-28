@@ -1,5 +1,8 @@
 ## Mouse
 #
+### Acciones del Mouse
+#
+* ***Seleccionar Planeta:*** Hacer doble click encima de un cuerpo o planeta del mapa.
 * ***Centrar el mapa:*** Hacer doble click en alguna zona cerca o en el fondo de la rueda zodiacal en donde no haya ningún elemento.
 * ***Acercar/Alejar el mapa:*** Mover la rueda del mouse.
 #

@@ -219,7 +219,7 @@ ApplicationWindow {
                 return
             }
             if(apps.zFocus==='xLatDer'){
-                panelDataBodies.toEnter()
+                zoolDataBodies.toEnter()
                 return
             }
             if(apps.zFocus==='xLatIzq'){
@@ -253,7 +253,7 @@ ApplicationWindow {
                 return
             }
             if(apps.zFocus==='xLatDer'){
-                panelDataBodies.toEnter()
+                zoolDataBodies.toEnter()
                 return
             }
             if(apps.zFocus==='xLatIzq'){
@@ -438,7 +438,7 @@ ApplicationWindow {
                     zsm.getPanel('ZoolFileManager').toUp()
                     return
                 }
-                //                if(panelControlsSign.state==='show'&&panelDataBodies.state==='hide'){
+                //                if(panelControlsSign.state==='show'&&zoolDataBodies.state==='hide'){
                 //                    if(currentSignIndex>0){
                 //                        currentSignIndex--
                 //                    }else{
@@ -456,16 +456,16 @@ ApplicationWindow {
                 }
             }
             if(apps.zFocus==='xLatDer'){
-                tAutoMaticPlanets.stop()
-                panelDataBodies.toUp()
-                //                if(panelDataBodies.latFocus===0){
+                //tAutoMaticPlanets.stop()
+                zoolDataBodies.toUp()
+                //                if(zoolDataBodies.latFocus===0){
                 //                    if(currentPlanetIndex>-1){
                 //                        currentPlanetIndex--
                 //                    }else{
                 //                        currentPlanetIndex=16
                 //                    }
                 //                }
-                //                if(panelDataBodies.latFocus===1){
+                //                if(zoolDataBodies.latFocus===1){
                 //                    if(currentPlanetIndexBack>-1){
                 //                        currentPlanetIndexBack--
                 //                    }else{
@@ -506,7 +506,7 @@ ApplicationWindow {
                     zsm.getPanel('ZoolFileManager').toDown()
                     return
                 }
-                //                if(panelControlsSign.state==='show'&&panelDataBodies.state==='hide'){
+                //                if(panelControlsSign.state==='show'&&zoolDataBodies.state==='hide'){
                 //                    if(currentSignIndex<12){
                 //                        currentSignIndex++
                 //                    }else{
@@ -525,17 +525,17 @@ ApplicationWindow {
 
             }
             if(apps.zFocus==='xLatDer'){
-                tAutoMaticPlanets.stop()
-                panelDataBodies.toDown()
+                //tAutoMaticPlanets.stop()
+                zoolDataBodies.toDown()
 
-                //                if(panelDataBodies.latFocus===0){
+                //                if(zoolDataBodies.latFocus===0){
                 //                    if(currentPlanetIndex<16){
                 //                        currentPlanetIndex++
                 //                    }else{
                 //                        currentPlanetIndex=-1
                 //                    }
                 //                }
-                //                if(panelDataBodies.latFocus===1){
+                //                if(zoolDataBodies.latFocus===1){
                 //                    if(currentPlanetIndexBack<16){
                 //                        currentPlanetIndexBack++
                 //                    }else{
@@ -557,7 +557,7 @@ ApplicationWindow {
         onActivated: {
             //if(zsm.getPanel('ZoolFileManager').state==='show'){
             if(apps.zFocus==='xLatDer'){
-                panelDataBodies.latFocus=panelDataBodies.latFocus===0?1:0
+                zoolDataBodies.latFocus=zoolDataBodies.latFocus===0?1:0
                 return
             }
             if(apps.zFocus==='xLatIzq' || zsm.getPanel('ZoolSabianos').view.visible){
@@ -590,11 +590,11 @@ ApplicationWindow {
         sequence: 'Ctrl+Right'
         onActivated: {
             if(apps.zFocus==='xLatDer'){
-                panelDataBodies.latFocus=panelDataBodies.latFocus===0?1:0
+                zoolDataBodies.latFocus=zoolDataBodies.latFocus===0?1:0
                 return
             }
             if(apps.zFocus==='xLatDer'){
-                panelDataBodies.latFocus=panelDataBodies.latFocus===0?1:0
+                zoolDataBodies.latFocus=zoolDataBodies.latFocus===0?1:0
                 return
             }
             if(apps.zFocus==='xLatIzq' || zsm.getPanel('ZoolSabianos').view.visible){
@@ -823,7 +823,7 @@ ApplicationWindow {
                 zsm.currentSectionFocused.insert()
                 return
             }
-            //panelDataBodies.state=panelDataBodies.state==='show'?'hide':'show'
+            //zoolDataBodies.state=zoolDataBodies.state==='show'?'hide':'show'
         }
     }
     //Mostrar Panel para Crear Nuevo VN

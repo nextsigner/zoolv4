@@ -1,1 +1,1 @@
-Se mueven los menus para ZoolDataView
+Se arregla Up y Down en zoolDataBodies

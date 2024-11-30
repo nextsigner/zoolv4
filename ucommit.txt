@@ -1,1 +1,1 @@
-Se agrega toTab() a ZoolSectionManager para propagar por todos los paneles internos.
+Se crea ZoolFiles

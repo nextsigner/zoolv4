@@ -3,9 +3,9 @@ import QtQuick.Controls 2.0
 import Qt.labs.settings 1.1
 import "../../comps" as Comps
 
-import ZoolMods.ZoolFileTransLoader 1.5
-import ZoolMods.ZoolFileDirPrimLoader 1.7
-import ZoolMods.ZoolFileProgSecLoader 1.0
+import ZoolFileMaker 1.6
+import ZoolFileLoader 1.4
+
 import ZoolButton 1.0
 import ZoolText 1.0
 
@@ -19,9 +19,14 @@ Rectangle {
 
     property int hp: r.parent.height-xBtns.height//-rowBtns.parent.spacing //Altura de los paneles
 
-    property var panelActive: zoolFileTransLoader
+    property var panelActive: zoolFileMaker.visible?zoolFileMaker:zoolFileLoader
 
+    property alias ti: zoolFileLoader.ti
+    property alias currentIndex: zoolFileLoader.currentIndex
+    property alias listModel: zoolFileLoader.listModel
 
+    property alias tiN: zoolFileMaker.tiN
+    property alias tiC: zoolFileMaker.tiC
 
     property alias s: settings
     property int svIndex: zsm.currentIndex
@@ -44,17 +49,20 @@ Rectangle {
         repeat: false
         interval: 1500
         onTriggered: {
-            //r.panelActive.setInitFocus()
+            r.panelActive.setInitFocus()
         }
     }
     Settings{
         id: settings
-        fileName: './ZoolMods.cfg'
-        property string currentQmlTypeShowed: 'ZoolFileTransLoader'
+        fileName: './ZoolFileManager.cfg'
+        property string currentQmlTypeShowed: 'ZoolFileMaker'
+        property bool showModuleVersion: false
+        property bool inputCoords: false
+        property bool showConfig: false
 
     }
     Text{
-        text: 'ZoolMods v1.0'
+        text: 'ZoolFileManager v1.2'
         font.pixelSize: app.fs*0.5
         color: apps.fontColor
         anchors.left: parent.left
@@ -81,26 +89,17 @@ Rectangle {
                 width: parent.width-app.fs*0.5
                 anchors.centerIn: parent
                 ZoolButton{
-                    text:'Transitos'
-                    colorInverted: zoolFileTransLoader.visible
+                    text:'Crear'
+                    colorInverted: zoolFileMaker.visible
                     onClicked: {
-                        showSection('ZoolFileTransLoader')
+                        showSection('ZoolFileMaker')
                     }
                 }
                 ZoolButton{
-                    id: botDirPrim
-                    text:'Dir. Prim.'
-                    colorInverted: zoolFileDirPrimLoader.visible
+                    text:'Buscar'
+                    colorInverted: zoolFileLoader.visible
                     onClicked: {
-                        showSection('ZoolFileDirPrimLoader')
-                    }
-                }
-                ZoolButton{
-                    id: botProgSec
-                    text:'Prog. Sec.'
-                    colorInverted: zoolFileProgSecLoader.visible
-                    onClicked: {
-                        showSection('ZoolFileProgSecLoader')
+                        showSection('ZoolFileLoader')
                     }
                 }
             }
@@ -109,14 +108,76 @@ Rectangle {
             id: xSections
             width: r.width
             height: r.hp
-            ZoolFileTransLoader{id: zoolFileTransLoader}
-            ZoolFileDirPrimLoader{id: zoolFileDirPrimLoader}
-            ZoolFileProgSecLoader{id: zoolFileProgSecLoader}
+            ZoolFileMaker{
+                id: zoolFileMaker;
+                //visible: true
+                height: r.hp
+            }
+            ZoolFileLoader{id: zoolFileLoader}
+        }
+    }
+    Rectangle{
+        id: xConfig
+        width: r.width-app.fs*0.5
+        height: colTextJsonFolder.height+app.fs*0.5
+        border.width: 1
+        border.color: apps.fontColor
+        radius: app.fs*0.25
+        color: 'transparent'
+        visible: zoolFileManager.s.showConfig
+        //parent: zoolFileMaker.visible?zoolFileMaker.xCfgItem:(zoolFileLoader.visible?zoolFileLoader.xCfgItem:zoolFileTransLoader.xCfgItem)
+        parent: zoolFileMaker.visible?zoolFileMaker.xCfgItem:zoolFileLoader.xCfgItem
+        Column{
+            id: colTextJsonFolder
+            anchors.centerIn: parent
+            spacing: app.fs*0.5
+            ZoolText{
+                text:'<b>Carpeta de Archivos</b>'
+                fs: app.fs*0.5
+            }
+            ZoolText{
+                text:apps.workSpace
+                fs: app.fs*0.5
+            }
+            Row{
+                spacing: app.fs*0.25
+                anchors.horizontalCenter: parent.horizontalCenter
+                ZoolText{
+                    text:'Usar Carpeta Temporal:'
+                    fs: app.fs*0.5
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+                CheckBox{
+                    width: app.fs*0.5
+                    checked: apps.isJsonsFolderTemp
+                    anchors.verticalCenter: parent.verticalCenter
+                    onCheckedChanged:app.cmd.runCmd('temp-silent')
+                }
+            }
+            Comps.XTextInput{
+                id: tiJsonsFolder
+                width: xConfig.width-app.fs*0.5
+                t.font.pixelSize: app.fs*0.65
+                anchors.horizontalCenter: parent.horizontalCenter
+                t.maximumLength: 200
+                text: apps.workSpace
+                onPressed: {
+                    apps.workSpace=text
+                }
+                Text {
+                    text: 'Cambiar a carpeta'
+                    font.pixelSize: app.fs*0.5
+                    color: 'white'
+                    //anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.bottom: parent.top
+                }
+            }
+
         }
     }
     //    Component.onCompleted: {
-//        r.showSection(s.currentQmlTypeShowed)
-//    }
+    //        r.showSection(s.currentQmlTypeShowed)
+    //    }
 
     function timer() {
         return Qt.createQmlObject("import QtQuick 2.0; Timer {}", r);
@@ -133,7 +194,7 @@ Rectangle {
     }
     Component.onCompleted: {
         zsm.aPanelsIds.push(app.j.qmltypeof(r))
-        zsm.aPanelesTits.push('Métodos')
+        zsm.aPanelesTits.push('Administrar archivos')
         r.showSection(s.currentQmlTypeShowed)
         r.panelActive=r.getSection(s.currentQmlTypeShowed)
     }
@@ -170,6 +231,18 @@ Rectangle {
         }
         return obj
     }
+    function getSectionVisible(){
+        let obj
+        for(var i=0;i<xSections.children.length;i++){
+            let o=xSections.children[i]//.children[0]
+            //if(apps.dev)log.lv('getPanel( '+typeOfSection+' ): ' +app.j.qmltypeof(o))
+            if(o.visible){
+                obj=o
+                break
+            }
+        }
+        return obj
+    }
     function enter(){
         panelActive.enter()
     }
@@ -180,12 +253,15 @@ Rectangle {
         panelActive.toLeft()
     }
     function toRight(){
-        panelActive.toRight()()
+        panelActive.toRight()
     }
     function toUp(){
         panelActive.toUp()
     }
     function toDown(){
         panelActive.toDown()
+    }
+    function toTab(){
+        getSectionVisible().toTab()
     }
 }

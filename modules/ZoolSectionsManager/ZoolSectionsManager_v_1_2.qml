@@ -271,4 +271,30 @@ Item{
 
         return ci
     }
+    function getPanelVisible(){
+        let obj
+        for(var i=0;i<xPanels.children.length;i++){
+            let o=xPanels.children[i].children[0]
+            if(o.visible){
+                obj=o
+                break
+            }
+        }
+        return obj
+    }
+    function toLeft(){
+        getPanelVisible().toLeft()
+    }
+    function toRight(){
+        getPanelVisible().toRight()
+    }
+    function toUp(){
+        getPanelVisible().toUp()
+    }
+    function toDown(){
+        getPanelVisible().toDown()
+    }
+    function toTab(){
+        getPanelVisible().toTab()
+    }
 }

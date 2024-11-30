@@ -1,1 +1,1 @@
-Se corrigen errores en ZoolSectionManager
+Se agrega toTab() a ZoolSectionManager para propagar por todos los paneles internos.

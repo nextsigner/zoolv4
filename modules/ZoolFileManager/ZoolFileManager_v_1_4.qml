@@ -230,6 +230,18 @@ Rectangle {
         }
         return obj
     }
+    function getSectionVisible(){
+        let obj
+        for(var i=0;i<xSections.children.length;i++){
+            let o=xSections.children[i]//.children[0]
+            //if(apps.dev)log.lv('getPanel( '+typeOfSection+' ): ' +app.j.qmltypeof(o))
+            if(o.visible){
+                obj=o
+                break
+            }
+        }
+        return obj
+    }
     function enter(){
         panelActive.enter()
     }
@@ -247,5 +259,8 @@ Rectangle {
     }
     function toDown(){
         panelActive.toDown()
+    }
+    function toTab(){
+        getSectionVisible().toTab()
     }
 }

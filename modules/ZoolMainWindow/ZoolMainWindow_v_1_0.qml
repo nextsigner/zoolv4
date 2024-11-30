@@ -282,7 +282,16 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Tab'
         onActivated: {
+            if(apps.zFocus==='xLatIzq'){
+                zsm.toTab()
+                return;
+            }
 
+        }
+    }
+    Shortcut{
+        sequence: 'Ctrl+Tab'
+        onActivated: {
             if(apps.zFocus==='xLatIzq'){apps.zFocus='xMed';return;}
             if(apps.zFocus==='xMed'){apps.zFocus='xLatDer';return;}
             if(apps.zFocus==='xLatDer'){apps.zFocus='xLatIzq';return;}

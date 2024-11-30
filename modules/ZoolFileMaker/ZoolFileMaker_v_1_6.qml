@@ -148,6 +148,28 @@ Rectangle {
                     width: r.width-labelGenero.w-app.fs
                     font.pixelSize: app.fs*0.5
                     anchors.verticalCenter: parent.verticalCenter
+                    Rectangle{
+                        width: parent.width+8
+                        height: parent.height+8
+                        color: 'transparent'
+                        border.width: 4
+                        anchors.centerIn: parent
+                        visible: cbGenero.focus
+                        SequentialAnimation on border.color{
+                            running: parent.visible
+                            loops: Animation.Infinite
+                            ColorAnimation {
+                                from: "red"
+                                to: "yellow"
+                                duration: 300
+                            }
+                            ColorAnimation {
+                                from: "yellow"
+                                to: "red"
+                                duration: 300
+                            }
+                        }
+                    }
                 }
             }
             Row{
@@ -776,10 +798,33 @@ function setNewJsonFileData(){
         if(controlTimeFecha.focus){
             controlTimeFecha.toUp()
         }
+        if(cbGenero.focus){
+            if(cbGenero.currentIndex>0){
+                cbGenero.currentIndex--
+            }else{
+                cbGenero.currentIndex=cbGenero.model.length-1
+            }
+        }
     }
     function toDown(){
         if(controlTimeFecha.focus){
             controlTimeFecha.toDown()
+        }
+        if(cbGenero.focus){
+            if(cbGenero.currentIndex<cbGenero.model.length-1){
+                cbGenero.currentIndex++
+            }else{
+                cbGenero.currentIndex=0
+            }
+        }
+    }
+    function toTab(){
+        if(tiNombre.t.focus){
+            cbGenero.focus=true
+        }else if(cbGenero.focus){
+            tiCiudad.t.focus=true
+        }else{
+            tiNombre.t.focus=true
         }
     }
     function setInitFocus(){

@@ -516,7 +516,7 @@ ZoolMainWindow{
                         anchors.bottom: parent.bottom
                         visible: apps.zFocus==='xMed'
                         SequentialAnimation on color{
-                            running: parente.visible
+                            running: parent.visible
                             loops: Animation.Infinite
                             ColorAnimation {
                                 from: "red"

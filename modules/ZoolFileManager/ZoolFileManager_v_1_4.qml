@@ -139,10 +139,7 @@ Rectangle {
                 //visible: true
                 height: r.hp
             }
-            ZoolFileLoader{id: zoolFileLoader}
-            ZoolFileTransLoader{id: zoolFileTransLoader}
-            ZoolFileDirPrimLoader{id: zoolFileDirPrimLoader}
-            ZoolFileProgSecLoader{id: zoolFileProgSecLoader}
+            ZoolFileLoader{id: zoolFileLoader}            
         }
     }
     Rectangle{

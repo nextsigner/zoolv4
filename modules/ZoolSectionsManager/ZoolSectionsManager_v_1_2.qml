@@ -3,7 +3,8 @@ import QtQuick.Controls 2.12
 import '../../comps' as Comps
 
 import ZoolFileExtDataManager 1.2
-import ZoolFileManager 1.3
+import ZoolFileManager 1.4
+import ZoolMods 1.0
 import ZoolListLunar 1.0
 import ZoolSabianos 1.1
 import ZoolRevolutionList 1.5
@@ -60,20 +61,23 @@ Item{
             width: r.width
             height: r.height-xPanelesTits.height-xIndicadorSV.height
 
-            //7
+            //8
             Comps.XPaneles{ZoolHelp{id: zoolHelp;}}
 
-            //6
+            //7
             Comps.XPaneles{ZoolSabianos{id: panelSabianos}}
 
-            //5
+            //6
             Comps.XPaneles{ZoolNumPit{id: ncv}}
 
-            //4
+            //5
             Comps.XPaneles{ZoolRevolutionList{id: panelRsList}}
 
-            //3
+            //4
             Comps.XPaneles{ZoolListLunar{id: zoolListLunar;}}
+
+            //3
+            Comps.XPaneles{ZoolMods{id: zoolMods}}
 
             //2
             Comps.XPaneles{ZoolFileExtDataManager{id: zoolFileExtDataManager;}}

@@ -1,7 +1,7 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import Qt.labs.settings 1.1
-import "../../comps" as Comps
+import "../../../comps" as Comps
 
 
 import ZoolText 1.0

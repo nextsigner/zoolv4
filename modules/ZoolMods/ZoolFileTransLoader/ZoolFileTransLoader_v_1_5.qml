@@ -11,7 +11,7 @@ import ZoolControlsTime 1.0
 Rectangle {
     id: r
     width: xLatIzq.width
-    height: zsm.getPanel('ZoolFileManager').hp
+    height: zsm.getPanel('ZoolMods').hp
     visible: false
     color: apps.backgroundColor
     border.width: 2
@@ -58,7 +58,7 @@ Rectangle {
         anchors.topMargin: app.fs*0.25
         z: col.z+1
         onClicked:{
-            zoolFileManager.s.showConfig=!zoolFileManager.s.showConfig
+            zoolMods.s.showConfig=!zoolMods.s.showConfig
         }
     }
     Flickable{

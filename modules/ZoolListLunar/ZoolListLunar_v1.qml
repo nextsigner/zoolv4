@@ -51,7 +51,7 @@ Rectangle {
             if(lv.count===0){
                 setListLunar(parseInt(tiAnio.text), showAll.checked)
             }
-            zoolVoicePlayer.speak('Sección de Lista de Eventos Lunares.', true)
+            //zoolVoicePlayer.speak('Sección de Lista de Eventos Lunares.', true)
         }
     }
     Item{id:xuqp}

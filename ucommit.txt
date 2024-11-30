@@ -1,1 +1,1 @@
-Se mueven los módulos de los métodos
+Se corrigen errores en ZoolSectionManager

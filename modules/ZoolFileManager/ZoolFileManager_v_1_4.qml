@@ -4,11 +4,8 @@ import Qt.labs.settings 1.1
 import "../../comps" as Comps
 
 import ZoolFileMaker 1.6
-//import ZoolFileExtDataManager 1.2
 import ZoolFileLoader 1.4
-import ZoolFileTransLoader 1.5
-import ZoolFileDirPrimLoader 1.7
-import ZoolFileProgSecLoader 1.0
+
 import ZoolButton 1.0
 import ZoolText 1.0
 
@@ -55,7 +52,6 @@ Rectangle {
             r.panelActive.setInitFocus()
         }
     }
-    Behavior on x{enabled: apps.enableFullAnimation;NumberAnimation{duration: app.msDesDuration}}
     Settings{
         id: settings
         property string currentQmlTypeShowed: 'ZoolFileMaker'
@@ -105,29 +101,6 @@ Rectangle {
                         showSection('ZoolFileLoader')
                     }
                 }
-                ZoolButton{
-                    text:'Transitos'
-                    colorInverted: zoolFileTransLoader.visible
-                    onClicked: {
-                        showSection('ZoolFileTransLoader')
-                    }
-                }
-                ZoolButton{
-                    id: botDirPrim
-                    text:'Dir. Prim.'
-                    colorInverted: zoolFileDirPrimLoader.visible
-                    onClicked: {
-                        showSection('ZoolFileDirPrimLoader')
-                    }
-                }
-                ZoolButton{
-                    id: botProgSec
-                    text:'Prog. Sec.'
-                    colorInverted: zoolFileProgSecLoader.visible
-                    onClicked: {
-                        showSection('ZoolFileProgSecLoader')
-                    }
-                }
             }
         }
         Item{
@@ -139,7 +112,7 @@ Rectangle {
                 //visible: true
                 height: r.hp
             }
-            ZoolFileLoader{id: zoolFileLoader}            
+            ZoolFileLoader{id: zoolFileLoader}
         }
     }
     Rectangle{
@@ -151,7 +124,8 @@ Rectangle {
         radius: app.fs*0.25
         color: 'transparent'
         visible: zoolFileManager.s.showConfig
-        parent: zoolFileMaker.visible?zoolFileMaker.xCfgItem:(zoolFileLoader.visible?zoolFileLoader.xCfgItem:zoolFileTransLoader.xCfgItem)
+        //parent: zoolFileMaker.visible?zoolFileMaker.xCfgItem:(zoolFileLoader.visible?zoolFileLoader.xCfgItem:zoolFileTransLoader.xCfgItem)
+        parent: zoolFileMaker.visible?zoolFileMaker.xCfgItem:zoolFileLoader.xCfgItem
         Column{
             id: colTextJsonFolder
             anchors.centerIn: parent
@@ -200,9 +174,9 @@ Rectangle {
 
         }
     }
-//    Component.onCompleted: {
-//        r.showSection(s.currentQmlTypeShowed)
-//    }
+    //    Component.onCompleted: {
+    //        r.showSection(s.currentQmlTypeShowed)
+    //    }
 
     function timer() {
         return Qt.createQmlObject("import QtQuick 2.0; Timer {}", r);
@@ -266,7 +240,7 @@ Rectangle {
         panelActive.toLeft()
     }
     function toRight(){
-        panelActive.toRight()()
+        panelActive.toRight()
     }
     function toUp(){
         panelActive.toUp()

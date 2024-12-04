@@ -459,7 +459,9 @@ Item {
                         pointerRot: 0-parent.rotation//(360-item.gdeg)-(360-parent.parent.parent.rotation)//+90
                         //pointerRot: 360-item.gdeg-
                         //visible: item.selected || (zm.currentPlanetIndex>=20 && zm.currentPlanetIndex===item.ih-20)
-                        visible: item.selected && !zm.isMultiCapturingPlanets
+                        //visible: item.selected && !zm.isMultiCapturingPlanets
+                        //visible: zm.aHouseShowed.indexOf(item.ih)>=0
+                        visible: r.aHousesActivated.indexOf(item.ih)>=0
                         onVisibleChanged:{
                             if(item.ih===1){
                                 //pointerRot=90
@@ -467,8 +469,17 @@ Item {
                             if(item.ih===2){
                                 //pointerRot=pointerRot-180
                             }
-
                         }
+                        /*Timer{
+                            running: false//item.ih===1
+                            repeat: true
+                            interval: 2000
+                            onTriggered: {
+                                let v=zm.aHouseShowed.indexOf(item.ih)>=0
+                                log.lv('ih: '+item.ih+' v: '+v)
+                                parent.visible=v
+                            }
+                        }*/
                     }
                     MouseArea{
                         anchors.fill: parent
@@ -491,9 +502,13 @@ Item {
                             //reSizeAppsFs.restart()
                         }
                         onClicked: {
+                            log.lv('Click en '+item.ih)
                             if(mouse.button === Qt.LeftButton && mouse.modifiers & Qt.ControlModifier) {
+                                log.lv('item.ih: '+item.ih)
+                                zm.setHousesPointerShow(item.ih, false)
                                 item.selected=!item.selected
                                 setCurrentHouseIndex(item)
+
                             }else if(mouse.button === Qt.RightButton){
                                 //log.lv('House Botón Derecho house: '+item.ih)
                                 menuCtxHouses.isExt=r.isExt
@@ -511,6 +526,7 @@ Item {
                                     }
                                     let pos=obj.getPosOfHouse(item.ih-1)
                                     zm.panTo(pos.x, pos.y)
+                                    //zm.setHousesPointerShow(item.ih, true)
                                 }
                                 //setCurrentHouseIndex(item)
                                 //log.lv('House Botón Derecho.')
@@ -773,5 +789,11 @@ Item {
         var item2=dha.children[ih]
         var absolutePosition = item2.mapToItem(item1, 0, 0);
         return {x: absolutePosition.x, y:absolutePosition.y}
+    }
+    function getItemOfHouse(ih){
+        return dha.children[ih-1]
+    }
+    function clearHousesActivated(){
+        r.aHousesActivated=[]
     }
 }

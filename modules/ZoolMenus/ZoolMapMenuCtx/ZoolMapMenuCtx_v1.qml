@@ -124,7 +124,13 @@ ZoolMenus{
     ZoolMenus{
         title: 'Capturar'
         w: r.w
-        Action {text: qsTr("Crear capturas"); onTriggered: {
+        Action {text: qsTr("Capturar todo rápido"); onTriggered: {
+                zm.zmc.msChangeBodieOrHouse=500
+                zm.zmc.startMultiCap()
+            }
+        }
+        Action {text: qsTr("Capturar todo lento"); onTriggered: {
+                zm.zmc.msChangeBodieOrHouse=5000
                 zm.zmc.startMultiCap()
             }
         }

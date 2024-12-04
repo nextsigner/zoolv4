@@ -27,7 +27,7 @@ import ZoolLogView 1.0
 import ZoolFileDataManager 1.0
 import web.ZoolServerFileDataManager 1.0
 //import ZoolBodies 1.10
-import ZoolMap 4.0
+import ZoolMap 5.0
 import ZoolBodiesGuiTools 1.0
 
 import ZoolMenus.ZoolMenuCtxAs 1.0
@@ -373,7 +373,7 @@ ZoolMainWindow{
                         anchors.bottom: parent.bottom
                         visible: apps.zFocus==='xLatIzq'
                         SequentialAnimation on color{
-                            running: parente.visible
+                            running: parent.visible
                             loops: Animation.Infinite
                             ColorAnimation {
                                 from: "red"
@@ -564,7 +564,7 @@ ZoolMainWindow{
                         anchors.bottom: parent.bottom
                         visible: apps.zFocus==='xLatDer'
                         SequentialAnimation on color{
-                            running: parente.visible
+                            running: parent.visible
                             loops: Animation.Infinite
                             ColorAnimation {
                                 from: "red"
@@ -600,7 +600,7 @@ ZoolMainWindow{
             height: app.fs*8
             c: 'backgroundColor'
         }
-        ZoolLogView{id: log}
+        ZoolLogView{id: log;width: xLatIzq.width}
         ZoolWebStatusManager{id: zwsm}
         ZoolDataManager{id: zdm}
     }

@@ -91,6 +91,8 @@ Rectangle{
     property int currentHouseIndex: 0
     property int currentHouseIndexBack: 0
 
+    property var aHouseShowed: []
+
     property int currentSignIndex: 0
 
     property int uAscDegreeTotal: -1
@@ -1731,6 +1733,7 @@ Rectangle{
         //r.isDataDiff=sj0!==sj1
         return s
     }
+
     //-->ZoomAndPan
     function setZoom(sent, mouseX, mouseY){
         r.enableAnZoomAndPos=false
@@ -1888,6 +1891,7 @@ Rectangle{
     }
     //<--ZoomAndPan
 
+    //-->Funciones Varias
     function resetGlobalVars(){
         if(!r.lockEv){
             r.ev=false
@@ -2048,6 +2052,22 @@ Rectangle{
         }
         return ret
     }
+    function setHousesPointerShow(ih, only){
+        if(!only){
+            let i=r.aHouseShowed.indexOf(ih)
+            if(i>=0){
+                aHouseShowed.splice(i, 1);
+            }else{
+                aHouseShowed.push(ih)
+            }
+        }else{
+            r.aHouseShowed=[]
+            r.aHouseShowed.push(ih)
+        }
+        log.lv('r.aHouseShowed: '+r.aHouseShowed)
+
+    }
+    //<--Funciones Varias
 
     //-->Data
     function getParams(){

@@ -5,16 +5,24 @@ Item{
     property var itemCap
     property int msChangeBodieOrHouse: 500
     Timer{
-        id: tMultiCap
+        id: tTimerSelectBodies
+        objectName: 'TimerSelectBodies'
         repeat: true
         interval: r.msChangeBodieOrHouse
         property int piCaptured: 0
         onTriggered: {
-            //log.lv('tMultiCap....')
+            //log.lv('tTimerSelectBodies....')
             zm.isMultiCapturing=true
             zm.capturing=true
             if(zm.currentPlanetIndex<19){
                 zm.currentPlanetIndex++
+                //zpn.addNot('cpi: '+zm.currentPlanetIndex, true, 20000)
+                let pos=zm.objPlanetsCircle.getAs(zm.currentPlanetIndex).getPos()
+                zm.panTo(pos.x, pos.y)
+                //log.lv('pi: '+zm.currentPlanetIndex)
+                //log.lv('pos: x:'+pos.x+' y:'+pos.y)
+                //tMultiCap2.restart()
+                tTimerCapBodies.restart()
             }else{
                 zm.currentPlanetIndex=-1
                 stop()
@@ -22,38 +30,29 @@ Item{
                 zm.isMultiCapturingPlanets=false
                 zm.currentPlanetIndex=-1
                 zm.currentHouseIndex=0
-                tMultiHouseWait.start()
+                tTimerWaitInitPosHouses.start()
             }
-            //zpn.addNot('cpi: '+zm.currentPlanetIndex, true, 20000)
-            let pos=zm.objPlanetsCircle.getAs(zm.currentPlanetIndex).getPos()
-            zm.panTo(pos.x, pos.y)
-            //log.lv('pi: '+zm.currentPlanetIndex)
-            //log.lv('pos: x:'+pos.x+' y:'+pos.y)
-            tMultiCap2.restart()
+
 
         }
     }
-
-
-
     Timer{
-        id: tMultiHouseWait
+        id: tTimerWaitInitPosHouses
+        objectName: 'TimerWaitInitPosHouses'
         interval: 500
         onTriggered: {
-            //log.lv('tMultiHouseWait....')
-            tMultiCapHouses.start()
+            //log.lv('tTimerWaitInitPosHouses....')
+            tTimerPosHouses.start()
         }
     }
-
-
-
     Timer{
-        id: tMultiCapHouses
+        id: tTimerPosHouses
+        objectName: 'TimerPosHouses'
         repeat: true
         interval: r.msChangeBodieOrHouse
         property int piCaptured: 0
         onTriggered: {
-            //log.lv('tMultiCapHouses....')
+            //log.lv('tTimerPosHouses....')
             zm.isMultiCapturing=true
             zm.capturing=true
             if(zm.currentHouseIndex<12){
@@ -70,18 +69,18 @@ Item{
             if(zm.currentHouseIndex===12){
                 stop()
             }
-
+            zm.objHousesCircle.clearHousesActivated()
+            //log.lv('Activando '+zm.currentHouseIndex)
+            zm.objHousesCircle.setCurrentHouseIndex(zm.objHousesCircle.getItemOfHouse(zm.currentHouseIndex))
             let pos=zm.objHousesCircle.getPosOfHouse(zm.currentHouseIndex-1)
             zm.panTo(pos.x, pos.y)
-            tMultiCap2Houses.restart()
+            tTimerCapHouses.restart()
 
         }
     }
-
-
-
     Timer{
-        id: tMultiCap2
+        id: tTimerCapBodies
+        objectName: 'TimerCapBodies'
         interval: 100
         onTriggered: {
             //log.lv('tMultiCap2....')
@@ -89,17 +88,18 @@ Item{
             let jsonNot={}
             jsonNot.id='captura'
             jsonNot.text='Capturando Cuerpos '+fn
+            jsonNot.qmlTextBot='Cancelar capturas'
+            jsonNot.qml='import QtQuick 2.0\nItem{\nComponent.onCompleted:{\nzm.zmc.cancelarTodo()\n}\n}'
             zpn.addNot(jsonNot, true, 20000)
             captureToPng(fn, zm.parent, false)
         }
     }
-
-
     Timer{
-        id: tMultiCap2Houses
+        id: tTimerCapHouses
+        objectName: 'TimerCapHouses'
         interval: 100
         onTriggered: {
-            //log.lv('tMultiCap2Houses....')
+            //log.lv('tTimerCapHouses....')
             let fnFolder=unik.getPath(3)+'/Zool/caps/'+zm.currentNom.replace(/ /g, '_')
             let fn=fnFolder+'/casa_'+zm.currentHouseIndex+'.png'//zm.objPlanetsCircle.getAs(zm.currentPlanetIndex).getAsFileNameForCap()
             let jsonNot={}
@@ -111,25 +111,25 @@ Item{
             //fn=app.j.quitarAcentos(fn)
             captureToPng(fn, zm.parent, false)
             if(zm.currentHouseIndex===12){
-                tSetFinishedMultiCap.folder=fnFolder
-                tSetFinishedMultiCap.start()
+                tTimerFinish.folder=fnFolder
+                tTimerFinish.start()
 
             }
         }
     }
-
-
     Timer{
-        id: tInitMultiCap
+        id: tTimerInit
+        objectName: 'TimerInit'
         interval: 1000
         onTriggered: {
-            //log.lv('tInitMultiCap....')
-            tMultiCap.start()
+            //log.lv('tInitTimerSelectBodies....')
+            tTimerSelectBodies.start()
         }
     }
 
     Timer{
-        id: tSetFinishedMultiCap
+        id: tTimerFinish
+        objectName: 'TimerFinish'
         interval: 1000
         property string folder: ''
         onTriggered: {
@@ -152,6 +152,7 @@ Item{
     }*/
     Timer{
         id: tCap2
+        objectName: 'TimerCapSab'
         running: false
         repeat: false
         interval: 500
@@ -220,7 +221,12 @@ Item{
         zm.centrarZooMap()
         zm.zoomTo(1.0, false)
         zm.currentHouseIndex=0
-        tInitMultiCap.start()
+        tTimerInit.start()
+        let jsonNot={}
+        jsonNot.id='captura_init'
+        let segVel=parseFloat(r.msChangeBodieOrHouse/1000).toFixed(2)
+        jsonNot.text='Iniciando el proceso\nde capturas a '+segVel+'\n segundos de velocidad.'
+        zpn.addNot(jsonNot, true, r.msChangeBodieOrHouse+2000)
     }
     property var itemForCap
     function startSinNombreYAbrir(item){
@@ -275,5 +281,33 @@ Item{
             zm.capturing=false
             r.itemForCap=undefined
         });
+    }
+    function cancelarTodo(){
+        tTimerInit.stop()
+
+        tTimerSelectBodies.stop()
+        tTimerCapBodies.stop()
+
+        tTimerWaitInitPosHouses.stop()
+        tTimerPosHouses.stop()
+        tTimerCapHouses.stop()
+
+        tTimerFinish.stop()
+        tCap2.stop()
+
+        zm.centerZoomAndPos()
+        zm.currentPlanetIndex=-1
+        zm.currentHouseIndex=-1
+        zm.objHousesCircle.clearHousesActivated()
+
+        let jsonNot={}
+        jsonNot.id='captura_cancelada'
+        jsonNot.text='Se ha cancelado el proceso de capturas.'
+        zpn.addNot(jsonNot, true, 20000)
+
+        jsonNot={}
+        jsonNot.id='captura'
+        jsonNot.text='destroy'
+        zpn.addNot(jsonNot, true, 20000)
     }
 }

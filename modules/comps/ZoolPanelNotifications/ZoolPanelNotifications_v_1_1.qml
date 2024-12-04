@@ -68,6 +68,7 @@ Item{
 //            }
 
             Timer{
+                id: tAd
                 running: parent.ad
                 repeat: false
                 interval: parent.adTimerInterval
@@ -101,6 +102,13 @@ Item{
                     //wrapMode: txt0.contentWidth>=xTxt.width-app.fs*1.5?Text.WrapAnywhere:Text.WordWrap
                     wrapMode: Text.WordWrap
                     anchors.horizontalCenter: parent.horizontalCenter
+                    onTextChanged: {
+                        if(xTxt.jsonNot.text==='destroy'){
+                            xTxt.destroy(0)
+                        }else{
+                            tAd.restart()
+                        }
+                    }
                 }
                 ZoolButton{
                     text: xTxt.jsonNot.bot1Text===undefined?'Abrir':xTxt.jsonNot.bot1Text
@@ -112,7 +120,7 @@ Item{
                 }
                 ZoolButton{
                     id: botEjecutarQml
-                    text: 'Ejecutar'
+                    text: xTxt.jsonNot.qmlTextBot!==undefined?xTxt.jsonNot.qmlTextBot:'Ejecutar'
                     anchors.horizontalCenter: parent.horizontalCenter
                     visible: xTxt.jsonNot.qml!==undefined
                     onClicked: {

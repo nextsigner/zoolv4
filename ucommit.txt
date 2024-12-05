@@ -1,1 +1,1 @@
-Se agrega Capturar todo rápido o lento
+Se crea num_prognosis.json

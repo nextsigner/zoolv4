@@ -93,4 +93,7 @@ Rectangle{
         taLog.selectAll()
         taLog.copy()
     }
+    function scrollToTop(){
+        flLog.contentY=0
+    }
 }

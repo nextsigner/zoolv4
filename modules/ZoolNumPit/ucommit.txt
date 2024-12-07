@@ -1,1 +1,1 @@
-Se agregan botondes de Prognosis a ZoolNumPit
+Se elimina error.log

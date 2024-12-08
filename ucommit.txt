@@ -1,1 +1,1 @@
-Se agregan datos a num_prognosis.json para año personal 22
+Se agregan datos a num_prognosis.json para año personal 22 2

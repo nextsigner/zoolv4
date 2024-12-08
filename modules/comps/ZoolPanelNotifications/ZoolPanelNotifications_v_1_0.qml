@@ -124,4 +124,9 @@ Item{
         if((''+adti).indexOf('undefined')<0)vADTI=adti
         let obj=compNot.createObject(col, {t: t, ad: vAD, adTimerInterval: vADTI})
     }
+    function log(t){
+        let j={}
+        j.text=t
+        addNot(j, false, 1)
+    }
 }

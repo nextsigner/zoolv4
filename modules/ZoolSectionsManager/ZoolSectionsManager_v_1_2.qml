@@ -8,7 +8,7 @@ import ZoolMods 1.0
 import ZoolListLunar 1.0
 import ZoolSabianos 1.1
 import ZoolRevolutionList 1.5
-import ZoolNumPit 1.1
+import ZoolNumPit 1.3
 import ZoolModulesManager 1.0
 import ZoolHelp 1.0
 

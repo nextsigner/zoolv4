@@ -890,13 +890,13 @@ Rectangle {
                                     let d=mfecha[0]
                                     let m=mfecha[1]
                                     let a = txtDataSearchFechaAP.text
-                                    let dateForGetNumYear= new Date(parseInt(a), parseInt(m)-1, parseInt(d))
-                                    let anioPerPost=getNumYear(dateForGetNumYear.getFullYear(), 1)
-                                    let aa=parseInt(a)//new Date(Date.now()).getFullYear()
-                                    let ag=getNumYear(aa+1, 1)
-                                    aa++
-                                    let s='global_'+ag+'_personal_'+anioPerPost
-                                    let data=getNumProg(s, ag, anioPerPost, aa)
+                                    let anioPersonal= new Date(parseInt(a), parseInt(m)-1, parseInt(d))
+                                    let ap=getNumYear(anioPersonal, 1)
+                                    let anioGlobal= new Date(parseInt(a), 0, 1)
+                                    let ag=getNumYearGlobal(anioGlobal.getFullYear()+1)
+                                    let aa=parseInt(a)+1
+                                    let s='global_'+ag+'_personal_'+ap
+                                    let data=getNumProg(s, ag, ap, aa)
                                     log.clear()
                                     log.l(data)
                                     log.scrollToTop()
@@ -918,13 +918,13 @@ Rectangle {
                                     let d=mfecha[0]
                                     let m=mfecha[1]
                                     let a = txtDataSearchFechaAP.text
-                                    let dateForGetNumYear= new Date(parseInt(a), parseInt(m)-1, parseInt(d))
-                                    let anioPerPost=getNumYear(dateForGetNumYear.getFullYear(), 1)
-                                    let aa=parseInt(a)//new Date(Date.now()).getFullYear()
-                                    let ag=getNumYear(aa+1, 1)
-                                    aa++
-                                    let s='global_'+ag+'_personal_'+anioPerPost
-                                    let data=getNumProg(s, ag, anioPerPost, aa)
+                                    let anioPersonal= new Date(parseInt(a), parseInt(m)-1, parseInt(d))
+                                    let ap=getNumYear(anioPersonal, 1)
+                                    let anioGlobal= new Date(parseInt(a), 0, 1)
+                                    let ag=getNumYearGlobal(anioGlobal.getFullYear()+1)
+                                    let aa=parseInt(a)+1
+                                    let s='global_'+ag+'_personal_'+ap
+                                    let data=getNumProg(s, ag, ap, aa)
                                     let aap=parseInt(ap - 1)
                                     if(aap===0)aap=9
                                     data+='\nSi quieres comprobar si se cumplieron las predicciones numerológicas del año anterior al año '+aa+', osea el año '+parseInt(aa - 1)+', cuando el año mundial era '+parseInt(ag - 1)+' y tu año personal era '+aap+', escribeme al Whatsapp +549 11 3802 4370\n\n'
@@ -1582,7 +1582,7 @@ Rectangle {
         let a = txtDataSearchFechaAP.text
 
         let dateForGetNumYear= new Date(parseInt(a), parseInt(m)-1, parseInt(d))
-        r.currentNumAnioPersonal=getNumYear(dateForGetNumYear.getFullYear(), 0)
+        r.currentNumAnioPersonal=getNumYear(dateForGetNumYear, 0)
         let jsonNot={}
         jsonNot.text=dateForGetNumYear.toString()+'\nAP:'+r.currentNumAnioPersonal
         zpn.addNot(jsonNot, false, 20000)
@@ -1957,6 +1957,7 @@ Rectangle {
         rbF.checked=true
     }
     function getNumProg(ctx, ag, ap, aa){
+        zpn.log(ctx)
         let tt='futuro'
         let realAA=new Date(Date.now()).getFullYear()
         if(aa===realAA){
@@ -2028,36 +2029,56 @@ Rectangle {
         return s
     }
 
-//    function getNumYear(a, offSet) {
-//        const añoActual = a + offSet; // Obtiene el año actual
-//        let suma = añoActual;
-
-//        // Reduce la suma a un dígito o un número maestro
-//        while (suma > 9 && ![11, 22, 33, 44, 55, 66].includes(suma)) {
-//            suma = String(suma)
-//            .split("")
-//            .reduce((acc, num) => acc + parseInt(num, 10), 0);
-//        }
-
-//        return suma;
-//    }
     function getNumYear(a, offSet) {
-        // Ajustar el año con el offset
-        const anioActual = a + offSet - 1;
+        //        if (!(fecha instanceof Date)) {
+        //            throw new Error("El argumento debe ser un objeto de tipo Date.");
+        //        }
+        let fecha=new Date(a)
+        fecha.setFullYear(fecha.getFullYear() + offSet)
 
-        // Suma los dígitos del año hasta reducirlos a un dígito o un número maestro
-        function reducirNumero(numero) {
-            while (numero > 9 && ![11, 22, 33, 44, 55, 66].includes(numero)) {
-                numero = String(numero)
-                    .split("")
-                    .reduce((acc, digito) => acc + parseInt(digito, 10), 0);
-            }
-            return numero;
+        // Convertir la fecha a una cadena en formato "YYYYMMDD"
+        var dia = fecha.getDate().toString().padStart(2, '0');
+        var mes = (fecha.getMonth() + 1).toString().padStart(2, '0'); // Los meses son 0-indexados
+        var anio = fecha.getFullYear().toString();
+        var cadenaNumeros = anio + mes + dia;
+
+        // Función auxiliar para sumar los dígitos de un número
+        function sumarDigitos(numero) {
+            return numero.toString().split('').reduce(function(acc, digito) {
+                return acc + parseInt(digito, 10);
+            }, 0);
         }
 
-        return reducirNumero(anioActual);
-    }
+        // Reducir el número hasta obtener un dígito o un número maestro
+        var suma = sumarDigitos(cadenaNumeros);
+        while (suma > 9 && [11, 22, 33, 44, 55, 66].indexOf(suma) === -1) {
+            suma = sumarDigitos(suma);
+        }
 
+        return suma;
+    }
+    function getNumYearGlobal(a) {
+        if (typeof a !== "number" || a < 1000 || a > 9999) {
+            throw new Error("El argumento debe ser un número de 4 dígitos correspondiente al año.");
+        }
+
+        // Función auxiliar para sumar los dígitos de un número
+        function sumarDigitos(numero) {
+            return numero.toString().split('').reduce(function(acc, digito) {
+                return acc + parseInt(digito, 10);
+            }, 0);
+        }
+
+        // Sumar los dígitos del año
+        var suma = sumarDigitos(a);
+
+        // Reducir el número hasta obtener un dígito o un número maestro
+        while (suma > 9 && [11, 22, 33, 44, 55, 66].indexOf(suma) === -1) {
+            suma = sumarDigitos(suma);
+        }
+
+        return suma;
+    }
 
 
 }

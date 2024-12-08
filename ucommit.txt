@@ -1,1 +1,1 @@
-Se crea num_prognosis.json
+Se corrigen errores en ZoolNumPit

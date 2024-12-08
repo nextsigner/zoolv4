@@ -191,4 +191,9 @@ Item{
             let obj=compNot.createObject(col, {jsonNot: jsonNot, ad: vAD, adTimerInterval: vADTI})
         }
     }
+    function log(t){
+        let j={}
+        j.text=t
+        addNot(j, false, 1)
+    }
 }

@@ -307,6 +307,10 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Esc'
         onActivated: {
+            if(zsm.getPanel('ZoolNumPit').log.visible){
+                zsm.getPanel('ZoolNumPit').log.visible=false
+                return
+            }
             if(zsm.getPanel('ZoolSabianos').view.visible){
                 zsm.getPanel('ZoolSabianos').view.visible=false
                 return

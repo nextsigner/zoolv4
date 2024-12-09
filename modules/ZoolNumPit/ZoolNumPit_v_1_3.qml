@@ -860,18 +860,30 @@ Rectangle {
                                 width: app.fs*2
                                 height: width
                                 radius: width*0.5
-                                border.width: app.fs*0.2
+                                border.width: app.fs*0.1
                                 border.color: apps.fontColor
                                 //rotation: 360-parent.rotation
                                 color: apps.backgroundColor
                                 anchors.verticalCenter: parent.verticalCenter
                                 Text{
                                     text: '<b>'+r.currentNumAnioPersonal+'</b>'
-                                    font.pixelSize: parent.width*0.8
+                                    font.pixelSize: parent.width*0.6
                                     color: apps.fontColor
                                     anchors.centerIn: parent
                                 }
                             }
+                        }
+                        Text{
+                            id: f1
+                            color: apps.fontColor
+                            font.pixelSize: app.fs*0.6
+                            anchors.horizontalCenter: parent.horizontalCenter
+                        }
+                        ComboBox{
+                            id: cbTipoProg
+                            width: parent.width-app.fs*0.25
+                            model: ['Año Próximo', 'Año Pasado', 'Año Actual']
+                            anchors.horizontalCenter: parent.horizontalCenter
                         }
                         Column{
                             spacing: app.fs*0.25
@@ -881,6 +893,16 @@ Rectangle {
                                 fs: app.fs*0.5
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 onClicked:{
+                                    let offSet=0
+                                    if(cbTipoProg.currentIndex===0){
+                                        offSet=1
+                                    }
+                                    if(cbTipoProg.currentIndex===1){
+                                        offSet=-1
+                                    }
+                                    if(cbTipoProg.currentIndex===2){
+                                        offSet=0
+                                    }
                                     let mfecha=txtDataSearchFecha.text.split('.')
                                     if(!mfecha[0]||!mfecha[1]||!mfecha[2]||mfecha[2].length<4){
                                         f1.text=''
@@ -891,10 +913,10 @@ Rectangle {
                                     let m=mfecha[1]
                                     let a = txtDataSearchFechaAP.text
                                     let anioPersonal= new Date(parseInt(a), parseInt(m)-1, parseInt(d))
-                                    let ap=getNumYear(anioPersonal, 1)
+                                    let ap=getNumYear(anioPersonal, offSet)
                                     let anioGlobal= new Date(parseInt(a), 0, 1)
-                                    let ag=getNumYearGlobal(anioGlobal.getFullYear()+1)
-                                    let aa=parseInt(a)+1
+                                    let ag=getNumYearGlobal(anioGlobal.getFullYear()+offSet)
+                                    let aa=parseInt(a)+offSet
                                     let s='global_'+ag+'_personal_'+ap
                                     let data=getNumProg(s, ag, ap, aa)
                                     log.clear()
@@ -909,6 +931,16 @@ Rectangle {
                                 fs: app.fs*0.5
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 onClicked:{
+                                    let offSet=0
+                                    if(cbTipoProg.currentIndex===0){
+                                        offSet=1
+                                    }
+                                    if(cbTipoProg.currentIndex===1){
+                                        offSet=-1
+                                    }
+                                    if(cbTipoProg.currentIndex===2){
+                                        offSet=0
+                                    }
                                     let mfecha=txtDataSearchFecha.text.split('.')
                                     if(!mfecha[0]||!mfecha[1]||!mfecha[2]||mfecha[2].length<4){
                                         f1.text=''
@@ -919,10 +951,10 @@ Rectangle {
                                     let m=mfecha[1]
                                     let a = txtDataSearchFechaAP.text
                                     let anioPersonal= new Date(parseInt(a), parseInt(m)-1, parseInt(d))
-                                    let ap=getNumYear(anioPersonal, 1)
+                                    let ap=getNumYear(anioPersonal, offSet)
                                     let anioGlobal= new Date(parseInt(a), 0, 1)
-                                    let ag=getNumYearGlobal(anioGlobal.getFullYear()+1)
-                                    let aa=parseInt(a)+1
+                                    let ag=getNumYearGlobal(anioGlobal.getFullYear()+offSet)
+                                    let aa=parseInt(a)+offSet
                                     let s='global_'+ag+'_personal_'+ap
                                     let data=getNumProg(s, ag, ap, aa)
                                     let aap=parseInt(ap - 1)
@@ -932,15 +964,7 @@ Rectangle {
                                 }
                             }
                         }
-                    }
-                    Text{
-                        id: f1
-                        color: apps.fontColor
-                        font.pixelSize: app.fs*0.6
-                        anchors.horizontalCenter: parent.horizontalCenter
-                    }
-
-                }
+                    }                }
             }
             Rectangle{
                 id: xBtns

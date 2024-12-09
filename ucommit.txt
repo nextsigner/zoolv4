@@ -1,1 +1,1 @@
-Se agrega comboBox Tipo de Prognosis a ZoolNumPit
+Se agrega ZoolControlsTime a ZoolNumPit v1.3

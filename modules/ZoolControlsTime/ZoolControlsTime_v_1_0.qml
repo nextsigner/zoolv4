@@ -12,6 +12,7 @@ Rectangle {
     property bool locked: false
     property string labelText: ''
     property bool enableGMT: true
+    property bool verHoraMinuto: true
     property bool isBack: false
     property var currentDate: !isBack?app.currentDate:app.currentDateBack
     property int anio: 0
@@ -77,13 +78,13 @@ Rectangle {
             Item{
                 width: r.fs
                 height: 2
-                visible: !r.enableGMT
+                visible: !r.enableGMT || r.verHoraMinuto
             }
             Rectangle{
                 id: xLabelGmt
                 width: r.fs*3
                 height: r.fs*1.2
-                visible: r.enableGMT
+                visible: r.enableGMT || r.verHoraMinuto
                 Text {
                     id: labelGmt
                     text: 'GMT'
@@ -94,6 +95,7 @@ Rectangle {
             Rectangle{
                 width: row1.width
                 height: r.fs*1.2
+                visible: r.verHoraMinuto
                 Text {
                     id: labelHora
                     text: 'Hora'
@@ -275,7 +277,7 @@ Rectangle {
                 color: apps.backgroundColor
                 border.width: 1
                 border.color: apps.fontColor
-                visible: r.enableGMT
+                visible: r.enableGMT || r.verHoraMinuto
                 Text{
                     id: t8
                     text: r.gmt
@@ -332,6 +334,7 @@ Rectangle {
             }
             Row{
                 id: row1
+                visible: r.verHoraMinuto
                 Rectangle{
                     id: xHora
                     width: r.fs*2

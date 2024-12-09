@@ -3,6 +3,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Dialogs 1.2
 import "../"
 import ZoolButton 1.2
+import ZoolControlsTime 1.0
 
 import "../../comps" as Comps
 
@@ -125,11 +126,18 @@ Rectangle {
         id: flk
         anchors.fill: r
         contentWidth: r.width
-        contentHeight: col1.height*1.5
+        contentHeight: col1.height*1.1
         Column{
             id: col1
             spacing: app.fs*0.5
             anchors.horizontalCenter: parent.horizontalCenter
+            Item{width: 2; height: app.fs*0.1}
+            Text{
+                text: '<b>Numerología</b>'
+                color: apps.fontColor
+                font.pixelSize: app.fs*0.65
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
             Rectangle{
                 id: xForm
                 width: r.contentWidth
@@ -168,6 +176,7 @@ Rectangle {
                                     border.width: 2
                                     border.color: apps.fontColor
                                     anchors.horizontalCenter: parent.horizontalCenter
+                                    visible: false
                                     TextInput {
                                         id: txtDataSearchFecha
                                         text: apps.numUFecha
@@ -200,6 +209,18 @@ Rectangle {
                                         }
                                     }
                                 }
+                                ZoolControlsTime{
+                                    id: ct
+                                    verHoraMinuto: false
+                                    enableGMT: false
+                                    fs: app.fs
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.horizontalCenterOffset: fs*0.5
+                                    onCurrentDateChanged:{
+                                        calc()
+                                    }
+                                }
+                                Item{width: 2; height: app.fs*0.25}
                             }
                             Item{
                                 width: app.fs
@@ -346,6 +367,195 @@ Rectangle {
                         }
                     }
                 }
+            }
+            Rectangle{
+                id: xAP
+                width: r.contentWidth
+                height: colAP.height+app.fs
+                color: 'transparent'
+                border.width: 2
+                border.color: apps.fontColor
+                radius: app.fs*0.2
+                anchors.horizontalCenter: parent.horizontalCenter
+                Column{
+                    id: colAP
+                    spacing: app.fs*0.5
+                    anchors.centerIn: parent
+                    Column{
+                        spacing: app.fs*0.25
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        Row{
+                            spacing: app.fs*0.25
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            Text{
+                                id: labelAP
+                                text: '<b>N° Año Personal</b>'
+                                color: apps.fontColor
+                                font.pixelSize: app.fs*0.5
+                                anchors.verticalCenter: parent.verticalCenter
+                            }
+                            Rectangle{
+                                id: xNumAP
+                                width: app.fs*2
+                                height: width
+                                radius: width*0.5
+                                border.width: app.fs*0.1
+                                border.color: apps.fontColor
+                                //rotation: 360-parent.rotation
+                                color: apps.backgroundColor
+                                anchors.verticalCenter: parent.verticalCenter
+                                Text{
+                                    text: '<b>'+r.currentNumAnioPersonal+'</b>'
+                                    font.pixelSize: parent.width*0.6
+                                    color: apps.fontColor
+                                    anchors.centerIn: parent
+                                }
+                            }
+                        }
+
+                        Row{
+                            id: rowAp
+                            spacing: app.fs*0.25
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            Text{
+                                id: labelAP2
+                                text: '<b>Año:</b> '
+                                color: apps.fontColor
+                                font.pixelSize: app.fs*0.5
+                                anchors.verticalCenter: parent.verticalCenter
+                            }
+                            Rectangle{
+                                id: xTiFechaAP
+                                width: app.fs*4//r.contentWidth-labelAP2.width-xNumAP.width-parent.spacing*3
+                                height: app.fs*1.2
+                                color: apps.backgroundColor
+                                border.width: 2
+                                border.color: apps.fontColor
+                                anchors.verticalCenter: parent.verticalCenter
+                                TextInput {
+                                    id: txtDataSearchFechaAP
+                                    text: ''
+                                    font.pixelSize: app.fs*0.5
+                                    width: parent.width-app.fs*0.2
+                                    wrapMode: Text.WordWrap
+                                    color: apps.fontColor
+                                    //focus: true
+                                    //inputMask: '00.00.0000'
+                                    anchors.centerIn: parent
+                                    Keys.onReturnPressed: {
+                                        if(text==='')return
+                                        //r.log.l(getNumNomText(text))
+                                    }
+                                    onTextChanged: {
+                                        calcularAP()
+                                    }
+                                    onFocusChanged: {
+                                        if(focus)selectAll()
+                                    }
+                                    Rectangle{
+                                        width: parent.width+app.fs
+                                        height: parent.height+app.fs
+                                        color: 'transparent'
+                                        //border.width: 2
+                                        //border.color: 'white'
+                                        z: parent.z-1
+                                        anchors.centerIn: parent
+                                    }
+                                }
+                            }
+                        }
+                        Text{
+                            id: f1
+                            color: apps.fontColor
+                            font.pixelSize: app.fs*0.6
+                            anchors.horizontalCenter: parent.horizontalCenter
+                        }
+                        ComboBox{
+                            id: cbTipoProg
+                            width: parent.width-app.fs*0.25
+                            model: ['Año Próximo', 'Año Pasado', 'Año Actual']
+                            anchors.horizontalCenter: parent.horizontalCenter
+                        }
+                        Column{
+                            spacing: app.fs*0.25
+                            anchors.horizontalCenter:  parent.horizontalCenter
+                            ZoolButton{
+                                text: 'Ver Prognosis de '+cbTipoProg.currentText
+                                fs: app.fs*0.5
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                onClicked:{
+                                    let offSet=0
+                                    if(cbTipoProg.currentIndex===0){
+                                        offSet=1
+                                    }
+                                    if(cbTipoProg.currentIndex===1){
+                                        offSet=-1
+                                    }
+                                    if(cbTipoProg.currentIndex===2){
+                                        offSet=0
+                                    }
+                                    let mfecha=txtDataSearchFecha.text.split('.')
+                                    if(!mfecha[0]||!mfecha[1]||!mfecha[2]||mfecha[2].length<4){
+                                        f1.text=''
+                                        r.currentNumAnioPersonal=-1
+                                        return
+                                    }
+                                    let d=mfecha[0]
+                                    let m=mfecha[1]
+                                    let a = txtDataSearchFechaAP.text
+                                    let anioPersonal= new Date(parseInt(a), parseInt(m)-1, parseInt(d))
+                                    let ap=getNumYear(anioPersonal, offSet)
+                                    let anioGlobal= new Date(parseInt(a), 0, 1)
+                                    let ag=getNumYearGlobal(anioGlobal.getFullYear()+offSet)
+                                    let aa=parseInt(a)+offSet
+                                    let s='global_'+ag+'_personal_'+ap
+                                    let data=getNumProg(s, ag, ap, aa)
+                                    log.clear()
+                                    log.l(data)
+                                    log.scrollToTop()
+                                    log.visible=true
+
+                                }
+                            }
+                            ZoolButton{
+                                text: 'Copiar Prognosis de '+cbTipoProg.currentText
+                                fs: app.fs*0.5
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                onClicked:{
+                                    let offSet=0
+                                    if(cbTipoProg.currentIndex===0){
+                                        offSet=1
+                                    }
+                                    if(cbTipoProg.currentIndex===1){
+                                        offSet=-1
+                                    }
+                                    if(cbTipoProg.currentIndex===2){
+                                        offSet=0
+                                    }
+                                    let mfecha=txtDataSearchFecha.text.split('.')
+                                    if(!mfecha[0]||!mfecha[1]||!mfecha[2]||mfecha[2].length<4){
+                                        f1.text=''
+                                        r.currentNumAnioPersonal=-1
+                                        return
+                                    }
+                                    let d=mfecha[0]
+                                    let m=mfecha[1]
+                                    let a = txtDataSearchFechaAP.text
+                                    let anioPersonal= new Date(parseInt(a), parseInt(m)-1, parseInt(d))
+                                    let ap=getNumYear(anioPersonal, offSet)
+                                    let anioGlobal= new Date(parseInt(a), 0, 1)
+                                    let ag=getNumYearGlobal(anioGlobal.getFullYear()+offSet)
+                                    let aa=parseInt(a)+offSet
+                                    let s='global_'+ag+'_personal_'+ap
+                                    let data=getNumProg(s, ag, ap, aa)
+                                    let aap=parseInt(ap - 1)
+                                    if(aap===0)aap=9
+                                    data+='\nSi quieres comprobar si se cumplieron las predicciones numerológicas del año anterior al año '+aa+', osea el año '+parseInt(aa - 1)+', cuando el año mundial era '+parseInt(ag - 1)+' y tu año personal era '+aap+', escribeme al Whatsapp +549 11 3802 4370\n\n'
+                                    clipboard.setText(data)
+                                }
+                            }
+                        }
+                    }                }
             }
             Rectangle{
                 id: xFormNom
@@ -704,25 +914,6 @@ Rectangle {
                     }
                 }
             }
-
-            //            Text{
-            //                id: txtPersonalidad
-            //                text: opacity<1.0?'Esperando...':'<b>Destino:</b> '+r.currentNumDestino
-            //                color: apps.fontColor
-            //                font.pixelSize: app.fs*0.5
-            //                width: parent.width-app.fs
-            //                textFormat: Text.RichText
-            //                anchors.horizontalCenter: parent.horizontalCenter
-            //                opacity: r.currentNumPersonalidad!==-1&&r.currentNumNombre!==-1&&r.currentNumNombreInt!==-1&&r.currentNumNombreExt!==-1&&r.currentNumFirma!==-1&&r.currentNumDestino!==-1?1.0:0.5
-            //            }
-            //            Button{
-            //                text:  'Calcular'
-            //                anchors.horizontalCenter: parent.horizontalCenter
-            //                visible: txtPersonalidad.opacity<1.0
-            //                onClicked: {
-            //                    calc()
-            //                }
-            //            }
             Rectangle{
                 id: xAG
                 width: r.contentWidth
@@ -773,198 +964,6 @@ Rectangle {
                         anchors.horizontalCenter: parent.horizontalCenter
                     }
                 }
-            }
-            Rectangle{
-                id: xAP
-                width: r.contentWidth
-                height: colAP.height+app.fs
-                color: 'transparent'
-                border.width: 2
-                border.color: apps.fontColor
-                radius: app.fs*0.2
-                anchors.horizontalCenter: parent.horizontalCenter
-                Column{
-                    id: colAP
-                    spacing: app.fs*0.5
-                    anchors.centerIn: parent
-                    Column{
-                        spacing: app.fs*0.25
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        Text{
-                            id: labelAP
-                            text: '<b>N° Año Personal</b>'
-                            color: apps.fontColor
-                            font.pixelSize: app.fs*0.5
-                            anchors.horizontalCenter: parent.horizontalCenter
-                        }
-
-                        Row{
-                            id: rowAp
-                            spacing: app.fs*0.25
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            Rectangle{
-                                id: xTiFechaAP
-                                width: r.contentWidth-labelAP2.width-xNumAP.width-parent.spacing*3
-                                height: app.fs*1.2
-                                color: apps.backgroundColor
-                                border.width: 2
-                                border.color: apps.fontColor
-                                anchors.verticalCenter: parent.verticalCenter
-                                Text{
-                                    text: '<b>Año:</b>'
-                                    color: apps.fontColor
-                                    font.pixelSize: app.fs*0.25
-                                    anchors.bottom: parent.top
-                                    anchors.bottomMargin: app.fs*0.25
-                                }
-                                TextInput {
-                                    id: txtDataSearchFechaAP
-                                    text: ''
-                                    font.pixelSize: app.fs*0.5
-                                    width: parent.width-app.fs*0.2
-                                    wrapMode: Text.WordWrap
-                                    color: apps.fontColor
-                                    //focus: true
-                                    //inputMask: '00.00.0000'
-                                    anchors.centerIn: parent
-                                    Keys.onReturnPressed: {
-                                        if(text==='')return
-                                        //r.log.l(getNumNomText(text))
-                                    }
-                                    onTextChanged: {
-                                        calcularAP()
-                                    }
-                                    onFocusChanged: {
-                                        if(focus)selectAll()
-                                    }
-                                    Rectangle{
-                                        width: parent.width+app.fs
-                                        height: parent.height+app.fs
-                                        color: 'transparent'
-                                        //border.width: 2
-                                        //border.color: 'white'
-                                        z: parent.z-1
-                                        anchors.centerIn: parent
-                                    }
-                                }
-                            }
-                            Text{
-                                id: labelAP2
-                                text: '<b>Año:</b> '
-                                color: apps.fontColor
-                                font.pixelSize: app.fs*0.5
-                                anchors.verticalCenter: parent.verticalCenter
-                            }
-                            Rectangle{
-                                id: xNumAP
-                                width: app.fs*2
-                                height: width
-                                radius: width*0.5
-                                border.width: app.fs*0.1
-                                border.color: apps.fontColor
-                                //rotation: 360-parent.rotation
-                                color: apps.backgroundColor
-                                anchors.verticalCenter: parent.verticalCenter
-                                Text{
-                                    text: '<b>'+r.currentNumAnioPersonal+'</b>'
-                                    font.pixelSize: parent.width*0.6
-                                    color: apps.fontColor
-                                    anchors.centerIn: parent
-                                }
-                            }
-                        }
-                        Text{
-                            id: f1
-                            color: apps.fontColor
-                            font.pixelSize: app.fs*0.6
-                            anchors.horizontalCenter: parent.horizontalCenter
-                        }
-                        ComboBox{
-                            id: cbTipoProg
-                            width: parent.width-app.fs*0.25
-                            model: ['Año Próximo', 'Año Pasado', 'Año Actual']
-                            anchors.horizontalCenter: parent.horizontalCenter
-                        }
-                        Column{
-                            spacing: app.fs*0.25
-                            anchors.horizontalCenter:  parent.horizontalCenter
-                            ZoolButton{
-                                text: 'Ver Prognosis de Año Próximo'
-                                fs: app.fs*0.5
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                onClicked:{
-                                    let offSet=0
-                                    if(cbTipoProg.currentIndex===0){
-                                        offSet=1
-                                    }
-                                    if(cbTipoProg.currentIndex===1){
-                                        offSet=-1
-                                    }
-                                    if(cbTipoProg.currentIndex===2){
-                                        offSet=0
-                                    }
-                                    let mfecha=txtDataSearchFecha.text.split('.')
-                                    if(!mfecha[0]||!mfecha[1]||!mfecha[2]||mfecha[2].length<4){
-                                        f1.text=''
-                                        r.currentNumAnioPersonal=-1
-                                        return
-                                    }
-                                    let d=mfecha[0]
-                                    let m=mfecha[1]
-                                    let a = txtDataSearchFechaAP.text
-                                    let anioPersonal= new Date(parseInt(a), parseInt(m)-1, parseInt(d))
-                                    let ap=getNumYear(anioPersonal, offSet)
-                                    let anioGlobal= new Date(parseInt(a), 0, 1)
-                                    let ag=getNumYearGlobal(anioGlobal.getFullYear()+offSet)
-                                    let aa=parseInt(a)+offSet
-                                    let s='global_'+ag+'_personal_'+ap
-                                    let data=getNumProg(s, ag, ap, aa)
-                                    log.clear()
-                                    log.l(data)
-                                    log.scrollToTop()
-                                    log.visible=true
-
-                                }
-                            }
-                            ZoolButton{
-                                text: 'Copiar Prognosis de Año Próximo'
-                                fs: app.fs*0.5
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                onClicked:{
-                                    let offSet=0
-                                    if(cbTipoProg.currentIndex===0){
-                                        offSet=1
-                                    }
-                                    if(cbTipoProg.currentIndex===1){
-                                        offSet=-1
-                                    }
-                                    if(cbTipoProg.currentIndex===2){
-                                        offSet=0
-                                    }
-                                    let mfecha=txtDataSearchFecha.text.split('.')
-                                    if(!mfecha[0]||!mfecha[1]||!mfecha[2]||mfecha[2].length<4){
-                                        f1.text=''
-                                        r.currentNumAnioPersonal=-1
-                                        return
-                                    }
-                                    let d=mfecha[0]
-                                    let m=mfecha[1]
-                                    let a = txtDataSearchFechaAP.text
-                                    let anioPersonal= new Date(parseInt(a), parseInt(m)-1, parseInt(d))
-                                    let ap=getNumYear(anioPersonal, offSet)
-                                    let anioGlobal= new Date(parseInt(a), 0, 1)
-                                    let ag=getNumYearGlobal(anioGlobal.getFullYear()+offSet)
-                                    let aa=parseInt(a)+offSet
-                                    let s='global_'+ag+'_personal_'+ap
-                                    let data=getNumProg(s, ag, ap, aa)
-                                    let aap=parseInt(ap - 1)
-                                    if(aap===0)aap=9
-                                    data+='\nSi quieres comprobar si se cumplieron las predicciones numerológicas del año anterior al año '+aa+', osea el año '+parseInt(aa - 1)+', cuando el año mundial era '+parseInt(ag - 1)+' y tu año personal era '+aap+', escribeme al Whatsapp +549 11 3802 4370\n\n'
-                                    clipboard.setText(data)
-                                }
-                            }
-                        }
-                    }                }
             }
             Rectangle{
                 id: xBtns
@@ -1607,9 +1606,6 @@ Rectangle {
 
         let dateForGetNumYear= new Date(parseInt(a), parseInt(m)-1, parseInt(d))
         r.currentNumAnioPersonal=getNumYear(dateForGetNumYear, 0)
-        let jsonNot={}
-        jsonNot.text=dateForGetNumYear.toString()+'\nAP:'+r.currentNumAnioPersonal
-        zpn.addNot(jsonNot, false, 20000)
 
         let sf=''+d+'/'+m+'/'+a
         let msfd=(''+d).split('')
@@ -1694,6 +1690,9 @@ Rectangle {
         let m = date.getMonth() + 1
         let a = date.getFullYear()
         txtDataSearchFecha.text=d + '.' + m + '.' + a
+        ct.dia=d
+        ct.mes=m
+        ct.anio=a
     }
     function setCurrentNombre(nom){
         txtDataSearchNom.text=nom
@@ -1708,9 +1707,12 @@ Rectangle {
             currentNumNacimiento=-1
             return
         }
-        let d=mfecha[0]
+        /*let d=mfecha[0]
         let m=mfecha[1]
-        let a = mfecha[2]
+        let a = mfecha[2]*/
+        let d=ct.dia
+        let m=ct.mes
+        let a=ct.anio
         let sf=''+d+'/'+m+'/'+a
         let aGetNums=app.j.getNums(sf)
         currentNumNacimiento=aGetNums[0]
@@ -1779,7 +1781,9 @@ Rectangle {
     function calc(){
         r.currentNumFirma=setNumFirma()
         setNumNac()
-        let dataNombre=getNumNomText(txtDataSearchNom.text, checkBoxFormula.checked)
+        let txtSearchNum=''+ct.dia+'.'+ct.mes+'.'+ct.anio
+        //let dataNombre=getNumNomText(txtDataSearchNom.text, checkBoxFormula.checked)
+        let dataNombre=getNumNomText(txtSearchNum, checkBoxFormula.checked)
         setPins()
         labelFNTS.text=r.currentDate?r.currentDate.toString():''
     }
@@ -1899,7 +1903,9 @@ Rectangle {
         r.currentPin4=p1+9+9+9
         let m0
 
-        let mfecha=txtDataSearchFecha.text.split('.')
+        let txtSearchNum=''+ct.dia+'.'+ct.mes+'.'+ct.anio
+        //let mfecha=txtDataSearchFecha.text.split('.')
+        let mfecha=txtSearchNum.split('.')
 
         //Calculando tipo de pináculo 1
         let tPin=parseInt(mfecha[0]) + parseInt(mfecha[1])
@@ -1981,7 +1987,7 @@ Rectangle {
         rbF.checked=true
     }
     function getNumProg(ctx, ag, ap, aa){
-        zpn.log(ctx)
+        //zpn.log(ctx)
         let tt='futuro'
         let realAA=new Date(Date.now()).getFullYear()
         if(aa===realAA){

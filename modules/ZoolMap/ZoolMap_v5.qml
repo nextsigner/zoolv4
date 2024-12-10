@@ -345,7 +345,7 @@ Rectangle{
         ZoolMapAspsViewBack{
             id: panelAspectsBack
             anchors.top: parent.top
-            //anchors.topMargin: 0-(r.parent.height-r.height)/2
+            anchors.topMargin: !apps.showAspPanelBack?0:height*0.5-(app.fs)
             parent: xMed
             anchors.left: parent.left
             anchors.leftMargin: xLatIzq.visible?width:width-xLatIzq.width
@@ -1135,6 +1135,7 @@ Rectangle{
         zoolDataBodies.loadJsonBack(j)
         zoolElementsView.load(j, true)
         panelAspectsBack.load(j)
+        panelAspectsBack.visible=true
         r.currentNakshatraBack=nakshatraView.getNakshatraName(nakshatraView.getIndexNakshatra(j.pc.c1.gdec))
         //resizeAspsCircle()
         //<--ZoolMap

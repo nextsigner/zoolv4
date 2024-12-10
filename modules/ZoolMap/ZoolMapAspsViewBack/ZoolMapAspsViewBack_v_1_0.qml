@@ -11,7 +11,7 @@ Rectangle {
     property int cellWidth: app.fs*0.45
     Row{
         id: row
-        visible: false//apps.showAspPanelBack
+        visible: apps.showAspPanelBack
         Repeater{
             model: r.visible?20:0
             CellColumnAspBack{planet: index;cellWidth: r.cellWidth; objectName: 'cellRowAsp_'+index}
@@ -87,7 +87,7 @@ Rectangle {
         setAsp2(c2,c1,ia,iPosAsp)
     }
     function load(jsonData){
-
+        //log.lv('json: '+JSON.stringify(jsonData, null, 2))
         if(!r.visible)return
         //console.log('PanelAspectsBack jsonData: '+JSON.stringify(jsonData))
         clear()
@@ -102,6 +102,7 @@ Rectangle {
                         let a=asp['asp'+parseInt(i +1)]
                         setAsp(a.ic1, a.ic2, a.ia,i)
                     }
+                    //log.lv('json: '+i)
                 }
             }
         }

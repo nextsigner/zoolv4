@@ -1,1 +1,1 @@
-Se agrega ZoolControlsTime a ZoolNumPit v1.3
+Se corrigen errores en ZoolNumPit v1.3

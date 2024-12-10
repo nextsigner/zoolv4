@@ -455,7 +455,7 @@ Rectangle {
                     app.j.mkSinFile(apps.urlBack)
                 }
             }
-            Button{
+            /*Button{
                 id: botEdit
                 text: xEditor.visible?'Ocultar Informe':'Ver Informe'
                 //width: app.fs*3
@@ -468,7 +468,7 @@ Rectangle {
                         xEditor.visible=false
                     }
                 }
-            }
+            }*/
             ComboBox{
                 id: cbHsys
                 width: app.fs*4

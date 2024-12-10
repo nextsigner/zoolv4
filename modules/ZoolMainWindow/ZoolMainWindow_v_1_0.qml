@@ -307,8 +307,8 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Esc'
         onActivated: {
-            if(zsm.getPanel('ZoolNumPit').log.visible){
-                zsm.getPanel('ZoolNumPit').log.visible=false
+            if(zsm.getPanel('ZoolNumPit').logView.visible){
+                zsm.getPanel('ZoolNumPit').logView.visible=false
                 return
             }
             if(zsm.getPanel('ZoolSabianos').view.visible){

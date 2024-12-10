@@ -10,6 +10,16 @@ ZoolMenus{
             panel.setForEdit()
         }
     }
+    Action {
+        text: xEditor.visible?qsTr('Ocultar Informe'):qsTr('Ver Informe')
+        onTriggered: {
+            if(!xEditor.visible){
+                xEditor.showInfo()
+            }else{
+                xEditor.visible=false
+            }
+        }
+    }
     Action {text: qsTr("Crear Html en Zool.ar"); onTriggered: {
             let genero='femenino'
             let p=zfdm.getJsonAbs().params

@@ -78,7 +78,7 @@ Rectangle {
             Item{
                 width: r.fs
                 height: 2
-                visible: !r.enableGMT || r.verHoraMinuto
+                visible: !r.enableGMT
             }
             Rectangle{
                 id: xLabelGmt

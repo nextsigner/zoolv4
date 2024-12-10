@@ -1133,6 +1133,8 @@ Rectangle{
         //planetsCircle.width=ai.width
         ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
         zoolDataBodies.loadJsonBack(j)
+        zoolElementsView.load(j, true)
+        panelAspectsBack.load(j)
         r.currentNakshatraBack=nakshatraView.getNakshatraName(nakshatraView.getIndexNakshatra(j.pc.c1.gdec))
         //resizeAspsCircle()
         //<--ZoolMap

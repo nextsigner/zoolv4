@@ -41,7 +41,6 @@ import ZoolControlsTime 1.0
 import ZoolSectionsManager 1.2
 
 import ZoolDataBodies 3.1
-import ZoolElementsBack 1.0
 
 import comps.ZoolPanelNotifications 1.1
 import web.ZoolWebStatusManager 1.0
@@ -591,7 +590,6 @@ ZoolMainWindow{
             ZoolBottomBar{id: xBottomBar}
             ZoolInfoDataView{id: xInfoData}
             ZoolDataEditor{id: xEditor}
-            //Num.PanelLog{id: panelLog}
             ZoolEvolutionView{id: zev}
         }
         Comps.XSelectColor{
@@ -600,7 +598,12 @@ ZoolMainWindow{
             height: app.fs*8
             c: 'backgroundColor'
         }
-        ZoolLogView{id: log;width: xLatIzq.width}
+        ZoolLogView{
+            id: log;
+            width: xLatIzq.width
+            height: xLatIzq.height
+            anchors.bottom: parent.bottom
+        }
         ZoolWebStatusManager{id: zwsm}
         ZoolDataManager{id: zdm}
     }
@@ -710,6 +713,12 @@ ZoolMainWindow{
             c+='ZoolWinUpdate{}\n'
             let obj=Qt.createQmlObject(c, xLatIzq, 'zoolwinupdatecode')
             obj.z=log.z+1
+        }else{
+            let c='import QtQuick 2.0\n'
+            c+='import comps.ZoolLinuxUpdate 1.0\n'
+            c+='ZoolLinuxUpdate{}\n'
+            let obj=Qt.createQmlObject(c, xLatIzq, 'zoolwinupdatecode')
+            obj.z=log.z+1
         }
 
 
@@ -780,23 +789,27 @@ ZoolMainWindow{
                 if(apps.dev)log.lv('Cargando en modo desarrollo: '+apps.url)
                 zm.loadJsonFromFilePath(apps.url)
             }else{
-                if(!unik.fileExist(apps.url)){
-                    log.lv('El archivo '+apps.url+' que se intenta cargar, no existe o ha sido eliminado. Se procede a cargar los tránsitos actuales.')
-                    zm.loadNow(false)
-                    /*let sep='Sinastría'
+                if(apps.url===''){
+                    zdm.firstRunTime()
+                }else{
+                    if(!unik.fileExist(apps.url)){
+                        log.lv('El archivo '+apps.url+' que se intenta cargar, no existe o ha sido eliminado. Se procede a cargar los tránsitos actuales.')
+                        zm.loadNow(false)
+                        /*let sep='Sinastría'
                     let aL=[]
                     aL.push('Trásitos de Ahora')
                     let aR=[]
                     zoolDataView.setDataView(sep, aL, aR)*/
+                    }
+                    if(apps.dev){
+                        log.visible=true
+                        log.l('\nEl módulo Python SwissEph se encuentra instalado en '+app.pythonLocation)
+                        log.l('\nEl módulo MinymaClient se conecta mediante el host: '+minymaClient.host)
+                        log.l('\napp.url: '+app.url)
+                        log.l('\napp.url exist: '+unik.fileExist(apps.url))
+                    }
                 }
-                if(apps.dev){
-                    log.visible=true
-                    log.l('\nEl módulo Python SwissEph se encuentra instalado en '+app.pythonLocation)
-                    log.l('\nEl módulo MinymaClient se conecta mediante el host: '+minymaClient.host)
-                    log.l('\napp.url: '+app.url)
-                    log.l('\napp.url exist: '+unik.fileExist(apps.url))
-                }
-                app.j.firstRunTime()
+
             }
         }
         //JS.getRD('https://github.com/nextsigner/nextsigner.github.io/raw/master/zool/zool', setHost)

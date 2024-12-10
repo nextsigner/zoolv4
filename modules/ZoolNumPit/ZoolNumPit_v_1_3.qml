@@ -20,7 +20,7 @@ Rectangle {
     border.color: apps.fontColor
     property int contentWidth: r.width-app.fs*0.5
 
-    property alias log: zoolNumPitLog
+    property alias logView: zoolNumPitLog
 
     property bool calcForm: false
     property string jsonPath: './modules/ZoolNumPit/numv3.json'
@@ -92,6 +92,11 @@ Rectangle {
     property int itemIndex: -1
     visible: zsm.aPanelsIds.indexOf(app.j.qmltypeof(r))===zsm.currentIndex
     onVisibleChanged: {
+        if(visible && txtDataSearchFecha.text.indexOf('NaN')>=0){
+            //log.lv('t:'+txtDataSearchFecha.text)
+            //log.lv('tAP:'+txtDataSearchFechaAP.text)
+            ct.currentDate=zm.currentDate
+        }
         //if(visible)zoolVoicePlayer.stop()
         //if(visible)zoolVoicePlayer.speak('Sección de numerología.', true)
     }
@@ -105,8 +110,8 @@ Rectangle {
         currentNum=currentNumAnioPersonal-1
     }
     onCurrentDateChanged: {
-        //r.log.l('CurrentDate: '+currentDate.toString())
-        //r.log.visible=true
+        //r.logView.l('CurrentDate: '+currentDate.toString())
+        //r.logView.visible=true
         let d = currentDate.getDate()
         let m = currentDate.getMonth() + 1
         let a = currentDate.getFullYear()
@@ -176,7 +181,7 @@ Rectangle {
                                     border.width: 2
                                     border.color: apps.fontColor
                                     anchors.horizontalCenter: parent.horizontalCenter
-                                    visible: false
+                                    //visible: false
                                     TextInput {
                                         id: txtDataSearchFecha
                                         text: apps.numUFecha
@@ -190,7 +195,7 @@ Rectangle {
                                         Keys.onReturnPressed: {
                                             if(text==='')return
                                             calc()
-                                            //r.log.l(getNumNomText(text))
+                                            //r.logView.l(getNumNomText(text))
                                         }
                                         onTextChanged: {
                                             calc()
@@ -217,7 +222,12 @@ Rectangle {
                                     anchors.horizontalCenter: parent.horizontalCenter
                                     anchors.horizontalCenterOffset: fs*0.5
                                     onCurrentDateChanged:{
-                                        calc()
+                                        if(dia<0||mes<0||anio<0)return
+                                        let s=''+dia
+                                        s+='.'+mes
+                                        s+='.'+anio
+                                        txtDataSearchFecha.text=s
+                                        //calc()
                                     }
                                 }
                                 Item{width: 2; height: app.fs*0.25}
@@ -444,7 +454,7 @@ Rectangle {
                                     anchors.centerIn: parent
                                     Keys.onReturnPressed: {
                                         if(text==='')return
-                                        //r.log.l(getNumNomText(text))
+                                        //r.logView.l(getNumNomText(text))
                                     }
                                     onTextChanged: {
                                         calcularAP()
@@ -510,10 +520,10 @@ Rectangle {
                                     let aa=parseInt(a)+offSet
                                     let s='global_'+ag+'_personal_'+ap
                                     let data=getNumProg(s, ag, ap, aa)
-                                    log.clear()
-                                    log.l(data)
-                                    log.scrollToTop()
-                                    log.visible=true
+                                    logView.clear()
+                                    logView.l(data)
+                                    logView.scrollToTop()
+                                    logView.visible=true
 
                                 }
                             }
@@ -602,12 +612,12 @@ Rectangle {
                             anchors.centerIn: parent
                             Keys.onReturnPressed: {
                                 if(text==='')return
-                                //r.log.l(getNumNomText(text))
+                                //r.logView.l(getNumNomText(text))
                                 calc()
                                 apps.numUNom=text
                             }
                             onTextChanged: {
-                                //r.log.l(getNumNomText(text))
+                                //r.logView.l(getNumNomText(text))
                                 calc()
                                 apps.numUNom=text
                             }
@@ -651,12 +661,12 @@ Rectangle {
                             anchors.centerIn: parent
                             Keys.onReturnPressed: {
                                 if(text==='')return
-                                //r.log.l(getNumNomText(text))
+                                //r.logView.l(getNumNomText(text))
                                 calc()
                                 apps.numUNom=text
                             }
                             onTextChanged: {
-                                //r.log.l(getNumNomText(text))
+                                //r.logView.l(getNumNomText(text))
                                 calc()
                                 apps.numUFirma=text
                             }
@@ -759,17 +769,17 @@ Rectangle {
                             onClicked: {
                                 let genero='m'
                                 if(rbF.checked)genero='f'
-                                r.log.clear()
+                                r.logView.clear()
                                 if(checkBoxFormula.checked){
-                                    r.log.l('N° de Nacimiento/Karma '+r.currentNumNacimiento+'\n')
-                                    r.log.l('Fórmula: '+f0.text+'\n')
-                                    r.log.l(getItemJson('per'+r.currentNumNacimiento+genero))
+                                    r.logView.l('N° de Nacimiento/Karma '+r.currentNumNacimiento+'\n')
+                                    r.logView.l('Fórmula: '+f0.text+'\n')
+                                    r.logView.l(getItemJson('per'+r.currentNumNacimiento+genero))
                                 }else{
-                                    r.log.l('¿Cómo es su vibración de nacimiento o karma '+r.currentNumNacimiento+'?\n')
-                                    r.log.l(getItemJson('per'+r.currentNumNacimiento+genero))
+                                    r.logView.l('¿Cómo es su vibración de nacimiento o karma '+r.currentNumNacimiento+'?\n')
+                                    r.logView.l(getItemJson('per'+r.currentNumNacimiento+genero))
                                 }
-                                r.log.visible=true
-                                r.log.flk.contentY=0
+                                r.logView.visible=true
+                                r.logView.flk.contentY=0
                             }
                         }
                     }
@@ -789,17 +799,17 @@ Rectangle {
                             onClicked: {
                                 let genero='m'
                                 if(rbF.checked)genero='f'
-                                r.log.clear()
+                                r.logView.clear()
                                 if(checkBoxFormula.checked){
-                                    r.log.l('Personalidad '+r.currentNumPersonalidad+'\n')
-                                    r.log.l('Fórmula: '+r.sFormulaNumPer+'\n')
-                                    r.log.l(getItemJson('per'+r.currentNumPersonalidad+genero))
+                                    r.logView.l('Personalidad '+r.currentNumPersonalidad+'\n')
+                                    r.logView.l('Fórmula: '+r.sFormulaNumPer+'\n')
+                                    r.logView.l(getItemJson('per'+r.currentNumPersonalidad+genero))
                                 }else{
-                                    r.log.l('¿Cómo es su personalidad?\n')
-                                    r.log.l(getItemJson('per'+r.currentNumPersonalidad+genero))
+                                    r.logView.l('¿Cómo es su personalidad?\n')
+                                    r.logView.l(getItemJson('per'+r.currentNumPersonalidad+genero))
                                 }
-                                r.log.visible=true
-                                r.log.flk.contentY=0
+                                r.logView.visible=true
+                                r.logView.flk.contentY=0
                             }
                         }
                     }
@@ -829,10 +839,10 @@ Rectangle {
                                     anchors.verticalCenter: parent.verticalCenter
                                     onClicked: {
                                         if(txtDataSearchNom.text==='')return
-                                        r.log.clear()
-                                        r.log.l(getNumNomText(txtDataSearchNom.text, checkBoxFormula.checked))
-                                        r.log.visible=true
-                                        r.log.flk.contentY=0
+                                        r.logView.clear()
+                                        r.logView.l(getNumNomText(txtDataSearchNom.text, checkBoxFormula.checked))
+                                        r.logView.visible=true
+                                        r.logView.flk.contentY=0
                                     }
                                 }
                             }
@@ -861,10 +871,10 @@ Rectangle {
                             anchors.verticalCenter: parent.verticalCenter
                             onClicked: {
                                 if(txtDataSearchNom.text==='')return
-                                r.log.clear()
-                                r.log.l(getDataJsonNumDia())
-                                r.log.visible=true
-                                r.log.flk.contentY=0
+                                r.logView.clear()
+                                r.logView.l(getDataJsonNumDia())
+                                r.logView.visible=true
+                                r.logView.flk.contentY=0
                             }
                         }
                     }
@@ -882,11 +892,11 @@ Rectangle {
                             height: width
                             anchors.verticalCenter: parent.verticalCenter
                             onClicked: {
-                                r.log.clear()
-                                r.log.l('¿Cómo es la energía de su firma?\n')
-                                r.log.l(getItemJson('firma'+r.currentNumFirma))
-                                r.log.visible=true
-                                r.log.flk.contentY=0
+                                r.logView.clear()
+                                r.logView.l('¿Cómo es la energía de su firma?\n')
+                                r.logView.l(getItemJson('firma'+r.currentNumFirma))
+                                r.logView.visible=true
+                                r.logView.flk.contentY=0
                             }
                         }
                     }
@@ -904,11 +914,11 @@ Rectangle {
                             height: width
                             anchors.verticalCenter: parent.verticalCenter
                             onClicked: {
-                                r.log.clear()
-                                r.log.l('¿Cómo podría ser su destino?\n')
-                                r.log.l(getItemJson('dest'+r.currentNumDestino))
-                                r.log.visible=true
-                                r.log.flk.contentY=0
+                                r.logView.clear()
+                                r.logView.l('¿Cómo podría ser su destino?\n')
+                                r.logView.l(getItemJson('dest'+r.currentNumDestino))
+                                r.logView.visible=true
+                                r.logView.flk.contentY=0
                             }
                         }
                     }
@@ -1008,10 +1018,10 @@ Rectangle {
                     //                            anchors.verticalCenter: parent.verticalCenter
                     //                            onClicked: {
                     //                                if(txtDataSearchNom.text==='')return
-                    //                                r.log.clear()
-                    //                                r.log.l(getDataJsonNumDia())
-                    //                                r.log.visible=true
-                    //                                r.log.flk.contentY=0
+                    //                                r.logView.clear()
+                    //                                r.logView.l(getDataJsonNumDia())
+                    //                                r.logView.visible=true
+                    //                                r.logView.flk.contentY=0
                     //                            }
                     //                        }
                     //                    }
@@ -1022,10 +1032,10 @@ Rectangle {
                             text:  'Años Personales'
                             anchors.verticalCenter: parent.verticalCenter
                             onClicked: {
-                                r.log.clear()
-                                r.log.l(mkDataList())
-                                r.log.visible=true
-                                r.log.flk.contentY=0
+                                r.logView.clear()
+                                r.logView.l(mkDataList())
+                                r.logView.visible=true
+                                r.logView.flk.contentY=0
                             }
                         }
                     }
@@ -1036,14 +1046,14 @@ Rectangle {
                             calc()
                             let aGetNums=app.j.getNums(zm.currentFecha)
                             r.currentIndexAG=aGetNums[2]
-                            r.log.clear()
-                            r.log.l(getTodo(checkBoxFormula.checked))
-                            r.log.visible=true
-                            r.log.flk.contentY=0
+                            r.logView.clear()
+                            r.logView.l(getTodo(checkBoxFormula.checked))
+                            r.logView.visible=true
+                            r.logView.flk.contentY=0
                             if(Qt.platform.os!=='android'){
-                                clipboard.setText(r.log.text)
+                                clipboard.setText(r.logView.text)
                             }else{
-                                r.log.cp()
+                                r.logView.cp()
                             }
                         }
                     }
@@ -1064,14 +1074,14 @@ Rectangle {
                             let nfecha=''+dia+'/'+mes+'/'+anio
                             let aGetNums=app.j.getNums(nfecha)
                             r.currentIndexAG=aGetNums[2]
-                            r.log.clear()
-                            r.log.l(getTodo(checkBoxFormula.checked))
-                            r.log.visible=true
-                            r.log.flk.contentY=0
+                            r.logView.clear()
+                            r.logView.l(getTodo(checkBoxFormula.checked))
+                            r.logView.visible=true
+                            r.logView.flk.contentY=0
                             if(Qt.platform.os!=='android'){
-                                clipboard.setText(r.log.text)
+                                clipboard.setText(r.logView.text)
                             }else{
-                                r.log.cp()
+                                r.logView.cp()
                             }
                         }
                     }
@@ -1104,15 +1114,15 @@ Rectangle {
 
                                 unik.setFile(fn2, getTodo(false))
                                 unik.setFile(fn, getTodo(true))
-                                r.log.clear()
-                                r.log.l('El archivo se ha guardado en '+fn)
-                                r.log.l('El archivo se ha guardado en '+fn2)
+                                r.logView.clear()
+                                r.logView.l('El archivo se ha guardado en '+fn)
+                                r.logView.l('El archivo se ha guardado en '+fn2)
                                 r.log.visible=true
-                                r.log.flk.contentY=0
+                                r.logView.flk.contentY=0
                                 if(Qt.platform.os!=='android'){
-                                    clipboard.setText(r.log.text)
+                                    clipboard.setText(r.logView.text)
                                 }else{
-                                    r.log.cp()
+                                    r.logView.cp()
                                 }
                             }
                         }
@@ -1130,16 +1140,16 @@ Rectangle {
                         anchors.horizontalCenter: parent.horizontalCenter
                         Button{
                             text:  'Limpiar'
-                            onClicked: r.log.clear()
+                            onClicked: r.logView.clear()
                             anchors.verticalCenter: parent.verticalCenter
                         }
                         Button{
                             text:  'Copiar'
                             onClicked: {
                                 if(Qt.platform.os!=='android'){
-                                    clipboard.setText(r.log.text)
+                                    clipboard.setText(r.logView.text)
                                 }else{
-                                    r.log.cp()
+                                    r.logView.cp()
                                 }
                             }
                             anchors.verticalCenter: parent.verticalCenter
@@ -1151,7 +1161,7 @@ Rectangle {
     }
     Timer{
         id: tCalc
-        running: !r.log.visible
+        running: !r.logView.visible
         repeat: true
         interval: 250
         onTriggered: {
@@ -1311,7 +1321,7 @@ Rectangle {
             vtc=parseInt(m0[0])+parseInt(m0[1])
             sfc+='='+vtc
         }
-        //r.log.l('st:'+st+' vtv:'+vtv)
+        //r.logView.l('st:'+st+' vtv:'+vtv)
         if(r.currentNumNombreIntM===-1){
             dataInt+=getDataNum(st, vtv)
         }else{
@@ -1319,7 +1329,7 @@ Rectangle {
         }
 
         r.currentNumNombreInt=vtv
-        //r.log.l('st2:'+st2+' vtc: '+vtc)
+        //r.logView.l('st2:'+st2+' vtc: '+vtc)
         if(r.currentNumNombreExtM===-1){
             dataExt+=getDataNum(st2, vtc)
         }else{
@@ -1421,8 +1431,8 @@ Rectangle {
         return ret
     }
     function getDataNum(t, v){
-        //r.log.l('t:'+t)
-        //r.log.l('v:'+v)
+        //r.logView.l('t:'+t)
+        //r.logView.l('v:'+v)
         let ret='?'
         let jsonString
         if(r.jsonNum===''){
@@ -1587,10 +1597,10 @@ Rectangle {
         let vcurrentNumNacimiento=aGetNums[0]
         r.currentIndexAG=aGetNums[2]
         //log.ls('l1396: r.currentIndexAG: '+r.currentIndexAG, 500, 500)
-        r.log.l('Número de Karma '+vcurrentNumNacimiento+'\n')
-        r.log.l(getNumNomText(nom, checkBoxFormula.checked))
-        r.log.l('¿Cómo es su personalidad?\n\n\n\n\n\n')
-        r.log.l(getItemJson('per'+vcurrentNumNacimiento+genero))
+        r.logView.l('Número de Karma '+vcurrentNumNacimiento+'\n')
+        r.logView.l(getNumNomText(nom, checkBoxFormula.checked))
+        r.logView.l('¿Cómo es su personalidad?\n\n\n\n\n\n')
+        r.logView.l(getItemJson('per'+vcurrentNumNacimiento+genero))
     }
     function calcularAP(){
         r.esMaestro=false
@@ -1659,7 +1669,7 @@ Rectangle {
         let edad=a - parseInt(txtDataSearchFechaAP.text)
 
         let sp='Período: Desde el cumpleaños del día '+d+'/'+m+'/'+a+' hasta el día '+d+'/'+m+'/'+parseInt(a + 1)
-        r.log.l('Año: '+a+' - Edad: '+edad+' - Ciclo: '+parseInt(r.currentNum +1)+'\n'+sp+'\nCálculo: '+f1.text+'\n'+aDes[r.currentNum]+'\n')
+        r.logView.l('Año: '+a+' - Edad: '+edad+' - Ciclo: '+parseInt(r.currentNum +1)+'\n'+sp+'\nCálculo: '+f1.text+'\n'+aDes[r.currentNum]+'\n')
 
     }
     function calcularPersonalidad(){
@@ -1690,9 +1700,11 @@ Rectangle {
         let m = date.getMonth() + 1
         let a = date.getFullYear()
         txtDataSearchFecha.text=d + '.' + m + '.' + a
-        ct.dia=d
-        ct.mes=m
-        ct.anio=a
+        let nct=new Date(a, m-1, d)
+        ct.currentDate=nct
+//        ct.dia=d
+//        ct.mes=m
+//        ct.anio=a
     }
     function setCurrentNombre(nom){
         txtDataSearchNom.text=nom

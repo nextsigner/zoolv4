@@ -5,7 +5,7 @@ import comps.MouseAreaView 1.0
 import ZoolMap.ZoolMapSignCircle 1.1
 import ZoolMap.ZoolMapHousesCircle 1.2
 import ZoolMap.ZoolMapPlanetsCircle 1.1
-import ZoolMap.ZoolMapAspsCircle 1.0
+import ZoolMap.ZoolMapAspsCircle 1.1
 import ZoolMap.ZoolMapAspsView 1.0
 import ZoolMap.ZoolMapAspsViewBack 1.0
 import ZoolMap.ZoolMapAsInfoView 1.0
@@ -1126,7 +1126,7 @@ Rectangle{
         //-->ZoolMap
         housesCircleBack.loadHouses(j)
         planetsCircleBack.loadJson(j)
-
+        aspsCircle.add(j)
         housesCircleBack.width=ae.width
         //ai.width=planetsCircleBack.getMinAsWidth()-r.planetSize*2
         //signCircle.width=ai.width

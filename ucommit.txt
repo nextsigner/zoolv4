@@ -1,1 +1,1 @@
-Se muestra panelAspectsBack
+Se agrega información a num_prognosis.json

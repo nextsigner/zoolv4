@@ -60,13 +60,13 @@ Rectangle {
             if(zm.objAspsCircle.currentAspSelectedBack!==r.indexPosAsp){
                 zm.objAspsCircle.currentAspSelectedBack=r.indexPosAsp
                 //swegz.sweg.objAspsCircle.currentAspSelectedBack=r.indexPosAsp
-                ma.uCurrentPlanetIndex=app.currentPlanetIndexBack
-                app.currentPlanetIndexBack=-1
+                ma.uCurrentPlanetIndex=zm.currentPlanetIndexBack
+                zm.currentPlanetIndexBack=-1
                 apps.showAspCircleBack=true
             }else{
                 zm.objAspsCircle.currentAspSelectedBack=-1
                 //swegz.sweg.objAspsCircle.currentAspSelectedBack=-1
-                app.currentPlanetIndexBack=ma.uCurrentPlanetIndex
+                zm.currentPlanetIndexBack=ma.uCurrentPlanetIndex
             }
         }
     }

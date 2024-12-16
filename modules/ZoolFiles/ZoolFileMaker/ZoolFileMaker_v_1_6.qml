@@ -483,6 +483,39 @@ Rectangle {
                     }
                 }
             }
+            Column{
+                id: colInforme
+                anchors.horizontalCenter: parent.horizontalCenter
+                Text{
+                    text: 'Informe'
+                    font.pixelSize: app.fs*0.5
+                    color: apps.fontColor
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+                Rectangle{
+                    id: xInforme
+                    width: r.width-app.fs*0.5
+                    height: app.fs*6
+                    color: apps.backgroundColor
+                    border.width: 1
+                    border.color: apps.fontColor
+                    radius: app.fs*0.1
+                    clip: true
+                    Flickable{
+                        contentWidth: xInforme.width
+                        contentHeight: taInforme.contentHeight+app.fs
+                        anchors.fill: parent
+                        ScrollBar.vertical: ScrollBar{}
+                        TextArea{
+                            id: taInforme
+                            width: xInforme.width-app.fs*0.5
+                            font.pixelSize: app.fs*0.5
+                            color: apps.fontColor
+                            wrapMode: TextArea.WordWrap
+                        }
+                    }
+                }
+            }
             Row{
                 anchors.horizontalCenter: parent.horizontalCenter
                 spacing: app.fs*0.25
@@ -548,59 +581,59 @@ Rectangle {
                         }
                     }
 
-//                    Timer{
-//                        running: false//r.visible
-//                        repeat: true
-//                        interval: 1000
-//                        onTriggered: {
-//                            let nom=tiNombre.t.text.replace(/ /g, '_')
-//                            let fileName=apps.workSpace+'/'+nom+'.json'
-//                            if(unik.fileExist(fileName)){
-//                                r.uFileNameLoaded=tiNombre.text
-//                                let jsonFileData=unik.getFile(fileName)
-//                                let j=JSON.parse(jsonFileData)
-//                                let dia=''+j.params.d
-//                                if(parseInt(dia)<=9){
-//                                    dia='0'+dia
-//                                }
-//                                let mes=''+j.params.m
-//                                if(parseInt(mes)<=9){
-//                                    mes='0'+mes
-//                                }
-//                                let hora=''+j.params.h
-//                                if(parseInt(hora)<=9){
-//                                    hora='0'+hora
-//                                }
-//                                let minuto=''+j.params.min
-//                                if(parseInt(minuto)<=9){
-//                                    minuto='0'+minuto
-//                                }
-//                                let nt=new Date(parseInt(j.params.a), parseInt(mes - 1), parseInt(dia), parseInt(hora), parseInt(minuto))
-//                                controlTimeFecha.currentDate=nt
-//                                controlTimeFecha.gmt=j.params.gmt
-//                                if(tiCiudad.text.replace(/ /g, '')===''){
-//                                    tiCiudad.text=j.params.c
-//                                }
-//                                r.lat=j.params.lat
-//                                r.lon=j.params.lon
-//                                r.ulat=j.params.lat
-//                                r.ulon=j.params.lon
-//                                let vd=parseInt(tiFecha1.t.text)
-//                                let vm=parseInt(tiFecha2.t.text)
-//                                let vh=parseInt(tiHora1.t.text)
-//                                let vmin=parseInt(tiHora2.t.text)
-//                                let vgmt=controlTimeFecha.gmt//tiGMT.t.text
-//                                let vCiudad=tiCiudad.t.text.replace(/_/g, ' ')
-//                                if(j.params.d!==vd||j.params.m!==vm||j.params.a!==va||j.params.h!==vh||j.params.min!==vmin||r.lat!==r.ulat||r.lon!==r.ulon){
-//                                    botCrear.text='Modificar'
-//                                }else{
-//                                    botCrear.text='[Crear]'
-//                                }
-//                            }else{
-//                                botCrear.text='Crear'
-//                            }
-//                        }
-//                    }
+                    //                    Timer{
+                    //                        running: false//r.visible
+                    //                        repeat: true
+                    //                        interval: 1000
+                    //                        onTriggered: {
+                    //                            let nom=tiNombre.t.text.replace(/ /g, '_')
+                    //                            let fileName=apps.workSpace+'/'+nom+'.json'
+                    //                            if(unik.fileExist(fileName)){
+                    //                                r.uFileNameLoaded=tiNombre.text
+                    //                                let jsonFileData=unik.getFile(fileName)
+                    //                                let j=JSON.parse(jsonFileData)
+                    //                                let dia=''+j.params.d
+                    //                                if(parseInt(dia)<=9){
+                    //                                    dia='0'+dia
+                    //                                }
+                    //                                let mes=''+j.params.m
+                    //                                if(parseInt(mes)<=9){
+                    //                                    mes='0'+mes
+                    //                                }
+                    //                                let hora=''+j.params.h
+                    //                                if(parseInt(hora)<=9){
+                    //                                    hora='0'+hora
+                    //                                }
+                    //                                let minuto=''+j.params.min
+                    //                                if(parseInt(minuto)<=9){
+                    //                                    minuto='0'+minuto
+                    //                                }
+                    //                                let nt=new Date(parseInt(j.params.a), parseInt(mes - 1), parseInt(dia), parseInt(hora), parseInt(minuto))
+                    //                                controlTimeFecha.currentDate=nt
+                    //                                controlTimeFecha.gmt=j.params.gmt
+                    //                                if(tiCiudad.text.replace(/ /g, '')===''){
+                    //                                    tiCiudad.text=j.params.c
+                    //                                }
+                    //                                r.lat=j.params.lat
+                    //                                r.lon=j.params.lon
+                    //                                r.ulat=j.params.lat
+                    //                                r.ulon=j.params.lon
+                    //                                let vd=parseInt(tiFecha1.t.text)
+                    //                                let vm=parseInt(tiFecha2.t.text)
+                    //                                let vh=parseInt(tiHora1.t.text)
+                    //                                let vmin=parseInt(tiHora2.t.text)
+                    //                                let vgmt=controlTimeFecha.gmt//tiGMT.t.text
+                    //                                let vCiudad=tiCiudad.t.text.replace(/_/g, ' ')
+                    //                                if(j.params.d!==vd||j.params.m!==vm||j.params.a!==va||j.params.h!==vh||j.params.min!==vmin||r.lat!==r.ulat||r.lon!==r.ulon){
+                    //                                    botCrear.text='Modificar'
+                    //                                }else{
+                    //                                    botCrear.text='[Crear]'
+                    //                                }
+                    //                            }else{
+                    //                                botCrear.text='Crear'
+                    //                            }
+                    //                        }
+                    //                    }
 
                 }
             }
@@ -613,15 +646,15 @@ Rectangle {
         interval: 2000
         onTriggered: searchGeoLoc(false)
     }
-//    Timer{
-//        id: tLoadTemp
-//        running: false
-//        repeat: false
-//        interval: 2000
-//        onTriggered: {
+    //    Timer{
+    //        id: tLoadTemp
+    //        running: false
+    //        repeat: false
+    //        interval: 2000
+    //        onTriggered: {
 
-//        }
-//    }
+    //        }
+    //    }
     Item{id: xuqp}
     function searchGeoLoc(crear){
         for(var i=0;i<xuqp.children.length;i++){
@@ -674,7 +707,7 @@ Rectangle {
         c+='}\n'
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcodenewvn')
     }
-function setNewJsonFileData(){
+    function setNewJsonFileData(){
         let p=zfdm.getJsonAbs().params
         let vtipo='vn' //Esto luego lo programaré para EVENTOS tipo='even'
 
@@ -721,6 +754,7 @@ function setNewJsonFileData(){
         if(botCrear.text==='Modificar'){
             json.params.f=p.f
         }
+        json.params.data=taInforme.text
 
         if(cbPreview.checked){
             if(nom==='')nom='Sin Nombre'
@@ -896,6 +930,7 @@ function setNewJsonFileData(){
         }else{
             cbGenero.currentIndex=0
         }
+        taInforme.text=p.data
         //log.lv('p:'+JSON.stringify(p, null, 2))
     }
 }

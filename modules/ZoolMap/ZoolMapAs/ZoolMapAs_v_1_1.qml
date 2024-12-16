@@ -156,6 +156,7 @@ Item{
         anchors.right: parent.left
         visible: (app.t==='dirprim' || app.t==='trans') && !r.isBack
     }
+
     Row{
         anchors.verticalCenter: parent.verticalCenter
         anchors.right:  parent.left
@@ -225,6 +226,30 @@ Item{
         anchors.leftMargin: 0//!r.selected?0:width*0.5
         anchors.verticalCenter: parent.verticalCenter
         isBack: r.isBack
+        Rectangle{
+            id: ejePosAsp
+            width: r.width*0.5-(zm.objAspsCircle.width*0.5)-parent.width//(zm.width-r.width)*0.5
+            height: apps.aspLineWidth
+            //color: zm.uAspShow.split('_').length>=1?zm.uAspShow.split('_')[1]:'red'
+            color: zm.uAspShow.split('_')[1]
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.right
+            visible: !r.isBack?(
+                                    zm.uAspShow.indexOf('int_')===0 && (zm.uAspShow.indexOf('_'+r.numAstro+'_')>=0  || zm.uAspShow.indexOf('cellAsp_'+r.numAstro)>=0)
+                                    )
+                              :
+                                (
+                                    zm.uAspShow.indexOf('ext_')===0 && (zm.uAspShow.indexOf('_'+r.numAstro+'_')>=0  || zm.uAspShow.indexOf('cellAsp_'+r.numAstro)>=0)
+                                    )
+            Rectangle{
+                width: parent.width+2
+                height: parent.height+2
+                anchors.centerIn: parent
+                z: parent.z-1
+                visible: zm.aspShowSelected
+            }
+        }
+
         ZoolMapPointerPlanet{
             id: pointerPlanet
             is:r.is
@@ -460,12 +485,12 @@ Item{
         anchors.centerIn: bodie
         visible: apps.dev && r.selected && !r.isZoomAndPosSeted && JSON.parse(zm.currentData).params.t!=='pron'
     }*/
-//    Timer{
-//        running: !r.isZoomAndPosSeted && r.selected
-//        repeat: true
-//        interval: 1000
-//        onTriggered: setZoomAndPos()
-//    }
+    //    Timer{
+    //        running: !r.isZoomAndPosSeted && r.selected
+    //        repeat: true
+    //        interval: 1000
+    //        onTriggered: setZoomAndPos()
+    //    }
     Timer{
         id: tWaitHovered
         running: false

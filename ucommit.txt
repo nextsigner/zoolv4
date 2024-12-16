@@ -1,1 +1,1 @@
-Se agrega información a num_prognosis.json
+Se corrigen algunos errores Binding QuickPen

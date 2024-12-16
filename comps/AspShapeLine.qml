@@ -80,8 +80,8 @@ Rectangle{
                 ShapePath.RoundJoin
             ]
             joinStyle: styles[joinStyleIndex]
-            startX: 0
-            startY: 0
+            //startX: 0
+            //startY: 0
             PathLine {id: p}
         }
     }

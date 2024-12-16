@@ -68,7 +68,7 @@ Settings{
     property bool xAsShowIcon: false
 
     //Asp
-    property int aspLineWidth: 6
+    property int aspLineWidth: 3
     property bool panelAspShowBg: true
 
     //ZoolMap

@@ -8,6 +8,7 @@ Rectangle {
     property var arrColors: ['red','#ff8833',  'green', '#124cb1']
     property int indexAsp: -1
     property int indexPosAsp: -1
+    property int bodie: -1
     SequentialAnimation{
         running: indexPosAsp===zm.objAspsCircle.currentAspSelected&&zm.objAspsCircle.currentAspSelected!==-1
         loops: Animation.Infinite
@@ -62,15 +63,19 @@ Rectangle {
             if(zm.objAspsCircle.currentAspSelected!==r.indexPosAsp){
                 zm.objAspsCircle.currentAspSelected=r.indexPosAsp
                 //swegz.zm.objAspsCircle.currentAspSelected=r.indexPosAsp
-                ma.uCurrentPlanetIndex=app.currentPlanetIndex
-                app.currentPlanetIndex=-1
-                app.currentHouseIndex=-1
-                apps.showAspCircle=true
+                ma.uCurrentPlanetIndex=zm.currentPlanetIndex
+                zm.currentPlanetIndex=-1
+                zm.currentHouseIndex=-1
+                //apps.showAspCircle=true
+                zm.lastAspShowed='int'
             }else{
                 zm.objAspsCircle.currentAspSelected=-1
                 //swegz.zm.objAspsCircle.currentAspSelected=-1
-                app.currentPlanetIndex=ma.uCurrentPlanetIndex
+                zm.currentPlanetIndex=ma.uCurrentPlanetIndex
+                zm.lastAspShowed='ext'
             }
+            zm.uAspShow='int_'+arrColors[indexAsp]+'_bodie_'+r.bodie+'_'+r.objectName
+            //log.lv('Bodie: '+r.bodie+ ' Col: '+r.objectName)
         }
     }
     Rectangle{

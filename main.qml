@@ -366,13 +366,14 @@ ZoolMainWindow{
                     visible: apps.showLatIzq
                     ZoolSectionsManager{id: zsm}
                     Rectangle{
+                        id: senA1
                         width: parent.width
                         height: 5
                         color: 'red'
                         anchors.bottom: parent.bottom
                         visible: apps.zFocus==='xLatIzq'
                         SequentialAnimation on color{
-                            running: parent.visible
+                            running: senA1.visible
                             loops: Animation.Infinite
                             ColorAnimation {
                                 from: "red"
@@ -509,13 +510,14 @@ ZoolMainWindow{
                     }
                     */
                     Rectangle{
+                        id: senA2
                         width: parent.width
                         height: 5
                         color: 'red'
                         anchors.bottom: parent.bottom
                         visible: apps.zFocus==='xMed'
                         SequentialAnimation on color{
-                            running: parent.visible
+                            running: senA2.visible
                             loops: Animation.Infinite
                             ColorAnimation {
                                 from: "red"
@@ -557,13 +559,14 @@ ZoolMainWindow{
                     ZoolDataBodies{id: zoolDataBodies}
                     //PanelPronEdit{id: panelPronEdit;}
                     Rectangle{
+                        id: senA3
                         width: parent.width
                         height: 5
                         color: 'red'
                         anchors.bottom: parent.bottom
                         visible: apps.zFocus==='xLatDer'
                         SequentialAnimation on color{
-                            running: parent.visible
+                            running: senA3.visible
                             loops: Animation.Infinite
                             ColorAnimation {
                                 from: "red"

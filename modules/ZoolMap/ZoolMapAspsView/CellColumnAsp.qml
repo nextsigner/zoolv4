@@ -31,6 +31,7 @@ Item {
                 width: r.cellWidth
                 opacity: index>planet&&r.planet!==index?1.0:0.0
                 enabled: opacity===1.0
+                bodie: r.planet
                 //visible: false
                 //visible: opacity===1.0
                 //indexAsp: 2

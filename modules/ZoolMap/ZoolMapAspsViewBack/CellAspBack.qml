@@ -8,7 +8,7 @@ Rectangle {
     property int indexAsp: -1
     property int indexPosAsp: -1
     SequentialAnimation{
-        running: indexPosAsp===zm.objAspsCircle.currentAspSelectedBack&&zm.objAspsCircle.currentAspSelectedBack!==-1
+        running: indexPosAsp===zm.objAspsCircleBack.currentAspSelected&&zm.objAspsCircleBack.currentAspSelected!==-1
         loops: Animation.Infinite
         onRunningChanged: {
             if(!running){
@@ -57,17 +57,20 @@ Rectangle {
         anchors.fill: parent
         property int uCurrentPlanetIndex: -1
         onClicked: {
-            if(zm.objAspsCircle.currentAspSelectedBack!==r.indexPosAsp){
-                zm.objAspsCircle.currentAspSelectedBack=r.indexPosAsp
-                //swegz.sweg.objAspsCircle.currentAspSelectedBack=r.indexPosAsp
+            if(zm.objAspsCircleBack.currentAspSelected!==r.indexPosAsp){
+                zm.objAspsCircleBack.currentAspSelected=r.indexPosAsp
+                //swegz.sweg.objAspsCircle.currentAspSelected=r.indexPosAsp
                 ma.uCurrentPlanetIndex=zm.currentPlanetIndexBack
                 zm.currentPlanetIndexBack=-1
-                apps.showAspCircleBack=true
+                //apps.showAspCircleBack=true
+                zm.lastAspShowed='ext'
             }else{
-                zm.objAspsCircle.currentAspSelectedBack=-1
-                //swegz.sweg.objAspsCircle.currentAspSelectedBack=-1
+                zm.objAspsCircleBack.currentAspSelected=-1
+                //swegz.sweg.objAspsCircle.currentAspSelected=-1
                 zm.currentPlanetIndexBack=ma.uCurrentPlanetIndex
+                zm.lastAspShowed='int'
             }
+            zm.uAspShow='ext_'+arrColors[indexAsp]+'_bodie_'+r.bodie+'_'+r.objectName
         }
     }
     Rectangle{

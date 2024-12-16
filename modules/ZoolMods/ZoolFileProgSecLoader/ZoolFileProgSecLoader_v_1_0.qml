@@ -149,6 +149,9 @@ Rectangle {
         let alt=0
         if(p.alt)alt=p.alt
 
+        let data=''
+        if(p.data)data=p.data
+
 
             zm.currentNomBack=nom
             zm.currentGeneroBack='n'
@@ -159,7 +162,7 @@ Rectangle {
             zm.currentLatBack=lat
             zm.currentAltBack=alt
             zm.currentDateBack= new Date(parseInt(anio), parseInt(mes) - 1, parseInt(dia), parseInt(hora), parseInt(minutos))
-        zm.loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), gmt,lat,lon, alt, nom, ciudad, "progsec", true)
+        zm.loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), gmt,lat,lon, alt, nom, ciudad, data, "progsec", true)
 
     }
     function toUp(){

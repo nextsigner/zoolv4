@@ -40,6 +40,8 @@ Rectangle{
 
     property bool previewEnabled: false
 
+    property string lastAspShowed: 'int'
+
     property alias xzm: xSweg
 
     property alias cm: capaMods
@@ -51,6 +53,7 @@ Rectangle{
     property alias objPlanetsCircle: planetsCircle
     property alias objPlanetsCircleBack: planetsCircleBack
     property alias objAspsCircle: aspsCircle
+    property alias objAspsCircleBack: aspsCircleBack
     property alias objZoolAspectsView: panelAspects
     property alias objZoolAspectsViewBack: panelAspectsBack
     property alias objAsInfoView: zoolMapAsInfoView
@@ -140,6 +143,9 @@ Rectangle{
     property string currentNakshatra: ''
     property string currentNakshatraBack: ''
     property string currentHsys: apps.currentHsys
+
+    property string uAspShow: 'int_red'
+    property bool aspShowSelected: false
 
     property string uSon: ''
     property string uSonFCMB: ''
@@ -566,7 +572,20 @@ Rectangle{
                     //visible: signCircle.v
                 }
                 //BackgroundImages{id: backgroundImages}
-                ZoolMapAspsCircle{id: aspsCircle;width:ca.width; rotation: signCircle.rot - 90}
+                ZoolMapAspsCircle{
+                    id: aspsCircleBack
+                    z: r.lastAspShowed==='ext'?aspsCircle.z+1:aspsCircle.z-1
+                    isExt: true
+                    width:ca.width
+                    rotation: signCircle.rot - 90
+                    opacity: r.lastAspShowed==='ext'?1.0:0.25
+                }
+                ZoolMapAspsCircle{
+                    id: aspsCircle
+                    width:ca.width
+                    rotation: signCircle.rot - 90
+                    opacity: r.lastAspShowed==='int'?1.0:0.25
+                }
                 Rectangle{
                     id: xz
                     anchors.fill: parent
@@ -1126,7 +1145,7 @@ Rectangle{
         //-->ZoolMap
         housesCircleBack.loadHouses(j)
         planetsCircleBack.loadJson(j)
-        aspsCircle.add(j)
+        aspsCircleBack.load(j)
         housesCircleBack.width=ae.width
         //ai.width=planetsCircleBack.getMinAsWidth()-r.planetSize*2
         //signCircle.width=ai.width
@@ -1434,9 +1453,9 @@ Rectangle{
 
         zfdm.mkFileAndLoad(json, true)
     }
-    function loadFromArgs(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, tipo, isExt){
+    function loadFromArgs(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, data, tipo, isExt){
         let dataMs=new Date(Date.now())
-        let j='{"params":{"n":"Tránsitos", "t":"'+tipo+'","ms":'+dataMs.getTime()+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"alt":'+alt+',"c":"'+ciudad+'"}}'
+        let j='{"params":{"n":"Tránsitos", "t":"'+tipo+'","ms":'+dataMs.getTime()+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"alt":'+alt+',"c":"'+ciudad+'", "data": "'+data+'"}}'
         //log.lv('loadFromArgs(...): '+JSON.stringify(JSON.parse(j), null, 2))
         let json=JSON.parse(j)
         if(!isExt){

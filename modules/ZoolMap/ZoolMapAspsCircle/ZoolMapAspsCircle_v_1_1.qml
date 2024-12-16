@@ -6,13 +6,13 @@ Rectangle {
     width: parent.width
     height: width
     radius: width*0.5
-    color: r.show?apps.backgroundColor:'transparent'
+    color: 'transparent'//r.show?apps.backgroundColor:'transparent'
     border.width: 2
     border.color: 'white'
     anchors.centerIn: parent
     antialiasing: true
+    property bool isExt: false
     property int currentAspSelected: -1
-    property int currentAspSelectedBack: -1
     property int widthNodosAspSelected: 8
     property var aAspStr1: []
     property var aAspStr2: []
@@ -41,23 +41,8 @@ Rectangle {
     onWidthChanged: {
         tHideTapa.restart()
         currentAspSelected=-1
-        currentAspSelectedBack=-1
         tLoadJson.restart()
-        //log.lv('bgTotalBack.json: '+JSON.stringify(bgTotalBack.json))
-        tLoadJsonBack.restart()
-    }
-    Behavior on opacity {
-        NumberAnimation{
-            duration: sweg.speedRotation
-            easing.type: Easing.InOutQuad
-        }
-    }
-    Behavior on rotation {
-        enabled: apps.enableFullAnimation
-        NumberAnimation{
-            duration: sweg.speedRotation
-            easing.type: Easing.InOutQuad
-        }
+        //log.lv('bgTotal.json: '+JSON.stringify(bgTotal.json))
     }
     Timer{
         id: tHideTapa
@@ -70,7 +55,7 @@ Rectangle {
     MouseArea{
         anchors.fill: parent
         onClicked:{
-            r.show=!r.show
+            //r.show=!r.show
         }
     }
     property bool show: true
@@ -84,71 +69,12 @@ Rectangle {
 
         radius: width*0.5
         anchors.centerIn: r
-        visible:r.show// !app.ev?apps.showAspCircle:(apps.showAspCircle && apps.showAspCircleBack)
-    }
-    Rectangle{
-        id: bgTotalBack
-        width: r.width
-        height: width
-        //color: app.ev?'red':'blue'//apps.backgroundColor//'black'
-        color: 'gray'//apps.backgroundColor
-        //border.width: 10
-        //border.color: 'yellow'
-        radius: width*0.5
-        anchors.centerIn: r
-        //anchors.centerIn: parent
-        property var json
-        onJsonChanged: tLoadJsonBack.restart()
-        //parent: capa101
-        //visible: apps.showAspCircleBack && r.show
-        //visible:r.show
-        Timer{
-            id: tLoadJsonBack
-            running: false
-            repeat: false
-            interval: 500
-            onTriggered: {
-                if(bgTotalBack.json===undefined){
-                    //log.lv('Loanding abortado')
-                    return
-                }
-                //log.lv('Loanding: '+JSON.stringify(bgTotalBack.json, null, 2))
-                clearSL(bgTotalBack)
-                var x = bgTotalBack.width*0.5;
-                var y = bgTotalBack.height*0.5;
-                var radius=bgTotalBack.width*0.5
-                var cx=bgTotalBack.width*0.5
-                var cy=bgTotal.height*0.5
-                if(bgTotalBack.json&&bgTotalBack.json.asps){
-                    let asp=bgTotalBack.json.asps
-                    for(var i=0;i<Object.keys(asp).length;i++){
-                        if(asp['asp'+parseInt(i +1)]){
-                            if((asp['asp'+parseInt(i +1)].ic1===10 && asp['asp'+parseInt(i +1)].ic2===11)||(asp['asp'+parseInt(i +1)].ic1===11 && asp['asp'+parseInt(i +1)].ic2===10)){
-                                continue
-                            }else{
-                                let a=asp['asp'+parseInt(i +1)]
-                                let colorAsp='black'
-                                //# -1 = no hay aspectos. 0 = oposición. 1 = cuadratura. 2 = trígono
-                                if(a.ia===0){
-                                    colorAsp='red'
-                                }
-                                if(a.ia===1){
-                                    colorAsp='#ff8833'
-                                }
-                                if(a.ia===2){
-                                    colorAsp='green'
-                                }
-                                if(a.ia===3){
-                                    colorAsp='blue'
-                                }
-                                //log.lv('cx:'+cx+' cy:'+cy+' a.gdeg1:'+a.gdeg1+' a.gdeg2:'+a.gdeg2+' colorAsp:'+colorAsp+' i:'+i)
-                                drawAsp(cx, cy, a.gdeg1, a.gdeg2, colorAsp, i, bgTotalBack, true)
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        visible: false
+        //visible:r.show// !app.ev?apps.showAspCircle:(apps.showAspCircle && apps.showAspCircleBack)
+        //        visible: !r.isExt?
+        //                     (apps.showAspCircle)
+        //                   :
+        //                     (apps.showAspCircleBack)
     }
     Rectangle{
         id: bgTotal
@@ -159,7 +85,7 @@ Rectangle {
         anchors.centerIn: r
         property var json
         onJsonChanged: tLoadJson.restart()
-        visible: apps.showAspCircle && r.show
+        //visible: apps.showAspCircle && r.show
         Timer{
             id: tLoadJson
             running: false
@@ -194,11 +120,25 @@ Rectangle {
                                 if(a.ia===3){
                                     colorAsp='blue'
                                 }
-                                drawAsp(cx, cy, a.gdeg1, a.gdeg2, colorAsp, i, bgTotal, false)
+                                drawAsp(cx, cy, a.gdeg1, a.gdeg2, colorAsp, i, bgTotal, r.isExt)
                             }
                         }
                     }
                 }
+            }
+        }
+    }
+    Component{
+        id: compLineSen
+        Rectangle{
+            width: 1
+            height: 1
+            Rectangle{
+                width: 500
+                height: 3
+                color: parent.color
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.right: parent.left
             }
         }
     }
@@ -211,22 +151,17 @@ Rectangle {
         coords=gCoords(radius, angulo)
         var px2 = coords[0]
         var py2 = coords[1]
-        drawAspRect(px1+cx, py1+cy, px2+cx, py2+cy, c, i, item, isBack)
+        drawAspRect(px1+cx, py1+cy, px2+cx, py2+cy, c, i, item, isBack, 360-angulo)
     }
-    function drawAspRect(sx, sy, px, py, c, i, item, isBack){
+    function drawAspRect(sx, sy, px, py, c, i, item, isBack, angulo){
         let s='s'+sx+'-'+sy+'-'+px+'-'+py
-        if(!isBack && r.aAspStr1.indexOf(s)<0){
-            //let comp=Qt.createComponent("../../comps/AspShapeLine.qml")
-            let comp=Qt.createComponent("../../../modules/ZoolMap/ZoolMapAspsCircle/AspShapeLine.qml")
-            let obj=comp.createObject(item,{sx: sx, sy: sy, px: px, py: py, c: c, n:i, isBack: isBack})
-            r.aAspStr1.push(s)
-        }
-        if(isBack && r.aAspStr2.indexOf(s)<0){
-            //let comp=Qt.createComponent("./comps/AspShapeLine.qml")
-            let comp=Qt.createComponent("../../comps/AspShapeLine.qml")
-            let obj=comp.createObject(item,{sx: sx, sy: sy, px: px, py: py, c: c, n:i, isBack: isBack})
-            r.aAspStr2.push(s)
-        }
+        //let comp=Qt.createComponent("../../comps/AspShapeLine.qml")
+        let comp=Qt.createComponent("../../../modules/ZoolMap/ZoolMapAspsCircle/AspShapeLine.qml")
+        let obj=comp.createObject(item,{sx: sx, sy: sy, px: px, py: py, c: c, n:i, isBack: isBack})
+//        if(i<3){
+//            let objLineSen=compLineSen.createObject(item,{x: sx, y: sy, color: c, rotation: angulo})
+//        }
+        r.aAspStr1.push(s)
     }
     function gCoords(radius, angle) {
         var d = Math.PI/180 //to convert deg to rads
@@ -243,16 +178,8 @@ Rectangle {
         r.aAspStr1=[]
         bgTotal.json=json
     }
-    function add(json){
-        //log.lv('Json Asp Back: '+JSON.stringify(json))
-        clearSL(bgTotalBack)
-        r.aAspStr2=[]
-        bgTotalBack.json=json
-        //log.lv('json:'+JSON.stringify(json, null, 2))
-    }
     function clear(){
         clearSL(bgTotal)
-        clearSL(bgTotalBack)
     }
     function clearSL(item){
         for(var i=0;i<item.children.length;i++){

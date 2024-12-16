@@ -6,7 +6,7 @@ Item{
         id: setZoolLastVersion
         function setData(data, isData){
             if(isData){
-                console.log('Host: '+data)
+                //console.log('Host: '+data)
                 let m0=data.split('\n')
                 let s=''
                 for(var i=0;i<m0.length;i++){

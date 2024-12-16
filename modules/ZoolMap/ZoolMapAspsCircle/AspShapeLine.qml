@@ -1,6 +1,5 @@
 import QtQuick 2.12
 import QtQuick.Shapes 1.12
-//import QtQuick.Extras 1.4
 
 Rectangle{
     id: r
@@ -17,28 +16,34 @@ Rectangle{
     property alias py: p.y
     property color c: 'red'
     Timer{
-        running:  !r.isBack?(aspsCircle.currentAspSelected===r.n):(aspsCircle.currentAspSelectedBack===r.n)
+        running:  !r.isBack?(aspsCircle.currentAspSelected===r.n):(aspsCircleBack.currentAspSelected===r.n)
+        //running:  aspsCircle.currentAspSelected===r.n
         repeat: true
         interval: 250
         onRunningChanged: {
             shapeBg.opacity=0.0
             r.z=0
+            zm.aspShowSelected=false
         }
         onTriggered: {
             if(shapeBg.opacity===1.0){
                 shapeBg.opacity=0.0
                 r.z=0
+                zm.aspShowSelected=false
             }else{
                 shapeBg.opacity=1.0
+                zm.aspShowSelected=true
                 r.z=r.parent.children.length+1
             }
         }
     }
+
     Shape {
         id: shapeBg
         opacity: 0.0
         //anchors.fill: parent
-        width: !zm.ev?parent.width-apps.aspLineWidth:parent.width-apps.aspLineWidth*0.5//*1.8
+        //width: !zm.ev?parent.width-apps.aspLineWidth:parent.width-apps.aspLineWidth*0.5//*1.8
+        width: parent.width-apps.aspLineWidth
         height: width
         anchors.centerIn: parent
         containsMode: Shape.FillContains
@@ -80,10 +85,11 @@ Rectangle{
                 ShapePath.RoundJoin
             ]
             joinStyle: styles[joinStyleIndex]
-            startX: 0
-            startY: 0
+            //startX: 0
+            //startY: 0
             PathLine {id: p}
         }
     }
+
 
 }

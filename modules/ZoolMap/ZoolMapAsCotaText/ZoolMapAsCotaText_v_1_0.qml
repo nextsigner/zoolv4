@@ -45,7 +45,7 @@ Rectangle{
             padding: fs*0.5
             color: apps.fontColor
             textBackgroundColor: apps.backgroundColor
-            textBackgroundOpacity: 1.0
+            //textBackgroundOpacity: 1.0
             borderWidth: 1
             borderColor: apps.fontColor
             borderRadius: fs*0.5

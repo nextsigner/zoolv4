@@ -3,7 +3,7 @@ import QtQuick.Window 2.0
 import QtQuick.Controls 2.0
 import Qt.labs.settings 1.1
 
-import ZoolText 1.0
+import ZoolText 1.1
 
 Rectangle {
     id: r

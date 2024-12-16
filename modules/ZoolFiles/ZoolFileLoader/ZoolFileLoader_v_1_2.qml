@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import Qt.labs.folderlistmodel 2.12
 import ZoolButton 1.0
-import ZoolText 1.0
+import ZoolText 1.1
 import "../../js/Funcs.js" as JS
 
 Rectangle {

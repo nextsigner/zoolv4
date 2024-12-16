@@ -18,7 +18,7 @@ import comps.ZoolAppSettings 1.0
 import ZoolNewsAndUpdates 3.4
 import ZoolMainWindow 1.0
 import ZoolTopMenuBar 1.0
-import ZoolText 1.0
+import ZoolText 1.1
 import ZoolDataBar 3.1
 import ZoolDataView 1.2
 import ZoolEvolutionView 1.0

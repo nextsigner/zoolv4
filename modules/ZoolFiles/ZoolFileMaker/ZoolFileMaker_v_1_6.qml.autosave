@@ -29,8 +29,12 @@ Rectangle {
 
     property real ulat:-100.00
     property real ulon:-100.00
+    property real ualt:0
 
     property string uFileNameLoaded: ''
+
+    property alias cbp: cbPreview
+
     onVisibleChanged: {
         //if(visible)zoolVoicePlayer.stop()
         //if(visible)zoolVoicePlayer.speak('Sección para crear archivos.', true)
@@ -115,6 +119,7 @@ Rectangle {
                 borderRadius: app.fs*0.25
                 padding: app.fs*0.25
                 horizontalAlignment: TextInput.AlignLeft
+                onTextChanged: if(cbPreview.checked)loadTemp()
                 onEnterPressed: {
                     controlTimeFecha.focus=true
                     controlTimeFecha.cFocus=0
@@ -128,6 +133,46 @@ Rectangle {
                 }
             }
             Row{
+                anchors.horizontalCenter: parent.horizontalCenter
+                ZoolText{
+                    id: labelGenero
+                    text: 'Género: '
+                    w: app.fs*2.5
+                    font.pixelSize: app.fs*0.5
+                    color: 'white'
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+                ComboBox{
+                    id: cbGenero
+                    model: ['No Binario', 'Femenino', 'Masculino']
+                    width: r.width-labelGenero.w-app.fs
+                    font.pixelSize: app.fs*0.5
+                    anchors.verticalCenter: parent.verticalCenter
+                    Rectangle{
+                        width: parent.width+8
+                        height: parent.height+8
+                        color: 'transparent'
+                        border.width: 4
+                        anchors.centerIn: parent
+                        visible: cbGenero.focus
+                        SequentialAnimation on border.color{
+                            running: parent.visible
+                            loops: Animation.Infinite
+                            ColorAnimation {
+                                from: "red"
+                                to: "yellow"
+                                duration: 300
+                            }
+                            ColorAnimation {
+                                from: "yellow"
+                                to: "red"
+                                duration: 300
+                            }
+                        }
+                    }
+                }
+            }
+            Row{
                 spacing: app.fs*0.1
                 anchors.horizontalCenter: parent.horizontalCenter
                 ZoolControlsTime{
@@ -136,7 +181,15 @@ Rectangle {
                     fs: r.width*0.07
                     KeyNavigation.tab: tiCiudad.t
                     setAppTime: false
+                    onGmtChanged:{
+                        if(cbPreview.checked){
+                            loadTemp()
+                        }
+                    }
                     onCurrentDateChanged: {
+                        if(cbPreview.checked){
+                            loadTemp()
+                        }
                         //log.l('PanelVN CurrenDate: '+currentDate.toString())
                         //log.visible=true
                         //log.x=xApp.width*0.2
@@ -149,12 +202,32 @@ Rectangle {
                     }
                 }
             }
+            Row{
+                spacing: app.fs*0.5
+                anchors.horizontalCenter: parent.horizontalCenter
+                ZoolText{
+                    fs: app.fs*0.5
+                    text: 'Vista Previa'
+                }
+                CheckBox{
+                    id: cbPreview
+                    width: app.fs
+                    checked: zm.previewEnabled
+                    onCheckedChanged: {
+                        if(checked && tiCiudad.t.text===''){
+                            tiCiudad.t.text='United Kingdom'
+                            searchGeoLoc(false)
+                        }
+                        zm.previewEnabled=checked
+                    }
+                }
+            }
             Item{width: 1;height: app.fs*0.25}
             ZoolTextInput{
                 id: tiCiudad
                 width: tiNombre.width
                 t.font.pixelSize: app.fs*0.65;
-                KeyNavigation.tab: settings.inputCoords?tiLat.t:(botCrear.visible&&botCrear.opacity===1.0?botCrear:botClear)
+                KeyNavigation.tab: cbInputCoords.checked?tiLat.t:tiAlt.t
                 t.maximumLength: 50
                 borderColor:apps.fontColor
                 borderRadius: app.fs*0.25
@@ -171,25 +244,10 @@ Rectangle {
                     anchors.bottom: parent.top
                 }
             }
-            Row{
-                spacing: app.fs*0.5
-                anchors.horizontalCenter: parent.horizontalCenter
-                Text{
-                    text: 'Ingresar coordenadas\nmanualmente'
-                    font.pixelSize: app.fs*0.5
-                    color: apps.fontColor
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-                CheckBox{
-                    checked: settings.inputCoords
-                    anchors.verticalCenter: parent.verticalCenter
-                    onCheckedChanged: settings.inputCoords=checked
-                }
-            }
             Column{
                 id: colTiLonLat
                 anchors.horizontalCenter: parent.horizontalCenter
-                visible: settings.inputCoords
+                visible: cbInputCoords.checked
 
                 Row{
                     spacing: app.fs
@@ -212,7 +270,7 @@ Rectangle {
                         horizontalAlignment: TextInput.AlignLeft
                         property bool valid: false
                         Timer{
-                            running: r.visible && settings.inputCoords
+                            running: r.visible && cbInputCoords.checked
                             repeat: true
                             interval: 100
                             onTriggered: {
@@ -262,7 +320,7 @@ Rectangle {
                         horizontalAlignment: TextInput.AlignLeft
                         property bool valid: false
                         Timer{
-                            running: r.visible && settings.inputCoords
+                            running: r.visible && cbInputCoords.checked
                             repeat: true
                             interval: 100
                             onTriggered: {
@@ -297,7 +355,7 @@ Rectangle {
                         }
                     }
                 }
-                Item{width: 1; height: app.fs*0.5;visible: settings.inputCoords}
+                Item{width: 1; height: app.fs*0.5;visible: cbInputCoords.checked}
                 Text{
                     text: tiLat.t.text===''&&tiLon.t.text===''?'Escribir las coordenadas geográficas.':
                                                                 (
@@ -308,7 +366,7 @@ Rectangle {
                     font.pixelSize: app.fs*0.5
                     color: apps.fontColor
                     anchors.horizontalCenter: parent.horizontalCenter
-                    visible: settings.inputCoords
+                    visible: cbInputCoords.checked
                 }
             }
             Column{
@@ -353,6 +411,112 @@ Rectangle {
                 }
             }
             Row{
+                spacing: app.fs*0.5
+                anchors.horizontalCenter: parent.horizontalCenter
+                Item{
+                    id: xAlt
+                    width: app.fs*3
+                    height: app.fs*3
+                    anchors.verticalCenter: parent.verticalCenter
+                    //anchors.horizontalCenter: parent.horizontalCenter
+                    ZoolTextInput{
+                        id: tiAlt
+                        text: r.ualt
+                        //width: app.fs*3
+                        t.font.pixelSize: app.fs*0.65
+                        anchors.centerIn: parent
+                        //anchors.horizontalCenter: parent.horizontalCenter
+                        KeyNavigation.tab: botCrear.visible&&botCrear.opacity===1.0?botCrear:botClear
+
+                        t.maximumLength: 4
+                        borderColor:apps.fontColor
+                        borderRadius: app.fs*0.25
+                        padding: app.fs*0.25
+                        horizontalAlignment: TextInput.AlignLeft
+                        property int uNum: 0
+                        onTextChanged:{
+                            let t=text
+                            t = t.replace(/[^\d]/g, '');
+                            let num = parseInt(t);
+                            if (isNaN(num) || num < 0 || num > 20000) {
+                                r.ualt=0
+                                r.alt=0
+                            } else {
+                                r.ualt=num
+                                r.alt=num
+                            }
+                            t=''+num
+                            if(t.indexOf('0')===0 && t.length>1){
+                                t = t.substring(1, text.length-1)
+                            }
+                            text=isNaN(t)?'0':t
+                            tiAlt.uNum=num
+                        }
+                        onEnterPressed: {
+                            //controlTimeFecha.focus=true
+                            //controlTimeFecha.cFocus=0
+                        }
+                        Text {
+                            text: 'Altura'
+                            font.pixelSize: app.fs*0.5
+                            color: 'white'
+                            //anchors.horizontalCenter: parent.horizontalCenter
+                            anchors.bottom: parent.top
+                        }
+                    }
+                }
+                Row{
+                    spacing: app.fs*0.5
+                    //anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    Text{
+                        text: 'Ingresar\ncoordenadas\nmanualmente'
+                        font.pixelSize: app.fs*0.5
+                        color: apps.fontColor
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                    CheckBox{
+                        id: cbInputCoords
+                        checked: settings.inputCoords
+                        anchors.verticalCenter: parent.verticalCenter
+                        onCheckedChanged: settings.inputCoords=checked
+                    }
+                }
+            }
+            Column{
+                id: colInforme
+                anchors.horizontalCenter: parent.horizontalCenter
+                Text{
+                    text: 'Informe'
+                    font.pixelSize: app.fs*0.5
+                    color: apps.fontColor
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+                Rectangle{
+                    id: xInforme
+                    width: r.width-app.fs*0.5
+                    height: app.fs*6
+                    color: apps.backgroundColor
+                    border.width: 1
+                    border.color: apps.fontColor
+                    radius: app.fs*0.1
+                    clip: true
+                    Flickable{
+                        contentWidth: xInforme.width
+                        contentHeight: taInforme.contentHeight+app.fs
+                        anchors.fill: parent
+                        ScrollBar.vertical: ScrollBar{}
+                        TextArea{
+                            id: taInforme
+                            width: xInforme.width-app.fs*0.5
+                            font.pixelSize: app.fs*0.5
+                            color: apps.fontColor
+                            wrapMode: TextArea.WordWrap
+                        }
+                    }
+                }
+            }
+            Row{
                 anchors.horizontalCenter: parent.horizontalCenter
                 spacing: app.fs*0.25
                 ZoolText{
@@ -387,7 +551,8 @@ Rectangle {
                     KeyNavigation.tab: tiNombre.t
                     visible: r.ulat!==-1&&r.ulon!==-1&&tiNombre.text!==''&&tiCiudad.text!==''
                     onClicked: {
-                        if(!settings.inputCoords){
+                        cbPreview.checked=false
+                        if(!cbInputCoords.checked){
                             searchGeoLoc(true)
                         }else{
                             r.lat=parseFloat(tiLat.t.text)
@@ -397,59 +562,79 @@ Rectangle {
                             setNewJsonFileData()
                         }
                     }
+                    //
                     Timer{
-                        running: r.state==='show'
+                        running: r.visible
                         repeat: true
-                        interval: 1000
+                        interval: 3000
                         onTriggered: {
-                            let nom=tiNombre.t.text.replace(/ /g, '_')
-                            let fileName=apps.workSpace+'/'+nom+'.json'
-                            if(unik.fileExist(fileName)){
-                                r.uFileNameLoaded=tiNombre.text
-                                let jsonFileData=unik.getFile(fileName)
-                                let j=JSON.parse(jsonFileData)
-                                let dia=''+j.params.d
-                                if(parseInt(dia)<=9){
-                                    dia='0'+dia
-                                }
-                                let mes=''+j.params.m
-                                if(parseInt(mes)<=9){
-                                    mes='0'+mes
-                                }
-                                let hora=''+j.params.h
-                                if(parseInt(hora)<=9){
-                                    hora='0'+hora
-                                }
-                                let minuto=''+j.params.min
-                                if(parseInt(minuto)<=9){
-                                    minuto='0'+minuto
-                                }
-                                let nt=new Date(parseInt(j.params.a), parseInt(mes - 1), parseInt(dia), parseInt(hora), parseInt(minuto))
-                                controlTimeFecha.currentDate=nt
-                                controlTimeFecha.gmt=j.params.gmt
-                                if(tiCiudad.text.replace(/ /g, '')===''){
-                                    tiCiudad.text=j.params.c
-                                }
-                                r.lat=j.params.lat
-                                r.lon=j.params.lon
-                                r.ulat=j.params.lat
-                                r.ulon=j.params.lon
-                                let vd=parseInt(tiFecha1.t.text)
-                                let vm=parseInt(tiFecha2.t.text)
-                                let vh=parseInt(tiHora1.t.text)
-                                let vmin=parseInt(tiHora2.t.text)
-                                let vgmt=controlTimeFecha.gmt//tiGMT.t.text
-                                let vCiudad=tiCiudad.t.text.replace(/_/g, ' ')
-                                if(j.params.d!==vd||j.params.m!==vm||j.params.a!==va||j.params.h!==vh||j.params.min!==vmin||r.lat!==r.ulat||r.lon!==r.ulon){
-                                    botCrear.text='Modificar'
-                                }else{
-                                    botCrear.text='[Crear]'
-                                }
+                            let p=zfdm.getJsonAbs().params
+                            let cNom=p.n.replace(/_/g, ' ')
+                            let nom=tiNombre.t.text.replace(/_/g, ' ')
+                            //log.lv('p.n: '+p.n)
+                            //log.lv('nom: '+nom)
+                            if(cNom===nom){
+                                botCrear.text='Modificar'
                             }else{
                                 botCrear.text='Crear'
                             }
                         }
                     }
+
+                    //                    Timer{
+                    //                        running: false//r.visible
+                    //                        repeat: true
+                    //                        interval: 1000
+                    //                        onTriggered: {
+                    //                            let nom=tiNombre.t.text.replace(/ /g, '_')
+                    //                            let fileName=apps.workSpace+'/'+nom+'.json'
+                    //                            if(unik.fileExist(fileName)){
+                    //                                r.uFileNameLoaded=tiNombre.text
+                    //                                let jsonFileData=unik.getFile(fileName)
+                    //                                let j=JSON.parse(jsonFileData)
+                    //                                let dia=''+j.params.d
+                    //                                if(parseInt(dia)<=9){
+                    //                                    dia='0'+dia
+                    //                                }
+                    //                                let mes=''+j.params.m
+                    //                                if(parseInt(mes)<=9){
+                    //                                    mes='0'+mes
+                    //                                }
+                    //                                let hora=''+j.params.h
+                    //                                if(parseInt(hora)<=9){
+                    //                                    hora='0'+hora
+                    //                                }
+                    //                                let minuto=''+j.params.min
+                    //                                if(parseInt(minuto)<=9){
+                    //                                    minuto='0'+minuto
+                    //                                }
+                    //                                let nt=new Date(parseInt(j.params.a), parseInt(mes - 1), parseInt(dia), parseInt(hora), parseInt(minuto))
+                    //                                controlTimeFecha.currentDate=nt
+                    //                                controlTimeFecha.gmt=j.params.gmt
+                    //                                if(tiCiudad.text.replace(/ /g, '')===''){
+                    //                                    tiCiudad.text=j.params.c
+                    //                                }
+                    //                                r.lat=j.params.lat
+                    //                                r.lon=j.params.lon
+                    //                                r.ulat=j.params.lat
+                    //                                r.ulon=j.params.lon
+                    //                                let vd=parseInt(tiFecha1.t.text)
+                    //                                let vm=parseInt(tiFecha2.t.text)
+                    //                                let vh=parseInt(tiHora1.t.text)
+                    //                                let vmin=parseInt(tiHora2.t.text)
+                    //                                let vgmt=controlTimeFecha.gmt//tiGMT.t.text
+                    //                                let vCiudad=tiCiudad.t.text.replace(/_/g, ' ')
+                    //                                if(j.params.d!==vd||j.params.m!==vm||j.params.a!==va||j.params.h!==vh||j.params.min!==vmin||r.lat!==r.ulat||r.lon!==r.ulon){
+                    //                                    botCrear.text='Modificar'
+                    //                                }else{
+                    //                                    botCrear.text='[Crear]'
+                    //                                }
+                    //                            }else{
+                    //                                botCrear.text='Crear'
+                    //                            }
+                    //                        }
+                    //                    }
+
                 }
             }
         }
@@ -461,6 +646,15 @@ Rectangle {
         interval: 2000
         onTriggered: searchGeoLoc(false)
     }
+    //    Timer{
+    //        id: tLoadTemp
+    //        running: false
+    //        repeat: false
+    //        interval: 2000
+    //        onTriggered: {
+
+    //        }
+    //    }
     Item{id: xuqp}
     function searchGeoLoc(crear){
         for(var i=0;i<xuqp.children.length;i++){
@@ -514,7 +708,7 @@ Rectangle {
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcodenewvn')
     }
     function setNewJsonFileData(){
-
+        let p=zfdm.getJsonAbs().params
         let vtipo='vn' //Esto luego lo programaré para EVENTOS tipo='even'
 
         let d = new Date(Date.now())
@@ -548,34 +742,49 @@ Rectangle {
         extId+='_'+vtipo
         extId+='_'+vhsys
 
-        let j='{'
-        j+='"params":{'
-        j+='"t":"'+vtipo+'",'
-        j+='"ms":'+ms+','
-        j+='"n":"'+nom+'",'
-        j+='"d":'+vd+','
-        j+='"m":'+vm+','
-        j+='"a":'+va+','
-        j+='"h":'+vh+','
-        j+='"min":'+vmin+','
-        j+='"gmt":'+vgmt+','
-        j+='"lat":'+vlat+','
-        j+='"lon":'+vlon+','
-        j+='"alt":'+valt+','
-        j+='"c":"'+vCiudad+'",'
-        j+='"hsys":"'+vhsys+'",'
-        if(apps.enableShareInServer && cbShared.checked){
-            j+='"shared":true,'
-        }else{
-            j+='"shared":false,'
+        let json={}
+        json.params={}
+        json.params.t=vtipo
+        json.params.ms=ms
+        json.params.n=nom
+        json.params.g='n'
+        if(cbGenero.currentIndex===1)json.params.g='f'
+        if(cbGenero.currentIndex===2)json.params.g='m'
+        json.params.f=false
+        if(botCrear.text==='Modificar'){
+            json.params.f=p.f
         }
-        j+='"extId":"'+extId+'"'
-        j+='},'
-        j+='"exts":[]'
-        j+='}'
+        json.params.data=taInforme.text
 
-        let json=JSON.parse(j)
-        if(zfdm.mkFileAndLoad(json)){
+        if(cbPreview.checked){
+            if(nom==='')nom='Sin Nombre'
+            json.params.n='Vista Previa - '+nom
+        }
+        json.params.d=vd
+        json.params.m=vm
+        json.params.a=va
+        json.params.h=vh
+        json.params.min=vmin
+        json.params.gmt=vgmt
+        json.params.lat=vlat
+        json.params.lon=vlon
+        json.params.alt=valt
+        json.params.c=vCiudad
+        json.params.hsys=vhsys
+        if(apps.enableShareInServer && cbShared.checked){
+            json.params.shared=true
+        }else{
+            json.params.shared=false
+        }
+        json.params.extId=extId
+        json.exts=[]
+
+        //let json=JSON.parse(j)
+        let asTemp=true
+        if(!cbPreview.checked || botCrear.text==='Modificar'){
+            asTemp=false
+        }
+        if(zfdm.mkFileAndLoad(json, asTemp)){
             if(apps.dev)log.lv('Archivo creado: '+json.params.n)
         }else{
             if(apps.dev)log.lv('Archivo NO creado: '+json.params.n)
@@ -589,14 +798,25 @@ Rectangle {
     function clear(){
         r.ulat=-100
         r.ulon=-100
+        r.ualt=0
+        r.lat=-100
+        r.lon=-100
+        r.alt=0
         tiNombre.t.text=''
-        tiFecha1.t.text=''
-        tiFecha2.t.text=''
-        tiFecha3.t.text=''
-        //tiHora1.t.text=''
-        tiHora2.t.text=''
         tiCiudad.t.text=''
-        tiGMT.t.text=''
+        tiAlt.t.text='0'
+        cbShared.checked=false
+        cbPreview.checked=false
+        controlTimeFecha.gmt=0
+        let d = new Date(Date.now())
+        controlTimeFecha.dia=d.getDate()
+        controlTimeFecha.mes=d.getMonth()
+        controlTimeFecha.anio=d.getFullYear()
+        controlTimeFecha.hora=d.getHours()
+        controlTimeFecha.minuto=d.getMinutes()
+
+        tiNombre.t.focus=true
+
     }
     function toRight(){
         if(controlTimeFecha.focus){
@@ -612,14 +832,105 @@ Rectangle {
         if(controlTimeFecha.focus){
             controlTimeFecha.toUp()
         }
+        if(cbGenero.focus){
+            if(cbGenero.currentIndex>0){
+                cbGenero.currentIndex--
+            }else{
+                cbGenero.currentIndex=cbGenero.model.length-1
+            }
+        }
     }
     function toDown(){
         if(controlTimeFecha.focus){
             controlTimeFecha.toDown()
         }
+        if(cbGenero.focus){
+            if(cbGenero.currentIndex<cbGenero.model.length-1){
+                cbGenero.currentIndex++
+            }else{
+                cbGenero.currentIndex=0
+            }
+        }
+    }
+    function toTab(){
+        if(tiNombre.t.focus){
+            cbGenero.focus=true
+        }else if(cbGenero.focus){
+            tiCiudad.t.focus=true
+        }else{
+            tiNombre.t.focus=true
+        }
     }
     function setInitFocus(){
         tiNombre.t.selectAll()
         tiNombre.t.focus=true
+    }
+    function loadTemp(){
+        if(!cbInputCoords.checked){
+            searchGeoLoc(true)
+        }else{
+            if(r.ulat===-1&&r.ulon===-1){
+                r.lat=0.0
+                r.lon=0.0
+                r.ulat=0.0
+                r.ulon=0.0
+            }else{
+                r.lat=parseFloat(tiLat.t.text)
+                r.lon=parseFloat(tiLon.t.text)
+                r.ulat=r.lat
+                r.ulon=r.lon
+            }
+            setNewJsonFileData()
+        }
+    }
+    function setForEdit(){
+        zsm.currentIndex=0
+        let panel=zsm.getPanel('ZoolFileManager')
+        panel.showSection('ZoolFileMaker')
+        let p=zfdm.getJsonAbs().params
+        tiNombre.t.text=p.n.replace(/_/g,' ')
+        controlTimeFecha.dia=p.d
+        controlTimeFecha.mes=p.m
+        controlTimeFecha.anio=p.a
+        controlTimeFecha.hora=p.h
+        controlTimeFecha.minuto=p.min
+        controlTimeFecha.gmt=p.gmt
+        let nCtDate= new Date(p.a, p.m-1, p.d, p.h, p.min)
+        controlTimeFecha.currentDate=nCtDate
+        tiCiudad.t.text=p.c
+        cbInputCoords.checked=true
+        r.ulat=p.lat
+        r.ulon=p.lon
+        if(p.alt){
+            r.ualt=p.alt
+        }else{
+            r.ualt=0
+        }
+        r.lat=p.lat
+        r.lon=p.lon
+        if(p.alt){
+            r.alt=p.alt
+        }else{
+            r.alt=0
+        }
+        tiLat.t.text=parseFloat(r.lat).toFixed(2)
+        tiLon.t.text=parseFloat(r.lon).toFixed(2)
+        tiAlt.t.text=''+r.alt
+
+        if(p.g){
+            if(p.g==='n'){
+                cbGenero.currentIndex=0
+            }
+            if(p.g==='f'){
+                cbGenero.currentIndex=1
+            }
+            if(p.g==='m'){
+                cbGenero.currentIndex=2
+            }
+        }else{
+            cbGenero.currentIndex=0
+        }
+        taInforme.text=p.data
+        //log.lv('p:'+JSON.stringify(p, null, 2))
     }
 }

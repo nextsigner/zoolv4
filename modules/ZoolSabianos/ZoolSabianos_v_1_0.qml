@@ -5,7 +5,7 @@ import Qt.labs.settings 1.1
 import "../../comps" as Comps
 
 import ZoolSabianos.ZoolSabianosView 1.0
-import ZoolText 1.0
+import ZoolText 1.1
 
 Rectangle {
     id: r

@@ -181,7 +181,7 @@ Rectangle {
                                     border.width: 2
                                     border.color: apps.fontColor
                                     anchors.horizontalCenter: parent.horizontalCenter
-                                    //visible: false
+                                    visible: false
                                     TextInput {
                                         id: txtDataSearchFecha
                                         text: apps.numUFecha

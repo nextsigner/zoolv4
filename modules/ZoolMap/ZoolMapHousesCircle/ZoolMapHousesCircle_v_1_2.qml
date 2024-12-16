@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import ZoolText 1.0
+import ZoolText 1.1
 import ZoolMap.ZoolMapPointerHouse 1.0
 
 Item {
@@ -502,7 +502,7 @@ Item {
                             //reSizeAppsFs.restart()
                         }
                         onClicked: {
-                            log.lv('Click en '+item.ih)
+                            //log.lv('Click en '+item.ih)
                             if(mouse.button === Qt.LeftButton && mouse.modifiers & Qt.ControlModifier) {
                                 log.lv('item.ih: '+item.ih)
                                 zm.setHousesPointerShow(item.ih, false)

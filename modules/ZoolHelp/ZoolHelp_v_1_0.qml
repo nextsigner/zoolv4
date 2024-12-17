@@ -11,7 +11,7 @@ Rectangle{
     property int svIndex: zsm.currentIndex
     property int itemIndex: -1
     property int fs: app.fs*0.75
-    property var aAsuntos: ['Inicio', 'Teclado', 'Mouse', 'Mapa Astrológico', 'Panel Métodos', 'Panel Cuerpos', 'Panel Secciones', 'Sabianos', 'Evolutiva', 'Editar Archivo', 'Advertencias', 'Agradecimientos', 'Sobre Qt']
+    property var aAsuntos: ['Inicio', 'Teclado', 'Mouse', 'Mapa Astrológico', 'Aspectos', 'Panel Métodos', 'Panel Cuerpos', 'Panel Secciones', 'Sabianos', 'Evolutiva', 'Editar Archivo', 'Advertencias', 'Agradecimientos', 'Sobre Qt']
     property string uAsunto: 'Inicio'
     Column{
         id: col0

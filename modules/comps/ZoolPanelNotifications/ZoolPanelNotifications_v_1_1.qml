@@ -130,6 +130,7 @@ Item{
             }
             ZoolButton{
                 text: 'X'
+                fs: app.fs*0.25
                 anchors.right: parent.right
                 anchors.rightMargin: app.fs*0.25
                 anchors.top: parent.top

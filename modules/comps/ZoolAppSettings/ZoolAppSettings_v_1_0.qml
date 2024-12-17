@@ -95,6 +95,7 @@ Settings{
 
     //property bool showLog: false
     property bool showMenuBar: false
+    property int currentThemeIndex: 0
     property bool enableBackgroundColor: false
     property string backgroundColor: "black"
     property string fontFamily: "ArialMdm"
@@ -166,7 +167,7 @@ Settings{
     property string numUFirma
     property bool numShowFormula: false
     property int numPanelLogFs: app.width*0.02
-    onZmCurrenThemeIndexChanged:zm.setTheme(zmCurrenThemeIndex)
+    onCurrentThemeIndexChanged:zm.setTheme(currentThemeIndex)
     onIsJsonsFolderTempChanged: {
         let jf=jsonsFolder
         let jft=jsonsFolderTemp

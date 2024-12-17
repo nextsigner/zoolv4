@@ -15,13 +15,6 @@ ZoolMenus{
             zsm.currentIndex=1
         }
     }
-    Action {
-        enabled: app.t==='vn'
-        text: qsTr("Ver Mapa Evolutivo")
-        onTriggered: {
-            zev.visible=true
-        }
-    }
     //<--Clasificados
     /*ZoolMenus {
         title: qsTr("MMMM sdfas fas as a afsaa sd 1111 11111 22222");
@@ -41,7 +34,58 @@ ZoolMenus{
         }
     }*/
     ZoolMenus{
-        title: 'Opciones de Archivo'
+        title: 'Ver'
+        w: r.w
+        Action {
+            text: "Cambiar Colores"//apps.fontColor==='white'?qsTr("Tema Claro"):qsTr("Tema Oscuro")
+            onTriggered: {
+                let jd=unik.getFile('./modules/ZoolMap/themes.json')
+                let lt=JSON.parse(jd).themes.length
+                if(apps.currentThemeIndex>0){
+                   apps.currentThemeIndex--
+                }else{
+                    apps.currentThemeIndex=lt-1
+                }
+                //zm.setTheme(apps.currentThemeIndex)
+            }
+        }
+        Action {
+            enabled: app.t==='vn'
+            text: qsTr("Ver Mapa Evolutivo")
+            onTriggered: {
+                zev.visible=true
+            }
+        }
+        Action {enabled: zm.ev; text: qsTr("Descartar exterior"); onTriggered: {
+                zm.loadFromFile(apps.url, zm.getParams().t, false)
+                zoolDataView.clearExtData()
+            }
+        }
+        Action {text: zm.ev?'Ocultar Exterior':'Ver Exterior'; onTriggered: {
+                zm.ev=!zm.ev
+            }
+        }
+        Action {text: qsTr("Zoom 1.0"); onTriggered: {
+                zm.zoomTo(1.0, true)
+            }
+        }
+        Action {text: qsTr("Zoom 1.5"); onTriggered: {
+                zm.zoomTo(1.5, true)
+            }
+        }
+        Action {
+            text: qsTr(apps.showNumberLines?"Ocultar grados":"Mostrar grados")
+            onTriggered: {apps.showNumberLines=!apps.showNumberLines}
+        }
+        Action {
+            text: qsTr("Cargar Ejemplo")
+            onTriggered: {
+                zm.loadJsonFromFilePath('/home/ns/gd/Zool/Ricardo.json')
+            }
+        }
+    }
+    ZoolMenus{
+        title: 'Archivo'
         w: r.w
         isContainer: true
         Action {text: qsTr("Cargar Tránsitos de Ahora"); onTriggered: {
@@ -140,37 +184,6 @@ ZoolMenus{
         }*/
         Action {text: qsTr("Crear imagen acutal y abrir"); onTriggered: {
                 zm.zmc.startSinNombreYAbrir()
-            }
-        }
-    }
-    ZoolMenus{
-        title: 'Opciones de Visualización'
-        w: r.w
-        Action {enabled: zm.ev; text: qsTr("Descartar exterior"); onTriggered: {
-                zm.loadFromFile(apps.url, zm.getParams().t, false)
-                zoolDataView.clearExtData()
-            }
-        }
-        Action {text: zm.ev?'Ocultar Exterior':'Ver Exterior'; onTriggered: {
-                zm.ev=!zm.ev
-            }
-        }
-        Action {text: qsTr("Zoom 1.0"); onTriggered: {
-                zm.zoomTo(1.0, true)
-            }
-        }
-        Action {text: qsTr("Zoom 1.5"); onTriggered: {
-                zm.zoomTo(1.5, true)
-            }
-        }
-        Action {
-            text: qsTr(apps.showNumberLines?"Ocultar grados":"Mostrar grados")
-            onTriggered: {apps.showNumberLines=!apps.showNumberLines}
-        }
-        Action {
-            text: qsTr("Cargar Ejemplo")
-            onTriggered: {
-                zm.loadJsonFromFilePath('/home/ns/gd/Zool/Ricardo.json')
             }
         }
     }

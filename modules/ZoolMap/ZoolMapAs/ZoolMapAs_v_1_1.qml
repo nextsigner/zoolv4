@@ -402,12 +402,12 @@ Item{
         Rectangle{
             width: parent.width*0.5
             height: width
-            color: 'black'
+            color: apps.fontColor
             visible: apps.dev
             Text{
                 text: r.pos
                 font.pixelSize: parent.width-4
-                color: 'white'
+                color: apps.backgroundColor
                 anchors.centerIn: parent
             }
         }

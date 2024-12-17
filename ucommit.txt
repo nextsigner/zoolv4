@@ -1,1 +1,1 @@
-Se corrige num_prognosis.json
+Se crea instalador para Windows v4.12.17.1

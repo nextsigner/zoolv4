@@ -1,7 +1,28 @@
 {
     "themes":[
         {
-            "name": "Default",
+            "name": "Claro",
+            "fontColor": "#000000",
+            "backgroundColor": "#FFFFFF",
+            "bodieColor": "#000000",
+            "bodieColorBack": "#00FF00",
+            "bodieBgColor": "transparent",
+            "bodieBgColorBack": "transparent",
+            "bodieBgBorderWidth": 0,
+            "bodieBgBorderWidthBack": 0,
+            "bodieBgBorderColor": "#000000",
+            "bodieBgBorderColorBack": "#000000",
+            "houseLineColor": "#000000",
+            "houseLineColorBack": "#000000",
+            "showSignsCircleColors": true,
+            "iconSignColor": "#000000",
+            "borderSignColor": "#000000",
+            "borderSignCircleWidth": 1
+        },
+        {
+            "name": "Oscuro",
+            "fontColor": "#FFFFFF",
+            "backgroundColor": "#000000",
             "bodieColor": "white",
             "bodieColorBack": "#00FF00",
             "bodieBgColor": "transparent",
@@ -19,6 +40,8 @@
         },
         {
             "name": "Matrix",
+            "fontColor": "#00FF00",
+            "backgroundColor": "#000000",
             "bodieColor": "#00FF00",
             "bodieColorBack": "#00FF00",
             "bodieBgColor": "black",
@@ -34,6 +57,5 @@
             "borderSignColor": "#00FF00",
             "borderSignCircleWidth": 2
         }
-
     ]
 }

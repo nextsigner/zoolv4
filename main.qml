@@ -689,7 +689,7 @@ ZoolMainWindow{
         if(apps.dev)log.lv('Ultimo archivo cargado con anterioridad: '+apps.url)
         let args=Qt.application.arguments
         JS.setFs()
-
+        zm.setTheme(apps.currentThemeIndex)
         //Check is dev with the arg -dev
         if(args.indexOf('-dev')>=0){
             apps.dev=true

@@ -835,6 +835,12 @@ Rectangle{
         r.iconSignColor=t.iconSignColor
         r.borderSignColor=t.borderSignColor
         r.borderSignCircleWidth=t.borderSignCircleWidth
+        apps.fontColor=t.fontColor
+        apps.backgroundColor=t.backgroundColor
+        let j={}
+        j.id='theme'
+        j.text='Tema N° '+parseInt(i+1)+' Nombre: '+t.name
+        zpn.addNot(j, true, 10000)
         //log.lv('Themes r.bodieColor: '+r.bodieColor)
     }
 

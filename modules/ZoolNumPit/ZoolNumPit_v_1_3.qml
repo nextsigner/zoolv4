@@ -1984,12 +1984,17 @@ Rectangle {
         }
         r.currentTipoPin4=tPin
     }
-    function enter(){
+    function toEnter(){
         if(txtDataSearchFecha.focus){
             calc()
             return
         }
     }
+    function toUp(){}
+    function toDown(){}
+    function toLeft(){}
+    function toRight(){}
+    function toTab(){}
     function updateGenero(){
         let p=zfdm.getJsonAbsParams(false)
         if(p.g==='m'){

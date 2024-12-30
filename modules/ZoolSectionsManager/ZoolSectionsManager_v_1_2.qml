@@ -3,7 +3,7 @@ import QtQuick.Controls 2.12
 import '../../comps' as Comps
 
 import ZoolFileExtDataManager 1.2
-import ZoolFileManager 1.4
+import ZoolFiles.ZoolFileManager 1.4
 import ZoolMods 1.0
 import ZoolListLunar 1.0
 import ZoolSabianos 1.1
@@ -24,9 +24,14 @@ Item{
     property int currentIndex: count-1//apps.currentSwipeViewIndex
     property int count: indicatorSV.count
     property var aPanelsIds: []
-    property var currentSectionFocused
+    property var currentSectionFocused: r
     property var aPanelesTits: []
     property string uPanelIdHovered: ''
+
+    property string currentSectionFocusedName: ''
+    onCurrentSectionFocusedChanged: {
+        r.currentSectionFocusedName=app.j.qmltypeof(currentSectionFocused)
+    }
     onAPanelsIdsChanged: {
         indicatorSV.count=aPanelsIds.length
     }
@@ -135,6 +140,11 @@ Item{
                 }
 
             }
+            Text{
+                text: r.currentSectionFocusedName
+                font.pixelSize: app.fs*0.25
+                color: apps.fontColor
+            }
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
@@ -154,6 +164,24 @@ Item{
                     radius: width / 2
                     color: apps.fontColor
                     opacity: index === indicatorSV.currentIndex?0.95: pressed ? 0.7: 0.45
+                    /*Rectangle{
+                        width: parent.width*0.65
+                        height: width
+                        color: apps.backgroundColor
+                        anchors.centerIn: parent
+                        rotation: r.currentSectionFocusedName===app.j.qmltypeof(getPanelVisible())?45:0
+                        visible:rotation===45
+                        //rotation: 'ZoolNumPit'===app.j.qmltypeof(getPanelVisible())?45:0
+                    }*/
+                    Text{
+                        text:'\uf04b'
+                        font.family: "FontAwesome"
+                        font.pixelSize: parent.width*0.75
+                        color: apps.backgroundColor
+                        anchors.centerIn: parent
+                        rotation: 270
+                        visible:r.currentSectionFocusedName===app.j.qmltypeof(getPanelVisible()) && parent.opacity===0.95
+                    }
                     Text{
                         text:'\uf26c'
                         font.family: "FontAwesome"
@@ -249,7 +277,7 @@ Item{
             if(''+app.j.qmltypeof(o)===''+typeOfSection){
                 o.visible=true
                 //newCi=i
-                r.currentSectionFocused=o
+                //r.currentSectionFocused=o
             }else{
                 o.visible=false
             }
@@ -282,11 +310,37 @@ Item{
         }
         return obj
     }
+    function setCurrentSectionFocusedName(){
+        let s='-->:'+app.j.qmltypeof(currentSectionFocused)
+        s+=' -->: '+currentSectionFocused.objectName
+        log.lv(s)
+
+    }
+    function toEnter(){
+        r.currentSectionFocused=getPanelVisible()
+    }
     function toLeft(){
-        getPanelVisible().toLeft()
+        //setCurrentSectionFocusedName()
+        if(!currentSectionFocused || currentSectionFocused===r){
+            if(r.currentIndex>0){
+                r.currentIndex--
+            }else{
+                r.currentIndex=r.aPanelesTits.length-1
+            }
+        }else{
+            getPanelVisible().toLeft()
+        }
     }
     function toRight(){
-        getPanelVisible().toRight()
+        if(!currentSectionFocused || currentSectionFocused===r){
+            if(r.currentIndex<r.aPanelesTits.length-1){
+                r.currentIndex++
+            }else{
+                r.currentIndex=0
+            }
+        }else{
+            getPanelVisible().toRight()
+        }
     }
     function toUp(){
         getPanelVisible().toUp()

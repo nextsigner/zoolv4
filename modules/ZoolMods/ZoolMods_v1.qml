@@ -7,7 +7,7 @@ import ZoolMods.ZoolFileTransLoader 1.5
 import ZoolMods.ZoolFileDirPrimLoader 1.7
 import ZoolMods.ZoolFileProgSecLoader 1.0
 import ZoolButton 1.0
-import ZoolText 1.0
+import ZoolText 1.1
 
 Rectangle {
     id: r

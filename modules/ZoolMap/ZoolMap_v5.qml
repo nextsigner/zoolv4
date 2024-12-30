@@ -24,6 +24,7 @@ Rectangle{
     border.width: xZoolMap.showDevLines?50:0
     border.color: xZoolMap.showDevLines?'#8833ff':'transparent'
     color: xZoolMap.showDevLines?'#8f8faa':'transparent'
+    opacity: tapa.opacity
     //anchors.horizontalCenterOffset: 0-r.width*0.5
     //anchors.verticalCenterOffset: 0-r.width*0.5
     //clip: true
@@ -195,6 +196,10 @@ Rectangle{
     property color iconSignColor: "white"
     property color borderSignColor: "white"
     property int borderSignCircleWidth: 2
+    property color pointerBgColor:"#FFFFFF"
+    property color pointerFontColor:"red"
+    property int pointerBorderWidth:1
+    property color pointerBorderColor:"#000000"
     //<--Theme
 
     property var aTexts: []
@@ -815,7 +820,15 @@ Rectangle{
         if(!apps)return
         setTheme(apps.zmCurrenThemeIndex)
     }
-
+    function nextTheme(){
+        let jd=unik.getFile('./modules/ZoolMap/themes.json')
+        let lt=JSON.parse(jd).themes.length
+        if(apps.currentThemeIndex>0){
+           apps.currentThemeIndex--
+        }else{
+            apps.currentThemeIndex=lt-1
+        }
+    }
     function setTheme(i){
         //Set ZoolMap Theme
         let jd=unik.getFile('./modules/ZoolMap/themes.json')
@@ -835,6 +848,10 @@ Rectangle{
         r.iconSignColor=t.iconSignColor
         r.borderSignColor=t.borderSignColor
         r.borderSignCircleWidth=t.borderSignCircleWidth
+        r.pointerBgColor=t.pointerBgColor
+        r.pointerFontColor=t.pointerFontColor
+        r.pointerBorderWidth=t.pointerBorderWidth
+        r.pointerBorderColor=t.pointerBorderColor
         apps.fontColor=t.fontColor
         apps.backgroundColor=t.backgroundColor
         let j={}

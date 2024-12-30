@@ -105,4 +105,24 @@ Rectangle{
     function mkTwichChat(){
 
     }
+    function toEnter(){}
+    function toLeft(){}
+    function toRight(){}
+    function toUp(){
+        if(flk.contentY>0){
+            flk.contentY-=app.fs
+        }
+    }
+    function toDown(){
+        if(flk.contentY<(flk.contentHeight-(flk.height-app.fs*3))){
+            flk.contentY+=app.fs
+        }
+    }
+
+    /*function toEnter(){}
+    function toLeft(){}
+    function toRight(){}
+    function toUp(){}
+    function toDown(){}*/
+
 }

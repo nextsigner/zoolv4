@@ -221,7 +221,7 @@ Rectangle {
             clip: true
             onCurrentIndexChanged: {
                 if(currentIndex>=0){
-                    zsm.currentSectionFocused=r
+                    //zsm.currentSectionFocused=r
                     ti.focus=false
                 }
                 if(!lm.get(currentIndex) || !lm.get(currentIndex).fileName)return
@@ -664,7 +664,7 @@ Rectangle {
                     //xNombre.nom=textData
                     lm.append(lm.addItem(file,textData, jsonData.params.t, jsonData.params.f))
                 }
-                if(r.itemIndex===r.svIndex)txtDataSearch.focus=true
+                //if(r.itemIndex===r.svIndex)txtDataSearch.focus=true
                 //txtDataSearch.selectAll()
             } catch (e) {
                 console.log('Error Json panelFileLoader: ['+file+'] '+jsonFileData)
@@ -781,7 +781,7 @@ Rectangle {
                     //xNombre.nom=textData
                     lm.append(lm.addItem(file,textData, jsonData.params.t, jsonData.params.f))
                 }
-                if(r.itemIndex===r.svIndex)txtDataSearch.focus=true
+                //if(r.itemIndex===r.svIndex)txtDataSearch.focus=true
                 //txtDataSearch.selectAll()
             } catch (e) {
                 console.log('Error Json panelFileLoader: ['+file+'] '+jsonFileData)
@@ -891,12 +891,12 @@ Rectangle {
 //        }
 //    }
 
-    function enter(){
+    function toEnter(){
         zm.loadJsonFromFilePath(r.currentFile)
         r.currentIndex=-1
         //r.state='hide'
     }
-    function up(){
+    function toUp(){
         //log.lv('up() lv.currentIndex: '+lv.currentIndex)
         if(lv.currentIndex>0){
             lv.currentIndex--
@@ -904,7 +904,7 @@ Rectangle {
             lv.currentIndex=lv.count-1
         }
     }
-    function down(){
+    function toDown(){
         //log.lv('down() lv.currentIndex: '+lv.currentIndex)
         if(lv.currentIndex<lv.count-1){
             lv.currentIndex++
@@ -912,6 +912,9 @@ Rectangle {
             lv.currentIndex=0
         }
     }
+    function toLeft(){}
+    function toRight(){}
+    function toTab(){}
     function setInitFocus(){
         txtDataSearch.focus=true
         txtDataSearch.selectAll()

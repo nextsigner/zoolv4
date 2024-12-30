@@ -62,7 +62,7 @@ Item{
             if(''+app.j.qmltypeof(o)===''+typeOfSection){
                 o.visible=true
                 //newCi=i
-                r.currentSectionFocused=o
+                //r.currentSectionFocused=o
             }else{
                 o.visible=false
             }

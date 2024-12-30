@@ -223,7 +223,8 @@ ApplicationWindow {
                 return
             }
             if(apps.zFocus==='xLatIzq'){
-                if(apps.currentSwipeViewIndex===2&&zsm.getPanel('ZoolFileManager').currentIndex>=0){
+                zsm.toEnter()
+                /*if(apps.currentSwipeViewIndex===2&&zsm.getPanel('ZoolFileManager').currentIndex>=0){
                     zsm.getPanel('ZoolFileManager').enter()
                     return
                 }
@@ -238,7 +239,7 @@ ApplicationWindow {
                 if(apps.currentSwipeViewIndex===4){
                     ncv.enter()
                     return
-                }
+                }*/
             }
         }
     }
@@ -317,6 +318,10 @@ ApplicationWindow {
             }
             if(log.visible){
                 log.visible=false
+                return
+            }
+            if(zsm.currentSectionFocusedName!=='ZoolSectionsManager'){
+                zsm.currentSectionFocused=zsm
                 return
             }
             if(apps.dev && !log.visible){
@@ -644,16 +649,12 @@ ApplicationWindow {
                 }
 
             }
-            if(apps.zFocus==='xLatIzq' && zsm.getPanel('ZoolFileManager').visible){
-                zsm.currentSectionFocused.toLeft()
-                return
-            }
+//            if(apps.zFocus==='xLatIzq' && zsm.getPanel('ZoolFileManager').visible){
+//                zsm.currentSectionFocused.toLeft()
+//                return
+//            }
             if(apps.zFocus==='xLatIzq'){
-                if(zsm.currentIndex>0){
-                    zsm.currentIndex--
-                }else{
-                    zsm.currentIndex=zsm.count-1
-                }
+                zsm.toLeft()
             }
         }
     }
@@ -667,16 +668,12 @@ ApplicationWindow {
                 }
 
             }
-            if(apps.zFocus==='xLatIzq' && zsm.getPanel('ZoolFileManager').visible){
-                zsm.currentSectionFocused.toRight()
-                return
-            }
+//            if(apps.zFocus==='xLatIzq' && zsm.getPanel('ZoolFileManager').visible){
+//                zsm.currentSectionFocused.toRight()
+//                return
+//            }
             if(apps.zFocus==='xLatIzq'){
-                if(zsm.currentIndex<zsm.count-1){
-                    zsm.currentIndex++
-                }else{
-                    zsm.currentIndex=0
-                }
+                zsm.toRight()
             }
         }
     }
@@ -790,13 +787,13 @@ ApplicationWindow {
             //panelPronEdit.state=panelPronEdit.state==='show'?'hide':'show'
         }
     }
-    //Mostrar Mostrar Reloj
-    //    Shortcut{
-    //        sequence: 'Ctrl+t'
-    //        onActivated: {
-    //            apps.showTimes=!apps.showTimes
-    //        }
-    //    }
+    //Cambiar Tema
+    Shortcut{
+        sequence: 'Ctrl+t'
+        onActivated: {
+            zm.nextTheme()
+        }
+    }
     //Mostrar Panel para Lineas de Comando
     Shortcut{
         sequence: 'Ctrl+b'
@@ -856,12 +853,12 @@ ApplicationWindow {
         }
     }
     //Mostrar Panel de Aspectos en Transito
-    Shortcut{
+    /*Shortcut{
         sequence: 'Ctrl+t'
         onActivated: {
             panelAspTransList.state=panelAspTransList.state==='show'?'hide':'show'
         }
-    }
+    }*/
     Shortcut{
         sequence: 'Ctrl+Shift+p'
         onActivated: {

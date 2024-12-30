@@ -1,10 +1,10 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import Qt.labs.settings 1.1
-import "../../comps" as Comps
+import "../../../comps" as Comps
 
-import ZoolFileMaker 1.6
-import ZoolFileLoader 1.4
+import ZoolFiles.ZoolFileMaker 1.6
+import ZoolFiles.ZoolFileLoader 1.4
 
 import ZoolButton 1.0
 import ZoolText 1.1

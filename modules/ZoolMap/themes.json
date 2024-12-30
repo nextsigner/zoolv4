@@ -17,7 +17,11 @@
             "showSignsCircleColors": true,
             "iconSignColor": "#000000",
             "borderSignColor": "#000000",
-            "borderSignCircleWidth": 1
+            "borderSignCircleWidth": 1,
+            "pointerFontColor":"#000000",
+            "pointerBgColor":"#FFFFFF",
+            "pointerBorderWidth":1,
+            "pointerBorderColor":"#FF0000"
         },
         {
             "name": "Oscuro",
@@ -36,7 +40,11 @@
             "showSignsCircleColors": true,
             "iconSignColor": "white",
             "borderSignColor": "white",
-            "borderSignCircleWidth": 1
+            "borderSignCircleWidth": 1,
+            "pointerBgColor":"#333333",
+            "pointerFontColor":"#FFFFFF",
+            "pointerBorderWidth":1,
+            "pointerBorderColor":"#FF0000"
         },
         {
             "name": "Matrix",
@@ -55,7 +63,11 @@
             "showSignsCircleColors": false,
             "iconSignColor": "#00FF00",
             "borderSignColor": "#00FF00",
-            "borderSignCircleWidth": 2
+            "borderSignCircleWidth": 2,
+            "pointerBgColor":"#00FF00",
+            "pointerFontColor":"#000000",
+            "pointerBorderWidth":1,
+            "pointerBorderColor":"#FF0000"
         }
     ]
 }

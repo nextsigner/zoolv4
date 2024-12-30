@@ -1,1 +1,1 @@
-Se crea instalador para Windows v4.12.17.1
+Se mueve ZoolFileManager a ZoolFiles

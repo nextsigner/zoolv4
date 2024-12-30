@@ -39,14 +39,7 @@ ZoolMenus{
         Action {
             text: "Cambiar Colores"//apps.fontColor==='white'?qsTr("Tema Claro"):qsTr("Tema Oscuro")
             onTriggered: {
-                let jd=unik.getFile('./modules/ZoolMap/themes.json')
-                let lt=JSON.parse(jd).themes.length
-                if(apps.currentThemeIndex>0){
-                   apps.currentThemeIndex--
-                }else{
-                    apps.currentThemeIndex=lt-1
-                }
-                //zm.setTheme(apps.currentThemeIndex)
+                zm.nextTheme()
             }
         }
         Action {

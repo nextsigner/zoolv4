@@ -57,7 +57,7 @@ Item {
         Rectangle{
             width: r.cotaLong
             height: apps.pointerLineWidth
-            //color: apps.pointerLineColor
+            //color: zm.pointerBorderColor
             //color: borde.border.color
             color: rectData.border.color
             anchors.verticalCenter: parent.verticalCenter
@@ -67,16 +67,16 @@ Item {
                 anchors.fill: parent
                 color: 'transparent'
                 border.width: 1
-                border.color: apps.fontColor
+                border.color: zm.pointerBgColor
                 visible: zm.capturing
             }
             Rectangle{
                 id: rectData
                 width: col.width+r.pointerFs*0.5
                 height: col.height+r.pointerFs*0.5
-                color: !isCapturing?apps.fontColor:apps.fontColor
+                color: !isCapturing?zm.pointerBgColor:zm.pointerBgColor
                 border.width: 3
-                border.color: !isCapturing?apps.pointerLineColor:apps.pointerLineColor
+                border.color: !isCapturing?zm.pointerBorderColor:zm.pointerBorderColor
                 radius: r.pointerFs*0.25
                 //rotation: r.iconoSignRot-eje.rotation
                 rotation: !r.isBack?
@@ -94,12 +94,12 @@ Item {
                     running: !zm.capturing
                     loops: Animation.Infinite
                     onRunningChanged: {
-                        if(!running)rectData.border.color=apps.pointerLineColor
+                        if(!running)rectData.border.color=zm.pointerBorderColor
                     }
-                    ColorAnimation { from: apps.pointerLineColor; to: apps.fontColor; duration: 200 }
-                    ColorAnimation { from: apps.fontColor; to: apps.pointerLineColor; duration: 200 }
-                    ColorAnimation { from: apps.pointerLineColor; to: apps.backgroundColor; duration: 200 }
-                    ColorAnimation { from: apps.backgroundColor; to: apps.pointerLineColor; duration: 200 }
+                    ColorAnimation { from: zm.pointerBorderColor; to: zm.pointerBgColor; duration: 400 }
+                    ColorAnimation { from: zm.pointerBgColor; to: zm.pointerBorderColor; duration: 400 }
+                    ColorAnimation { from: zm.pointerBorderColor; to: zm.pointerFontColor; duration: 400 }
+                    ColorAnimation { from: zm.pointerFontColor; to: zm.pointerBorderColor; duration: 400 }
                 }
                 Column{
                     id: col
@@ -112,9 +112,9 @@ Item {
                             width: r.pointerFs//*0.8
                             height: width
                             radius: width*0.5
-                            color: apps.fontColor
+                            color: zm.pointerBgColor
                             border.width: 2
-                            border.color: apps.backgroundColor
+                            border.color: zm.pointerFontColor
                             anchors.verticalCenter: parent.verticalCenter
                             Image {
                                 id: img0
@@ -130,7 +130,7 @@ Item {
                                 id: co0
                                 anchors.fill: img0
                                 source: img0
-                                color: apps.backgroundColor
+                                color: zm.pointerFontColor
                                 //rotation: img1.rotation
                                 antialiasing: true
                             }
@@ -143,9 +143,9 @@ Item {
                             width: r.pointerFs//*0.8
                             height: width
                             radius: width*0.5
-                            color: apps.fontColor
+                            color: zm.pointerBgColor
                             border.width: 2
-                            border.color: apps.backgroundColor
+                            border.color: zm.pointerFontColor
                             anchors.verticalCenter: parent.verticalCenter
                             Image {
                                 id: img1
@@ -160,7 +160,7 @@ Item {
                                 id: co1
                                 anchors.fill: img1
                                 source: img1
-                                color: apps.backgroundColor
+                                color: zm.pointerFontColor
                                 //rotation: img1.rotation
                                 antialiasing: true
                             }
@@ -173,7 +173,7 @@ Item {
                         Text{
                             text: app.planetas[r.p]+' en '+app.signos[r.is]
                             font.pixelSize: r.pointerFs*0.5
-                            color: apps.backgroundColor
+                            color: zm.pointerFontColor
                             anchors.verticalCenter: parent.verticalCenter
                         }
                     }
@@ -185,7 +185,7 @@ Item {
                                       !r.isBack?zm.currentNakshatra:zm.currentNakshatraBack
                                       )
                             font.pixelSize: r.pointerFs*0.35
-                            color: apps.backgroundColor
+                            color: zm.pointerFontColor
                             anchors.verticalCenter: parent.verticalCenter
                             visible: r.p===1
                         }
@@ -196,7 +196,7 @@ Item {
                         Text{
                             text: 'En el grado °'+r.rsgdeg+'\''+r.mdeg
                             font.pixelSize: r.pointerFs*0.5
-                            color: apps.backgroundColor
+                            color: zm.pointerFontColor
                             anchors.verticalCenter: parent.verticalCenter
                         }
                     }
@@ -206,16 +206,16 @@ Item {
                         Text{
                             text: 'Casa '
                             font.pixelSize: r.pointerFs*0.5
-                            color: apps.backgroundColor
+                            color: zm.pointerFontColor
                             anchors.verticalCenter: parent.verticalCenter
                         }
                         Rectangle{
                             width: r.pointerFs*0.8
                             height: width
                             radius: width*0.5
-                            color: apps.fontColor
+                            color: zm.pointerBgColor
                             border.width: 2
-                            border.color: apps.backgroundColor
+                            border.color: zm.pointerFontColor
                             anchors.verticalCenter: parent.verticalCenter
                             Image {
                                 id: img2
@@ -231,14 +231,14 @@ Item {
                                 id: co2
                                 anchors.fill: img2
                                 source: img2
-                                color: apps.backgroundColor
+                                color: zm.pointerFontColor
                                 //rotation: img1.rotation
                                 antialiasing: true
                             }
                             Text{
                                 font.pixelSize: r.ih<=9?parent.width*0.6:parent.width*0.4
                                 text: '<b>'+r.ih+'</b>'
-                                color: 'white'
+                                color: zm.pointerBgColor
                                 anchors.centerIn: parent
                             }
                         }
@@ -249,7 +249,7 @@ Item {
                     radius: parent.radius
                     color: 'transparent'
                     border.width: 1
-                    border.color: apps.fontColor
+                    border.color: zm.pointerBgColor
                     visible: zm.capturing
                 }
             }

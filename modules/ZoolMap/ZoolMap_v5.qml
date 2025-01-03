@@ -445,7 +445,7 @@ Rectangle{
                 property real m_zoom1: 1.0//0.5
                 property real m_zoom2: 1.0//0.5
                 property real m_max: 6
-                property real m_min: 1.0//0.5
+                property real m_min: 0.75//1.0//0.5
 
                 onPinchStarted: {
                     console.log("Pinch Started")
@@ -1812,7 +1812,20 @@ Rectangle{
         var item2=centro
         var absolutePosition = item2.mapToItem(item1, 0, 0);
         //return {x: absolutePosition.x, y:absolutePosition.y}
+
+        /*
+          //Probando
+        pinchArea.m_zoom1=0.75
+        pinchArea.m_zoom2=0.75
+        pinchArea.m_x1=rect.width*0.5
+        pinchArea.m_x2=pinchArea.m_x1
+        pinchArea.m_y1=rect.height*0.5
+        pinchArea.m_y2=pinchArea.m_y1
+        */
+
+
         zm.panTo(absolutePosition.x, absolutePosition.y)
+
 
     }
     function centerZoomAndPos(){

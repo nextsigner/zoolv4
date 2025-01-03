@@ -962,11 +962,13 @@ ApplicationWindow {
     Shortcut{
         sequence: '1'
         onActivated: {
-            zm.objSignsCircle.rotar(0, rv)
-            rv++
+            //zm.objSignsCircle.rotar(0, rv)
+            //rv++
             //zm.isMultiCapturing=true
             //zm.capturing=true
-            //zm.centrarZooMap()
+
+
+            zm.centrarZooMap()
 
             //log.lv('house pos: '+pos.x)
             //log.width=xLatIzq.width

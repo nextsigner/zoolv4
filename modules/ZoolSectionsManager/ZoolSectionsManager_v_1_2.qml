@@ -144,6 +144,7 @@ Item{
                 text: r.currentSectionFocusedName
                 font.pixelSize: app.fs*0.25
                 color: apps.fontColor
+                visible: false
             }
             MouseArea{
                 anchors.fill: parent

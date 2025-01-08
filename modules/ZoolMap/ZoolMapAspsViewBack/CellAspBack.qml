@@ -64,13 +64,15 @@ Rectangle {
                 zm.currentPlanetIndexBack=-1
                 //apps.showAspCircleBack=true
                 zm.lastAspShowed='ext'
+                zm.uAspShow='ext_'+arrColors[indexAsp]+'_bodie_'+r.bodie+'_'+r.objectName
             }else{
                 zm.objAspsCircleBack.currentAspSelected=-1
                 //swegz.sweg.objAspsCircle.currentAspSelected=-1
                 zm.currentPlanetIndexBack=ma.uCurrentPlanetIndex
                 zm.lastAspShowed='int'
+                zm.uAspShow=''
             }
-            zm.uAspShow='ext_'+arrColors[indexAsp]+'_bodie_'+r.bodie+'_'+r.objectName
+            //zm.uAspShow='ext_'+arrColors[indexAsp]+'_bodie_'+r.bodie+'_'+r.objectName
         }
     }
     Rectangle{

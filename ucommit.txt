@@ -1,1 +1,1 @@
-Se crea el script python searchDateBodieInDeg.py
+Se crea el instalador Win v5.1.8.1

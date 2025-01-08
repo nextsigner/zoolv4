@@ -68,13 +68,15 @@ Rectangle {
                 zm.currentHouseIndex=-1
                 //apps.showAspCircle=true
                 zm.lastAspShowed='int'
+                zm.uAspShow='int_'+arrColors[indexAsp]+'_bodie_'+r.bodie+'_'+r.objectName
             }else{
                 zm.objAspsCircle.currentAspSelected=-1
                 //swegz.zm.objAspsCircle.currentAspSelected=-1
                 zm.currentPlanetIndex=ma.uCurrentPlanetIndex
                 zm.lastAspShowed='ext'
+                zm.uAspShow=''
             }
-            zm.uAspShow='int_'+arrColors[indexAsp]+'_bodie_'+r.bodie+'_'+r.objectName
+            //zm.uAspShow='int_'+arrColors[indexAsp]+'_bodie_'+r.bodie+'_'+r.objectName
             //log.lv('Bodie: '+r.bodie+ ' Col: '+r.objectName)
         }
     }

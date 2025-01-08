@@ -18,22 +18,6 @@ Rectangle {
     property int latFocus: 0
     property int currentIndex: -1
     property int currentIndexBack: -1
-//    states: [
-//        State {
-//            name: "show"
-//            PropertyChanges {
-//                target: r
-//                x:r.parent.width-r.width
-//            }
-//        },
-//        State {
-//            name: "hide"
-//            PropertyChanges {
-//                target: r
-//                x:r.parent.width
-//            }
-//        }
-//    ]
     Behavior on x{NumberAnimation{duration: app.msDesDuration}}
     Row{
         width: parent.width-r.border.width*2
@@ -81,6 +65,9 @@ Rectangle {
                 currentIndexBack=21
             }
         }
+//        if(currentIndexBack===-1){
+//            zm.centerZoomAndPos()
+//        }
     }
     function toDown(){
         if(zoolDataBodies.latFocus===0){
@@ -97,6 +84,7 @@ Rectangle {
                 currentIndexBack=-1
             }
         }
+
     }
     function toEnter(){
         if(latFocus===0){

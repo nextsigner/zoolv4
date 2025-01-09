@@ -30,7 +30,7 @@ Item{
                     jsonNot.text='Hay una nueva versión de Zool disponible\n\nVersión actual: '+v2+'\nVersión disponible: '+v1+''
                     jsonNot.url='https://github.com/nextsigner/zoolv4'
                     jsonNot.bot1Text='Ver Repositorio GitHub'
-                    zpn.addNot(jsonNot, false, 20000)
+                    zpn.addNot(jsonNot, true, 20000)
                 }
 
                 /*let c='import QtQuick 2.0\n'

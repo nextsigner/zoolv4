@@ -490,8 +490,9 @@ Rectangle {
                             spacing: app.fs*0.25
                             anchors.horizontalCenter:  parent.horizontalCenter
                             ZoolButton{
-                                text: 'Ver Prognosis de '+cbTipoProg.currentText
+                                text: 'Ver Datos de '+cbTipoProg.currentText
                                 fs: app.fs*0.5
+                                //bgColor: 'red'
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 onClicked:{
                                     let offSet=0
@@ -524,11 +525,10 @@ Rectangle {
                                     logView.l(data)
                                     logView.scrollToTop()
                                     logView.visible=true
-
                                 }
                             }
                             ZoolButton{
-                                text: 'Copiar Prognosis de '+cbTipoProg.currentText
+                                text: 'Copiar Datos de '+cbTipoProg.currentText
                                 fs: app.fs*0.5
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 onClicked:{

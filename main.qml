@@ -40,7 +40,7 @@ import ZoolControlsTime 1.0
 
 import ZoolSectionsManager 1.2
 
-import ZoolDataBodies 3.1
+import ZoolDataBodies 3.2
 
 import comps.ZoolPanelNotifications 1.1
 import web.ZoolWebStatusManager 1.0
@@ -580,7 +580,11 @@ ZoolMainWindow{
                             }
                         }
                     }
-                    ZoolPanelNotifications{id: zpn}
+                    ZoolPanelNotifications{
+                        id: zpn
+                        anchors.right: parent.right
+                        anchors.rightMargin: apps.zFocus==='xLatDer'?xLatDer.width:0
+                    }
                 }
             }
             //Comps.XDataStatusBar{id: xDataStatusBar}

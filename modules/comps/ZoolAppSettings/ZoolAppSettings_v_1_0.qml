@@ -53,8 +53,8 @@ Settings{
     property int widthHousesAxis: 3.0
     property string houseLineColor: 'white'
     property string houseLineColorBack: 'red'
-    property int houseLineWidth: 4
-    property int houseLineWidthBack: 4
+    property int houseLineWidth: 2
+    property int houseLineWidthBack: 2
 
     //XAs
     property color xAsColor: 'white'
@@ -64,11 +64,11 @@ Settings{
     property bool anColorXAs: false
     property bool anRotation3CXAs: false
     property color pointerLineColor: 'red'
-    property int pointerLineWidth: 4
+    property int pointerLineWidth: 2
     property bool xAsShowIcon: false
 
     //Asp
-    property int aspLineWidth: 3
+    property int aspLineWidth: 2
     property bool panelAspShowBg: true
 
     //ZoolMap

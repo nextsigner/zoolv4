@@ -116,7 +116,7 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+Space'
         onActivated: {
-            if(app.currentPlanetIndex>=0&&app.currentXAs){
+            if(zm.currentPlanetIndex>=0&&app.currentXAs){
                 app.showPointerXAs=!app.showPointerXAs
                 return
             }
@@ -128,87 +128,107 @@ ApplicationWindow {
             //swegz.sweg.nextState()
         }
     }
+
+    //Seleccionar Area
+    Shortcut{
+        sequence: '1'
+        onActivated: {
+            apps.zFocus='xLatIzq'
+        }
+    }
+    Shortcut{
+        sequence: '2'
+        onActivated: {
+            apps.zFocus='xMed'
+        }
+    }
+    Shortcut{
+        sequence: '3'
+        onActivated: {
+            apps.zFocus='xLatDer'
+        }
+    }
     //Seleccionar Planeta
     Shortcut{
         sequence: 'Ctrl+0'
         onActivated: {
-            app.currentPlanetIndex=0
+            zm.currentPlanetIndex=0
         }
     }
     Shortcut{
         sequence: 'Ctrl+1'
         onActivated: {
-            app.currentPlanetIndex=1
+            zm.currentPlanetIndex=1
         }
     }
     //Seleccionar Planeta
     Shortcut{
         sequence: 'Ctrl+2'
         onActivated: {
-            app.currentPlanetIndex=2
+            zm.currentPlanetIndex=2
         }
     }
     //Seleccionar Planeta
     Shortcut{
         sequence: 'Ctrl+3'
         onActivated: {
-            app.currentPlanetIndex=3
+            zm.currentPlanetIndex=3
         }
     }
     //Seleccionar Planeta
     Shortcut{
         sequence: 'Ctrl+4'
         onActivated: {
-            app.currentPlanetIndex=4
+            zm.currentPlanetIndex=4
         }
     }
     //Seleccionar Planeta
     Shortcut{
         sequence: 'Ctrl+5'
         onActivated: {
-            app.currentPlanetIndex=5
+            zm.currentPlanetIndex=5
         }
     }
     //Seleccionar Planeta
     Shortcut{
         sequence: 'Ctrl+6'
         onActivated: {
-            app.currentPlanetIndex=6
+            zm.currentPlanetIndex=6
         }
     }
     //Seleccionar Planeta
     Shortcut{
         sequence: 'Ctrl+7'
         onActivated: {
-            app.currentPlanetIndex=7
+            zm.currentPlanetIndex=7
         }
     }
     //Seleccionar Planeta
     Shortcut{
         sequence: 'Ctrl+8'
         onActivated: {
-            app.currentPlanetIndex=8
+            zm.currentPlanetIndex=8
         }
     }
     //Seleccionar Planeta
     Shortcut{
         sequence: 'Ctrl+9'
         onActivated: {
-            app.currentPlanetIndex=9
+            zm.currentPlanetIndex=9
         }
     }
     //Seleccionar Planeta
     Shortcut{
         sequence: 'Ctrl+*'
         onActivated: {
-            app.currentPlanetIndex=20
+            zm.currentPlanetIndex=20
         }
     }
     //Seleccionar Planeta
     Shortcut{
         sequence: 'Ctrl+/'
         onActivated: {
-            app.currentPlanetIndex=21
+            zm.currentPlanetIndex=21
         }
     }
     Shortcut{
@@ -373,14 +393,14 @@ ApplicationWindow {
                 xEditor.visible=false
                 return
             }
-            if(app.currentPlanetIndex>=0){
-                app.currentPlanetIndex=-1
+            if(zm.currentPlanetIndex>=0){
+                zm.currentPlanetIndex=-1
                 app.currentHouseIndex=-1
                 return
             }
-            if(app.currentPlanetIndexBack>=0){
-                app.currentPlanetIndexBack=-1
-                app.currentPlanetIndexBack=-1
+            if(zm.currentPlanetIndexBack>=0){
+                zm.currentPlanetIndexBack=-1
+                zm.currentPlanetIndexBack=-1
                 app.currentHouseIndexBack=-1
                 //sweg.objHousesCircleBack.currentHouse=-1
                 return
@@ -566,7 +586,7 @@ ApplicationWindow {
             //log.visible=true
             //log.width=xApp.width*0.2
             //log.l('currentPlanetIndex: '+currentPlanetIndex)
-            //log.l('app.currentPlanetIndex: '+app.currentPlanetIndex)
+            //log.l('zm.currentPlanetIndex: '+zm.currentPlanetIndex)
             //xAreaInteractiva.next()
         }
     }
@@ -589,11 +609,11 @@ ApplicationWindow {
                 }
             }
 
-            if(app.currentPlanetIndex>=0 && app.currentXAs){
+            if(zm.currentPlanetIndex>=0 && app.currentXAs){
                 app.currentXAs.rot(false)
                 return
             }
-            if(app.currentPlanetIndexBack>=0 && app.currentXAsBack){
+            if(zm.currentPlanetIndexBack>=0 && app.currentXAsBack){
                 app.currentXAsBack.rot(false)
                 return
             }
@@ -625,11 +645,11 @@ ApplicationWindow {
                     return
                 }
             }
-            if(app.currentPlanetIndex>=0 && app.currentXAs){
+            if(zm.currentPlanetIndex>=0 && app.currentXAs){
                 app.currentXAs.rot(true)
                 return
             }
-            if(app.currentPlanetIndexBack>=0 && app.currentXAsBack){
+            if(zm.currentPlanetIndexBack>=0 && app.currentXAsBack){
                 app.currentXAsBack.rot(true)
                 return
             }
@@ -960,7 +980,7 @@ ApplicationWindow {
     }
     property int rv: 0
     Shortcut{
-        sequence: '1'
+        sequence: 'ParaProbar1'
         onActivated: {
             //zm.objSignsCircle.rotar(0, rv)
             //rv++

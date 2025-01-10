@@ -14,9 +14,12 @@ Column{
         id: headerLv
         width: r.width
         height: app.fs*0.85
-        color: r.isBack?apps.houseColorBack:apps.houseColor//apps.fontColor
+        //color: r.isBack?apps.houseColorBack:apps.houseColor//apps.fontColor
+        //.themeName
+        color: zm.themeName==='Zool'?(r.isBack?apps.houseColorBack:apps.houseColor):(apps.backgroundColor)
+
         border.width: 1
-        border.color: apps.fontColor
+        border.color: zm.themeName==='Zool'?(r.isBack?apps.houseColorBack:apps.houseColor):(apps.fontColor)
         Item{
             width: r.width
             height: txtTit.contentHeight
@@ -38,7 +41,7 @@ Column{
                 width: parent.width-app.fs*0.2
                 wrapMode: Text.WordWrap
                 horizontalAlignment: Text.AlignHCenter
-                color: r.isBack?apps.xAsColorBack:apps.xAsColor
+                color: zm.themeName==='Zool'?(r.isBack?apps.xAsColorBack:apps.xAsColor):(apps.xAsColor)
                 anchors.centerIn: parent
             }
         }
@@ -83,9 +86,13 @@ Column{
                         //Mostrando 2 columas de Datos
                         (colTxtEV.height+app.fs*0.1)
 
-            color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zm.objHousesCircle.currentHouse===index-21)?apps.fontColor:apps.backgroundColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zm.objHousesCircleBack.currentHouse===index-21)?apps.fontColor:apps.backgroundColor)
+            color: zm.themeName==='Zool'?(
+                                              !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zm.objHousesCircle.currentHouse===index-21)?apps.fontColor:apps.backgroundColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zm.objHousesCircleBack.currentHouse===index-21)?apps.fontColor:apps.backgroundColor)
+                                              ):(apps.backgroundColor)
             border.width: 1
-            border.color: !r.isBack?apps.houseColor:apps.houseColorBack
+            border.color: zm.themeName==='Zool'?(!r.isBack?apps.houseColor:apps.houseColorBack):(
+                                                     index===zoolDataBodies.currentIndex?apps.backgroundColor:apps.fontColor
+                                                     )
             visible: !zm.ev?txtData.width<xItem.width:true
             //anchors.horizontalCenter: parent.horizontalCenter
             Behavior on opacity{NumberAnimation{duration: 250}}
@@ -93,15 +100,23 @@ Column{
             onTextSizedChanged: {}
             Rectangle{
                 anchors.fill: parent
-                color: !r.isBack?apps.houseColor:apps.houseColorBack
-                opacity: 0.5
+                color: zm.themeName==='Zool'?(
+                                                  !r.isBack?apps.houseColor:apps.houseColorBack
+                                                  ):(
+                                                    index!==zoolDataBodies.currentIndex?apps.backgroundColor:apps.fontColor
+                                                  )
+                opacity: zm.themeName==='Zool'?0.5:1.0
             }
             Text {
                 id: txtData
                 //text: sd
                 font.pixelSize: app.fs
                 textFormat: Text.RichText
-                color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zm.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zm.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
+                color: zm.themeName==='Zool'?(
+                                              !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zm.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zm.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
+                                                  ):(
+                                                  index==zoolDataBodies.currentIndex?apps.backgroundColor:apps.fontColor
+                                                  )
                 horizontalAlignment: Text.AlignHCenter
                 anchors.centerIn: parent
                 visible: !zm.ev && index!==zoolDataBodies.currentIndex
@@ -128,7 +143,12 @@ Column{
                     id: txtDataSelected1
                     font.pixelSize: app.fs
                     textFormat: Text.RichText
-                    color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zm.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zm.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
+                    //color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zm.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zm.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
+                    color: zm.themeName==='Zool'?(
+                                                      !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zm.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zm.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
+                                                      ):(
+                                                      index==zoolDataBodies.currentIndex?apps.backgroundColor:apps.fontColor
+                                                      )
                     horizontalAlignment: Text.AlignHCenter
                     //anchors.centerIn: parent
                     visible: !zm.ev
@@ -146,7 +166,11 @@ Column{
                     id: txtDataSelected2
                     font.pixelSize: app.fs
                     textFormat: Text.RichText
-                    color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zm.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zm.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
+                    color: zm.themeName==='Zool'?(
+!r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zm.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zm.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
+                                                      ):(
+                                                      index==zoolDataBodies.currentIndex?apps.backgroundColor:apps.fontColor
+                                                      )
                     horizontalAlignment: Text.AlignHCenter
                     //anchors.centerIn: parent
                     visible: !zm.ev

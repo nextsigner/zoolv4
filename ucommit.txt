@@ -1,1 +1,1 @@
-Se eliminan configuraciones
+Se agregan colores de theme a ZoolDataBodies

@@ -182,6 +182,7 @@ Rectangle{
     //<--ZoomAndPan
 
     //-->Theme
+    property string themeName: 'Zool'
     property color bodieColor: apps.fontColor
     property color bodieColorBack: apps.fontColor
     property color bodieBgColor: 'transparent'
@@ -854,6 +855,7 @@ Rectangle{
         r.pointerBorderColor=t.pointerBorderColor
         apps.fontColor=t.fontColor
         apps.backgroundColor=t.backgroundColor
+        r.themeName=t.name
         let j={}
         j.id='theme'
         j.text='Tema N° '+parseInt(i+1)+' Nombre: '+t.name

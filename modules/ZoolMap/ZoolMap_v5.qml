@@ -1679,6 +1679,61 @@ Rectangle{
     }
     //<--Load Data
 
+    //-->Teclado
+    property real panStepSize: app.fs
+    Timer{
+        id: tImcToFalse // Resetea isMultiCapturing
+        interval: 1000
+        onTriggered: {
+            r.isMultiCapturing=false
+        }
+    }
+    function toUp(ctrl){
+        r.isMultiCapturing=true
+        let a=getZoomAndPos()
+        a[1]=parseFloat(a[1] - panStepSize)
+        a[3]=parseFloat(a[3] - panStepSize)
+        a[7]=parseFloat(a[7] - panStepSize)
+        setZoomAndPos(a)
+        tImcToFalse.restart()
+    }
+    function toDown(ctrl){
+        r.isMultiCapturing=true
+        let a=getZoomAndPos()
+        a[1]=parseFloat(a[1] + panStepSize)
+        a[3]=parseFloat(a[3] + panStepSize)
+        a[7]=parseFloat(a[7] + panStepSize)
+        setZoomAndPos(a)
+        tImcToFalse.restart()
+    }
+    function toLeft(ctrl){
+        r.isMultiCapturing=true
+        let a=getZoomAndPos()
+        a[0]=parseFloat(a[0] - panStepSize)
+        a[2]=parseFloat(a[2] - panStepSize)
+        a[6]=parseFloat(a[6] - panStepSize)
+        setZoomAndPos(a)
+        tImcToFalse.restart()
+    }
+    function toRight(ctrl){
+        r.isMultiCapturing=true
+        let a=getZoomAndPos()
+        a[0]=parseFloat(a[0] + panStepSize)
+        a[2]=parseFloat(a[2] + panStepSize)
+        a[6]=parseFloat(a[6] + panStepSize)
+        setZoomAndPos(a)
+        tImcToFalse.restart()
+    }
+    function toSpace(ctrl){
+        if(ctrl){
+            apps.xAsShowIcon=!apps.xAsShowIcon
+        }else{
+            centerZoomAndPos()
+        }
+
+    }
+    //<--Teclado
+
     //-->Make Dinamically
     function mkWindowDataView(title, data, x, y, width, height, parent, fs){
         let c=''
@@ -1853,15 +1908,15 @@ Rectangle{
     function setZoomAndPos(zp){
         r.uZp=zp
         pinchArea.m_x1 = zp[0]
-        pinchArea.m_y1 = zp[1]
+        pinchArea.m_y1 = zp[1]//1
         pinchArea.m_x2 = zp[2]
-        pinchArea.m_y2 = zp[3]
+        pinchArea.m_y2 = zp[3]//3
         pinchArea.m_zoom1 = zp[4]
         pinchArea.m_zoom2 = zp[5]
         rect.x = zp[6]
-        rect.y = zp[7]
+        rect.y = zp[7]//7
         if(zp[8]){
-            app.currentXAs.objOointerPlanet.pointerRot=zp[8]
+            app.currentXAs.objPointerPlanet.pointerRot=zp[8]
         }
     }
     function getZoomAndPos(){

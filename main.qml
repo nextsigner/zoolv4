@@ -15,6 +15,7 @@ import "./comps" as Comps
 
 //Default Modules
 import comps.ZoolAppSettings 1.0
+import comps.FocusSen 1.0
 import ZoolNewsAndUpdates 3.4
 import ZoolMainWindow 1.0
 import ZoolTopMenuBar 1.0
@@ -365,28 +366,8 @@ ZoolMainWindow{
                     color: apps.backgroundColor
                     visible: apps.showLatIzq
                     ZoolSectionsManager{id: zsm}
-                    Rectangle{
-                        id: senA1
-                        width: parent.width
-                        height: 5
-                        color: 'red'
-                        anchors.bottom: parent.bottom
-                        visible: apps.zFocus==='xLatIzq'
-                        SequentialAnimation on color{
-                            running: senA1.visible
-                            loops: Animation.Infinite
-                            ColorAnimation {
-                                from: "red"
-                                to: "yellow"
-                                duration: 300
-                            }
-                            ColorAnimation {
-                                from: "yellow"
-                                to: "red"
-                                duration: 300
-                            }
-                        }
-                    }
+
+                    FocusSen{visible: apps.zFocus==='xLatIzq'}
                 }
                 Item{
                     width: xLatIzq.width;
@@ -509,28 +490,7 @@ ZoolMainWindow{
                         }
                     }
                     */
-                    Rectangle{
-                        id: senA2
-                        width: parent.width
-                        height: 5
-                        color: 'red'
-                        anchors.bottom: parent.bottom
-                        visible: apps.zFocus==='xMed'
-                        SequentialAnimation on color{
-                            running: senA2.visible
-                            loops: Animation.Infinite
-                            ColorAnimation {
-                                from: "red"
-                                to: "yellow"
-                                duration: 300
-                            }
-                            ColorAnimation {
-                                from: "yellow"
-                                to: "red"
-                                duration: 300
-                            }
-                        }
-                    }
+                    FocusSen{visible: apps.zFocus==='xMed'}
                     Rectangle{
                         id: centro
                         width: 10
@@ -558,28 +518,7 @@ ZoolMainWindow{
                     //PanelControlsSign{id: panelControlsSign}
                     ZoolDataBodies{id: zoolDataBodies}
                     //PanelPronEdit{id: panelPronEdit;}
-                    Rectangle{
-                        id: senA3
-                        width: parent.width
-                        height: 5
-                        color: 'red'
-                        anchors.bottom: parent.bottom
-                        visible: apps.zFocus==='xLatDer'
-                        SequentialAnimation on color{
-                            running: senA3.visible
-                            loops: Animation.Infinite
-                            ColorAnimation {
-                                from: "red"
-                                to: "yellow"
-                                duration: 300
-                            }
-                            ColorAnimation {
-                                from: "yellow"
-                                to: "red"
-                                duration: 300
-                            }
-                        }
-                    }
+                    FocusSen{visible: apps.zFocus==='xLatDer'}
                     ZoolPanelNotifications{
                         id: zpn
                         anchors.right: parent.right

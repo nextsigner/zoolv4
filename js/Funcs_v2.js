@@ -381,6 +381,7 @@ function deg_to_dms (deg) {
     return [d, m, s]
 }
 function qmltypeof(obj) {
+    if(!obj)return ''
     let str = obj.toString();
     let m0=str.split('_')
     return m0[0]

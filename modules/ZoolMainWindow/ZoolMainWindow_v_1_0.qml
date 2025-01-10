@@ -67,7 +67,10 @@ ApplicationWindow {
                     panelZoolData.tooglePlayPause()
                 }
             }
-            apps.xAsShowIcon=!apps.xAsShowIcon
+            if(apps.zFocus==='xMed'){
+                zm.toSpace(false)
+                return
+            }
         }
     }
 
@@ -116,15 +119,19 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+Space'
         onActivated: {
+            if(apps.zFocus==='xMed'){
+                zm.toSpace(true)
+                return
+            }
             if(zm.currentPlanetIndex>=0&&app.currentXAs){
                 app.showPointerXAs=!app.showPointerXAs
                 return
             }
-            if(panelZonaMes.state==='show'){
-                panelZonaMes.pause()
-                return
-            }
-            sweg.nextState()
+//            if(panelZonaMes.state==='show'){
+//                panelZonaMes.pause()
+//                return
+//            }
+            //sweg.nextState()
             //swegz.sweg.nextState()
         }
     }
@@ -493,6 +500,10 @@ ApplicationWindow {
                     return
                 }
             }
+            if(apps.zFocus==='xMed'){
+                zm.toUp(false)
+                return
+            }
             if(apps.zFocus==='xLatDer'){
                 //tAutoMaticPlanets.stop()
                 zoolDataBodies.toUp()
@@ -561,6 +572,10 @@ ApplicationWindow {
                     return
                 }
 
+            }
+            if(apps.zFocus==='xMed'){
+                zm.toDown(false)
+                return
             }
             if(apps.zFocus==='xLatDer'){
                 //tAutoMaticPlanets.stop()
@@ -676,6 +691,10 @@ ApplicationWindow {
             if(apps.zFocus==='xLatIzq'){
                 zsm.toLeft()
             }
+            if(apps.zFocus==='xMed'){
+                zm.toLeft(false)
+                return
+            }
         }
     }
     Shortcut{
@@ -694,6 +713,10 @@ ApplicationWindow {
 //            }
             if(apps.zFocus==='xLatIzq'){
                 zsm.toRight()
+            }
+            if(apps.zFocus==='xMed'){
+                zm.toRight(false)
+                return
             }
         }
     }

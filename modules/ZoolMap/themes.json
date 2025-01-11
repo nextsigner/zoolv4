@@ -1,5 +1,28 @@
 {
     "themes":[
+    {
+        "name": "Zool",
+        "fontColor": "#FFFFFF",
+        "backgroundColor": "#000000",
+        "bodieColor": "white",
+        "bodieColorBack": "#00FF00",
+        "bodieBgColor": "transparent",
+        "bodieBgColorBack": "transparent",
+        "bodieBgBorderWidth": 0,
+        "bodieBgBorderWidthBack": 0,
+        "bodieBgBorderColor": "white",
+        "bodieBgBorderColorBack": "white",
+        "houseLineColor": "white",
+        "houseLineColorBack": "white",
+        "showSignsCircleColors": true,
+        "iconSignColor": "white",
+        "borderSignColor": "white",
+        "borderSignCircleWidth": 1,
+        "pointerBgColor":"#333333",
+        "pointerFontColor":"#FFFFFF",
+        "pointerBorderWidth":1,
+        "pointerBorderColor":"#FF0000"
+        },
         {
             "name": "Claro",
             "fontColor": "#000000",
@@ -37,7 +60,7 @@
             "bodieBgBorderColorBack": "white",
             "houseLineColor": "white",
             "houseLineColorBack": "white",
-            "showSignsCircleColors": true,
+            "showSignsCircleColors": false,
             "iconSignColor": "white",
             "borderSignColor": "white",
             "borderSignCircleWidth": 1,

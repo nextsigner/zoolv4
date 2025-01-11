@@ -1,1 +1,1 @@
-Se agrega tema Zool
+Se crea script copyAll4Zip.sh

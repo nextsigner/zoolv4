@@ -108,6 +108,15 @@ ApplicationWindow {
     }
     //<---Cap
 
+    //--->GUI
+    Shortcut{
+        sequence: 't'
+        onActivated: {
+            zm.nextTheme()
+        }
+    }
+    //<--GUI
+
     Shortcut{
         sequence: 'Ctrl+Shift+w'
         onActivated: {

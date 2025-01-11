@@ -1012,15 +1012,17 @@ ApplicationWindow {
     }
     property int rv: 0
     Shortcut{
-        sequence: 'ParaProbar1'
+        sequence: '*'
         onActivated: {
             //zm.objSignsCircle.rotar(0, rv)
             //rv++
             //zm.isMultiCapturing=true
             //zm.capturing=true
 
-
-            zm.centrarZooMap()
+            //log.lv('Descargando...')
+            //unik.downloadZipFile('https://sitsa.dl.sourceforge.net/project/zool/zool_v5.1.11.1.zip?viasf=1', 'C:/sss')
+            //log.lv('Termino!')
+            //zm.centrarZooMap()
 
             //log.lv('house pos: '+pos.x)
             //log.width=xLatIzq.width

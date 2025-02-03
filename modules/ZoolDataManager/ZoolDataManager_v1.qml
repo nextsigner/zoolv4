@@ -55,4 +55,23 @@ Item{
         apps.url=fp
         zm.loadJsonFromFilePath(apps.url)
     }
+
+    //Conversores
+
+    //Convertir Date a String día/mes/año
+    function dateToDMA(d, sep){
+        if(!sep)sep='/'
+        let r=''
+        r+=d.getDate()+sep
+        r+=parseInt(d.getMonth()+1)+sep
+        r+=d.getFullYear()
+        return r
+    }
+    //Convertir Date a String hora:minuto
+    function dateToHMS(d){
+        let r=''
+        r+=d.getHours()+':'
+        r+=d.getMinutes()
+        return r
+    }
 }

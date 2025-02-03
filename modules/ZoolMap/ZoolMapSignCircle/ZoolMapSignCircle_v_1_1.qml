@@ -346,14 +346,18 @@ Item {
         rotar(0,1)
     }
     function rotar(s,i){
-        let grado=0
         let currentDate=zm.currentDate
+        let ms=currentDate.getTime()
         if(s===0){
-            currentDate.setMinutes(currentDate.getMinutes() + i)
+            //currentDate.setMinutes(currentDate.getMinutes() + i)
+            ms+=(i*60*1000)//*60
         }else{
-            currentDate.setMinutes(currentDate.getMinutes() - i)
+            //currentDate.setMinutes(currentDate.getMinutes() - i)
+            ms-=(i*60*1000)//*60
         }
-        zm.currentDate=currentDate
+        let nd=new Date(ms)
+        zm.currentDate=nd//currentDate
+        //log.lv('cd: '+zdm.dateToDMA(nd)+' '+zdm.dateToHMS(nd))
     }
     function rotarSegundos(s){
         let currentDate=zm.currentDate

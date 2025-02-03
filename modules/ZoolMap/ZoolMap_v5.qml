@@ -38,7 +38,6 @@ Rectangle{
         anchors.verticalCenterOffset: r.width*0.5
     }*/
 
-
     property bool previewEnabled: false
 
     property string lastAspShowed: 'int'

@@ -6,7 +6,7 @@ import ZoolDataView.menus.MenuFecha 1.0
 import ZoolDataView.menus.MenuNom 1.0
 import ZoolDataView.menus.MenuSep 1.0
 
-
+import comps.FocusSen 1.0
 
 Rectangle {
     id: r
@@ -261,13 +261,52 @@ Rectangle {
                 color: apps.fontColor
                 anchors.centerIn: parent
             }
+            FocusSen{
+                id: fs1
+                visible: zm.isDataDiff && parent.cellIndex===1
+                radius: parent.radius
+                color: apps.backgroundColor
+                Text{
+                    id: txtFechaTemp
+                    text: '??/??/????'//txtData
+                    font.pixelSize: r.fs
+                    color: apps.fontColor
+                    anchors.centerIn: parent
+                }
+            }
+            FocusSen{
+                id: fs2
+                visible: zm.isDataDiff && parent.cellIndex===3
+                radius: parent.radius
+                color: apps.backgroundColor
+                Text{
+                    id: txtHoraMinutoTemp
+                    text: txtData
+                    font.pixelSize: r.fs
+                    color: apps.fontColor
+                    anchors.centerIn: parent
+                }
+            }
+            Timer{
+                running: fs1.visible || fs2.visible
+                repeat: true
+                interval: 250
+                onTriggered: {
+                    let d = zm.currentDate
+                    txtFechaTemp.text=zdm.dateToDMA(d)
+                    txtHoraMinutoTemp.text=zdm.dateToHMS(d)+'hs'
+                    //log.lv('d: '+zdm.dateToHMS(d))
+                }
+            }
+
             MouseArea{
                 anchors.fill: parent
                 //enabled: parent.cellIndex===0
+                hoverEnabled: true
                 acceptedButtons: Qt.AllButtons;
                 onClicked: {
                     //apps.sweFs=app.fs
-                    if (mouse.button === Qt.RightButton) { // 'mouse' is a MouseEvent argument passed into the onClicked signal handler
+                    if (mouse.button === Qt.RightButton) {
                         if(parent.cellIndex===0){
                             mNom.popup()
                         }
@@ -280,11 +319,88 @@ Rectangle {
                             mFecha.popup()
                         }
                     } else if (mouse.button === Qt.LeftButton) {
-                        //Qt.quit()
+                        if(zm.isDataDiff && (xCellData.cellIndex===1 || xCellData.cellIndex===3)){
+                            let d = zm.currentDate
+                            let p=zfdm.getJsonAbsParams(false)
+                            //log.lv('d: '+d.toString())
+                            let cd
+                            if(xCellData.cellIndex===1){
+                                cd=new Date(p.a, p.m-1, p.d, d.getHours(), d.getMinutes())
+                                log.lv('cd1: '+cd.toString())
+                            }
+                            if(xCellData.cellIndex===3){
+                                cd=new Date(d.getFullYear(), d.getMonth(), d.getDate(), p.h, p.min)
+                                log.lv('cd2: '+cd.toString())
+                            }
+                            zm.currentDate=cd
+                        }
+                    }
+                }
+                onPositionChanged: {
+                    setXTip()
+                }
+                onEntered: {
+                    setXTip()
+                }
+                onExited: {
+                    if(zm.isDataDiff && (xCellData.cellIndex===1 || xCellData.cellIndex===3)){
+                        tHideXTip.restart()
+                        txtTip.text=''
+                        xTip.visible=false
+                        xTip.x=0
+                        xTip.parent=app
+                    }
+                }
+                function setXTip(){
+                    var item1=zoolDataView.parent
+                    var item2=xCellData
+                    var absolutePosition = item2.mapToItem(item1, 0, 0);
+                    if(zm.isDataDiff && (xCellData.cellIndex===1 || xCellData.cellIndex===3)){
+                        tHideXTip.restart()
+                        if(xCellData.cellIndex===1){
+                            txtTip.text='\n\nHacer click para restaurar la fecha.'
+                        }
+                        if(xCellData.cellIndex===3){
+                            txtTip.text='\n\nHacer click para restaurar la hora.'
+                        }
+                        xTip.visible=true
+                        xTip.parent=app
+                        xTip.x=absolutePosition.x-xCellData.x
+                        xTip.y=zoolDataView.height
                     }
                 }
             }
 
+            Rectangle{
+                id: xTip
+                width: parent.width
+                height: txtTip.contentHeight+app.fs*0.5
+                color: apps.backgroundColor
+                radius: parent.radius
+                border.width: 1
+                border.color: apps.fontColor
+                y:zoolDataView.height
+                visible: false
+                Timer{
+                    id: tHideXTip
+                    running: parent.visible
+                    interval: 10000
+                    onTriggered: {
+                        xTip.visible=false
+                        xTip.parent=xCellData
+                    }
+                }
+                Text{
+                    id: txtTip
+                    text: 'Dato de tip'
+                    width: parent.width-app.fs*0.25
+                    font.pixelSize: r.fs*0.75
+                    wrapMode: Text.WordWrap
+                    horizontalAlignment: Text.AlignHCenter
+                    color: apps.fontColor
+                    anchors.centerIn: parent
+                }
+            }
         }
     }
     //    Timer{

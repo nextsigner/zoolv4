@@ -87,7 +87,7 @@ Settings{
     property bool showAspCircleBack: true
     property bool showAspPanel: true
     property bool showAspPanelBack: true
-    property bool enableWheelAspCircle: false
+    property bool enableWheelAspCircle: true
 
     //GUI
     property string zFocus: 'xLatIzq'

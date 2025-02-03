@@ -49,6 +49,12 @@ ZoolMenus{
                 zev.visible=true
             }
         }
+        Action {
+            text: !apps.xAsShowIcon?qsTr("Ocultar glifos"):qsTr("Ver glifos");
+            onTriggered: {
+                apps.xAsShowIcon=!apps.xAsShowIcon
+            }
+        }
         Action {enabled: zm.ev; text: qsTr("Descartar exterior"); onTriggered: {
                 zm.loadFromFile(apps.url, zm.getParams().t, false)
                 zoolDataView.clearExtData()
@@ -183,7 +189,7 @@ ZoolMenus{
     ZoolMenus{
         title: 'Configurar'
         w: r.w
-        Action {text: apps.enableWheelAspCircle?"Habilitar Rotar con Mouse":"Deshabilitar Rotar con Mouse"; onTriggered: {
+        Action {text: !apps.enableWheelAspCircle?"Habilitar Rotar con Mouse":"Deshabilitar Rotar con Mouse"; onTriggered: {
                 apps.enableWheelAspCircle=!apps.enableWheelAspCircle
             }
         }

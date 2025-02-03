@@ -326,11 +326,11 @@ Rectangle {
                             let cd
                             if(xCellData.cellIndex===1){
                                 cd=new Date(p.a, p.m-1, p.d, d.getHours(), d.getMinutes())
-                                log.lv('cd1: '+cd.toString())
+                                //log.lv('cd1: '+cd.toString())
                             }
                             if(xCellData.cellIndex===3){
                                 cd=new Date(d.getFullYear(), d.getMonth(), d.getDate(), p.h, p.min)
-                                log.lv('cd2: '+cd.toString())
+                                //log.lv('cd2: '+cd.toString())
                             }
                             zm.currentDate=cd
                         }
@@ -348,7 +348,8 @@ Rectangle {
                         txtTip.text=''
                         xTip.visible=false
                         xTip.x=0
-                        xTip.parent=app
+                        xTip.width=app.fs*5
+                        xTip.parent=capa101
                     }
                 }
                 function setXTip(){
@@ -364,8 +365,8 @@ Rectangle {
                             txtTip.text='\n\nHacer click para restaurar la hora.'
                         }
                         xTip.visible=true
-                        xTip.parent=app
-                        xTip.x=absolutePosition.x-xCellData.x
+                        xTip.parent=capa101
+                        xTip.x=absolutePosition.x//-xCellData.x
                         xTip.y=zoolDataView.height
                     }
                 }

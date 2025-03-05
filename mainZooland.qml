@@ -1,5 +1,6 @@
 ﻿import QtQuick 2.12
 import QtQuick.Controls 2.12
+import QtQuick.Dialogs 1.3
 import QtQuick.Window 2.0
 import QtMultimedia 5.12
 import Qt.labs.folderlistmodel 2.12
@@ -9,45 +10,51 @@ import unik.Unik 1.0
 
 
 import "./js/Funcs_v2.js" as JS
+import "./js/Capture.js" as CAP
 import "./comps" as Comps
 
 //Default Modules
 import comps.ZoolAppSettings 1.0
+import comps.FocusSen 1.0
 import ZoolNewsAndUpdates 3.4
 import ZoolMainWindow 1.0
 import ZoolTopMenuBar 1.0
 import ZoolText 1.1
 import ZoolDataBar 3.1
-import ZoolDataView 1.1
+import ZoolDataView 1.2
+import ZoolEvolutionView 1.0
 import ZoolLogView 1.0
 
 import ZoolFileDataManager 1.0
 import web.ZoolServerFileDataManager 1.0
-import ZoolBodies 1.9
+//import ZoolBodies 1.10
+import ZoolMap 5.0
 import ZoolBodiesGuiTools 1.0
-import ZoolMenuCtxZodiacBack 1.0
+
+import ZoolMenus.ZoolMenuCtxAs 1.0
+
+import ZoolMenus.ZoolMapMenuCtx 1.0
 import ZoolMenuCtxPlanetsAsc 1.0
+import ZoolMenuCtxHouses 1.0
 
 import ZoolControlsTime 1.0
 
-import ZoolSectionsManager 1.1
+import ZoolSectionsManager 1.2
 
-import ZoolDataBodies 3.1
-import ZoolElementsBack 1.0
-import ZoolElementsView 1.0
+import ZoolDataBodies 3.2
 
-import comps.ZoolPanelNotifications 1.0
+import comps.ZoolPanelNotifications 1.1
 import web.ZoolWebStatusManager 1.0
-import comps.MinymaClient 1.0
+//import MinymaClient 1.0
 
-import ZoolMediaLive 1.1
-import ZoolVoicePlayer 1.0
+import ZoolDataManager 1.0
 import ZoolDataEditor 1.0
-import ZoolVideoPlayer 1.0
-//import ZoolInfoDataView 1.0
+import ZoolInfoDataView 1.0
 import ZoolBottomBar 1.0
 
+import NodeIOQml 1.1
 
+import ZoolRemoteDataManager 1.0
 
 
 ZoolMainWindow{
@@ -59,11 +66,12 @@ ZoolMainWindow{
     minimumWidth: Screen.desktopAvailableWidth-app.fs*4
     minimumHeight: Screen.desktopAvailableHeight-app.fs*4
     color: apps.enableBackgroundColor?apps.backgroundColor:'black'
-    title: argtitle && argtitle.length>1?argtitle:'Zool '+version
+    title: 'Zool '+version
     property bool dev: Qt.application.arguments.indexOf('-dev')>=0
     property string version: '0.0.-1'
-    property string sweBodiesPythonFile: 'astrologica_swe_v2.py'
+    property string sweBodiesPythonFile: Qt.platform.os==='linux'?'astrologica_swe_v4.py':'astrologica_swe.py'
     property var j: JS
+    property var c: CAP
 
     property string mainLocation: ''
     //property string pythonLocation: Qt.platform.os==='linux'?'python3':pythonLocationSeted?'"'+pythonLocationSeted+'"':'"'+unik.getPath(4)+'/Python/python.exe'+'"'
@@ -73,54 +81,33 @@ ZoolMainWindow{
     property int fs: apps.fs//Qt.platform.os==='linux'?width*0.02:width*0.02
     property string stringRes: 'Screen'+Screen.width+'x'+Screen.height
     property string url
-    property string mod: 'vn'
+    property string t: 'vn'
 
     property bool backIsSaved: false
 
     property var objInFullWin
-    property bool capturing: false
+    //property bool capturing: false
 
     property bool showCenterLine: false
     property bool enableAn: false
     property int msDesDuration: 500
 
-    property var minymaClient
+    property var minymaClient2
     property var objZoolFileExtDataManager
     property var aExtsIds: []
 
-    property string fileData: ''
-    property string fileDataBack: ''
-    property string currentData: ''
-    property string currentDataBack: ''
-    property var currentJson
-    property var currentJsonBack
+    //    property string fileData: ''
+    //    property string fileDataBack: ''
+    //    property string currentData: ''
+    //    property string currentDataBack: ''
+    //    property var currentJson
+    //    property var currentJsonBack
     property bool setFromFile: false
 
     //Para analizar signos y ascendentes por región
     property int currentIndexSignData: 0
     property var currentJsonSignData: ''
 
-    property int currentPlanetIndex: -1
-    property int currentPlanetIndexBack: -1
-
-    property int currentHouseIndex: -1
-    property int currentHouseIndexBack: -1
-
-    property int currentSignIndex: 0
-
-    property date currentDate
-    property string currentNom: ''
-    property string currentFecha: ''
-    property string currentLugar: ''
-    property int currentAbsolutoGradoSolar: -1
-    property int currentGradoSolar: -1
-    property int currentRotationxAsSol: -1
-    property int currentMinutoSolar: -1
-    property int currentSegundoSolar: -1
-    property real currentGmt: 0
-    property real currentLon//: 0.0
-    property real currentLat//: 0.0
-    property real currentAlt: 0
 
     property date currentDateBack
     property string currentNomBack: ''
@@ -136,11 +123,7 @@ ZoolMainWindow{
 
 
     property bool lock: false
-    property string uSon: ''
-    property string uSonFCMB: ''
-    property string uSonBack: ''
 
-    property string uCuerpoAsp: ''
 
     property var signos: ['Aries', 'Tauro', 'Géminis', 'Cáncer', 'Leo', 'Virgo', 'Libra', 'Escorpio', 'Sagitario', 'Capricornio', 'Acuario', 'Piscis']
     //property var planetas: ['Sol', 'Luna', 'Mercurio', 'Venus', 'Marte', 'Júpiter', 'Saturno', 'Urano', 'Neptuno', 'Plutón', 'N.Norte', 'N.Sur', 'Quirón', 'Selena', 'Lilith']
@@ -180,8 +163,8 @@ ZoolMainWindow{
 */
 
 
+
     property var cmd
-    property bool ev: false //Exterior Visible
 
     //XAs
     property var currentXAs
@@ -191,426 +174,386 @@ ZoolMainWindow{
 
     property bool sspEnabled: false
 
-    onCurrentPlanetIndexChanged: {
-        zoolDataBodies.currentIndex=currentPlanetIndex
-        if(currentPlanetIndex>=0){
-            app.currentPlanetIndexBack=-1
-            app.currentHouseIndexBack=-1
-        }
-        if(sspEnabled){
-            if(currentPlanetIndex>=-1&&currentPlanetIndex<10){
-                app.ip.opacity=1.0
-                app.ip.children[0].ssp.setPlanet(currentPlanetIndex)
-            }else{
-                app.ip.opacity=0.0
-            }
-        }
-        //zoolDataBodies.currentIndex=currentPlanetIndex
-        if(currentPlanetIndex>14){
-            /*if(currentPlanetIndex===20){
-                sweg.objHousesCircle.currentHouse=1
-                swegz.sweg.objHousesCircle.currentHouse=1
-            }
-            if(currentPlanetIndex===16){
-                sweg.objHousesCircle.currentHouse=10
-                swegz.sweg.objHousesCircle.currentHouse=10
-            }*/
+    menuBar: ZoolTopMenuBar {
+        id: menuBar
+    }
+    onDevChanged: {
+        if(dev){
+            let c=unik.getFile('./dev.qml')
+            let comp=Qt.createQmlObject(c, xApp, 'devqmlcode')
         }
     }
-    onCurrentPlanetIndexBackChanged: {
-        zoolDataBodies.currentIndexBack=currentPlanetIndexBack
-        if(currentPlanetIndexBack>=0){
-            app.currentPlanetIndex=-1
-            app.currentHouseIndex=-1
-        }
-    }
-    onCurrentGmtChanged: {
-        if(app.currentData===''||app.setFromFile)return
-        //xDataBar.currentGmtText=''+currentGmt
-        tReload.restart()
-    }
-    onCurrentGmtBackChanged: {
-        //if(app.currentData===''||app.setFromFile)return
-        //xDataBar.currentGmtText=''+currentGmtBack
-        tReloadBack.restart()
-    }
-    onCurrentDateChanged: {
-        controlsTime.setTime(currentDate)
-        //if(app.currentData===''||app.setFromFile)return
-        //xDataBar.state='show'
-        let a=currentDate.getFullYear()
-        let m=currentDate.getMonth()
-        let d=currentDate.getDate()
-        let h=currentDate.getHours()
-        let min=currentDate.getMinutes()
-        //xDataBar.currentDateText=d+'/'+parseInt(m + 1)+'/'+a+' '+h+':'+min
-        //xDataBar.currentGmtText=''+currentGmt
-        tReload.restart()
-    }
-    onCurrentDateBackChanged: {
-        controlsTimeBack.setTime(currentDateBack)
-        if(app.t==='trans'){
-            JS.loadTransFromTime(app.currentDateBack)
-        }
-        //xDataBar.state='show'
-        let a=currentDateBack.getFullYear()
-        let m=currentDateBack.getMonth()
-        let d=currentDateBack.getDate()
-        let h=currentDateBack.getHours()
-        let min=currentDateBack.getMinutes()
-        tReloadBack.restart()
-    }
-
     FontLoader {name: "fa-brands-400";source: "./fonts/fa-brands-400.ttf";}
     FontLoader {name: "FontAwesome";source: "./fonts/fontawesome-webfont.ttf";}
     FontLoader {name: "ArialMdm";source: "./fonts/ArialMdm.ttf";}
     FontLoader {name: "TypeWriter";source: "./fonts/typewriter.ttf";}
     Unik{id: unik}
     ZoolAppSettings{id: apps}
-    menuBar: ZoolTopMenuBar {
-        id: menuBar
-    }
+    ZoolRemoteDataManager{id: zrdm}
     ZoolFileDataManager{id: zfdm}
     ZoolServerFileDataManager{id: zsfdm}
-    Timer{
-        id: tReload
-        running: false
-        repeat: false
-        interval: 100
-        onTriggered: {
-            JS.setNewTimeJsonFileData(app.currentDate)
-            JS.runJsonTemp()
-        }
-    }
-    Timer{
-        id: tReloadBack
-        running: false
-        repeat: false
-        interval: 100
-        onTriggered: {
-            JS.setNewTimeJsonFileDataBack(app.currentDateBack)
-            JS.runJsonTempBack()
-        }
-    }
-    Item{
-        id: xApp
+    Rectangle{
+        id: xVisibleItems
+        color: apps.backgroundColor
         anchors.fill: parent
-        Rectangle{
-            id: xSwe1
-            //width: xApp.width-xLatIzq.width-xLatDer.width
-            width: sweg.width
+        Item{
+            id: xApp
+            anchors.fill: parent
+            Rectangle{
+                id: xZoolMap
+                width: xMed.width
+                height: xMed.height
+                border.width: xZoolMap.showDevLines?10:0
+                border.color: '#ff8833'
+                color: xZoolMap.showDevLines?'gray':'transparent'
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.bottom: parent.bottom
+                property bool showDevLines: false
+                Rectangle{
+                    id: xSwe1
+                    width: parent.width
+                    height: parent.height
+                    transform: Scale{ xScale: xZoolMap.showDevLines?0.25:1.0; yScale: xZoolMap.showDevLines?0.25:1.0 }
+                    color: apps.backgroundColor
+                    x: xZoolMap.showDevLines?(parent.width*0.5)-width*0.25*0.5:0
+                    y: xZoolMap.showDevLines?(parent.height*0.5)-height*0.25*0.5:0
+                    clip: true
+                    //ZoolBodies{id: sweg;objectName: 'sweg'; visible: !apps.dev}
+                    ZoolMap{
+                        id: zm;
+                        rectXBackItems.width: xMed.width
+                        rectXBackItems.height: xMed.height
+                    }
+                    Image {
+                        id: xDataBarUItemGrabber
+                        //source: xDataBar.uItemGrabber
+                        source: zoolDataView.uItemGrabber
+                        width: parent.width
+                        fillMode: Image.PreserveAspectCrop
+                        visible: zm.capturing
+                    }
+                    Image{
+                        id: xAspsUItemGrabber
+                        source: zm.objZoolAspectsView.uItemGrabber
+                        width: parent.width*0.2
+                        height: parent.width*0.2
+                        fillMode: Image.PreserveAspectCrop
+                        anchors.bottom: parent.bottom
+                        visible: zm.capturing
+                        Rectangle{
+                            anchors.fill: parent
+                            color: 'transparent'
+                            border.width: 1
+                            border.color: 'red'
+                            visible: apps.dev
+                        }
+                    }
+                    Image{
+                        id: xAspsUItemGrabberBack
+                        source: zm.objZoolAspectsViewBack.uItemGrabber
+                        width: parent.width*0.2
+                        height: parent.width*0.2
+                        fillMode: Image.PreserveAspectCrop
+                        anchors.top: parent.top
+                        visible: zm.capturing && zm.ev
+                        Rectangle{
+                            anchors.fill: parent
+                            color: 'transparent'
+                            border.width: 1
+                            border.color: 'red'
+                            visible: apps.dev
+                        }
+                    }
+                    Image {
+                        id: xElementsUItemGrabber
+                        //source: panelElements.uItemGrabber
+                        //source: zoolElementsView.uItemGrabber
+                        //width: panelElements.width
+                        //fillMode: Image.PreserveAspectFit
+                        fillMode: Image.PreserveAspectCrop
+                        anchors.top: xDataBarUItemGrabber.bottom
+                        anchors.right: parent.right
+                        anchors.rightMargin: 0-width*0.75
+                        transform: Scale {
+                            xScale: 0.25
+                            yScale: 0.25
+                        }
+                        visible: zm.capturing
+                    }
+                    Rectangle{
+                        anchors.fill: parent
+                        color: 'transparent'
+                        border.width: 1
+                        border.color: 'yellow'
+                        visible: apps.dev
+                    }
+                    Rectangle{
+                        width: 6
+                        height: xApp.height*2
+                        color: 'transparent'//apps.fontColor
+                        border.width: 1
+                        border.color: 'red'
+                        anchors.centerIn: parent
+                        visible: app.showCenterLine
+                    }
+                    Rectangle{
+                        width: xApp.height*2
+                        height: 6
+                        color: 'transparent'//apps.fontColor
+                        border.width: 1
+                        border.color: 'red'
+                        anchors.centerIn: parent
+                        visible: app.showCenterLine
+                    }
+                    ZoolText{
+                        id: capDate
+                        text: 'Imagen creada por Zool'
+                        textFormat: Text.PlainText
+                        font.pixelSize: app.fs*0.5
+                        color: apps.fontColor
+                        anchors.bottom: parent.bottom
+                        anchors.right: parent.right
+                        visible: zm.capturing
+                    }
+                }
+                Rectangle{
+                    id: xDevLines
+                    width: 4
+                    height: parent.height*4
+                    anchors.centerIn: parent
+                    visible: xZoolMap.showDevLines
+                    Rectangle{
+                        width: parent.parent.width*4
+                        height: 4
+                        anchors.centerIn: parent
+                    }
+                }
+            }
+            Rectangle{
+                id: xMsgProcDatos
+                width: txtPD.contentWidth+app.fs
+                height: app.fs*4
+                color: 'black'
+                border.width: 2
+                border.color: 'white'
+                visible: false
+                anchors.centerIn: parent
+                ZoolText {
+                    id: txtPD
+                    text: 'Procesando datos...'
+                    //font.pixelSize: app.fs
+                    //color: 'white'
+                    anchors.centerIn: parent
+                }
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: parent.visible=false
+                }
+            }
+            //Keys.onDownPressed: Qt.quit()
+        }
+        Item{
+            id: capa101
+            anchors.fill: xApp
+            ZoolDataView{id: zoolDataView;}
+            Row{
+                anchors.top: zoolDataView.bottom
+                anchors.bottom: xBottomBar.top
+                Rectangle{
+                    id: xLatIzq
+                    width: xApp.width*0.2
+                    height: parent.height
+                    color: apps.backgroundColor
+                    visible: apps.showLatIzq
+                    ZoolSectionsManager{id: zsm}
+
+                    FocusSen{visible: apps.zFocus==='xLatIzq'}
+                }
+                Item{
+                    width: xLatIzq.width;
+                    height: 1;
+                    visible: !xLatIzq.visible
+
+
+                }
+                Item{
+                    id: xMed
+                    width: xApp.width-xLatIzq.width-xLatDer.width
+                    height: parent.height
+
+
+                    //ZoolElementsView{id: zoolElementsView}
+                    //ExtId
+                    Text{
+                        text: '<b>uExtId: '+zoolDataView.uExtIdLoaded+'</b>'
+                        font.pixelSize: app.fs*0.5
+                        color: apps.fontColor
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        visible: apps.dev
+                    }
+                    /*
+                    Item{
+                        id: xControlsTime
+                        width: controlsTime.width
+                        height: controlsTime.height
+                        anchors.bottom: parent.bottom
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        property bool showCT: false
+                        MouseArea{
+                            anchors.fill: parent
+                            onClicked: xControlsTime.showCT=!xControlsTime.showCT
+                        }
+                        Item{
+                            id:xIconClock
+                            width: app.fs
+                            height: width
+                            //anchors.horizontalCenter: parent.horizontalCenter
+                            anchors.right: parent.left
+                            anchors.bottom: parent.bottom
+                            anchors.bottomMargin: app.fs*0.1
+                            MouseArea{
+                                anchors.fill: parent
+                                onClicked: {
+                                    xControlsTime.showCT=!xControlsTime.showCT
+                                    xControlsTimeBack.showCT=false
+                                }
+                            }
+                            Text{
+                                id:ccinit
+                                text:'\uf017'
+                                font.family: 'FontAwesome'
+                                font.pixelSize: app.fs*0.75
+                                color: apps.houseColor
+                                anchors.centerIn: parent
+                            }
+                        }
+                        //Comps.ControlsTime{
+                        ZoolControlsTime{
+                            id: controlsTime
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            anchors.bottom: parent.bottom
+                            anchors.bottomMargin: h
+                            property int h: parent.showCT?0:0-height
+                            setAppTime: true
+                            onGmtChanged: zm.currentGmt=gmt
+                            Behavior on h{NumberAnimation{duration: 250; easing.type: Easing.InOutQuad}}
+                        }
+
+                    }
+                    Item{
+                        id: xControlsTimeBack
+                        width: controlsTimeBack.width
+                        height: controlsTimeBack.height
+                        anchors.bottom: parent.bottom
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        visible: zm.ev
+                        property bool showCT: false
+                        MouseArea{
+                            anchors.fill: parent
+                            onClicked: xControlsTimeBack.showCT=!xControlsTimeBack.showCT
+                        }
+                        Item{
+                            id:xIconClockBack
+                            width: app.fs
+                            height: width
+                            //anchors.horizontalCenter: parent.horizontalCenter
+                            //anchors.horizontalCenterOffset: width+app.fs*0.5
+                            anchors.left: parent.right
+                            anchors.bottom: parent.bottom
+                            anchors.bottomMargin: app.fs*0.1
+                            MouseArea{
+                                anchors.fill: parent
+                                onClicked: {
+                                    xControlsTimeBack.showCT=!xControlsTimeBack.showCT
+                                    xControlsTime.showCT=false
+                                }
+                            }
+                            Text{
+                                id:ccinitBack
+                                text:'\uf017'
+                                font.family: 'FontAwesome'
+                                font.pixelSize: app.fs*0.75
+                                color: apps.houseColorBack//apps.fontColor
+                                anchors.centerIn: parent
+                            }
+                        }
+                        ZoolControlsTime{
+                            id: controlsTimeBack
+                            isBack: true
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            anchors.bottom: parent.bottom
+                            anchors.bottomMargin: h
+                            property int h: parent.showCT?0:0-height
+                            setAppTime: true
+                            onGmtChanged: zm.currentGmtBack=gmt
+                            Behavior on h{NumberAnimation{duration: 250; easing.type: Easing.InOutQuad}}
+                        }
+                    }
+                    */
+                    FocusSen{visible: apps.zFocus==='xMed'}
+                    Rectangle{
+                        id: centro
+                        width: 10
+                        height: 5000
+                        anchors.centerIn: parent
+                        visible: false
+                        Rectangle{
+                            width: pppText.contentWidth+10
+                            height: app.fs
+                            anchors.centerIn: parent
+                            Text{
+                                id: pppText
+                                font.pixelSize: app.fs*0.5
+                                anchors.centerIn: parent
+                            }
+                        }
+                    }
+                }
+                Item{
+                    id: xLatDer
+                    width: xApp.width*0.2
+                    height: parent.height
+
+                    //Chat{id: chat; z: onTop?panelPronEdit.z+1:panelControlsSign.z-1}
+                    //PanelControlsSign{id: panelControlsSign}
+                    ZoolDataBodies{id: zoolDataBodies}
+                    //PanelPronEdit{id: panelPronEdit;}
+                    FocusSen{visible: apps.zFocus==='xLatDer'}
+                    ZoolPanelNotifications{
+                        id: zpn
+                        anchors.right: parent.right
+                        anchors.rightMargin: apps.zFocus==='xLatDer'?xLatDer.width:0
+                    }
+                }
+            }
+            //Comps.XDataStatusBar{id: xDataStatusBar}
+            ZoolBodiesGuiTools{
+                id: xTools
+                anchors.bottom: parent.bottom
+                anchors.right: parent.right
+                anchors.rightMargin: app.width*0.2
+            }
+            ZoolBottomBar{id: xBottomBar}
+            ZoolInfoDataView{id: xInfoData}
+            ZoolDataEditor{id: xEditor}
+            ZoolEvolutionView{id: zev}
+        }
+        Comps.XSelectColor{
+            id: xSelectColor
+            width: app.fs*8
+            height: app.fs*8
+            c: 'backgroundColor'
+        }
+        ZoolLogView{
+            id: log;
+            width: xLatIzq.width
             height: xLatIzq.height
-            color: apps.backgroundColor
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.horizontalCenterOffset: xLatIzq.visible?0:0-xLatIzq.width*0.5
             anchors.bottom: parent.bottom
-            clip: xLatIzq.visible
-            ZoolBodies{id: sweg;objectName: 'sweg'}
-            Image {
-                id: xDataBarUItemGrabber
-                //source: xDataBar.uItemGrabber
-                source: zoolDataView.uItemGrabber
-                width: parent.width
-                fillMode: Image.PreserveAspectCrop
-                visible: zm.capturing
-            }
-            Image{
-                id: xAspsUItemGrabber
-                source: sweg.objZoolAspectsView.uItemGrabber
-                width: parent.width*0.2
-                height: parent.width*0.2
-                fillMode: Image.PreserveAspectCrop
-                anchors.bottom: parent.bottom
-                visible: zm.capturing
-                Rectangle{
-                    anchors.fill: parent
-                    color: 'transparent'
-                    border.width: 1
-                    border.color: 'red'
-                    visible: apps.dev
-                }
-            }
-            Image{
-                id: xAspsUItemGrabberBack
-                source: sweg.objZoolAspectsViewBack.uItemGrabber
-                width: parent.width*0.2
-                height: parent.width*0.2
-                fillMode: Image.PreserveAspectCrop
-                anchors.top: parent.top
-                visible: zm.capturing && app.ev
-                Rectangle{
-                    anchors.fill: parent
-                    color: 'transparent'
-                    border.width: 1
-                    border.color: 'red'
-                    visible: apps.dev
-                }
-            }
-            Image {
-                id: xElementsUItemGrabber
-                //source: panelElements.uItemGrabber
-                source: zoolElementsView.uItemGrabber
-                //width: panelElements.width
-                //fillMode: Image.PreserveAspectFit
-                fillMode: Image.PreserveAspectCrop
-                anchors.top: xDataBarUItemGrabber.bottom
-                anchors.right: parent.right
-                anchors.rightMargin: 0-width*0.75
-                transform: Scale {
-                    xScale: 0.25
-                    yScale: 0.25
-                }
-                visible: zm.capturing
-            }
-            Rectangle{
-                anchors.fill: parent
-                color: 'transparent'
-                border.width: 1
-                border.color: 'yellow'
-                visible: apps.dev
-            }
-            Rectangle{
-                width: 6
-                height: xApp.height*2
-                color: 'transparent'//apps.fontColor
-                border.width: 1
-                border.color: 'red'
-                anchors.centerIn: parent
-                visible: app.showCenterLine
-            }
-            Rectangle{
-                width: xApp.height*2
-                height: 6
-                color: 'transparent'//apps.fontColor
-                border.width: 1
-                border.color: 'red'
-                anchors.centerIn: parent
-                visible: app.showCenterLine
-            }
-            ZoolText{
-                id: capDate
-                text: 'Imagen creada por Zool'
-                textFormat: Text.PlainText
-                font.pixelSize: app.fs*0.5
-                color: apps.fontColor
-                anchors.bottom: parent.bottom
-                anchors.right: parent.right
-                visible: zm.capturing
-            }
         }
-
-        Rectangle{
-            id: xMsgProcDatos
-            width: txtPD.contentWidth+app.fs
-            height: app.fs*4
-            color: 'black'
-            border.width: 2
-            border.color: 'white'
-            visible: false
-            anchors.centerIn: parent
-            ZoolText {
-                id: txtPD
-                text: 'Procesando datos...'
-                //font.pixelSize: app.fs
-                //color: 'white'
-                anchors.centerIn: parent
-            }
-            MouseArea{
-                anchors.fill: parent
-                onClicked: parent.visible=false
-            }
-        }
-        //Keys.onDownPressed: Qt.quit()
+        ZoolWebStatusManager{id: zwsm}
+        ZoolDataManager{id: zdm}
     }
-    Item{
-        id: capa101
-        anchors.fill: xApp
-        ZoolDataView{id: zoolDataView;}
-        Row{
-            anchors.top: zoolDataView.bottom
-            anchors.bottom: xBottomBar.top
-            Rectangle{
-                id: xLatIzq
-                width: xApp.width*0.2
-                height: parent.height
-                color: apps.backgroundColor
-                visible: apps.showLatIzq
-                ZoolSectionsManager{id: zsm}
-                Rectangle{
-                    width: parent.width
-                    height: 3
-                    color: 'red'
-                    anchors.bottom: parent.bottom
-                    visible: apps.zFocus==='xLatIzq'
-                }
-            }
-            Item{
-                width: xLatIzq.width;
-                height: 1;
-                visible: !xLatIzq.visible
-
-
-            }
-            Item{
-                id: xMed
-                width: xApp.width-xLatIzq.width-xLatDer.width
-                height: parent.height
-                ZoolElementsView{id: zoolElementsView}
-                //ExtId
-                Text{
-                    text: '<b>uExtId: '+zoolDataView.uExtIdLoaded+'</b>'
-                    font.pixelSize: app.fs*0.5
-                    color: apps.fontColor
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    visible: apps.dev
-                }
-                Item{
-                    id: xControlsTime
-                    width: controlsTime.width
-                    height: controlsTime.height
-                    anchors.bottom: parent.bottom
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    property bool showCT: false
-                    MouseArea{
-                        anchors.fill: parent
-                        onClicked: xControlsTime.showCT=!xControlsTime.showCT
-                    }
-                    Item{
-                        id:xIconClock
-                        width: app.fs
-                        height: width
-                        //anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.right: parent.left
-                        anchors.bottom: parent.bottom
-                        anchors.bottomMargin: app.fs*0.1
-                        MouseArea{
-                            anchors.fill: parent
-                            onClicked: {
-                                xControlsTime.showCT=!xControlsTime.showCT
-                                xControlsTimeBack.showCT=false
-                            }
-                        }
-                        Text{
-                            id:ccinit
-                            text:'\uf017'
-                            font.family: 'FontAwesome'
-                            font.pixelSize: app.fs*0.75
-                            color: apps.houseColor
-                            anchors.centerIn: parent
-                        }
-                    }
-                    //Comps.ControlsTime{
-                    ZoolControlsTime{
-                        id: controlsTime
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.bottom: parent.bottom
-                        anchors.bottomMargin: h
-                        property int h: parent.showCT?0:0-height
-                        setAppTime: true
-                        onGmtChanged: app.currentGmt=gmt
-                        Behavior on h{NumberAnimation{duration: 250; easing.type: Easing.InOutQuad}}
-                    }
-
-                }
-                Item{
-                    id: xControlsTimeBack
-                    width: controlsTimeBack.width
-                    height: controlsTimeBack.height
-                    anchors.bottom: parent.bottom
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    visible: app.ev
-                    property bool showCT: false
-                    MouseArea{
-                        anchors.fill: parent
-                        onClicked: xControlsTimeBack.showCT=!xControlsTimeBack.showCT
-                    }
-                    Item{
-                        id:xIconClockBack
-                        width: app.fs
-                        height: width
-                        //anchors.horizontalCenter: parent.horizontalCenter
-                        //anchors.horizontalCenterOffset: width+app.fs*0.5
-                        anchors.left: parent.right
-                        anchors.bottom: parent.bottom
-                        anchors.bottomMargin: app.fs*0.1
-                        MouseArea{
-                            anchors.fill: parent
-                            onClicked: {
-                                xControlsTimeBack.showCT=!xControlsTimeBack.showCT
-                                xControlsTime.showCT=false
-                            }
-                        }
-                        Text{
-                            id:ccinitBack
-                            text:'\uf017'
-                            font.family: 'FontAwesome'
-                            font.pixelSize: app.fs*0.75
-                            color: apps.houseColorBack//apps.fontColor
-                            anchors.centerIn: parent
-                        }
-                    }
-                    Comps.ControlsTime{
-                        id: controlsTimeBack
-                        isBack: true
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.bottom: parent.bottom
-                        anchors.bottomMargin: h
-                        property int h: parent.showCT?0:0-height
-                        setAppTime: true
-                        onGmtChanged: app.currentGmtBack=gmt
-                        Behavior on h{NumberAnimation{duration: 250; easing.type: Easing.InOutQuad}}
-                    }
-                }
-                Rectangle{
-                    width: parent.width
-                    height: 3
-                    color: 'red'
-                    anchors.bottom: parent.bottom
-                    visible: apps.zFocus==='xMed'
-                }
-            }
-            Item{
-                id: xLatDer
-                width: xApp.width*0.2
-                height: parent.height
-
-                //Chat{id: chat; z: onTop?panelPronEdit.z+1:panelControlsSign.z-1}
-                //PanelControlsSign{id: panelControlsSign}
-                ZoolDataBodies{id: zoolDataBodies}
-                //PanelPronEdit{id: panelPronEdit;}
-                ZoolVoicePlayer{id: zoolVoicePlayer}
-                Rectangle{
-                    width: parent.width
-                    height: 3
-                    color: 'red'
-                    anchors.bottom: parent.bottom
-                    visible: apps.zFocus==='xLatDer'
-                }
-                ZoolPanelNotifications{id: zpn}
-            }
-        }
-        //Comps.XDataStatusBar{id: xDataStatusBar}
-        ZoolBodiesGuiTools{
-            id: xTools
-            anchors.bottom: parent.bottom
-            anchors.right: parent.right
-            anchors.rightMargin: app.width*0.2
-        }
-        ZoolBottomBar{id: xBottomBar}
-        ZoolInfoDataView{id: xInfoData}
-        ZoolDataEditor{id: xEditor}
-        //Num.PanelLog{id: panelLog}
-        ZoolVideoPlayer{id: panelVideLectura;}
-        Comps.VideoListEditor{id: videoListEditor}
-    }
-    Comps.XSelectColor{
-        id: xSelectColor
-        width: app.fs*8
-        height: app.fs*8
-        c: 'backgroundColor'
-    }
-    ZoolLogView{id: log}
-    ZoolWebStatusManager{id: zwsm}
+    Item{id: xuqps}
     QtObject{
         id: setHost
         function setData(data, isData){
@@ -636,7 +579,7 @@ ZoolMainWindow{
                 let comp=Qt.createQmlObject(data, app, 'xzoolstart')
             }else{
                 console.log('setXZoolStart Data '+isData+': '+data)
-                JS.showMsgDialog('Error! - Zool Informa', 'Problemas de conexión a internet', 'Por alguna razón, la aplicación no está pudiendo acceder a internet para obtener los datos requeridos. Error: '+data)
+                app.j.showMsgDialog('Error! - Zool Informa', 'Problemas de conexión a internet', 'Por alguna razón, la aplicación no está pudiendo acceder a internet para obtener los datos requeridos. Error: '+data)
             }
         }
     }
@@ -646,29 +589,12 @@ ZoolMainWindow{
     //        font.pixelSize: app.fs*3
     //        color: 'red'
     //    }
-    Timer{
-        id: tAutoMaticPlanets
-        running: false
-        repeat: true
-        interval: 10000
-        property string currentJsonData: ''
-        onTriggered: {
-            if(tAutoMaticPlanets.currentJsonData!==app.currentData){
-                //tAutoMaticPlanets.stop()
-                //return
-            }
-            if(app.currentPlanetIndex<21){
-                app.currentPlanetIndex++
-            }else{
-                app.currentPlanetIndex=-1
-                app.currentHouseIndex=-1
-            }
-        }
-    }
-    Comps.MenuPlanets{id: menuPlanets}
-    ZoolMenuCtxZodiacBack{id: menuRuedaZodiacal}
+    //Comps.MenuPlanets{id: menuPlanets}
+    ZoolMenuCtxAs{id: menuPlanets}
+    ZoolMapMenuCtx{id: menuRuedaZodiacal}
     ZoolMenuPlanetsCtxAsc{id: menuPlanetsCtxAsc}
-    ZoolMediaLive{id: zoolMediaLive;parent: zoolDataBodies}
+    ZoolMenuCtxHouses{id: menuCtxHouses}
+    //ZoolMediaLive{id: zoolMediaLive;parent: zoolDataBodies}
 
     //Este esta en el centro
     Rectangle{
@@ -696,73 +622,53 @@ ZoolMainWindow{
     //        interval: 5000
     //        onTriggered: JS.loadModules()
     //    }
-    Component.onCompleted: {
-        JS.setFs()
 
+
+    Component.onCompleted: {
+        if(apps.workSpace==='')apps.workSpace=unik.getPath(3)+'/Zool'
+        if(!unik.folderExist(unik.getPath(3)+'/Zool')){
+            unik.mkdir(unik.getPath(3)+'/Zool')
+        }
+        if(apps.dev)log.lv('Ultimo archivo cargado con anterioridad: '+apps.url)
+        let args=Qt.application.arguments
+        JS.setFs()
+        zm.setTheme(apps.currentThemeIndex)
         //Check is dev with the arg -dev
-        if(Qt.application.arguments.indexOf('-dev')>=0){
+        if(args.indexOf('-dev')>=0){
             apps.dev=true
         }
 
-        if(Qt.platform.os==='linux'){
-            let compMinyma=Qt.createComponent('./modules/comps/MinymaClient/MinymaClient.qml')
-            let objMinyma=compMinyma.createObject(app, {loginUserName: 'zool'+(apps.dev?'-dev':''), host: apps.minymaClientHost, port: apps.minymaClientPort})
-            objMinyma.newMessageForMe.connect(function(from, data) {
-                if(data==='isWindowTool'){
-                    if(app.flags===Qt.Tool){
-                        minymaClient.sendData(minymaClient.loginUserName, from, 'isWindowTool=true')
-                    }else{
-                        minymaClient.sendData(minymaClient.loginUserName, from, 'isWindowTool=false')
-                    }
-                }
-                if(data==='windowToWindow'){
-                    app.flags=Qt.Window
-                }
-                if(data==='windowToTool'){
-                    app.flags=Qt.Tool
-                }
 
-                //To zoolMediaLive
-                if(data==='zoolMediaLive.loadBodiesNow()'){
-                    zoolMediaLive.loadBodiesNow()
-                }
-                if(data==='zoolMediaLive.play()'){
-                    zoolMediaLive.play()
-                }
-                if(data==='zoolMediaLive.pause()'){
-                    zoolMediaLive.pause()
-                }
-                if(data==='zoolMediaLive.stop()'){
-                    zoolMediaLive.stop()
-                }
-                if(data==='zoolMediaLive.previous()'){
-                    zoolMediaLive.previous()
-                }
-                if(data==='zoolMediaLive.next()'){
-                    zoolMediaLive.next()
-                }
-            });
-            objMinyma.onNewMessage.connect(function(from, to, data) {
-                //Aqui se puede poner un bloque de código
-                //para procesar todos los datos que procesa MinymaServer.
-            });
-            app.minymaClient=objMinyma
-        }
+
+
 
         let v=unik.getFile('./version')
         app.version=v.replace(/\n/g, '')
-        if(app.version!==apps.lastVersion || apps.dev){
+        /*if(app.version!==apps.lastVersion || apps.dev){
             apps.lastVersion=app.version
             let c='import QtQuick 2.0\n'
             c+='import ZoolNewsAndUpdates 3.4\n'
             c+='ZoolNewsAndUpdates{}\n'
             let obj=Qt.createQmlObject(c, xLatIzq, 'znaucode')
             obj.z=log.z+1
+        }*/
+        //if(Qt.platform.os==='linux'){
+        if(Qt.platform.os==='windows'){
+            let c='import QtQuick 2.0\n'
+            c+='import comps.ZoolWinUpdate 1.0\n'
+            c+='ZoolWinUpdate{}\n'
+            let obj=Qt.createQmlObject(c, xLatIzq, 'zoolwinupdatecode')
+            obj.z=log.z+1
+        }else{
+            let c='import QtQuick 2.0\n'
+            c+='import comps.ZoolLinuxUpdate 1.0\n'
+            c+='ZoolLinuxUpdate{}\n'
+            let obj=Qt.createQmlObject(c, xLatIzq, 'zoolwinupdatecode')
+            obj.z=log.z+1
         }
 
 
         //Argumentos
-        let args=Qt.application.arguments
         var i=0
         for(i=0;i<args.length;i++){
             let a=args[i]
@@ -811,7 +717,8 @@ ZoolMainWindow{
                 if(ma.length>1){
                     arg=ma[1]
                     //log.ls('File: '+arg, 0, xApp.width*0.5)
-                    JS.loadJson(arg)
+                    if(apps.dev)log.lv('Cargando '+arg)
+                    zm.loadJsonFromFilePath(arg)
                     fileLoaded=true
                 }
             }
@@ -824,23 +731,36 @@ ZoolMainWindow{
                 if(apps.dev){
                     log.visible=true
                     log.l('\nEl módulo Python SwissEph se encuentra instalado en '+app.pythonLocation)
-                    log.l('\nEl módulo MinymaClient se conecta mediante el host: '+minymaClient.host)
                 }
-                JS.loadJson(apps.url)                
+                if(apps.dev)log.lv('Cargando en modo desarrollo: '+apps.url)
+                zm.loadJsonFromFilePath(apps.url)
             }else{
-                if(apps.dev){
-                    log.visible=true
-                    log.l('\nEl módulo Python SwissEph se encuentra instalado en '+app.pythonLocation)
-                    log.l('\nEl módulo MinymaClient se conecta mediante el host: '+minymaClient.host)
-                    log.l('\napp.url: '+app.url)
-                    log.l('\napp.url exist: '+unik.fileExist(apps.url))
+                if(apps.url===''){
+                    zdm.firstRunTime()
+                }else{
+                    if(!unik.fileExist(apps.url)){
+                        log.lv('El archivo '+apps.url+' que se intenta cargar, no existe o ha sido eliminado. Se procede a cargar los tránsitos actuales.')
+                        zm.loadNow(false)
+                        /*let sep='Sinastría'
+                    let aL=[]
+                    aL.push('Trásitos de Ahora')
+                    let aR=[]
+                    zoolDataView.setDataView(sep, aL, aR)*/
+                    }
+                    if(apps.dev){
+                        log.visible=true
+                        log.l('\nEl módulo Python SwissEph se encuentra instalado en '+app.pythonLocation)
+                        log.l('\nEl módulo MinymaClient se conecta mediante el host: '+minymaClient.host)
+                        log.l('\napp.url: '+app.url)
+                        log.l('\napp.url exist: '+unik.fileExist(apps.url))
+                    }
                 }
-                JS.firstRunTime()
+
             }
         }
         //JS.getRD('https://github.com/nextsigner/nextsigner.github.io/raw/master/zool/zool', setHost)
         apps.host='https://zool.loca.lt'
-        JS.loadModules()
+        //app.j.loadModules()
         app.requestActivate()
         //log.focus=true
     }

@@ -2187,5 +2187,87 @@ Rectangle{
     function getParams(){
         return zfdm.getJsonAbsParams()
     }
+    function getBodieStatus(bodie, sign) {
+        // Definimos las tablas de exaltación, caída y domicilio para cada cuerpo celeste
+        const exaltation = {
+            'Sol': 'aries',
+            'Luna': 'tauro',
+            'Mercurio': 'virgo',
+            'Venus': 'piscis',
+            'Marte': 'capricornio',
+            'Júpiter': 'cancer',
+            'Saturno': 'libra',
+            'Urano': 'escorpio',
+            'Neptuno': 'leo',
+            'Plutón': 'aries',
+            'N.Norte': 'geminis',
+            'N.Sur': 'sagitario',
+            'Quirón': 'aries',
+            'Selena': 'tauro',
+            'Lilith': 'escorpio',
+            'Pholus': 'sagitario',
+            'Ceres': 'cancer',
+            'Pallas': 'libra',
+            'Juno': 'leo',
+            'Vesta': 'virgo'
+        };
+
+        const fall = {
+            'Sol': 'libra',
+            'Luna': 'escorpio',
+            'Mercurio': 'piscis',
+            'Venus': 'virgo',
+            'Marte': 'cancer',
+            'Júpiter': 'capricornio',
+            'Saturno': 'aries',
+            'Urano': 'tauro',
+            'Neptuno': 'capricornio',
+            'Plutón': 'libra',
+            'N.Norte': 'sagitario',
+            'N.Sur': 'geminis',
+            'Quirón': 'libra',
+            'Selena': 'escorpio',
+            'Lilith': 'tauro',
+            'Pholus': 'geminis',
+            'Ceres': 'capricornio',
+            'Pallas': 'aries',
+            'Juno': 'acuario',
+            'Vesta': 'piscis'
+        };
+
+        const domicile = {
+            'Sol': 'leo',
+            'Luna': 'cancer',
+            'Mercurio': 'geminis',
+            'Venus': 'tauro',
+            'Marte': 'aries',
+            'Júpiter': 'sagitario',
+            'Saturno': 'capricornio',
+            'Urano': 'acuario',
+            'Neptuno': 'piscis',
+            'Plutón': 'escorpio',
+            'N.Norte': 'geminis',
+            'N.Sur': 'sagitario',
+            'Quirón': 'aries',
+            'Selena': 'tauro',
+            'Lilith': 'escorpio',
+            'Pholus': 'sagitario',
+            'Ceres': 'cancer',
+            'Pallas': 'libra',
+            'Juno': 'leo',
+            'Vesta': 'virgo'
+        };
+
+        // Verificamos el estado del cuerpo celeste
+        if (exaltation[bodie] === sign) {
+            return 'exaltación';
+        } else if (fall[bodie] === sign) {
+            return 'caída';
+        } else if (domicile[bodie] === sign) {
+            return 'domicilio';
+        } else {
+            return 'normal';
+        }
+    }
     //<--Data
 }

@@ -189,6 +189,12 @@ Item {
                             anchors.verticalCenter: parent.verticalCenter
                             visible: r.p===1
                         }
+                        Text{
+                            text: '<b>Estado:</b> '+zm.getBodieStatus(zm.aBodies[r.p], zm.aSignsLowerStyle[r.is])
+                            font.pixelSize: r.pointerFs*0.35
+                            color: zm.pointerFontColor
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
                     }
                     Row{
                         spacing: r.pointerFs*0.25

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<song>
+ <version>1.0.0-rc1</version>
+ <bpm>110</bpm>
+ <volume>0.78</volume>
+ <metronomeVolume>0.5</metronomeVolume>
+ <name>GM kit demo #2</name>
+<patternList>
+  <pattern>
+   <name>intro</name>
+   <category></category>
+   <size>192</size>
+   <info></info>
+<noteList>
+    <note>
+     <position>96</position>
+     <leadlag>0</leadlag>
+     <velocity>0.22</velocity>
+     <pan_L>0.5</pan_L>
+     <pan_R>0.5</pan_R>
+     <pitch>0</pitch>
+     <probability>1</probability>
+     <key>C0</key>
+     <length>-1</length>
+     <instrument>0</instrument>
+     <note_off>false</note_off>
+    </note>
+</noteList>
+</pattern>
+</patternList>
+</song>

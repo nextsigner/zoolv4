@@ -508,6 +508,12 @@ ZoolMainWindow{
                             }
                         }
                     }
+                    ZoolBodiesGuiTools{
+                        id: xTools
+                        anchors.bottom: parent.bottom
+                        anchors.right: parent.right
+                        //anchors.rightMargin: app.width*0.2
+                    }
                 }
                 Item{
                     id: xLatDer
@@ -527,12 +533,7 @@ ZoolMainWindow{
                 }
             }
             //Comps.XDataStatusBar{id: xDataStatusBar}
-            ZoolBodiesGuiTools{
-                id: xTools
-                anchors.bottom: parent.bottom
-                anchors.right: parent.right
-                anchors.rightMargin: app.width*0.2
-            }
+
             ZoolBottomBar{id: xBottomBar}
             ZoolInfoDataView{id: xInfoData}
             ZoolDataEditor{id: xEditor}

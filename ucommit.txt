@@ -1,1 +1,1 @@
-Se agrega funcion getBodiesStatus()
+Se optimiza selección de Asc Fc Desc y Mc en ZoolDataBodies

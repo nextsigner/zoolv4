@@ -55,14 +55,14 @@ Rectangle {
             if(currentIndex>-1){
                 currentIndex--
             }else{
-                currentIndex=21
+                currentIndex=23
             }
         }
         if(zoolDataBodies.latFocus===1){
             if(currentIndexBack>-1){
                 currentIndexBack--
             }else{
-                currentIndexBack=21
+                currentIndexBack=23
             }
         }
 //        if(currentIndexBack===-1){
@@ -71,14 +71,14 @@ Rectangle {
     }
     function toDown(){
         if(zoolDataBodies.latFocus===0){
-            if(currentIndex<16){
+            if(currentIndex<23){
                 currentIndex++
             }else{
                 currentIndex=-1
             }
         }
         if(zoolDataBodies.latFocus===1){
-            if(currentIndexBack<16){
+            if(currentIndexBack<23){
                 currentIndexBack++
             }else{
                 currentIndexBack=-1
@@ -86,10 +86,32 @@ Rectangle {
         }
 
     }
+    property int uIhEntered: -1
     function toEnter(){
         if(latFocus===0){
-            if(xBodiesInt.currentIndex>16){
-                zm.objHousesCircle.currentHouse=xBodiesInt.currentIndex-16
+            if(xBodiesInt.currentIndex>19){
+                zm.objHousesCircle.currentHouse=xBodiesInt.currentIndex-19
+                let i=parseInt(xBodiesInt.currentIndex-19)
+                let ih=0
+                let jsonNot={}
+                if(i===2){
+                    ih=4
+                }else if(i===3){
+                    ih=7
+                }else if(i===4){
+                    ih=10
+                }else{
+                    ih=1
+                }
+                if(i!==r.uIhEntered){
+                    zm.objHousesCircle.selectAscDescFcMc(ih, true)
+                    r.uIhEntered=i
+                }else{
+                    zm.currentPlanetIndex=-1
+                    zm.objHousesCircle.currentHouse=-1
+                    zm.objHousesCircle.selectAscDescFcMc(ih, false)
+                    r.uIhEntered=-1
+                }
             }else{
                 if(zm.currentPlanetIndex!==xBodiesInt.currentIndex){
                     zm.currentPlanetIndex=xBodiesInt.currentIndex
@@ -100,8 +122,29 @@ Rectangle {
                 }
             }
         }else{
-            if(xBodiesExt.currentIndex>16){
-                zm.objHousesCircle.currentHouse=xBodiesExt.currentIndex-16
+            if(xBodiesExt.currentIndex>19){
+                zm.objHousesCircleBack.currentHouse=xBodiesInt.currentIndex-19
+                let i=parseInt(xBodiesInt.currentIndex-19)
+                let ih=0
+                let jsonNot={}
+                if(i===2){
+                    ih=4
+                }else if(i===3){
+                    ih=7
+                }else if(i===4){
+                    ih=10
+                }else{
+                    ih=1
+                }
+                if(i!==r.uIhEntered){
+                    zm.objHousesCircleBack.selectAscDescFcMc(ih, true)
+                    r.uIhEntered=i
+                }else{
+                    zm.currentPlanetIndexBack=-1
+                    zm.objHousesCircleBack.currentHouse=-1
+                    zm.objHousesCircleBack.selectAscDescFcMc(ih, false)
+                    r.uIhEntered=-1
+                }
             }else{
                 if(zm.currentPlanetIndexBack!==xBodiesExt.currentIndex){
                     zm.currentPlanetIndexBack=xBodiesExt.currentIndex

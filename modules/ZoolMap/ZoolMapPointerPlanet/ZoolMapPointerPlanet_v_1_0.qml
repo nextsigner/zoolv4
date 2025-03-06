@@ -26,12 +26,25 @@ Item {
     property var aMargins: [0.5, 0.3, 0.4, 0.4, 0.4, 0.5, 0.5, 0.5, 0.4, 0.3, 0.5, 0.5, 0.3, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
 
     property bool isBack: false
+    property string status: zm.getBodieStatus(zm.aBodies[r.p], zm.aSignsLowerStyle[r.is])
 
     onOpacityChanged: {
-        if(opacity===1.0)setPointerFs()
+        if(opacity===1.0){
+            if(status!=='normal'){
+                let jsonNot={}
+                jsonNot.text='Estado de '+zm.aBodies[r.p]+': '+r.status
+                //jsonNot.bot1Text='Ver Repositorio GitHub'
+                zpn.addNot(jsonNot, true, 20000)
+            }
+            setPointerFs()
+        }
     }
     onXsChanged: {
         setPointerFs()
+    }
+    onVisibleChanged: {
+
+
     }
     function setPointerFs(){
         let f1=0.4
@@ -189,8 +202,19 @@ Item {
                             anchors.verticalCenter: parent.verticalCenter
                             visible: r.p===1
                         }
+                    }
+                    Row{
+                        spacing: r.pointerFs*0.25
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        visible: r.status!=='normal'
                         Text{
-                            text: '<b>Estado:</b> '+zm.getBodieStatus(zm.aBodies[r.p], zm.aSignsLowerStyle[r.is])
+                            text: '<b>Estado:</b> '
+                            font.pixelSize: r.pointerFs*0.35
+                            color: zm.pointerFontColor
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                        Text{
+                            text: r.status
                             font.pixelSize: r.pointerFs*0.35
                             color: zm.pointerFontColor
                             anchors.verticalCenter: parent.verticalCenter

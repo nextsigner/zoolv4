@@ -87,7 +87,7 @@ Column{
                         (colTxtEV.height+app.fs*0.1)
 
             color: zm.themeName==='Zool'?(
-                                              !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zm.objHousesCircle.currentHouse===index-21)?apps.fontColor:apps.backgroundColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zm.objHousesCircleBack.currentHouse===index-21)?apps.fontColor:apps.backgroundColor)
+                                              !r.isBack?(index===zoolDataBodies.currentIndex||(index>50&&zm.objHousesCircle.currentHouse===index-21)?apps.fontColor:apps.backgroundColor):(index===zoolDataBodies.currentIndexBack||(index>50&&zm.objHousesCircleBack.currentHouse===index-21)?apps.fontColor:apps.backgroundColor)
                                               ):(apps.backgroundColor)
             border.width: 1
             border.color: zm.themeName==='Zool'?(!r.isBack?apps.houseColor:apps.houseColorBack):(
@@ -113,7 +113,7 @@ Column{
                 font.pixelSize: app.fs
                 textFormat: Text.RichText
                 color: zm.themeName==='Zool'?(
-                                              !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zm.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zm.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
+                                              !r.isBack?(index===zoolDataBodies.currentIndex||(index>50&&zm.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>50&&zm.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
                                                   ):(
                                                   index==zoolDataBodies.currentIndex?apps.backgroundColor:apps.fontColor
                                                   )
@@ -143,9 +143,9 @@ Column{
                     id: txtDataSelected1
                     font.pixelSize: app.fs
                     textFormat: Text.RichText
-                    //color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zm.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zm.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
+                    //color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>50&&zm.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>50&&zm.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
                     color: zm.themeName==='Zool'?(
-                                                      !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zm.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zm.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
+                                                      !r.isBack?(index===zoolDataBodies.currentIndex||(index>50&&zm.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>50&&zm.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
                                                       ):(
                                                       index==zoolDataBodies.currentIndex?apps.backgroundColor:apps.fontColor
                                                       )
@@ -167,7 +167,7 @@ Column{
                     font.pixelSize: app.fs
                     textFormat: Text.RichText
                     color: zm.themeName==='Zool'?(
-!r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zm.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zm.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
+!r.isBack?(index===zoolDataBodies.currentIndex||(index>50&&zm.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>50&&zm.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
                                                       ):(
                                                       index==zoolDataBodies.currentIndex?apps.backgroundColor:apps.fontColor
                                                       )
@@ -192,7 +192,7 @@ Column{
                     id: txtDataEV
                     font.pixelSize: app.fs//*0.4
                     textFormat: Text.RichText
-                    color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zm.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zm.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
+                    color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>50&&zm.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>50&&zm.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
                     horizontalAlignment: Text.AlignHCenter
                     anchors.horizontalCenter: parent.horizontalCenter
                     visible: zm.ev
@@ -211,7 +211,14 @@ Column{
                     id: txtDataEV2
                     font.pixelSize: app.fs//*0.4
                     textFormat: Text.RichText
-                    color: !r.isBack?(index===zoolDataBodies.currentIndex||(index>21&&zm.objHousesCircle.currentHouse===index-21)?apps.backgroundColor:apps.fontColor):(index===zoolDataBodies.currentIndexBack||(index>21&&zm.objHousesCircleBack.currentHouse===index-21)?apps.backgroundColor:apps.fontColor)
+                    color: !r.isBack?
+                               (
+                                   index===zoolDataBodies.currentIndex||(index>50&&zm.objHousesCircle.currentHouse===index-23)?apps.backgroundColor:apps.fontColor
+                                   )
+                             :
+                               (
+                                   index===zoolDataBodies.currentIndexBack||(index>50&&zm.objHousesCircleBack.currentHouse===index-23)?apps.backgroundColor:apps.fontColor
+                                   )
                     horizontalAlignment: Text.AlignHCenter
                     //anchors.centerIn: parent
                     visible: zm.ev
@@ -238,7 +245,7 @@ Column{
                             unik.sendToTcpServer(nioqml.host, nioqml.port, nioqml.user, 'zool', 'zi|'+index+'|'+is+'')
                         }
                     }else{
-                        if(index>21){
+                        if(index>50){
                             if(!r.isBack){
                                 zoolDataBodies.latFocus=0
                                 zm.objHousesCircle.currentHouse=index-21
@@ -330,12 +337,24 @@ Column{
             //                houseSun=ih
             //            }
         }
+
+        //Ascendente
         let o1=json.ph['h1']
-        //s = 'Ascendente °' +o1.rsgdeg+ '\'' +o1.mdeg+ '\'\'' +o1.sdeg+ ' ' +app.signos[o1.is]
         s = '<b>Ascendente</b> en <b>'+app.signos[o1.is]+'</b> @ <b>Grado:</b>°' +o1.rsgdeg+ '\'' +o1.mdeg+ '\'\'' +o1.sdeg+ ' <b>Casa:</b> 1'
         lm.append(lm.addItem(o1.is, 1, o1.rsgdeg, o1.mdeg, o1.sdeg,  s))
+
+        //Fondo Cielo
+        o1=json.ph['h4']
+        s = '<b>Fondo Cielo</b> en <b>'+app.signos[o1.is]+'</b> @ <b>Grado:</b>°' +o1.rsgdeg+ '\'' +o1.mdeg+ '\'\'' +o1.sdeg+ ' <b>Casa:</b> 4'
+        lm.append(lm.addItem(o1.is, 4, o1.rsgdeg, o1.mdeg, o1.sdeg, s))
+
+        //Descendente
+        o1=json.ph['h7']
+        s = '<b>Descendente</b> en <b>'+app.signos[o1.is]+'</b> @ <b>Grado:</b>°' +o1.rsgdeg+ '\'' +o1.mdeg+ '\'\'' +o1.sdeg+ ' <b>Casa:</b> 7'
+        lm.append(lm.addItem(o1.is, 7, o1.rsgdeg, o1.mdeg, o1.sdeg, s))
+
+        //Medio Cielo
         o1=json.ph['h10']
-        //s = 'Medio Cielo °' +o1.rsgdeg+ '\'' +o1.mdeg+ '\'\'' +o1.sdeg+ ' ' +app.signos[o1.is]
         s = '<b>Medio Cielo</b> en <b>'+app.signos[o1.is]+'</b> @ <b>Grado:</b>°' +o1.rsgdeg+ '\'' +o1.mdeg+ '\'\'' +o1.sdeg+ ' <b>Casa:</b> 10'
         lm.append(lm.addItem(o1.is, 10, o1.rsgdeg, o1.mdeg, o1.sdeg, s))
         //log.ls('o1.is: '+o1.is, 0, 500)

@@ -59,6 +59,7 @@ Item {
         radius: width*0.5
         anchors.centerIn: parent
     }
+    Item{id: centro; width: 1; height: 1; anchors.centerIn: parent}
     Item{
         id: dha//xDinamicHouserArcs
         anchors.fill: r
@@ -795,5 +796,32 @@ Item {
     }
     function clearHousesActivated(){
         r.aHousesActivated=[]
+    }
+    Timer{
+        id: tZmToCenter
+        running: false
+        repeat: false
+        interval: 500
+        onTriggered: {
+            zm.centerZoomAndPos()
+        }
+    }
+    function selectAscDescFcMc(ih, selected){
+        let item=getItemOfHouse(ih)
+        //log.lv('item.ih: '+item.ih)
+        zm.setHousesPointerShow(item.ih, selected)
+        item.selected=selected
+        setCurrentHouseIndex(item)
+        var item1
+        var item2
+        if(selected){
+            item1=zm.xzm
+            item2=item
+        }else{
+            item1=zm.xzm
+            item2=zm.oc
+        }
+        var absolutePosition = item2.mapToItem(item1, 0, 0);
+        zm.panTo(absolutePosition.x, absolutePosition.y)
     }
 }

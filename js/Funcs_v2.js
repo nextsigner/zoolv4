@@ -876,6 +876,7 @@ function saveZoomAndPos(){
 
 //Numerologia
 function getNums(fecha){
+    let numKarmico=-1
     let d=''
     let nf=0
     let nf10=false
@@ -908,6 +909,9 @@ function getNums(fecha){
         }
         nf=nnf
     }
+    if(nf>9&&nf!==13&&nf!==14&&nf!==16&&nf!==19){
+        numKarmico=nf
+    }
     d=''+parseInt(m0[0])
     if(parseInt(m0[0])>9){
         let m5=d.split('')
@@ -935,7 +939,7 @@ function getNums(fecha){
     }else{
         numArbolGen=2
     }
-    return [nf, d, numArbolGen]
+    return [nf, d, numArbolGen, numKarmico]
 }
 
 //Funciones varias

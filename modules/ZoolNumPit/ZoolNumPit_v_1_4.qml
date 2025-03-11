@@ -30,6 +30,7 @@ Rectangle {
     //property var currentDate
     property var currentDate
     property int currentNum: 0
+    property int numKarmico: -1
 
     property color borderColor: apps.fontColor
     property int borderWidth: app.fs*0.15
@@ -117,7 +118,8 @@ Rectangle {
         let a = currentDate.getFullYear()
         let f = d + '/' + m + '/' + a
         let aGetNums=app.j.getNums(f)
-        currentNumNacimiento=aGetNums[0]
+        currentNumNacimiento=aGetNums[0]        
+        r.numKarmico=aGetNums[3]
         r.currentNumNatalicio=d
         r.sFormulaNatalicio=aGetNums[1]
         labelFNTS.text=currentDate.toString()
@@ -1071,6 +1073,7 @@ Rectangle {
                             calc()
                             let aGetNums=app.j.getNums(zm.currentFecha)
                             r.currentIndexAG=aGetNums[2]
+                            r.numKarmico=aGetNums[3]
                             r.logView.clear()
                             r.logView.l(getTodo(checkBoxFormula.checked))
                             r.logView.visible=true
@@ -1099,6 +1102,7 @@ Rectangle {
                             let nfecha=''+dia+'/'+mes+'/'+anio
                             let aGetNums=app.j.getNums(nfecha)
                             r.currentIndexAG=aGetNums[2]
+                            r.numKarmico=aGetNums[3]
                             r.logView.clear()
                             r.logView.l(getTodo(checkBoxFormula.checked))
                             r.logView.visible=true
@@ -1129,6 +1133,7 @@ Rectangle {
                                 let nfecha=''+dia+'/'+mes+'/'+anio
                                 let aGetNums=app.j.getNums(nfecha)
                                 r.currentIndexAG=aGetNums[2]
+                                r.numKarmico=aGetNums[3]
                                 let folder=apps.numCurrentFolder.replace('file://', '')
                                 if(!unik.folderExist(folder)){
                                     log.ls('La carpeta para guardar el archivo no existe: '+folder, 0, xApp.width*0.2)
@@ -1621,6 +1626,7 @@ Rectangle {
         let aGetNums=app.j.getNums(f)
         let vcurrentNumNacimiento=aGetNums[0]
         r.currentIndexAG=aGetNums[2]
+        r.numKarmico=aGetNums[3]
         //log.ls('l1396: r.currentIndexAG: '+r.currentIndexAG, 500, 500)
         r.logView.l('Número de Karma '+vcurrentNumNacimiento+'\n')
         r.logView.l(getNumNomText(nom, checkBoxFormula.checked))
@@ -1728,6 +1734,12 @@ Rectangle {
         }
         stg+='</ul>'
         txtDataGrupo.text=stg
+        //txtDataGrupo.text+='<br>'+f0.text
+        //txtDataGrupo.text+='<br>'+getNum2Digitos(f0.text)
+        let num2Digitos=getNum2Digitos(f0.text)
+        if(num2Digitos>0){
+            txtDataGrupo.text+='<br>'+getDataNumKarmico(num2Digitos)
+        }
     }
     function setCurrentDate(date){
         let d = date.getDate()
@@ -1762,6 +1774,7 @@ Rectangle {
         let sf=''+d+'/'+m+'/'+a
         let aGetNums=app.j.getNums(sf)
         currentNumNacimiento=aGetNums[0]
+        r.numKarmico=aGetNums[3]
         r.currentIndexAG=aGetNums[2]
         //log.ls('l1518: r.currentIndexAG: '+r.currentIndexAG, 500, 500)
         let dateP = new Date(parseInt(txtDataSearchFechaAP.text), m - 1, d, 0, 1)
@@ -2188,5 +2201,30 @@ Rectangle {
         j.t=tipo
         j.data=a
         return j
+    }
+    function getNum2Digitos(f){
+        let n=-1
+        let m0=f.split('=')
+        for(var i=m0.length-1;i>0;i--){
+            if(m0[i].length===2){
+                n=parseInt(m0[i])
+                break
+            }
+        }
+        return n
+    }
+    function getDataNumKarmico(n){
+        let ret=''
+        let a = []
+        if(n===13||n===14||n===16||n===19){
+            ret+='<b>El número '+n+' es kármico</b><br>'
+            a.push('Se relaciona directamente con deudas contraídas en vidas pasadas por una indebida utilización de las energías.')
+            a.push('Ofrecen la oportunidad de saldar los errores o tareas pendientes de existencias anteriores.')
+            a.push('La misión de los números kármicos es enseñar que cada acción tiene su retribución (Ley de Causa y Efecto) y que todos tenemos la oportunidad de enmendar el camino.')
+            for(var i=0;i<a.length;i++){
+                ret+='<br><br>'+a[i]
+            }
+        }
+        return ret
     }
 }

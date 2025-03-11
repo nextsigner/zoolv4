@@ -229,7 +229,7 @@ Rectangle {
                                         s+='.'+mes
                                         s+='.'+anio
                                         txtDataSearchFecha.text=s
-                                        //calc()
+                                        calc()
                                     }
                                 }
                                 Item{width: 2; height: app.fs*0.25}
@@ -319,7 +319,7 @@ Rectangle {
                                     onTextChanged: {
                                         //let txt=getTipoGrupo(parseInt(r.currentNumNacimiento))
                                         //txtDataGrupo.text='AAA'+JSON.stringify(txt, null, 2)
-                                        txtDataGrupo.text='lsd faslñs als lsak añlk añlsdkf asñlk ñalk j'
+                                        //txtDataGrupo.text='lsd faslñs als lsak añlk añlsdkf asñlk ñalk j'
                                     }
                                 }
                                 Rectangle{
@@ -342,14 +342,13 @@ Rectangle {
                             }
                             Rectangle{
                                 id: xNumGrupo
-                                width: r.width-app.fs*0.5
+                                width: r.width-app.fs//*0.5
                                 height: txtDataGrupo.contentHeight+app.fs*0.5
                                 radius: app.fs*0.2
                                 border.width: 1
                                 border.color: apps.fontColor
                                 color: apps.backgroundColor
                                 anchors.horizontalCenter: parent.horizontalCenter
-                                //anchors.verticalCenter: parent.verticalCenter
                                 Text{
                                     id: txtDataGrupo
                                     //text: 'ASDF ASDF ASDF ASDF ASDF ASDF ASDF ASDF ASDF ASDF '
@@ -1246,8 +1245,8 @@ Rectangle {
         r.aDonesAG=getDataJsonArGen()['dones']
         r.aMetasAG=getDataJsonArGen()['metas']
         r.aPersonasSituacionesAG=getDataJsonArGen()['personasSituaciones']
-        calc()
 
+        calc()
     }
     function getNumNomText(text, formula){
         let ret=''
@@ -1726,20 +1725,7 @@ Rectangle {
         r.sFormulaNumPer+='='+ret
         r.currentNumPersonalidad=ret
 
-        let txt=getTipoGrupo(parseInt(r.currentNumNacimiento))
-        let stg='<b>Grupo: </b>'+txt.t+'<br>'
-        stg+='<ul>'
-        for(var i10=0;i10<txt.data.length;i10++){
-            stg+='<li>'+txt.data[i10]+'</li>'
-        }
-        stg+='</ul>'
-        txtDataGrupo.text=stg
-        //txtDataGrupo.text+='<br>'+f0.text
-        //txtDataGrupo.text+='<br>'+getNum2Digitos(f0.text)
-        let num2Digitos=getNum2Digitos(f0.text)
-        if(num2Digitos>0){
-            txtDataGrupo.text+='<br>'+getDataNumKarmico(num2Digitos)
-        }
+        //setExtraData()
     }
     function setCurrentDate(date){
         let d = date.getDate()
@@ -1845,6 +1831,7 @@ Rectangle {
         let dataNombre=getNumNomText(txtSearchNum, checkBoxFormula.checked)
         setPins()
         labelFNTS.text=r.currentDate?r.currentDate.toString():''
+        setExtraData()
     }
     function getTodo(formula){
         let m0=txtDataSearchFecha.text.split('.')
@@ -2217,7 +2204,7 @@ Rectangle {
         let ret=''
         let a = []
         if(n===13||n===14||n===16||n===19){
-            ret+='<b>El número '+n+' es kármico</b><br>'
+            ret+='<b>El número '+n+' es kármico</b>'
             a.push('Se relaciona directamente con deudas contraídas en vidas pasadas por una indebida utilización de las energías.')
             a.push('Ofrecen la oportunidad de saldar los errores o tareas pendientes de existencias anteriores.')
             a.push('La misión de los números kármicos es enseñar que cada acción tiene su retribución (Ley de Causa y Efecto) y que todos tenemos la oportunidad de enmendar el camino.')
@@ -2226,5 +2213,23 @@ Rectangle {
             }
         }
         return ret
+    }
+
+    function setExtraData(){
+        let txt=getTipoGrupo(parseInt(r.currentNumNacimiento))
+        let stg='<b>Grupo: </b>'+txt.t+'<br>'
+        stg+='<ul>'
+        for(var i10=0;i10<txt.data.length;i10++){
+            if(txt.data[i10].length>0){
+                stg+='<li>'+txt.data[i10]+'</li>'
+            }
+        }
+        stg+='</ul>'
+        txtDataGrupo.text=stg
+
+        let num2Digitos=getNum2Digitos(f0.text)
+        if(num2Digitos>0){
+            txtDataGrupo.text+='<br>'+getDataNumKarmico(num2Digitos)
+        }
     }
 }

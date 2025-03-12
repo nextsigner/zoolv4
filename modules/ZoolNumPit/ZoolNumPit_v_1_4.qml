@@ -118,7 +118,7 @@ Rectangle {
         let a = currentDate.getFullYear()
         let f = d + '/' + m + '/' + a
         let aGetNums=app.j.getNums(f)
-        currentNumNacimiento=aGetNums[0]        
+        currentNumNacimiento=aGetNums[0]
         r.numKarmico=aGetNums[3]
         r.currentNumNatalicio=d
         r.sFormulaNatalicio=aGetNums[1]
@@ -693,7 +693,7 @@ Rectangle {
                             anchors.centerIn: parent
                             Keys.onReturnPressed: {
                                 if(text==='')return
-                                //r.logView.l(getNumNomText(text))                                
+                                //r.logView.l(getNumNomText(text))
                                 let p=zfdm.getJsonAbsParams(false)
                                 p.nf=text
                                 zfdm.updateParams(p, true)
@@ -885,6 +885,7 @@ Rectangle {
                                 }
                             }
                             Text{
+                                id: txtDataNomIntExt
                                 text:'<b>* Interior:</b> '+r.sFormulaInt+''+r.currentNumNombreInt+'<br />       <b>* Exterior:</b> '+r.sFormulaExt+''+r.currentNumNombreExt
                                 width: r.width-app.fs*0.6
                                 wrapMode: Text.WordWrap
@@ -1259,6 +1260,67 @@ Rectangle {
         r.aPersonasSituacionesAG=getDataJsonArGen()['personasSituaciones']
 
         calc()
+    }
+    function bigNumToPitNum(num){
+        let s=(''+num)
+        let m0=s.split('')
+        let ret=num
+        if(ret===13||ret===14||ret===16||ret===19||ret===11||ret===22||ret===33||ret===44||ret===55||ret===66){
+            return ret
+        }
+        ret=0
+        for(var i=0;i<m0.length;i++){
+            ret+=parseInt(m0[i])
+        }
+        if(ret===13||ret===14||ret===16||ret===19||ret===11||ret===22||ret===33||ret===44||ret===55||ret===66){
+            return ret
+        }
+        if(ret>9){
+            s=(''+ret)
+            m0=s.split('')
+            ret=0
+            for(i=0;i<m0.length;i++){
+                ret+=parseInt(m0[i])
+            }
+        }
+        if(ret===13||ret===14||ret===16||ret===19||ret===11||ret===22||ret===33||ret===44||ret===55||ret===66){
+            return ret
+        }
+        return ret
+    }
+    function getNumFromText(text, intOext){
+        let ret=-1
+        let t=text.toUpperCase().replace(/ /g, '')
+        let av=[]
+        let ac=[]
+        let ml=t.split('')
+
+        for(var i=0;i<ml.length;i++){
+            let l=ml[i]
+            if(l==='A'||l==='E'||l==='I'||l==='O'||l==='U'||l==='Á'||l==='É'||l==='Í'||l==='Ó'||l==='Ú'){
+                av.push(l)
+            }else{
+                ac.push(l)
+            }
+        }
+
+        let vtv=0
+        let vtc=0
+        let rc=0
+        if(intOext==='int'){
+            for(i=0;i<av.length;i++){
+                rc=gvl(av[i])
+                vtv+=rc
+            }
+            ret=vtv
+        }else{
+            for(i=0;i<ac.length;i++){
+                rc=gvl(ac[i])
+                vtc+=rc
+            }
+            ret=vtc
+        }
+        return bigNumToPitNum(ret)
     }
     function getNumNomText(text, formula){
         let ret=''
@@ -1746,9 +1808,9 @@ Rectangle {
         txtDataSearchFecha.text=d + '.' + m + '.' + a
         let nct=new Date(a, m-1, d)
         ct.currentDate=nct
-//        ct.dia=d
-//        ct.mes=m
-//        ct.anio=a
+        //        ct.dia=d
+        //        ct.mes=m
+        //        ct.anio=a
     }
     function setCurrentNombre(nom){
         let p=zfdm.getJsonAbsParams(false)
@@ -1757,14 +1819,6 @@ Rectangle {
         }else{
             txtDataSearchNom.text=nom
         }
-        if(p.nf){
-            txtDataSearchFirma.text=p.nf
-        }else{
-            txtDataSearchFirma.text=firma
-        }
-    }
-    function setCurrentFirma(firma){
-        let p=zfdm.getJsonAbsParams(false)
         if(p.nf){
             txtDataSearchFirma.text=p.nf
         }else{
@@ -1859,6 +1913,24 @@ Rectangle {
         setPins()
         labelFNTS.text=r.currentDate?r.currentDate.toString():''
         setExtraData()
+
+        let text=txtDataSearchNom.text
+        let numNomInt=getNumFromText(text, 'int')
+        let numNomExt=getNumFromText(text, 'ext')
+        r.currentNumNombre=bigNumToPitNum(numNomInt+numNomExt)
+        txtDataNomIntExt.text='<b>* Interior:</b> '+numNomInt+'<br />       <b>* Exterior:</b> '+numNomExt
+
+        text=txtDataSearchFirma.text
+        numNomInt=getNumFromText(text, 'int')
+        numNomExt=getNumFromText(text, 'ext')
+        r.currentNumFirma=bigNumToPitNum(numNomInt+numNomExt)
+
+        //Numero de Destino es igual a la suma de número de Nombre y número de Firma
+        r.currentNumDestino=bigNumToPitNum(r.currentNumNombre+r.currentNumFirma)
+
+
+
+
     }
     function getTodo(formula){
         let m0=txtDataSearchFecha.text.split('.')

@@ -1,1 +1,1 @@
-Se optimiza el cálculo de número de nombre, firma y destino en ZoolNumPit a v1.4
+Se ocultan los radioButton de género en ZoolNumPit a v1.4

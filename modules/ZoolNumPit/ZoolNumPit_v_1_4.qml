@@ -727,6 +727,7 @@ Rectangle {
             Row{
                 spacing: app.fs*0.25
                 anchors.horizontalCenter: parent.horizontalCenter
+                visible: false
                 Text{
                     text: '<b>Género: </b>'
                     font.pixelSize: app.fs*0.5
@@ -747,7 +748,12 @@ Rectangle {
                         anchors.verticalCenter: parent.verticalCenter
                         checked: true
                         onCheckedChanged: {
-                            if(checked)rbF.checked=false
+                            if(checked){
+                                rbF.checked=false
+                                let p=zfdm.getJsonAbsParams(false)
+                                p.g='m'
+                                zfdm.updateParams(p, true)
+                            }
                         }
                     }
                 }
@@ -765,7 +771,12 @@ Rectangle {
                         anchors.verticalCenter: parent.verticalCenter
                         checked: false
                         onCheckedChanged: {
-                            if(checked)rbM.checked=false
+                            if(checked){
+                                rbM.checked=false
+                                let p=zfdm.getJsonAbsParams(false)
+                                p.g='f'
+                                zfdm.updateParams(p, true)
+                            }
                         }
                     }
                 }
@@ -865,7 +876,7 @@ Rectangle {
                             Row{
                                 spacing: app.fs*0.5
                                 Text{
-                                    text:'<b>Nombre:</b> '+r.currentNumNombre
+                                    text:'<b>Nombre:</b> '+r.currentNumNombre+(r.currentNumNombre===13||r.currentNumNombre===14||r.currentNumNombre===16||r.currentNumNombre===19?' (Karmático)':(r.currentNumNombre===11||r.currentNumNombre===22||r.currentNumNombre===33||r.currentNumNombre===44?' (Maestro)':''))
                                     font.pixelSize: app.fs*0.5
                                     color: apps.fontColor
                                     anchors.verticalCenter: parent.verticalCenter
@@ -1822,7 +1833,21 @@ Rectangle {
         if(p.nf){
             txtDataSearchFirma.text=p.nf
         }else{
-            txtDataSearchFirma.text=firma
+            txtDataSearchFirma.text='Sin firma'
+        }
+        if(p.g){
+            if(p.g==='m'){
+                rbM.checked=true
+                rbF.checked=false
+            }else if(p.g==='f'){
+                rbM.checked=false
+                rbF.checked=true
+            }else{
+                rbM.checked=true
+                rbF.checked=false
+            }
+        }else{
+            txtDataSearchFirma.text='Sin firma'
         }
     }
     function setNumNac(){
@@ -1914,12 +1939,17 @@ Rectangle {
         labelFNTS.text=r.currentDate?r.currentDate.toString():''
         setExtraData()
 
+        //Número de Nombre
         let text=txtDataSearchNom.text
         let numNomInt=getNumFromText(text, 'int')
         let numNomExt=getNumFromText(text, 'ext')
         r.currentNumNombre=bigNumToPitNum(numNomInt+numNomExt)
         txtDataNomIntExt.text='<b>* Interior:</b> '+numNomInt+'<br />       <b>* Exterior:</b> '+numNomExt
 
+        //Número de Personalidad se suma el número de Karma/Misión más el número de Nombre
+        r.currentNumPersonalidad=bigNumToPitNum(r.currentNumNacimiento+r.currentNumNombre)
+
+        //Número de Firma
         text=txtDataSearchFirma.text
         numNomInt=getNumFromText(text, 'int')
         numNomExt=getNumFromText(text, 'ext')

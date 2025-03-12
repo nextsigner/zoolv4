@@ -629,7 +629,7 @@ Rectangle {
                         }
                         TextInput {
                             id: txtDataSearchNom
-                            text: apps.numUNom
+                            //text: apps.numUNom
                             font.pixelSize: app.fs*0.5
                             width: parent.width-app.fs*0.2
                             wrapMode: Text.WordWrap
@@ -639,13 +639,19 @@ Rectangle {
                             Keys.onReturnPressed: {
                                 if(text==='')return
                                 //r.logView.l(getNumNomText(text))
+                                let p=zfdm.getJsonAbsParams(false)
+                                p.nc=text
+                                zfdm.updateParams(p, true)
                                 calc()
-                                apps.numUNom=text
+                                //apps.numUNom=text
                             }
                             onTextChanged: {
                                 //r.logView.l(getNumNomText(text))
+                                let p=zfdm.getJsonAbsParams(false)
+                                p.nc=text
+                                zfdm.updateParams(p, true)
                                 calc()
-                                apps.numUNom=text
+                                //apps.numUNom=text
                             }
                             onFocusChanged: {
                                 if(focus)selectAll()
@@ -678,7 +684,7 @@ Rectangle {
                         }
                         TextInput {
                             id: txtDataSearchFirma
-                            text: apps.numUFirma
+                            //text: apps.numUFirma
                             font.pixelSize: app.fs*0.5
                             width: parent.width-app.fs*0.2
                             wrapMode: Text.WordWrap
@@ -687,14 +693,20 @@ Rectangle {
                             anchors.centerIn: parent
                             Keys.onReturnPressed: {
                                 if(text==='')return
-                                //r.logView.l(getNumNomText(text))
+                                //r.logView.l(getNumNomText(text))                                
+                                let p=zfdm.getJsonAbsParams(false)
+                                p.nf=text
+                                zfdm.updateParams(p, true)
                                 calc()
-                                apps.numUNom=text
+                                //apps.numUNom=text
                             }
                             onTextChanged: {
                                 //r.logView.l(getNumNomText(text))
+                                let p=zfdm.getJsonAbsParams(false)
+                                p.nf=text
+                                zfdm.updateParams(p, true)
                                 calc()
-                                apps.numUFirma=text
+                                //apps.numUFirma=text
                             }
                             onFocusChanged: {
                                 if(focus)selectAll()
@@ -1739,10 +1751,25 @@ Rectangle {
 //        ct.anio=a
     }
     function setCurrentNombre(nom){
-        txtDataSearchNom.text=nom
+        let p=zfdm.getJsonAbsParams(false)
+        if(p.nc){
+            txtDataSearchNom.text=p.nc
+        }else{
+            txtDataSearchNom.text=nom
+        }
+        if(p.nf){
+            txtDataSearchFirma.text=p.nf
+        }else{
+            txtDataSearchFirma.text=firma
+        }
     }
     function setCurrentFirma(firma){
-        txtDataSearchFirma.text=firma
+        let p=zfdm.getJsonAbsParams(false)
+        if(p.nf){
+            txtDataSearchFirma.text=p.nf
+        }else{
+            txtDataSearchFirma.text=firma
+        }
     }
     function setNumNac(){
         let mfecha=txtDataSearchFecha.text.split('.')

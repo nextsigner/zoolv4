@@ -1,1 +1,1 @@
-Se actualiza ZoolNumPit a v1.4
+Se agregan script para cargar nombre completo y firma en ZoolNumPit a v1.4

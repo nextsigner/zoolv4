@@ -5,6 +5,8 @@ import "../"
 import ZoolButton 1.2
 import ZoolControlsTime 1.0
 
+import ZoolNumPit.ZoolPinaculo 1.0
+
 import "../../comps" as Comps
 
 
@@ -138,11 +140,17 @@ Rectangle {
             id: col1
             spacing: app.fs*0.5
             anchors.horizontalCenter: parent.horizontalCenter
+
             Item{width: 2; height: app.fs*0.1}
             Text{
                 text: '<b>Numerología</b>'
                 color: apps.fontColor
                 font.pixelSize: app.fs*0.65
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+            ZoolPinaculo{
+                id: zpin
+                modNumPit: r
                 anchors.horizontalCenter: parent.horizontalCenter
             }
             Rectangle{
@@ -1276,14 +1284,14 @@ Rectangle {
         let s=(''+num)
         let m0=s.split('')
         let ret=num
-        if(ret===13||ret===14||ret===16||ret===19||ret===11||ret===22||ret===33||ret===44||ret===55||ret===66){
+        if(ret===13||ret===14||ret===16||ret===19||ret===11||ret===22||ret===33){
             return ret
         }
         ret=0
         for(var i=0;i<m0.length;i++){
             ret+=parseInt(m0[i])
         }
-        if(ret===13||ret===14||ret===16||ret===19||ret===11||ret===22||ret===33||ret===44||ret===55||ret===66){
+        if(ret===13||ret===14||ret===16||ret===19||ret===11||ret===22||ret===33){
             return ret
         }
         if(ret>9){
@@ -1959,7 +1967,12 @@ Rectangle {
         r.currentNumDestino=bigNumToPitNum(r.currentNumNombre+r.currentNumFirma)
 
 
-
+        //Load ZoolPinaculo
+        let m0=txtDataSearchFecha.text.split('.')
+        let m = parseInt(m0[1])
+        let d = parseInt(m0[0])
+        let a = parseInt(m0[2])
+        zpin.load(bigNumToPitNum(m), bigNumToPitNum(d), bigNumToPitNum(a), bigNumToPitNum(m+d+a))
 
     }
     function getTodo(formula){

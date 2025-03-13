@@ -1302,7 +1302,34 @@ Rectangle {
                 ret+=parseInt(m0[i])
             }
         }
-        if(ret===13||ret===14||ret===16||ret===19||ret===11||ret===22||ret===33||ret===44||ret===55||ret===66){
+        if(ret===13||ret===14||ret===16||ret===19||ret===11||ret===22||ret===33){
+            return ret
+        }
+        return ret
+    }
+    function bigNumToPitNumNeg(num){
+        let s=(''+num)
+        let m0=s.split('')
+        let ret=num
+        if(ret===13||ret===14||ret===16||ret===19){
+            return ret
+        }
+        ret=0
+        for(var i=0;i<m0.length;i++){
+            ret-=parseInt(m0[i])
+        }
+        if(ret===13||ret===14||ret===16||ret===19){
+            return ret
+        }
+        if(ret<-9){
+            s=(''+ret)
+            m0=s.split('')
+            ret=0
+            for(i=0;i<m0.length;i++){
+                ret-=parseInt(m0[i])
+            }
+        }
+        if(ret===13||ret===14||ret===16||ret===19){
             return ret
         }
         return ret

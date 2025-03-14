@@ -130,6 +130,9 @@ Rectangle {
     }
     MouseArea{
         anchors.fill: parent
+        onClicked: {
+            //zpin.visible=!zpin.visible
+        }
     }
     Flickable{
         id: flk
@@ -148,8 +151,17 @@ Rectangle {
                 font.pixelSize: app.fs*0.65
                 anchors.horizontalCenter: parent.horizontalCenter
             }
+            Button{
+                text: !zpin.visible?'Ver Pinaculo':'Ocultar Pinaculo'
+                anchors.horizontalCenter: parent.horizontalCenter
+                onClicked: {
+                    zpin.visible=!zpin.visible
+                }
+            }
             ZoolPinaculo{
                 id: zpin
+                visible: false
+                w: r.width-app.fs*0.5
                 modNumPit: r
                 anchors.horizontalCenter: parent.horizontalCenter
             }
@@ -1280,18 +1292,18 @@ Rectangle {
 
         calc()
     }
-    function bigNumToPitNum(num){
-        let s=(''+num)
+    function bigNumToPitNum(num, retMK){
+        let s=(''+num).replace('-', '')
         let m0=s.split('')
         let ret=num
-        if(ret===13||ret===14||ret===16||ret===19||ret===11||ret===22||ret===33){
+        if((ret===13||ret===14||ret===16||ret===19||ret===11||ret===22||ret===33)&&retMK){
             return ret
         }
         ret=0
         for(var i=0;i<m0.length;i++){
             ret+=parseInt(m0[i])
         }
-        if(ret===13||ret===14||ret===16||ret===19||ret===11||ret===22||ret===33){
+        if((ret===13||ret===14||ret===16||ret===19||ret===11||ret===22||ret===33)&&retMK){
             return ret
         }
         if(ret>9){
@@ -1302,13 +1314,13 @@ Rectangle {
                 ret+=parseInt(m0[i])
             }
         }
-        if(ret===13||ret===14||ret===16||ret===19||ret===11||ret===22||ret===33){
+        if((ret===13||ret===14||ret===16||ret===19||ret===11||ret===22||ret===33)&&retMK){
             return ret
         }
         return ret
     }
     function bigNumToPitNumNeg(num){
-        let s=(''+num)
+        let s=(''+num).replace('-', '')
         let m0=s.split('')
         let ret=num
         if(ret===13||ret===14||ret===16||ret===19){
@@ -1366,7 +1378,7 @@ Rectangle {
             }
             ret=vtc
         }
-        return bigNumToPitNum(ret)
+        return bigNumToPitNum(ret, true)
     }
     function getNumNomText(text, formula){
         let ret=''
@@ -1978,20 +1990,20 @@ Rectangle {
         let text=txtDataSearchNom.text
         let numNomInt=getNumFromText(text, 'int')
         let numNomExt=getNumFromText(text, 'ext')
-        r.currentNumNombre=bigNumToPitNum(numNomInt+numNomExt)
+        r.currentNumNombre=bigNumToPitNum(numNomInt+numNomExt, true)
         txtDataNomIntExt.text='<b>* Interior:</b> '+numNomInt+'<br />       <b>* Exterior:</b> '+numNomExt
 
         //Número de Personalidad se suma el número de Karma/Misión más el número de Nombre
-        r.currentNumPersonalidad=bigNumToPitNum(r.currentNumNacimiento+r.currentNumNombre)
+        r.currentNumPersonalidad=bigNumToPitNum(r.currentNumNacimiento+r.currentNumNombre, true)
 
         //Número de Firma
         text=txtDataSearchFirma.text
         numNomInt=getNumFromText(text, 'int')
         numNomExt=getNumFromText(text, 'ext')
-        r.currentNumFirma=bigNumToPitNum(numNomInt+numNomExt)
+        r.currentNumFirma=bigNumToPitNum(numNomInt+numNomExt, true)
 
         //Numero de Destino es igual a la suma de número de Nombre y número de Firma
-        r.currentNumDestino=bigNumToPitNum(r.currentNumNombre+r.currentNumFirma)
+        r.currentNumDestino=bigNumToPitNum(r.currentNumNombre+r.currentNumFirma, true)
 
 
         //Load ZoolPinaculo
@@ -1999,7 +2011,7 @@ Rectangle {
         let m = parseInt(m0[1])
         let d = parseInt(m0[0])
         let a = parseInt(m0[2])
-        zpin.load(bigNumToPitNum(m), bigNumToPitNum(d), bigNumToPitNum(a), bigNumToPitNum(m+d+a))
+        zpin.load(bigNumToPitNum(m, true), bigNumToPitNum(d, true), bigNumToPitNum(a, true), bigNumToPitNum(m+d+a, true))
 
     }
     function getTodo(formula){

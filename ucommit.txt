@@ -1,1 +1,1 @@
-Se crea instalador Windows v5.3.18.1
+Se elimina un archivo innecesario

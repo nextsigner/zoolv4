@@ -1,1 +1,1 @@
-Se eliminan todas las versiones anteriores de ZoolNumPit
+Se corrigen los errores de visualización de apps.showIcons en ZoolMapBodie

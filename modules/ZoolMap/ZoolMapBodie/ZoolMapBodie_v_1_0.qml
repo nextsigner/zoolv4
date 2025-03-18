@@ -30,7 +30,11 @@ Item{
         id: bg
         anchors.fill: parent
         radius: width*0.5
-        color: !apps.xAsShowIcon?r.bgColor:(r.numAstro<16?'transparent':apps.fontColor)
+        color: !apps.xAsShowIcon?
+                    r.bgColor
+                 :(
+                    r.numAstro<10||r.numAstro===12?'transparent':apps.fontColor
+                  )
         border.color: !r.isBack?zm.bodieBgBorderColor:zm.bodieBgBorderColorBack
         border.width: !r.isBack?zm.bodieBgBorderWidth:zm.bodieBgBorderWidthBack
         antialiasing: true
@@ -39,7 +43,7 @@ Item{
     Image{
         id: img0
         //source: app.planetasRes[r.numAstro]?"./resources/imgs/planetas/"+app.planetasRes[r.numAstro]+".svg":""
-        source: app.planetasRes[r.numAstro]?r.folderImg+"/"+app.planetasRes[r.numAstro]+(apps.xAsShowIcon&&r.aIcons.indexOf(r.numAstro)>=0?"_i.png":".svg"):""
+        source: app.planetasRes[r.numAstro]||r.numAstro!==10?r.folderImg+"/"+app.planetasRes[r.numAstro]+(apps.xAsShowIcon&&r.aIcons.indexOf(r.numAstro)>=0?"_i.png":".svg"):""
         //source: '/home/nsp/zool-release/modules/ZoolBodies/ZoolAs/imgs_v1/'+app.planetasRes[0]+'.png'
         width: r.width*0.75
         height: width
@@ -62,7 +66,7 @@ Item{
         source: img0
         color: r.c//apps.houseLineColorBack
         rotation: img0.rotation
-        visible: !apps.xAsShowIcon||r.aIcons.indexOf(r.numAstro)<0
+        visible: !apps.xAsShowIcon||r.aIcons.indexOf(r.numAstro)<0&&(r.numAstro!==10&&r.numAstro!==11)
         antialiasing: true
         SequentialAnimation{
             id: saAsColor
@@ -115,6 +119,13 @@ Item{
             }
         }
     }
+//    Rectangle{
+//        anchors.fill: parent
+//        color: 'red'
+//        z: img0.z-1
+//        visible: r.numAstro===14
+//    }
+
 
 //    Image {
 //        id: img

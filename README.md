@@ -4,7 +4,7 @@
 #
 ### ¿Qué es Zool y para qué sirve?
 #
-Zool es una aplicación de escritorio para Windows.
+Zool es una aplicación de escritorio para Windows. Sirve para realizar varios tipos de tareas relacionadas con la astrología. Crear cartas natales astrales, revoluciones solares, direcciones primarias, proyecciones secundarias y otras tareas más.
 #
 [**Descargar Ultima Versión v5.3.18.1**](https://github.com/nextsigner/zoolv4/releases/download/untagged-25ac438f8c5e7801bc2f/Zool_v5.3.18.1.exe)
 #

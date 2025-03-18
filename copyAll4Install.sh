@@ -13,4 +13,4 @@ rsync -av --exclude='.git' \
           --exclude='mainZooland.qml' \
           $folder1 $folder2
 
-cp -r /media/ns/Archivos/zooldev/PythonOkParaInstaladorZool $folder2/Python
+cp -r /media/ns/Archivos/zooldev/PythonOk76Mb $folder2/Python

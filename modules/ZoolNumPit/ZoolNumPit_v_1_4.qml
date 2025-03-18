@@ -2413,4 +2413,101 @@ Rectangle {
             txtDataGrupo.text+='<br>'+getDataNumKarmico(num2Digitos)
         }
     }
+    function getNumDataInfo(num){
+        //Retorna JSON con p=Planeta, pc=Palabra Clave, pd=Púnto Débil y data=Matriz (Array) Descripción.
+        let j={}
+        j.pc=''
+        j.pd=''
+        j.dataPos=[]
+        j.dataNeg=[]
+        if(num===1){
+            j.p='Sol'
+
+            j.pc='Iniciador'
+            j.pd='Orgullo'
+
+            //Positivo
+            j.dataPos.push('Personas originales, creativas, innovadoras, independientes, precursoras y líderes.')
+            j.dataPos.push('Fuerte individualidad.')
+            j.dataPos.push('Líderes natos con mucha habilidad y con capacidad para convencer y motivar en lugar de imponer.')
+            j.dataPos.push('No les gusta sentirse "Uno más del montón." y ponen énfasis en hacer algo que los diferencie.')
+            j.dataPos.push('Les gusta sobresalir y les molesta la mediocridad.')
+            j.dataPos.push('Auto suficientes y muy seguros de sí mismos.')
+            j.dataPos.push('Tienden a ser sus propios jefes. Generalmente no les gusta tener jefes o les cuesta seguir ordenes de sus superiores.')
+            j.dataPos.push('Son los pioneros que toman el riesgo de hacer las cosas diferentes.')
+            j.dataPos.push('Sociables y siempre están en constante auto superación.')
+            j.dataPos.push('Ven el vaso medio lleno y son personas muy positivas.')
+            j.dataPos.push('Sinceros y respetuosos.')
+            j.dataPos.push('Entusiastas, joviales, inquietos, espontáneos y ambiciosos.')
+            j.dataPos.push('Piden consejos de las personas que respetan pero solo para tomarlo como base y crear sus propios métodos.')
+            j.dataPos.push('Tienden a trabajar solos o por su cuenta.')
+            j.dataPos.push('Emprendedores natos, es el número más valiente y arriesgado.')
+            j.dataPos.push('Son muy decididos y logran lo que se proponen.')
+            j.dataPos.push('Les importa mucho su independencia.')
+            j.dataPos.push('Vienen a abrir nuevos caminos para liberar a su clan.')
+            j.dataPos.push('Gran curiosidad por explorar lo desconocido.')
+            j.dataPos.push('Buenos para motivar e impulsar gente con su ejemplo y magnetismo.')
+
+            //Negativo
+            j.dataNeg=[]
+            j.dataNeg.push('Generan dependecia. Dependen emocional o económicamente de otros. Hacen que los demás dependan de él para ser "necesario".')
+            j.dataNeg.push('Mucho miedo a la soledad.')
+            j.dataNeg.push('Personas egoístas y pesimistas.')
+            j.dataNeg.push('Desconsiderados con las opiniones y los sentimientos de los demás.')
+            j.dataNeg.push('Se vuelven dominantes y en algunas ocasiones hasta tiránicos.')
+            j.dataNeg.push('Totalmente egocéntricos.')
+            j.dataNeg.push('Personas muy inseguras, temerosas y miedosas.')
+            j.dataNeg.push('Autoestima baja.')
+            j.dataNeg.push('Necesitarán sentirse el centro de atanción y si no lo logran se retirarán del lugar de donde estén.')
+            j.dataNeg.push('Actitudes prepotentes y egoistas.')
+            j.dataNeg.push('Sentirán desconfianza y pesimismo.')
+            j.dataNeg.push('Pasividad y miedo de emprender nuevos caminos.')
+            j.dataNeg.push('Posible adicción a los juegos y apuestas.')
+            j.dataNeg.push('Cuando su autoestima es muy baja podrán ser personas introvertidas, muy calladas y mediocres.')
+            j.dataNeg.push('Las características negativas del 1, son las más fáciles de superar. Mientras más alto es el número más difícil es superparlo.')
+        }
+        if(num===2){
+            j.p='Luna'
+            j.pc='Conexión'
+            j.pd='La indecisión y la desconfianza.'
+
+            //Positivo
+            j.dataPos.push('Enfocados en construir relaciones sanas: Priorizan la creación de vínculos positivos en sus relaciones personales.')
+            j.dataPos.push('Cooperativos y colaboradores: Tienen una gran disposición para trabajar en equipo y cooperar con los demás.')
+            j.dataPos.push('Evitan riesgos: Prefieren la seguridad y evitan exponerse a situaciones de riesgo.')
+            j.dataPos.push('Les gusta ser útiles: Se sienten realizados al ayudar y servir a otros.')
+            j.dataPos.push('Prefieren ser seguidores: Se sienten más cómodos desempeñando roles de apoyo que liderando.')
+            j.dataPos.push('Altruistas y bondadosos: Practican el altruismo y buscan la armonía en sus interacciones.')
+            j.dataPos.push('Diplomáticos y conciliadores: Son hábiles para armonizar situaciones y resolver conflictos, viendo las diferentes perspectivas.')
+
+            j.dataPos.push('Suerte y oportunidades: Tienden a tener buena suerte y a recibir oportunidades fácilmente.')
+            j.dataPos.push('Habilidades para la supervivencia: Siempre encuentran la manera de satisfacer sus necesidades.')
+            j.dataPos.push('Amantes del arte: Disfrutan de la música y el baile.')
+            j.dataPos.push('Sensibles y románticos: Son personas muy sensibles, románticas y amorosas.')
+            j.dataPos.push('Mecanismos de defensa: En ocasiones, pueden mostrar frialdad o desinterés para protegerse de la vulnerabilidad.')
+            j.dataPos.push('Buscan la armonía: Prefieren vivir en un ambiente tranquilo y armonioso.')
+            j.dataPos.push('Evitan el conflicto: Tienden a huir de situaciones conflictivas, ya que la violencia los abruma.')
+            j.dataPos.push('Intuitivos y perceptivos: Desarrollan una gran intuición y percepción.')
+            j.dataPos.push('Cualidades positivas: Son personas dulces, tiernas, comprensivas y suaves.')
+
+            //Negativo
+            j.dataNeg.push('Aislamiento social: Se desconectan de los demás y se aíslan en su propio mundo, sin sentir la necesidad de socializar.')
+            j.dataNeg.push('Miedo al abandono y la traición: Experimentan un profundo temor a ser abandonados, traicionados o lastimados.')
+            j.dataNeg.push('Insensibilidad emocional: Se cierran al amor y se vuelven insensibles a las necesidades de los demás, llegando incluso a ser crueles.')
+            j.dataNeg.push('Insatisfacción vital: Se sienten inconformes con lo que tienen en la vida.')
+            j.dataNeg.push('Estancamiento: Debido a que las cosas les llegan fácilmente, pueden dejar de esforzarse y estancarse, confiando en que todo se resolverá eventualmente.')
+            j.dataNeg.push('Indecisión y aversión al riesgo: Les cuesta tomar decisiones y arriesgarse.
+Miedo al juicio: Sienten un gran temor a ser juzgados por los demás.')
+            j.dataNeg.push('Fantasía y evasión: Crean historias en su cabeza y viven en un mundo paralelo.')
+            j.dataNeg.push('Manipulación y engaño: Son manipuladores, infieles y mentirosos.')
+            j.dataNeg.push('Habilidad para la manipulación: Tienen una gran habilidad para lograr que otros o las situaciones se adapten a su conveniencia.')
+            j.dataNeg.push('Victimismo: Se hacen víctimas para que otros los cuiden o protejan.')
+            j.dataNeg.push('Engaño y falta de compromiso: Desarrollan el engaño y la trampa, y no cumplen sus promesas.')
+            j.dataNeg.push('Autoengaño: Tienen tendencia a auto-engañarse.')
+            j.dataNeg.push('Pérdida de identidad: Copian o asimilan conductas, ideas o pensamientos de otros, perdiendo su propia identidad.')
+            j.dataNeg.push('Influenciabilidad: Son fácilmente influenciables.')
+
+        }
+        return j
+    }
 }

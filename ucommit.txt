@@ -1,1 +1,1 @@
-Se elimina un archivo innecesario
+Se edita README.md

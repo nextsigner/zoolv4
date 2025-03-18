@@ -1,1 +1,1 @@
-Se corrigen los errores de visualización de apps.showIcons en ZoolMapBodie
+Se crea instalador Windows v5.3.18.1

@@ -331,6 +331,8 @@ Rectangle{
             //menuRuedaZodiacal.uY=mouseY
             //menuRuedaZodiacal.isBack=false
             menuRuedaZodiacal.popup()
+        }else{
+            apps.xAsShowIcon=!apps.xAsShowIcon
         }
     }
     function doubleClick(mouse){

@@ -825,7 +825,7 @@ Rectangle {
                     Row{
                         spacing: app.fs*0.25
                         Text{
-                            text:'<b>N° de </b><br><b>Nacimiento/Karma:</b> '+r.currentNumNacimiento
+                            text:'<b>N° de </b><br><b>Misión:</b> '+r.currentNumNacimiento
                             font.pixelSize: app.fs*0.5
                             color: apps.fontColor
                             anchors.verticalCenter: parent.verticalCenter
@@ -840,15 +840,37 @@ Rectangle {
                                 if(rbF.checked)genero='f'
                                 r.logView.clear()
                                 if(checkBoxFormula.checked){
-                                    r.logView.l('N° de Nacimiento/Karma '+r.currentNumNacimiento+'\n')
+                                    r.logView.l('N° de Misión '+r.currentNumNacimiento+'\n')
                                     r.logView.l('Fórmula: '+f0.text+'\n')
                                     r.logView.l(getItemJson('per'+r.currentNumNacimiento+genero))
                                 }else{
-                                    r.logView.l('¿Cómo es su vibración de nacimiento o karma '+r.currentNumNacimiento+'?\n')
+                                    r.logView.l('¿Cómo es su vibración de misión '+r.currentNumNacimiento+'?\n')
                                     r.logView.l(getItemJson('per'+r.currentNumNacimiento+genero))
                                 }
                                 r.logView.visible=true
                                 r.logView.flk.contentY=0
+                                calc()
+                            }
+                        }
+                        Comps.ButtonIcon{
+                            text: '\uf0c5'
+                            width: app.fs*0.6
+                            height: width
+                            anchors.verticalCenter: parent.verticalCenter
+                            onClicked: {
+                                if(txtDataSearchNom.text==='')return
+                                let genero='m'
+                                if(rbF.checked)genero='f'
+                                let data=''
+                                if(checkBoxFormula.checked){
+                                    data+='Fórmula: '+f0.text+'\n\n'
+                                }
+                                data+=getItemJson('per'+r.currentNumNacimiento+genero)
+                                clipboard.setText(data)
+                                let j={}
+                                j.text='Se copió el dato del número de MISIÓN se ha copiado al portapepeles.'
+                                zpn.addNot(j, true, 5000)
+                                calc()
                             }
                         }
                     }
@@ -879,6 +901,33 @@ Rectangle {
                                 }
                                 r.logView.visible=true
                                 r.logView.flk.contentY=0
+                                calc()
+                            }
+                        }
+                        Comps.ButtonIcon{
+                            text: '\uf0c5'
+                            width: app.fs*0.6
+                            height: width
+                            anchors.verticalCenter: parent.verticalCenter
+                            onClicked: {
+                                if(txtDataSearchNom.text==='')return
+                                let genero='m'
+                                if(rbF.checked)genero='f'
+                                let data=''
+                                if(checkBoxFormula.checked){
+                                    data+='Personalidad '+r.currentNumPersonalidad+'\n'
+                                    data+='Fórmula: '+r.sFormulaNumPer+'\n'
+                                    data+=getItemJson('per'+r.currentNumPersonalidad+genero)
+                                }else{
+                                    data+='¿Cómo es su personalidad?\n'
+                                    data+=getItemJson('per'+r.currentNumPersonalidad+genero)
+                                }
+                                data+=getItemJson('per'+r.currentNumPersonalidad+genero)
+                                clipboard.setText(data)
+                                let j={}
+                                j.text='Se copió el dato de la PERSONALIDAD al portapepeles.'
+                                zpn.addNot(j, true, 5000)
+                                calc()
                             }
                         }
                     }
@@ -900,6 +949,7 @@ Rectangle {
                                     font.pixelSize: app.fs*0.5
                                     color: apps.fontColor
                                     anchors.verticalCenter: parent.verticalCenter
+
                                 }
                                 Comps.ButtonIcon{
                                     text: '\uf06e'
@@ -912,6 +962,23 @@ Rectangle {
                                         r.logView.l(getNumNomText(txtDataSearchNom.text, checkBoxFormula.checked))
                                         r.logView.visible=true
                                         r.logView.flk.contentY=0
+                                        calc()
+                                    }
+                                }
+                                Comps.ButtonIcon{
+                                    text: '\uf0c5'
+                                    width: app.fs*0.6
+                                    height: width
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    onClicked: {
+                                        if(txtDataSearchNom.text==='')return
+                                        let data=''
+                                        data+=getNumNomText(txtDataSearchNom.text, checkBoxFormula.checked)
+                                        clipboard.setText(data)
+                                        let j={}
+                                        j.text='Se copió el dato del NOMBRE al portapepeles.'
+                                        zpn.addNot(j, true, 5000)
+                                        calc()
                                     }
                                 }
                             }
@@ -945,6 +1012,21 @@ Rectangle {
                                 r.logView.l(getDataJsonNumDia())
                                 r.logView.visible=true
                                 r.logView.flk.contentY=0
+                                calc()
+                            }
+                        }
+                        Comps.ButtonIcon{
+                            text: '\uf0c5'
+                            width: app.fs*0.6
+                            height: width
+                            anchors.verticalCenter: parent.verticalCenter
+                            onClicked: {
+                                if(txtDataSearchNom.text==='')return
+                                clipboard.setText(getDataJsonNumDia())
+                                let j={}
+                                j.text='Se copió el dato del NATALICIO al portapepeles.'
+                                zpn.addNot(j, true, 5000)
+                                calc()
                             }
                         }
                     }
@@ -967,6 +1049,21 @@ Rectangle {
                                 r.logView.l(getItemJson('firma'+r.currentNumFirma))
                                 r.logView.visible=true
                                 r.logView.flk.contentY=0
+                                calc()
+                            }
+                        }
+                        Comps.ButtonIcon{
+                            text: '\uf0c5'
+                            width: app.fs*0.6
+                            height: width
+                            anchors.verticalCenter: parent.verticalCenter
+                            onClicked: {
+                                if(txtDataSearchNom.text==='')return
+                                clipboard.setText(getItemJson('firma'+r.currentNumFirma))
+                                let j={}
+                                j.text='Se copió el dato de la FIRMA al portapepeles.'
+                                zpn.addNot(j, true, 5000)
+                                calc()
                             }
                         }
                     }
@@ -989,6 +1086,21 @@ Rectangle {
                                 r.logView.l(getItemJson('dest'+r.currentNumDestino))
                                 r.logView.visible=true
                                 r.logView.flk.contentY=0
+                                calc()
+                            }
+                        }
+                        Comps.ButtonIcon{
+                            text: '\uf0c5'
+                            width: app.fs*0.6
+                            height: width
+                            anchors.verticalCenter: parent.verticalCenter
+                            onClicked: {
+                                if(txtDataSearchNom.text==='')return
+                                clipboard.setText(getItemJson('dest'+r.currentNumDestino))
+                                let j={}
+                                j.text='Se copió el dato del DESTINO al portapepeles.'
+                                zpn.addNot(j, true, 5000)
+                                calc()
                             }
                         }
                     }
@@ -1510,7 +1622,7 @@ Rectangle {
             m0=(''+nunNombre).split('')
             nunNombre=parseInt(m0[0]) + parseInt(m0[1])
         }
-        r.currentNumNombre=nunNombre
+        r.currentNumNombre=bigNumToPitNum(nunNombre, true)
         let numDestino=nunNombre + r.currentNumFirma
         if(numDestino>9){
             m0=(''+numDestino).split('')
@@ -1831,7 +1943,7 @@ Rectangle {
         let edad=a - parseInt(txtDataSearchFechaAP.text)
 
         let sp='Período: Desde el cumpleaños del día '+d+'/'+m+'/'+a+' hasta el día '+d+'/'+m+'/'+parseInt(a + 1)
-        r.logView.l('Año: '+a+' - Edad: '+edad+' - Ciclo: '+parseInt(r.currentNum +1)+'\n'+sp+'\nCálculo: '+f1.text+'\n'+aDes[r.currentNum]+'\n')
+        //r.logView.l('Año: '+a+' - Edad: '+edad+' - Ciclo: '+parseInt(r.currentNum +1)+'\n'+sp+'\nCálculo: '+f1.text+'\n'+aDes[r.currentNum]+'\n')
 
     }
     function calcularPersonalidad(){
@@ -2038,7 +2150,7 @@ Rectangle {
 
         //Número de nacimiento o karma
         if(formula){
-            ret+='N° de Nacimiento/Karma '+r.currentNumNacimiento+'\n\n'
+            ret+='N° de Misión '+r.currentNumNacimiento+'\n\n'
             ret+='Fórmula: '+f0.text+'\n'
             ret+=getItemJson('per'+r.currentNumNacimiento+genero)
         }else{

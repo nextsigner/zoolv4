@@ -1,1 +1,1 @@
-Se edita README.md 2
+Se agregan botones de copiar a portapapeles en ZoolNumPit

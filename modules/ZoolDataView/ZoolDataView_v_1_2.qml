@@ -242,6 +242,14 @@ Rectangle {
             border.color: apps.fontColor
             radius: app.fs*0.1
             anchors.verticalCenter: parent.verticalCenter
+            visible: app.t!=='dirprim'&&app.t!=='progsec'?true:!xCellData.isExt?
+                                                               (
+                                                                   cellIndex<6
+                                                                   )
+                                                             :(
+                                                                   cellIndex<3+r.atLeft.length-1
+                                                                   )
+            property bool isExt: false
             property int cellIndex: -1
             property string txtData: 'txtData'
 
@@ -458,7 +466,7 @@ Rectangle {
             var obj=compCellData.createObject(rowDataLeft, {txtData:aL[i], cellIndex: i})
         }
         for(i=0; i < aR.length;i++){
-            obj=compCellData.createObject(rowDataRight, {txtData:aR[i]})
+            obj=compCellData.createObject(rowDataRight, {txtData:aR[i], cellIndex: i+r.atLeft.length-1, isExt: true})
         }
         //tWaitUpdateData.start()
     }

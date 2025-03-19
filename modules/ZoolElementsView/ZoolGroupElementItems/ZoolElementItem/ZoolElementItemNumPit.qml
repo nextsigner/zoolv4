@@ -73,7 +73,7 @@ Rectangle{
         zsm.getPanel('ZoolNumPit').currentAG=app.arbolGenealogico[r.ag]
         zsm.getPanel('ZoolNumPit').updateGenero()
         zsm.getPanel('ZoolNumPit').currentCargaAG=zsm.getPanel('ZoolNumPit').aCargasAG[r.ag]
-        if(app.t!=='dirprim'){
+        if(app.t!=='dirprim'&&app.t!=='progsec'){
             let ci=zsm.getPanelIndex('ZoolNumPit')
             zsm.currentIndex=ci
         }

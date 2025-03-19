@@ -102,7 +102,11 @@ ApplicationWindow {
             if(zm.zev.settings.zoom===5.0){
                 zm.zev.settings.zoom=1.0
             }else{
-                zm.zev.settings.zoom=5.0
+                if(app.t!=='dirprim'&&app.t!=='progsec'){
+                    zm.zev.settings.zoom=5.0
+                }else{
+                    zm.zev.settings.zoom=2.5
+                }
             }
         }
     }

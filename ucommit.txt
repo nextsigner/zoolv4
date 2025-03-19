@@ -1,1 +1,1 @@
-Se agregan botones de copiar a portapapeles en ZoolNumPit
+Se optimiza el uso de ProgSec sin que recargue NunPit y se ajusta mejor escalas de los ZoolElements con zm.ev

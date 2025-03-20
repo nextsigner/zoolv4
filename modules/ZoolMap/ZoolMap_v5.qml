@@ -2180,7 +2180,7 @@ Rectangle{
             r.aHouseShowed=[]
             r.aHouseShowed.push(ih)
         }
-        log.lv('r.aHouseShowed: '+r.aHouseShowed)
+        //log.lv('r.aHouseShowed: '+r.aHouseShowed)
 
     }
     //<--Funciones Varias

@@ -2620,6 +2620,52 @@ Miedo al juicio: Sienten un gran temor a ser juzgados por los demás.')
             j.dataNeg.push('Influenciabilidad: Son fácilmente influenciables.')
 
         }
+        if(num===3){
+            j.p='Júpiter'
+            j.pc='Creatividad'
+            j.pd='Dispersión'
+
+            //Positivo
+            j.dataPos.push('Mueve tres energías: Comunicación, Creatividad y Alegría.
+Gran capacidad de expresión e ingenio mental.')
+            j.dataPos.push('Tienen una mente revolucionada; suelen anticipar lo que otros dirán.')
+            j.dataPos.push('Positivos y optimistas.')
+            j.dataPos.push('Cordiales y amistosos; no pasan desapercibidos en lugares donde hay actividad, gente y alegría.')
+            j.dataPos.push('Les gusta tener público para ser escuchados.')
+            j.dataPos.push('Talento y simpatía desbordantes.')
+            j.dataPos.push('Simpáticos y encantadores.')
+            j.dataPos.push('Habilidad para comunicarse y relacionarse con todo tipo de personas.')
+            j.dataPos.push('Saben convertirse en el centro de interés dondequiera que estén.')
+            j.dataPos.push('Cuando quieren caer bien, es casi imposible resistir su encanto.')
+            j.dataPos.push('Genera la energía de la alegría.')
+            j.dataPos.push('No les gusta estar solos')
+            j.dataPos.push('Tienen facilidad para el diseño, la arquitectura, la publicidad e ingeniería.')
+            j.dataPos.push('Personas artísticas, les agrada admirar la belleza especialmente las formas y colores.')
+            j.dataPos.push('Grandes consejeros, los terapeutas de los amigos, la gente les cuenta sus intimidades porque inspiran confianza.')
+            j.dataPos.push('Tienen poder en su palabra, la palabra correcta en el momento adecuado.')
+
+            //Negativo
+            j.dataNeg.push('No expresan. Se guardan sus pensamientos y sentimientos
+para no causar problemas o ser juzgados.')
+            j.dataNeg.push('No crean. Tienen miedo de crear algo nuevo y fracasar.')
+            j.dataNeg.push('Generan tristeza; como una energía muy pesada que los tira.')
+            j.dataNeg.push('Posibles periodos depresivos.')
+            j.dataNeg.push('Conflicto con la autoridad (padres, maestros, jefes, políticos, etc.).')
+            j.dataNeg.push('Deberán tener cuidado de no comprometerte en decenas de actividades e intereses, ya que tienden a dispersar su energía en cosas improductivas.')
+            j.dataNeg.push('Materialistas y convenencieros, con tal de rodearse de
+cosas bellas.')
+            j.dataNeg.push('Critican a los demás severamente cuando se equivocan o
+cometen algún error.')
+            j.dataNeg.push('Hacen notar sarcásticamente las flaquezas de los otros.')
+            j.dataNeg.push('Chismosos (usar la palabra para destruir).')
+            j.dataNeg.push('Dramáticamente intolerantes a la crítica hacia ellos.')
+            j.dataNeg.push('Prefieren alejarse cuando se sientan expuestos antes que enfrentar sus errores.')
+            j.dataNeg.push('Les gusta dirigirles la vida a los demas y ser el centro de
+atención.')
+            j.dataNeg.push('Se vuelven inconstantes y llegan a tomar todo como un
+juego.')
+            j.dataNeg.push('Rara vez terminan lo que inician.')
+        }
         return j
     }
 }

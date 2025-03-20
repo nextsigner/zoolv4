@@ -1,1 +1,1 @@
-Se optimiza para ver sin centrar cada vez que se cambia fecha en ProgSec
+Se elimina una salida log.lv de r.aHouseShowed que se utilizaba de la etapa de desarrollo.

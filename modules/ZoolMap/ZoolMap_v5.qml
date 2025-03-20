@@ -1139,7 +1139,7 @@ Rectangle{
         }*/
     }
     function loadSweJsonBack(json){
-        if(!app.t==='dirprim' || r.safeTapa){
+        if(!app.t==='dirprim' || !app.t==='progsec' || r.safeTapa){
             tapa.visible=true
             tapa.opacity=1.0
         }
@@ -1202,7 +1202,7 @@ Rectangle{
             r.ev=true
         }
         r.lockEv=false
-        if(app.t!=='dirprim')centerZoomAndPos()
+        if(app.t!=='dirprim'&&app.t!=='progsec')centerZoomAndPos()
     }
     function loadFromFile(filePath, tipo, isBack){
         tapa.visible=true
@@ -1415,7 +1415,7 @@ Rectangle{
             zm.currentDateBack= new Date(parseInt(va), parseInt(vm) - 1, parseInt(vd), parseInt(vh), parseInt(vmin))
         }
 
-        zm.centerZoomAndPos()
+        if(!isExt&&app.t!=='dirprim'&&app.t!=='progsec')zm.centerZoomAndPos()
     }
     function loadNow(isExt){
         let d=new Date(Date.now())

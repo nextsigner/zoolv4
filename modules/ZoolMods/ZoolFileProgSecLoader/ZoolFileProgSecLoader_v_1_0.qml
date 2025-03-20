@@ -99,6 +99,7 @@ Rectangle {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
+                    //app.t='progsec'
                     zsm.currentSectionFocused=r
                     lv.currentIndex=index
                     r.loadProgSec(a)

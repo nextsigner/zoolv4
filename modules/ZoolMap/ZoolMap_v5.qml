@@ -1202,7 +1202,7 @@ Rectangle{
             r.ev=true
         }
         r.lockEv=false
-        if(app.t!=='dirprim'&&app.t!=='progsec')centerZoomAndPos()
+        if(app.t!=='dirprim'&&app.t!=='progsec'&&app.t!=='trans')centerZoomAndPos()
     }
     function loadFromFile(filePath, tipo, isBack){
         tapa.visible=true

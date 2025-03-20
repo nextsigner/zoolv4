@@ -1,1 +1,1 @@
-Se elimina una salida log.lv de r.aHouseShowed que se utilizaba de la etapa de desarrollo.
+Se optimiza para ver de manera dinámica el método transitos sin que centre el mapa automaticamente.

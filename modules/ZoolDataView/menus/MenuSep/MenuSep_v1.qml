@@ -2,6 +2,9 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import ZoolMenus 1.0
 
+import ZoolTextInput 1.0
+import ZoolButton 1.2
+
 ZoolMenus{
     id: r
     title: 'Menu Separador'
@@ -17,6 +20,10 @@ ZoolMenus{
             let nd=new Date(Date.now())
             p.params.ms=nd.getTime()
             zfdm.addExtDataAndSave(p)
+        }
+    }
+    Action {text: qsTr("Guardar "+r.stringMiddleSep+" como..."); onTriggered: {
+            let comp=compSetName.createObject(capa101, {})
         }
     }
     function mkHtml(sexo){
@@ -35,5 +42,86 @@ ZoolMenus{
         if(j.alt)alt=j.alt
         let url='http://www.zool.ar/getZoolDataMapFull?n='+n+'&d='+d+'&m='+m+'&a='+a+'&h='+h+'&min='+min+'&gmt='+gmt+'&lugarNacimiento='+ciudad+'&lat='+lat+'&lon='+lon+'&alt='+alt+'&ciudad='+ciudad+'&ms=0&msReq=0&adminId=zoolrelease&sexo='+sexo
         Qt.openUrlExternally(url)
+    }
+    Component{
+        id: compSetName
+        Item{
+            id: xSetName
+            anchors.fill: parent
+            Rectangle{
+                anchors.fill: parent
+                opacity: 0.75
+                color: apps.backgroundColor
+            }
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    xSetName.destroy(0)
+                }
+            }
+            Column{
+                spacing: app.fs*0.25
+                anchors.centerIn: parent
+                Text{
+                    text: "<b>Definir el nombre del tránsito</b>"
+                    color: apps.fontColor
+                    font.pixelSize: app.fs*0.75
+                }
+                Item{width: 1; height: app.fs}
+                ZoolTextInput{
+                    id: tiNombre
+                    width: app.fs*20
+                    t.font.pixelSize: app.fs*0.65
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    //KeyNavigation.tab: controlTimeFecha
+                    t.maximumLength: 30
+                    borderColor:apps.fontColor
+                    borderRadius: app.fs*0.25
+                    padding: app.fs*0.25
+                    horizontalAlignment: TextInput.AlignLeft
+                    //onTextChanged: if(cbPreview.checked)loadTemp()
+                    onEnterPressed: {
+                        setNom()
+                    }
+                    Text {
+                        text: 'Nombre de Tránsito'
+                        font.pixelSize: app.fs*0.5
+                        color: 'white'
+                        anchors.bottom: parent.top
+                    }
+                }
+                Row{
+                    spacing: app.fs*0.25
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    ZoolButton{
+                        text: 'Cancelar'
+                        onClicked:{
+                            xSetName.destroy(0)
+                        }
+                    }
+                    ZoolButton{
+                        text: 'Guardar'
+                        onClicked:{
+                            setNom()                    }
+                    }
+                }
+
+            }
+            Component.onCompleted: {
+                let sp=zm.fileDataBack
+                let p=JSON.parse(sp)
+                tiNombre.t.text=p.params.n
+            }
+            function setNom(){
+                let sp=zm.fileDataBack
+                let p=JSON.parse(sp)
+                let nd=new Date(Date.now())
+                p.params.ms=nd.getTime()
+                p.params.n=tiNombre.t.text
+                zfdm.addExtDataAndSave(p)
+                zm.fileDataBack=JSON.stringify(p, null, 2)
+                xSetName.destroy(0)
+            }
+        }
     }
 }

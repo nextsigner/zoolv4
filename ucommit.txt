@@ -1,1 +1,1 @@
-Se optimiza para ver de manera dinámica el método transitos sin que centre el mapa automaticamente.
+Se agregan datos de Misión 5 en ZoolNumPit v1.4

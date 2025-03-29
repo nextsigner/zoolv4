@@ -2533,6 +2533,7 @@ Rectangle {
         j.dataPos=[]
         j.dataNeg=[]
         if(num===1){
+            j.g='Mental'
             j.p='Sol'
 
             j.pc='Iniciador'
@@ -2579,6 +2580,7 @@ Rectangle {
             j.dataNeg.push('Las características negativas del 1, son las más fáciles de superar. Mientras más alto es el número más difícil es superparlo.')
         }
         if(num===2){
+            j.g='Material'
             j.p='Luna'
             j.pc='Conexión'
             j.pd='La indecisión y la desconfianza.'
@@ -2621,6 +2623,7 @@ Miedo al juicio: Sienten un gran temor a ser juzgados por los demás.')
 
         }
         if(num===3){
+            j.g='Emocional'
             j.p='Júpiter'
             j.pc='Creatividad'
             j.pd='Dispersión'
@@ -2665,6 +2668,95 @@ atención.')
             j.dataNeg.push('Se vuelven inconstantes y llegan a tomar todo como un
 juego.')
             j.dataNeg.push('Rara vez terminan lo que inician.')
+        }
+        if(num===4){
+            j.g='Materiales'
+            j.p='Marte'
+            j.pc='Construcción'
+            j.pd='Rigidez'
+
+            //Positivo
+            j.dataPos.push('Vienen a construir cimientos y estructuras.')
+            j.dataPos.push('Gran capacidad de trabajo. Largas jornadas de trabajo sin cansarse.')
+            j.dataPos.push('Dedicados, responsables y confiables. Infunden respeto.
+Cuando se comprometen, cumplen cueste lo que cueste.')
+            j.dataPos.push('Orientados a cosas prácticas y tangibles. Mejoran lo ya creado por alguien más.')
+            j.dataPos.push('Generalmente lo que tienen lo consiguen por su propio esfuerzo durante la vida.')
+            j.dataPos.push('Tienden a reprimir sus sentimientos y no es fácil que expresen lo que sienten.')
+            j.dataPos.push('Se preocupan por mantener una imagen (Exitoso, responsable, honesto, trabajador).')
+            j.dataPos.push('No les gusta mucho llamar la atención; mantienen una imagen moderada y conservadora.')
+            j.dataPos.push('Imponen orden, disciplina. Trabajan bajo su propio método.
+Firmes y estable, con gran atención al detalle.')
+            j.dataPos.push('Grandes deportistas por su nivel de resistencia es superior al de los demás. Tienden a lo material antes que a lo espiritual; su seguridad económica es muy importante.')
+            j.dataPos.push('Buscan la estabilidad: aman la rutina y la vida hogareña.')
+            j.dataPos.push('Disciplinados y son altamente resistentes ante los retos.')
+            j.dataPos.push('Personas responsables, leales, discretas y honestas.')
+            j.dataPos.push('Defienden los conceptos arraigados y las tradiciones.
+Protectores de su familia.')
+
+            //Negativo
+            j.dataNeg.push('Des-estructura y desorden.')
+            j.dataNeg.push('Comodinos o flojos, con tendencia a dormir mucho. Pereza.
+Pagarán para que les hagan las cosas que no les gusta hacer.')
+            j.dataNeg.push('Irresponsables o inconstantes con sus tareas o labores.')
+            j.dataNeg.push('Crueles; utilizan sus palabras como armas.')
+            j.dataNeg.push('Inflexibles y cuadrados, demasiado rígidas y muy testarudas.')
+            j.dataNeg.push('Celosos de closet; lo demuestran con insinuaciones o actitudes.')
+            j.dataNeg.push('Cuando pierden el control pueden ser muy violentos y destructivos.')
+            j.dataNeg.push('Se angustian si sienten que alguien puede descubrir que no son del todo la imagen que se han creado.')
+            j.dataNeg.push('Des-estructura y desorden.')
+            j.dataNeg.push('Comodinos o flojos, con tendencia a dormir mucho. Pereza.')
+            j.dataNeg.push('Pagarán para que les hagan las cosas que no les gusta hacer.')
+            j.dataNeg.push('Irresponsables o inconstantes con sus tareas o labores.
+Crueles; utilizan sus palabras como armas.')
+            j.dataNeg.push('Inflexibles y cuadrados, demasiado rígidas y muy testarudas.')
+            j.dataNeg.push('Celosos de closet; lo demuestran con insinuaciones o actitudes.')
+            j.dataNeg.push('Cuando pierden el control pueden ser muy violentos y destructivos.')
+            j.dataNeg.push('Se angustian si sienten que alguien puede descubrir que no son del todo la imagen que se han creado.')
+        }
+        if(num===5){
+            j.g='Mentales'
+            j.p='Mercurio'
+            j.pc='Movimiento y Libertad'
+            j.pd='Inconstancia'
+
+            //Positivo 5
+
+            j.dataPos('Necesitan sentirse libres y no permiten que los opriman o dominen.')
+            j.dataPos('Gran optimismo, inspiración y entusiasmo.
+* Mentalidad ágil, dinámica y muy curiosa.')
+            j.dataPos('Quieren experimentar y aceptar todo lo que sea desconocido, insólito y moderno.')
+            j.dataPos('Están en constante cambio, la rutina los marchita, los apaga; son los grandes aventureros.')
+            j.dataPos('Amantes de viajes, diversiones y transformación.')
+            j.dataPos('Se esfuerzan constantemente por alcanzar un sentir de estar vivos.')
+            j.dataPos('Gran magnetismo con el sexo opuesto. Vanidosos.')
+            j.dataPos('Suelen llevarse bien con todos los números ya que se adaptan a cualquier ambiente.')
+            j.dataPos('Valientes y osados, les atrae el peligro.')
+            j.dataPos('Inquietos, polifacéticos, impulsivos y cambiantes.')
+            j.dataPos('Corresponde al cuerpo físico. Les importa su apariencia y cuidan su cuerpo.')
+            j.dataPos('Realizan muchas actividades diferentes.')
+            j.dataPos('Son muy intuitivos y tienen grandes facultades psíquicas y de percepción.')
+            j.dataPos('Capaces de leer a las personas que los rodean con facilidad.')
+            j.dataPos('Extrovertidos; tendrán mucha facilidad para las ventas y relaciones públicas.')
+
+            //Negativo 5
+            j.dataNeg('')
+            j.dataNeg('En negativo, genera dominio. Auto-restricción o dominio y control sobre los demás.')
+            j.dataNeg('Suelen tener una vida difícil y conflictiva ya que atrae situaciones difíciles.')
+            j.dataNeg('Les cuesta mucho encontrar el equilibrio interior.')
+            j.dataNeg('Extremadamente introvertidos, rara vez los oirás hablar y pasan inadvertidos.')
+            j.dataNeg('Suele tomar decisiones precipitadas porque se vuelve impaciente.')
+            j.dataNeg('El más impulsivo de los números.')
+            j.dataNeg('Falta de sinceridad, irresponsabilidad, egoísmo.')
+            j.dataNeg('Se puede perder en los excesos de los placeres (sexo, alcohol, fiesta, comida, etc.).')
+            j.dataNeg('Su afecto es superficial por su falta de compromiso.')
+            j.dataNeg('Egoísta y violento. Descontento e insatisfecho.')
+            j.dataNeg('Generalmente de pequeños vivieron o fueron testigos de algún abuso.')
+            j.dataNeg('En la parte negativa muchos 5 indica alguna manera de abuso o violencia.')
+            j.dataNeg('Gran rencor y enojo contra la vida.')
+            j.dataNeg('Infieles y desleales.')
+            j.dataNeg('No son solidarios y no se harán cargo de los problemas de los demás (incluso de sus hijos, socios, familia, etc.).')
+            j.dataNeg('Tienden a ser vulgares en su comportamiento y forma de vestir.')
         }
         return j
     }

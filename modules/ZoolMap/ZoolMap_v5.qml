@@ -2008,6 +2008,17 @@ Rectangle{
     //<--ZoomAndPan
 
     //-->Funciones Varias
+    function unloadExt(){
+        app.t='vn'
+
+        zm.ev=!zm.ev
+        ai.width=r.width
+        zm.objTapa.opacity=0.0
+        aspsCircle.opacity=1.0
+        aspsCircleBack.opacity=0.0
+        panelAspectsBack.opacity=0.0
+        loadFromFile(apps.url, 'vn', false)
+    }
     function resetGlobalVars(){
         if(!r.lockEv){
             r.ev=false

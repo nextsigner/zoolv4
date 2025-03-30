@@ -92,6 +92,7 @@ Rectangle {
         //console.log('PanelAspectsBack jsonData: '+JSON.stringify(jsonData))
         clear()
         if(!jsonData.asps)return
+        r.opacity=1.0
         let asp=jsonData.asps
         for(var i=0;i<Object.keys(asp).length;i++){
             if(asp['asp'+parseInt(i +1)]){

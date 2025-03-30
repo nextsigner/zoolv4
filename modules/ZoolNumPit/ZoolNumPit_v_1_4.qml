@@ -20,6 +20,9 @@ Rectangle {
     color: apps.backgroundColor
     border.width: 1
     border.color: apps.fontColor
+
+    property bool isExt: false
+
     property int contentWidth: r.width-app.fs*0.5
 
     property alias logView: zoolNumPitLog

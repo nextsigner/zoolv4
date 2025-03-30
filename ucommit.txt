@@ -1,1 +1,1 @@
-Se agregan datos de Misión 6 a ZoolNumPit v1.4
+Se agrega menu ctx archivo->Recargar interior

@@ -55,11 +55,17 @@ ZoolMenus{
                 apps.xAsShowIcon=!apps.xAsShowIcon
             }
         }
-        Action {enabled: zm.ev; text: qsTr("Descartar exterior"); onTriggered: {
+        /*Action {enabled: zm.ev; text: qsTr("Descartar exterior"); onTriggered: {
+                app.t=zm.getParams().t
+                zm.ev=false
+                zm.lastAspShowed='int'
+                zm.objAspsCircle.show=true
+                zm.objAspsCircleBack.show=false
+                zm.fileDataBack=''
                 zm.loadFromFile(apps.url, zm.getParams().t, false)
                 zoolDataView.clearExtData()
             }
-        }
+        }*/
         Action {text: zm.ev?'Ocultar Exterior':'Ver Exterior'; onTriggered: {
                 zm.ev=!zm.ev
             }
@@ -87,6 +93,10 @@ ZoolMenus{
         title: 'Archivo'
         w: r.w
         isContainer: true
+        Action {text: qsTr("Recargar archivo interior"); onTriggered: {
+                zm.unloadExt()
+            }
+        }
         Action {text: qsTr("Cargar Tránsitos de Ahora"); onTriggered: {
                 zm.loadNow()
             }

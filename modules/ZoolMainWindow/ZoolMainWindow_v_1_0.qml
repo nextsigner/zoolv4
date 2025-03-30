@@ -1033,6 +1033,8 @@ ApplicationWindow {
             //log.lv('zm.currentHouseIndex: '+zm.currentHouseIndex)
             //zm.currentPlanetIndex=20
             //zm.zmc.start()
+
+            //zm.unloadExt()
         }
     }
 }

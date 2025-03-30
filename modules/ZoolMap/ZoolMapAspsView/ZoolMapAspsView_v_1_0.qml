@@ -90,6 +90,7 @@ Rectangle {
         if(!r.visible)return
         clear()
         if(!jsonData.asps)return
+        r.opacity=1.0
         let asp=jsonData.asps
         //log.lv('jsonData.asps: '+JSON.stringify(jsonData.asps))
         /*

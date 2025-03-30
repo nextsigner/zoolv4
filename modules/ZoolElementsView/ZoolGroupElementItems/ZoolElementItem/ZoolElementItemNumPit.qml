@@ -10,7 +10,7 @@ Rectangle{
     color: apps.fontColor
     radius: r.fs*0.25
     property int fs: app.fs*6
-    property bool isBack: false
+    property bool isExt: false
 
     property int nd: 0
     property string ns: '0'
@@ -39,15 +39,7 @@ Rectangle{
     MouseArea{
         anchors.fill: parent
         onClicked: {
-//            zsm.getPanel('ZoolNumPit').currentDate=!r.isBack?zm.currentDate:zm.currentDateBack
-//            zsm.getPanel('ZoolNumPit').setCurrentDate(!r.isBack?zm.currentDate:zm.currentDateBack)
-//            zsm.getPanel('ZoolNumPit').setCurrentNombre(!r.isBack?zm.currentNom:zm.currentNomBack)
-//            zsm.getPanel('ZoolNumPit').currentAG=app.arbolGenealogico[r.ag]
-//            zsm.getPanel('ZoolNumPit').currentCargaAG=zsm.getPanel('ZoolNumPit').aCargasAG[r.ag]
-//            let ci=zsm.getPanelIndex('ZoolNumPit')
-//            zsm.currentIndex=ci
-            //Qt.quit()
-            sendDataToModuleNumPit()
+            sendDataToModuleNumPit(true)
         }
     }
     Row{
@@ -58,22 +50,33 @@ Rectangle{
         Text{id: zt3; text: '<b>'+r.arbolGen+'</b>'; color: apps.backgroundColor; font.pixelSize: r.fs}
     }
     function updateNumPit(){
-        let d = !r.isBack?app.j.getNums(zm.currentFecha):app.j.getNums(zm.currentFechaBack)
+        let d = !r.isExt?app.j.getNums(zm.currentFecha):app.j.getNums(zm.currentFechaBack)
         if(d[0]===-1 && d[1]===-1 && d[2]===-1)return
         r.nd=d[0]
         r.ns=d[1]
         r.ag=parseInt(d[2])
         r.arbolGen=app.arbolGenealogico[parseInt(d[2])][0]
     }
-    function sendDataToModuleNumPit(){
+    function sendDataToModuleNumPit(fromMouseClick){
         if(zm.previewEnabled)return
-        zsm.getPanel('ZoolNumPit').currentDate=!r.isBack?zm.currentDate:zm.currentDateBack
-        zsm.getPanel('ZoolNumPit').setCurrentDate(!r.isBack?zm.currentDate:zm.currentDateBack)
-        zsm.getPanel('ZoolNumPit').setCurrentNombre(!r.isBack?zm.currentNom:zm.currentNomBack)
+
+        let sp=!r.isExt?zm.fileData:zm.fileDataBack
+        let p=JSON.parse(sp)
+        let cd=new Date(p.params.a, p.params.m-1, p.params.d)
+
+        //zsm.getPanel('ZoolNumPit').currentDate=!r.isExt?zm.currentDate:zm.currentDateBack
+        zsm.getPanel('ZoolNumPit').currentDate=cd
+        if(r.isExt){
+            //log.lv('zsm.getPanel(\'ZoolNumPit\').currentDate: '+zsm.getPanel('ZoolNumPit').currentDate)
+        }
+        //zsm.getPanel('ZoolNumPit').setCurrentDate(!r.isExt?zm.currentDate:zm.currentDateBack)
+        zsm.getPanel('ZoolNumPit').setCurrentDate(cd)
+        zsm.getPanel('ZoolNumPit').setCurrentNombre(!r.isExt?zm.currentNom:zm.currentNomBack)
         zsm.getPanel('ZoolNumPit').currentAG=app.arbolGenealogico[r.ag]
         zsm.getPanel('ZoolNumPit').updateGenero()
         zsm.getPanel('ZoolNumPit').currentCargaAG=zsm.getPanel('ZoolNumPit').aCargasAG[r.ag]
-        if(app.t!=='dirprim'&&app.t!=='progsec'&&app.t!=='trans'){
+        zsm.getPanel('ZoolNumPit').isExt=r.isExt
+        if((app.t!=='dirprim'&&app.t!=='progsec'&&app.t!=='trans') || fromMouseClick){
             let ci=zsm.getPanelIndex('ZoolNumPit')
             zsm.currentIndex=ci
         }

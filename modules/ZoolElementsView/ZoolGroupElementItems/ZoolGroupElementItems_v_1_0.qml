@@ -22,7 +22,7 @@ Rectangle{
         ZoolElementItem{id: itemTierra; fs: r.fs; numElement: 1}
         ZoolElementItem{id: itemAire; fs: r.fs; numElement: 2}
         ZoolElementItem{id: itemAgua; fs: r.fs; numElement: 3}
-        ZoolElementItemNumPit{id: numPit; fs: r.fs; isBack: r.isBack}
+        ZoolElementItemNumPit{id: numPit; fs: r.fs; isExt: r.isBack}
     }
     function load(j){
         //r.maxPlanetsListWith=0
@@ -97,7 +97,7 @@ Rectangle{
         itemAgua.porc=af[3]
 
         numPit.updateNumPit()
-        numPit.sendDataToModuleNumPit()
+        numPit.sendDataToModuleNumPit(false)
         //setUImgGrabber()
     }
 }

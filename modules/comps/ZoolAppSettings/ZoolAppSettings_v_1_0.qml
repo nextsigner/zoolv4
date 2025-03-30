@@ -45,8 +45,8 @@ Settings{
     property int currentZoolTextRectCamHeight: app.fs*6
 
     //Houses
-    property string defaultHsys: 'P'
-    property string currentHsys: 'P'
+    property string defaultHsys: 'T'
+    property string currentHsys: 'T'
     property string houseColor: "#2CB5F9"
     property string houseColorBack: 'red'
     property bool showHousesAxis: false

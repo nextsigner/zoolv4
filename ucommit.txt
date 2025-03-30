@@ -1,1 +1,1 @@
-Se agrega función guardar como en ZoolDataView tránsito
+Se agregan datos de Misión 6 a ZoolNumPit v1.4

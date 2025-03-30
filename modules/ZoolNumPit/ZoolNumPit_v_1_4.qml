@@ -2758,6 +2758,43 @@ Crueles; utilizan sus palabras como armas.')
             j.dataNeg('No son solidarios y no se harán cargo de los problemas de los demás (incluso de sus hijos, socios, familia, etc.).')
             j.dataNeg('Tienden a ser vulgares en su comportamiento y forma de vestir.')
         }
+        if(num===6){
+            j.g='Emocional'
+            j.p='Venus'
+            j.pc='Unión y Equilibrio'
+            j.pd='Control y sobreprotección'
+
+            //Positivo 6
+            j.dataPos.push('La armonía para ellos mismos y para las personas que quieren les es fundamental.')
+            j.dataPos.push('Gran necesidad de sentirse amados y protegidos.
+Sensibles.')
+            j.dataPos.push('Generosos a cambio de que se sigan sus reglas.
+Congruentes con lo que creen.')
+            j.dataPos.push('Sentido patriótico; pueden ser activistas en pro de la justicia.')
+            j.dataPos.push('Tienen la habilidad de mostrarse serenos en situaciones de riesgo o emergencia.')
+            j.dataPos.push('Suelen ser personas queridas, respetadas y admiradas; crean un ambiente de paz y ayudan a las personas que los necesitan.')
+            j.dataPos.push('Normalmente conservadores, (muchas veces anticuados) y tradicionalistas.')
+            j.dataPos.push('Respetan y se adaptan gustosamente a las leyes
+Les gusta vestir bien, comer bien y vivir confortablemente.')
+            j.dataPos.push('Personas muy productivas, trabajadoras tenaces y eficientes.')
+            j.dataPos.push('Tendencia a cargar desde muy joven con responsabilidades familiares muy fuertes.')
+            j.dataPos.push('No permitirán que ninguno de sus seres queridos se derrumbe o decaiga.')
+            j.dataPos.push('Nunca abandonan las cosas que empiezan, las continuan hasta que las terminan o concluyen.')
+
+            //Negativo 6
+            j.dataNeg.push('Grandes inseguridades y obsesiones emocionales.')
+            j.dataNeg.push('Sobre-protegen o a dan de más; resuelven la vida de otros, buscando crear un vínculo de gratitud o de hacerse sentir necesarios ("comprar amor").')
+            j.dataNeg.push('Si no pueden comprar el amor, se sienten devaluados o despreciados.')
+            j.dataNeg.push('Muy generosos pero en forma condicionada... "Te quiero, si solo si..."')
+            j.dataNeg.push('Quieren controlar hasta asfixiar, principalmente a la pareja y a los hijos.')
+            j.dataNeg.push('Rescatadores de las personas con conflictos emocionales o crisis lo que provoca relaciones insanas y desgastantes, especialmente con el sexo opuesto.')
+            j.dataNeg.push('Posesivos, absorbentes y egoístas.
+Celosos y con tendencias a esclavizar y a castrar a otros.')
+            j.dataNeg.push('Tendencia al sacrificio y a convertirse en personas sufridas y resignadas.')
+            j.dataNeg.push('Hipocondríacas, para manipular la atención y el cariño de otros.')
+            j.dataNeg.push('Se recomienda respetar a sus seres queridos dándoles libertad y no tratar de resolver sus problemas, volviéndolos dependientes, inseguros e inútiles.')
+            j.dataNeg.push('Supersticiosos.')
+        }
         return j
     }
 }

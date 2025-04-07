@@ -1,1 +1,1 @@
-Se agrega menu ctx archivo->Recargar interior
+Se retoma programación luego de agregar menu ctx Archivos->Recargar archivo interior.

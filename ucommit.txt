@@ -1,1 +1,1 @@
-Se agregan datos de mision 11 y 22 en ZoolNumPit v1.4
+Se muestra info de número de misión en ZoolNumPit v1.4

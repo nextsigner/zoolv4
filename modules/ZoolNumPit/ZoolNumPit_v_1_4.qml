@@ -123,7 +123,7 @@ Rectangle {
         let a = currentDate.getFullYear()
         let f = d + '/' + m + '/' + a
         let aGetNums=app.j.getNums(f)
-        currentNumNacimiento=aGetNums[0]
+        r.currentNumNacimiento=aGetNums[0]
         r.numKarmico=aGetNums[3]
         r.currentNumNatalicio=d
         r.sFormulaNatalicio=aGetNums[1]
@@ -355,6 +355,48 @@ Rectangle {
                                     //rotation: 360-parent.rotation
                                     color: apps.backgroundColor
                                     anchors.verticalCenter: parent.verticalCenter
+                                    MouseArea{
+                                        anchors.fill: parent
+                                        onClicked: {
+
+                                            let s=''
+
+                                            let d =  ct.currentDate.getDate()
+                                            let m = ct.currentDate.getMonth() + 1
+                                            let a = ct.currentDate.getFullYear()
+
+                                            let num=bigNumToPitNum(d+m+a, true)
+                                            /*s+='num: '+num+'\n\n'
+                                            s+='d: '+d+'\n\n'
+                                            s+='m: '+m+'\n\n'
+                                            s+='a: '+a+'\n\n'*/
+                                            if(num===13||num===14||num===16||num===19){
+                                                num=r.currentNumNacimiento
+                                            }
+
+
+
+                                            let j = getNumDataInfo(r.currentNumNacimiento)
+                                            s+='Número de Misión '+num+'\n\n'
+                                            s+='Grupo: '+j.g+'\n'
+                                            s+='Planeta Asociado: '+j.p+'\n'
+                                            s+='Palabra clave: '+j.pc+'\n'
+                                            s+='Punto débil: '+j.pd+'\n\n'
+
+                                            s+='Manifestaciones positivas del N° '+num+'\n\n'
+                                            for(var i=0;i<j.dataPos.length;i++){
+                                                s+=j.dataPos[i]+'\n\n'
+                                            }
+                                            s+='\n\nManifestaciones negativas del N° '+num+'\n\n'
+                                            for(var i=0;i<j.dataNeg.length;i++){
+                                                s+=j.dataNeg[i]+'\n\n'
+                                            }
+                                            r.logView.l(s)
+                                            r.logView.visible=true
+                                            r.logView.scrollToTop()
+                                            clipboard.setText(s)
+                                        }
+                                    }
                                     Text{
                                         text: '<b>'+r.currentNumNacimiento+'</b>'
                                         font.pixelSize: parent.width*0.8
@@ -2846,25 +2888,25 @@ Celosos y con tendencias a esclavizar y a castrar a otros.')
             j.pd='Codicia y ambición.'
 
             //Positivo 8
-            j.dataPos.push('Número del poder. Mueven dos energías: Abundancia y Sanación.
-• Poseen la personalidad más potente de todas.')
+            j.dataPos.push('Número del poder. Mueven dos energías: Abundancia y Sanación.')
+j.dataPos.push('Poseen la personalidad más potente de todas.')
             j.dataPos.push('Tenacidad, ambición y fuerza de voluntad; vinculados al poder, al honor y al éxito.')
             j.dataPos.push('Buenos líderes de grupos; siempre en busca del éxito y el progreso material.')
             j.dataPos.push('Les gusta tomar las decisiones finales en todos los asuntos de importancia.')
-            j.dataPos.push('Luchan por sus metas, sin importar los obstáculos.
-• Los 8 casi siempre superan su condición de nacimiento.')
+            j.dataPos.push('Luchan por sus metas, sin importar los obstáculos.')
+j.dataPos.push('Los 8 casi siempre superan su condición de nacimiento.')
             j.dataPos.push('Sueñan siempre en grande; tienen una gran necesidad de probar su éxito material.')
             j.dataPos.push('Esta vibración es la más ligada a las cosas materiales; olfato especial para las finanzas.')
             j.dataPos.push('Los veremos como dirigentes, directores, empresarios, o gerentes de grandes empresas.')
             j.dataPos.push('Mentalmente brillantes. Su mente va más rápido que la de los demás.')
-            j.dataPos.push('Son exigentes consigo mismos y con los demás.
-• Son prácticos, constructivos y realistas')
+            j.dataPos.push('Son exigentes consigo mismos y con los demás.')
+j.dataPos.push('Son prácticos, constructivos y realistas')
             j.dataPos.push('Enorme capacidad de trabajo y sus enormes poderes de concentración y autodominio.')
             j.dataPos.push('Le gusta trabajar para él mismo, ya que no le gusta estar bajo supervisión directa.')
             j.dataPos.push('Eficientes y disciplinados; trabajadores incansables y tienen la habilidad de abstraerse en sus proyectos por su concentración.')
             j.dataPos.push('Ponen pasión e intensidad a todo lo que hacen.')
-            j.dataPos.push('Enérgicos, combatientes, organizadas, exigentes
-• Directos, francos, con capacidad de dirigir y saber mandar.')
+            j.dataPos.push('Enérgicos, combatientes, organizadas, exigentes')
+j.dataPos.push('Directos, francos, con capacidad de dirigir y saber mandar.')
             j.dataPos.push('Poderes de sanación. Gran poder para mover energía con las manos.')
             j.dataPos.push('Jamás adoptan posiciones ambiguas: Para ellos ha de ser todo o nada, sí o no, blanco o negro.')
             j.dataPos.push('Honestos, sinceros y directos, detestan la mentira, la injusticia y el engaño.')
@@ -2876,11 +2918,11 @@ Celosos y con tendencias a esclavizar y a castrar a otros.')
             j.dataPos.push('Unido a muchos números espirituales o Maestros, vienen a ser sanadores.')
 
             //Negativo 8
-            j.dataNeg.push('En negativo, el 8 genera carencia y enfermedad (para sí y otros)
-• Fracasos, ruina o peligroso por su gran inflexibilidad.')
+            j.dataNeg.push('En negativo, el 8 genera carencia y enfermedad (para sí y otros).')
+j.dataNeg.push('Fracasos, ruina o peligroso por su gran inflexibilidad.')
             j.dataNeg.push('Deben cuidarse siempre de los excesos en todo sentido.')
-            j.dataNeg.push('Terco hasta la obsesión, intolerante e intransigente
-• Olvidan ternura y la compasión.')
+            j.dataNeg.push('Terco hasta la obsesión, intolerante e intransigente.')
+j.dataNeg.push('Olvidan ternura y la compasión.')
             j.dataNeg.push('Sus exigencias, frialdad, dureza y egocentrismo los convierten en tiranos que pueden hacer muy amarga la vida de quienes les rodean.')
             j.dataNeg.push('Su ambición de progreso puede ser compulsiva. No saben cuando parar.')
             j.dataNeg.push('Personas autoritarias con actitudes agresivas, cortantes, dominantes y controladoras.')
@@ -2889,8 +2931,8 @@ Celosos y con tendencias a esclavizar y a castrar a otros.')
             j.dataNeg.push('Si se les cuestiona, se molestan y buscarán un error en la persona que cuestiona para usarlo de defensa.')
             j.dataNeg.push('Tratan de voltear todo para culpar a otro.')
             j.dataNeg.push('Personas inseguras e impotentes.')
-            j.dataNeg.push('Desorganizados, obsesivos, y cobardes
-• Se paralizan ante una emergencia o si tienen que tomar una decisión.')
+            j.dataNeg.push('Desorganizados, obsesivos, y cobardes.')
+j.dataNeg.push('Se paralizan ante una emergencia o si tienen que tomar una decisión.')
             j.dataNeg.push('Muy manipuladores y sienten que son perfectos en todo lo que hacen.')
             j.dataNeg.push('Poca tolerancia.')
             j.dataNeg.push('Cuando desconocen un tema, entran en pánico y escapan con cualquier pretexto.')
@@ -2910,14 +2952,14 @@ Celosos y con tendencias a esclavizar y a castrar a otros.')
 
             //Positivo 9
             j.dataPos.push('Número mágico. Almas viejas. Gran adaptabilidad. El número de lo sutil.')
-            j.dataPos.push('Es el número del humanitario: gran solidaridad y apoyo a los demás
-• Consciencia social, les preocupan las causas mundiales.')
+            j.dataPos.push('Es el número del humanitario: gran solidaridad y apoyo a los demás.')
+j.dataPos.push('Consciencia social, les preocupan las causas mundiales.')
             j.dataPos.push('Tratan de resolverle la vida a los demás, aun a costa de sus propias actividades o intereses.')
-            j.dataPos.push('Con frecuencia se rebelan contra la ley y el orden establecido.
-• Les es fácil hacerse de amigos a nivel superficial, pero más difícil a nivel profundo.')
+            j.dataPos.push('Con frecuencia se rebelan contra la ley y el orden establecido.')
+j.dataPos.push('Les es fácil hacerse de amigos a nivel superficial, pero más difícil a nivel profundo.')
             j.dataPos.push('Se ponen demasiados compromisos encima, lo que hace que no cumplan o se les olvide o inventen mil pretextos.')
-            j.dataPos.push('Necesitan un reconocimiento constante de todo lo que hacen
-• Se enfocan mas en satisfacer a los demás que a ellos mismos o a su familia.')
+            j.dataPos.push('Necesitan un reconocimiento constante de todo lo que hacen.')
+j.dataPos.push('Se enfocan mas en satisfacer a los demás que a ellos mismos o a su familia.')
             j.dataPos.push('Muchísima sensibilidad para las artes.')
             j.dataPos.push('Muchas habilidades y capacidades creativas, artísticas y espirituales.')
             j.dataPos.push('Tienden a tener fama y llegar hacer públicas o adquirir un gran reconocimiento en lo que hacen. Van en busca del aplauso.')
@@ -2939,15 +2981,15 @@ Celosos y con tendencias a esclavizar y a castrar a otros.')
             j.dataPos.push('Nunca se entregan enteramente ni dejan que veas sus puntos vulnerables.')
 
             //Negativo 9
-            j.dataNeg.push('Se vuelven egoístas y dramáticos.
-• Intensidad en las emociones. Impulsivos desde la emoción.')
-            j.dataNeg.push('Inhiben todas sus cualidades humanitarias
-• Superficiales, impacientes, irascibles y arrogantes.')
+            j.dataNeg.push('Se vuelven egoístas y dramáticos.')
+j.dataNeg.push('Intensidad en las emociones. Impulsivos desde la emoción.')
+            j.dataNeg.push('Inhiben todas sus cualidades humanitarias.')
+j.dataNeg.push('Superficiales, impacientes, irascibles y arrogantes.')
             j.dataNeg.push('Reacciones muy agresivas y buscan los enfrentamientos.')
             j.dataNeg.push('Se dan demasiada importancia, no soportan los fallos ajenos ni las oposiciones.')
             j.dataNeg.push('Fatalistas y neuróticos, siempre a la defensiva.')
-            j.dataNeg.push('Se victimizan y cargan a los demás con culpas de lo que les pasa.
-• Si se van al lado egoísta, lo pagarán con gran quebranto moral que puede llevarlos al desequilibrio nervioso.')
+            j.dataNeg.push('Se victimizan y cargan a los demás con culpas de lo que les pasa.')
+j.dataNeg.push('Si se van al lado egoísta, lo pagarán con gran quebranto moral que puede llevarlos al desequilibrio nervioso.')
             j.dataNeg.push('Son personas que generalmente fueron heridas de pequeñas, o que sufrieron abandono, ausencia o maltrato de alguno de sus padres, por lo que la primera señal emocional que reciben en la vida es el de no ser aceptado como son.')
             j.dataNeg.push('Camaleónicos: lloran cuando otros lloran, ríen cuando otros ríen y así terminan involucrados con gente o en asuntos que no les interesan o conciernen.')
             j.dataNeg.push('Otros se aprovechan de ellos porque saben que darán o harán cualquier cosa que se les pida, aun en contra de ellos mismos.')
@@ -2966,15 +3008,15 @@ Celosos y con tendencias a esclavizar y a castrar a otros.')
             j.pd='Auto engaño.'
 
             //Positivo 11
-            j.dataPos.push('Formado por dos unos: mayor grado de individualidad y creatividad.
-• Vienen invitados a hacer cosas en gran escala, más por inspiración que ambición.')
+            j.dataPos.push('Formado por dos unos: mayor grado de individualidad y creatividad.')
+j.dataPos.push('Vienen invitados a hacer cosas en gran escala, más por inspiración que ambición.')
             j.dataPos.push('Inclinación a trabajar por la paz, la armonía, altos ideales y a ser guías o maestros.')
             j.dataPos.push('Son Maestros Espirituales: vienen a enseñar con el ejemplo y con sus conocimientos un camino que lleve a crecer internamente.')
             j.dataPos.push('Idealistas, profundos pensadores; les gusta la filosofía y el comportamiento humano.')
             j.dataPos.push('Sobresalen por su inteligencia y excelente memoria.')
             j.dataPos.push('Les gusta el desarrollo humano y la docencia en cualquier nivel.')
-            j.dataPos.push('Facilidad para la escritura, la poesía y la literatura,
-• Creatividad artística, pueden ser famosos escritores.')
+            j.dataPos.push('Facilidad para la escritura, la poesía y la literatura.')
+j.dataPos.push('Creatividad artística, pueden ser famosos escritores.')
             j.dataPos.push('Muy intuitivos y tienen dones de Clarividencia.')
             j.dataPos.push('Ha nacido para ser inspiración, luz y guía entre sus semejantes.')
             j.dataPos.push('Buscadores de la verdad, sumamente analíticos, estudiosos y con grandes poderes de observación. Exige de seres queridos un alto nivel de comportamiento desde su ideal de amor o amistad.')
@@ -2991,8 +3033,8 @@ Celosos y con tendencias a esclavizar y a castrar a otros.')
             j.dataNeg.push('Tendencia a fuertes depresiones muy periódicas.')
             j.dataNeg.push('Insatisfechos porque la vida no es como la pensaron (extremadamente idealistas).')
             j.dataNeg.push('Viven en un mundo ficticio sin adaptarse a la realidad, (fugas y adicciones).')
-            j.dataNeg.push('Sombríos, desconfiados, acomplejados y muy egoístas.
-• No conectan con la gente; se aíslan.')
+            j.dataNeg.push('Sombríos, desconfiados, acomplejados y muy egoístas.')
+j.dataNeg.push('No conectan con la gente; se aíslan.')
             j.dataNeg.push('Gran desprecio y desinterés por los sentimientos y necesidades de otras personas.')
             j.dataNeg.push('Obsesión, neurosis y desconexión.')
             j.dataNeg.push('Gran capacidad para manipular y hacer que todos terminen haciendo lo que ellos quieren, utilizando una posición de víctima.')
@@ -3022,11 +3064,11 @@ Celosos y con tendencias a esclavizar y a castrar a otros.')
             j.dataPos.push('Nacieron dotados de una sabiduría, un conocimiento y una gran fuerza moral superiores a lo normal (niños diferentes).')
             j.dataPos.push('Vienen a enseñar. Su ejemplo debería servir para que todos se atrevan a luchar por su progreso y enriquecimiento espiritual. Enseñar a pescar.')
             j.dataPos.push('Su fuerza está en el dominio de sí mismos y del mundo material.')
-            j.dataPos.push('Inspiración, energía, generosidad, orden y disciplina excepcionales
-• Tenderán a buscar el conocimiento y profundizarse en todo lo que les llame la atención, al grado tal que pueden convertirse en expertos.')
+            j.dataPos.push('Inspiración, energía, generosidad, orden y disciplina excepcionales.')
+j.dataPos.push('Tenderán a buscar el conocimiento y profundizarse en todo lo que les llame la atención, al grado tal que pueden convertirse en expertos.')
             j.dataPos.push('Cuando ellos creen en algo, no habrá nadie que los haga cambiar de pensar, salvo que haya motivos bien fundamentados, ya que no se aferran a las cosas sin tener una razón válida.')
-            j.dataPos.push('Para ellos no existen los términos medios: blanco o negro.
-• Personas muy ambiciosas con mucha visión de la vida y de los negocios.')
+            j.dataPos.push('Para ellos no existen los términos medios: blanco o negro.')
+j.dataPos.push('Personas muy ambiciosas con mucha visión de la vida y de los negocios.')
             j.dataPos.push('Se rodearán de personas preparadas e inteligentes, valor que para ellos es indispensable.')
             j.dataPos.push('Admirarán a pocas personas.')
 

@@ -2959,6 +2959,97 @@ Celosos y con tendencias a esclavizar y a castrar a otros.')
             j.dataNeg.push('Sin escrúpulos ni respeto a las necesidades de los demás.')
             j.dataNeg.push('Es la vibración más destructiva de todas las vibraciones del universo. Puede sin ningún remordimiento destruir personas, hogares, corazones y traicionar.')
         }
+        if(num===11){
+            j.g='Mental'
+            j.p='Neptuno'
+            j.pc='Maestro Espiritual'
+            j.pd='Auto engaño.'
+
+            //Positivo 11
+            j.dataPos.push('Formado por dos unos: mayor grado de individualidad y creatividad.
+• Vienen invitados a hacer cosas en gran escala, más por inspiración que ambición.')
+            j.dataPos.push('Inclinación a trabajar por la paz, la armonía, altos ideales y a ser guías o maestros.')
+            j.dataPos.push('Son Maestros Espirituales: vienen a enseñar con el ejemplo y con sus conocimientos un camino que lleve a crecer internamente.')
+            j.dataPos.push('Idealistas, profundos pensadores; les gusta la filosofía y el comportamiento humano.')
+            j.dataPos.push('Sobresalen por su inteligencia y excelente memoria.')
+            j.dataPos.push('Les gusta el desarrollo humano y la docencia en cualquier nivel.')
+            j.dataPos.push('Facilidad para la escritura, la poesía y la literatura,
+• Creatividad artística, pueden ser famosos escritores.')
+            j.dataPos.push('Muy intuitivos y tienen dones de Clarividencia.')
+            j.dataPos.push('Ha nacido para ser inspiración, luz y guía entre sus semejantes.')
+            j.dataPos.push('Buscadores de la verdad, sumamente analíticos, estudiosos y con grandes poderes de observación. Exige de seres queridos un alto nivel de comportamiento desde su ideal de amor o amistad.')
+            j.dataPos.push('Inician relaciones con gran intensidad, mientras la otra persona no baje de esos estándares; si esto sucede, los reemplazarán (el anterior me defraudó o traicionó).')
+            j.dataPos.push('Fuerte componente de indecisión (7), deben analizar los escenarios posibles.')
+            j.dataPos.push('No se desenvuelven bien en empresas comerciales ni muy rígidas; en cambio son muy capaces cuando trabajan usando su gran inspiración y creatividad.')
+            j.dataPos.push('Gran facultad para hablar.')
+            j.dataPos.push('Destacan como políticos, periodistas, místicos, sanadores, artistas o líderes religiosos.')
+            j.dataPos.push('Su palabra inspira, conmueve e impresiona.')
+            j.dataPos.push('La Vibración Maestra los aventaja en cualquier actividad que elijan.')
+
+            //Negativo 11
+            j.dataNeg.push('Desconectadas de su espiritualidad. Incluso pueden ridiculizar la búsqueda espiritual.')
+            j.dataNeg.push('Tendencia a fuertes depresiones muy periódicas.')
+            j.dataNeg.push('Insatisfechos porque la vida no es como la pensaron (extremadamente idealistas).')
+            j.dataNeg.push('Viven en un mundo ficticio sin adaptarse a la realidad, (fugas y adicciones).')
+            j.dataNeg.push('Sombríos, desconfiados, acomplejados y muy egoístas.
+• No conectan con la gente; se aíslan.')
+            j.dataNeg.push('Gran desprecio y desinterés por los sentimientos y necesidades de otras personas.')
+            j.dataNeg.push('Obsesión, neurosis y desconexión.')
+            j.dataNeg.push('Gran capacidad para manipular y hacer que todos terminen haciendo lo que ellos quieren, utilizando una posición de víctima.')
+            j.dataNeg.push('Personas mentirosas y tramposas: estafadores y engatusadores.')
+            j.dataNeg.push('No hacen nada en donde no haya un beneficio propio.')
+            j.dataNeg.push('Personas severas, críticas, dominantes.')
+            j.dataNeg.push('Ambiciosos y materialistas.')
+            j.dataNeg.push('Buscan tener el control de todos y de todo a cualquier precio.')
+            j.dataNeg.push('Personas sumisas, desanimadas e incapaces de concretar nada en absoluto.')
+            j.dataNeg.push('No desarrollan la vibración espiritual de su número, y podrán involucrarse en magia negra o actividades de baja vibración y energía.')
+            j.dataNeg.push('Pueden caer en excesos que les lleven a perder la noción de la realidad.')
+            j.dataNeg.push('Se dejan dominar por la inseguridad y falta de confianza en sí mismo del 2.')
+            j.dataNeg.push('Los maestros deben enfrentar fuertes lecciones de vida, a través de las cuales tendrá la oportunidad de sensibilizarse y probar su maestría y nivel moral.')
+            j.dataNeg.push('Muchos números 11 llegan a ser personas fuera de la realidad, con actitudes enfermizas o paranoicas.')
+            j.dataNeg.push('Pueden hasta llegar a creerse iluminados o profetas modernos.')
+        }
+        if(num===22){
+            j.g='Material'
+            j.p='Plutón'
+            j.pc='Maestro Espiritual y Construcción.'
+            j.pd='Abuso de poder y oscuridad.'
+
+            //Positivo 22
+            j.dataPos.push('Se enfrentarán a problemas y disyuntivas que deberán resolver con intuición y fortaleza moral.')
+            j.dataPos.push('Si logran vivir de acuerdo a su vibración maestra, evolucionan; si no, se sentirán infelices y desorientados.')
+            j.dataPos.push('Auténticos e inspirados líderes. Tendrán muchas responsabilidades.')
+            j.dataPos.push('Nacieron dotados de una sabiduría, un conocimiento y una gran fuerza moral superiores a lo normal (niños diferentes).')
+            j.dataPos.push('Vienen a enseñar. Su ejemplo debería servir para que todos se atrevan a luchar por su progreso y enriquecimiento espiritual. Enseñar a pescar.')
+            j.dataPos.push('Su fuerza está en el dominio de sí mismos y del mundo material.')
+            j.dataPos.push('Inspiración, energía, generosidad, orden y disciplina excepcionales
+• Tenderán a buscar el conocimiento y profundizarse en todo lo que les llame la atención, al grado tal que pueden convertirse en expertos.')
+            j.dataPos.push('Cuando ellos creen en algo, no habrá nadie que los haga cambiar de pensar, salvo que haya motivos bien fundamentados, ya que no se aferran a las cosas sin tener una razón válida.')
+            j.dataPos.push('Para ellos no existen los términos medios: blanco o negro.
+• Personas muy ambiciosas con mucha visión de la vida y de los negocios.')
+            j.dataPos.push('Se rodearán de personas preparadas e inteligentes, valor que para ellos es indispensable.')
+            j.dataPos.push('Admirarán a pocas personas.')
+
+            //Negativo 22
+            j.dataNeg.push('Con frecuencia tienen algún impedimento físico o carecen de fuerza o energía necesaria para realizar sus actividades.')
+            j.dataNeg.push('Viven en medio del desorden y la desorganización, mostrando gran desinterés y sintiéndose fracasados porque la vida ha sido injusta con ellos.')
+            j.dataNeg.push('Muestran amargura o desencanto.')
+            j.dataNeg.push('Terriblemente egoístas y comodinos; jamás harán nada a favor de alguien más, pero sentirán que los demás tienen la obligación de hacer cosas por ellos.')
+            j.dataNeg.push('Exigen y rara vez agradecerán, ya que para ellos así debe de ser.')
+            j.dataNeg.push('Extremadamente manipuladores y traicioneros, buscando sacar ventaja de todo.')
+            j.dataNeg.push('Clasistas y selectivos en exceso. Discriminadores, burlones y crueles con los que consideran por debajo de su nivel.')
+            j.dataNeg.push('Tendencia a ser violentos y hasta llegar a matar si es necesario.')
+            j.dataNeg.push('Depravados y abusivos de las personas que lo rodean.')
+            j.dataNeg.push('Común que practiquen la cacería, debido a la tendencia a matar, esta tendencia se puede apreciar en la niñez, cuando el niño puede disfrutar matar insectos.')
+            j.dataNeg.push('TIP: enseñar el amor a la vida y las consecuencias de sus actos Acumula poder y dominio sobre los demás.')
+            j.dataNeg.push('Su ambición se desborda y pretenden llegar a la cima sin importarles si los medios son lícitos o no.')
+            j.dataNeg.push('Destruyen a quienes se interponen en su camino.')
+            j.dataNeg.push('Inflexible y despiadado.')
+            j.dataNeg.push('No conoce escrúpulos, ni tiene consideración si su ambición o codicia se desata.')
+            j.dataNeg.push('Abusa de su poder y puede mostrarse cruel, ruin y mezquino.')
+            j.dataNeg.push('Se ahogan en las dudas, el miedo al fracaso, inmovilizados por sus represiones.')
+            j.dataNeg.push('Inflexibles y despiadados.')
+        }
         return j
     }
 }

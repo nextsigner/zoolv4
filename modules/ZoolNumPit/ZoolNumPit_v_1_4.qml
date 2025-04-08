@@ -895,12 +895,12 @@ Rectangle {
                                 if(rbF.checked)genero='f'
                                 r.logView.clear()
                                 if(checkBoxFormula.checked){
-                                    r.logView.l('Personalidad '+r.currentNumPersonalidad+'\n')
+                                    r.logView.l('Personalidad '+bigNumToPitNum(r.currentNumPersonalidad, false)+'\n')
                                     r.logView.l('Fórmula: '+r.sFormulaNumPer+'\n')
-                                    r.logView.l(getItemJson('per'+r.currentNumPersonalidad+genero))
+                                    r.logView.l(getItemJson('per'+bigNumToPitNum(r.currentNumPersonalidad, false)+genero))
                                 }else{
                                     r.logView.l('¿Cómo es su personalidad?\n')
-                                    r.logView.l(getItemJson('per'+r.currentNumPersonalidad+genero))
+                                    r.logView.l(getItemJson('per'+bigNumToPitNum(r.currentNumPersonalidad, false)+genero))
                                 }
                                 r.logView.visible=true
                                 r.logView.flk.contentY=0
@@ -918,14 +918,14 @@ Rectangle {
                                 if(rbF.checked)genero='f'
                                 let data=''
                                 if(checkBoxFormula.checked){
-                                    data+='Personalidad '+r.currentNumPersonalidad+'\n'
+                                    data+='Personalidad '+bigNumToPitNum(r.currentNumPersonalidad, false)+'\n'
                                     data+='Fórmula: '+r.sFormulaNumPer+'\n'
-                                    data+=getItemJson('per'+r.currentNumPersonalidad+genero)
+                                    data+=getItemJson('per'+bigNumToPitNum(r.currentNumPersonalidad, false)+genero)
                                 }else{
                                     data+='¿Cómo es su personalidad?\n'
-                                    data+=getItemJson('per'+r.currentNumPersonalidad+genero)
+                                    data+=getItemJson('per'+bigNumToPitNum(r.currentNumPersonalidad, false)+genero)
                                 }
-                                data+=getItemJson('per'+r.currentNumPersonalidad+genero)
+                                data+=getItemJson('per'+bigNumToPitNum(r.currentNumPersonalidad, false)+genero)
                                 clipboard.setText(data)
                                 let j={}
                                 j.text='Se copió el dato de la PERSONALIDAD al portapepeles.'
@@ -2141,13 +2141,13 @@ Rectangle {
         if(rbF.checked)genero='f'
         ret+='\n\nCuadro Numerológico de '+txtDataSearchNom.text+'\n\n'
         if(formula){
-            ret+='Personalidad '+r.currentNumPersonalidad+'\n'
+            ret+='Personalidad '+bigNumToPitNum(r.currentNumPersonalidad, false)+'\n'
             ret+='Fórmula: '+r.sFormulaNumPer+'\n'
 
-            ret+=getItemJson('per'+r.currentNumPersonalidad+genero)
+            ret+=getItemJson('per'+bigNumToPitNum(r.currentNumPersonalidad, false)+genero)
         }else{
             ret+='¿Cómo es su personalidad?\n\n'
-            ret+=getItemJson('per'+r.currentNumPersonalidad+genero)
+            ret+=getItemJson('per'+bigNumToPitNum(r.currentNumPersonalidad, false)+genero)
         }
         ret+='\n\n'
 

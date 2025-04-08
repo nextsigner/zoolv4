@@ -1,1 +1,1 @@
-Se corrigen errores de Cuadro numerológico en ZoolNumPit v1.4 que no calculará los números karmáticos en número de personalidad
+Se agregan datos de mision 8 y 9 en ZoolNumPit v1.4

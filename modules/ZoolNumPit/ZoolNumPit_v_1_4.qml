@@ -2157,7 +2157,8 @@ Rectangle {
             ret+='Fórmula: '+f0.text+'\n'
             ret+=getItemJson('per'+r.currentNumNacimiento+genero)
         }else{
-            ret+='¿Cómo es su vibración de nacimiento o karma '+r.currentNumNacimiento+'?\n\n'
+            ret+=''+txtDataSearchNom.text+' nació con un número de MISIÓN '+r.currentNumNacimiento+'\n'
+            ret+='¿Cómo se manifiesta esta vibración de misión N° '+r.currentNumNacimiento+' en su forma de ser y en algunos asuntos de su vida?\n\n'
             ret+=getItemJson('per'+r.currentNumNacimiento+genero)
         }
         ret+='\n\n'
@@ -2837,6 +2838,126 @@ Celosos y con tendencias a esclavizar y a castrar a otros.')
             j.dataNeg.push('Actitudes enfermizas o paranoicas.')
             j.dataNeg.push('Se evaden de la realidad. Pueden hacerlo por medio de la lectura, aunque las evasiones más peligrosas del 7 suelen ser el alcohol, el sexo o la droga.')
             j.dataNeg.push('Dificultad para convivir, ya que una vez que establecen un código de comportamiento, tratarán con gran insistencia de que los demás lo sigan.')
+        }
+        if(num===8){
+            j.g='Material'
+            j.p='Saturno'
+            j.pc='Abundancia y sanación.'
+            j.pd='Codicia y ambición.'
+
+            //Positivo 8
+            j.dataPos.push('Número del poder. Mueven dos energías: Abundancia y Sanación.
+• Poseen la personalidad más potente de todas.')
+            j.dataPos.push('Tenacidad, ambición y fuerza de voluntad; vinculados al poder, al honor y al éxito.')
+            j.dataPos.push('Buenos líderes de grupos; siempre en busca del éxito y el progreso material.')
+            j.dataPos.push('Les gusta tomar las decisiones finales en todos los asuntos de importancia.')
+            j.dataPos.push('Luchan por sus metas, sin importar los obstáculos.
+• Los 8 casi siempre superan su condición de nacimiento.')
+            j.dataPos.push('Sueñan siempre en grande; tienen una gran necesidad de probar su éxito material.')
+            j.dataPos.push('Esta vibración es la más ligada a las cosas materiales; olfato especial para las finanzas.')
+            j.dataPos.push('Los veremos como dirigentes, directores, empresarios, o gerentes de grandes empresas.')
+            j.dataPos.push('Mentalmente brillantes. Su mente va más rápido que la de los demás.')
+            j.dataPos.push('Son exigentes consigo mismos y con los demás.
+• Son prácticos, constructivos y realistas')
+            j.dataPos.push('Enorme capacidad de trabajo y sus enormes poderes de concentración y autodominio.')
+            j.dataPos.push('Le gusta trabajar para él mismo, ya que no le gusta estar bajo supervisión directa.')
+            j.dataPos.push('Eficientes y disciplinados; trabajadores incansables y tienen la habilidad de abstraerse en sus proyectos por su concentración.')
+            j.dataPos.push('Ponen pasión e intensidad a todo lo que hacen.')
+            j.dataPos.push('Enérgicos, combatientes, organizadas, exigentes
+• Directos, francos, con capacidad de dirigir y saber mandar.')
+            j.dataPos.push('Poderes de sanación. Gran poder para mover energía con las manos.')
+            j.dataPos.push('Jamás adoptan posiciones ambiguas: Para ellos ha de ser todo o nada, sí o no, blanco o negro.')
+            j.dataPos.push('Honestos, sinceros y directos, detestan la mentira, la injusticia y el engaño.')
+            j.dataPos.push('Un 8 va siempre de frente y exige lo mismo de los demás.')
+            j.dataPos.push('Los mejores conductores de hombres y convencen siempre de lo que quieren.')
+            j.dataPos.push('Su autoridad es incuestionable, especialmente en momentos de crisis.')
+            j.dataPos.push('Imprimen seguridad y confianza a los demás.')
+            j.dataPos.push('Normalmente los 8 se entregan totalmente a la tarea o proyecto que han escogido no permitiendo interrupciones de ningún tipo.')
+            j.dataPos.push('Unido a muchos números espirituales o Maestros, vienen a ser sanadores.')
+
+            //Negativo 8
+            j.dataNeg.push('En negativo, el 8 genera carencia y enfermedad (para sí y otros)
+• Fracasos, ruina o peligroso por su gran inflexibilidad.')
+            j.dataNeg.push('Deben cuidarse siempre de los excesos en todo sentido.')
+            j.dataNeg.push('Terco hasta la obsesión, intolerante e intransigente
+• Olvidan ternura y la compasión.')
+            j.dataNeg.push('Sus exigencias, frialdad, dureza y egocentrismo los convierten en tiranos que pueden hacer muy amarga la vida de quienes les rodean.')
+            j.dataNeg.push('Su ambición de progreso puede ser compulsiva. No saben cuando parar.')
+            j.dataNeg.push('Personas autoritarias con actitudes agresivas, cortantes, dominantes y controladoras.')
+            j.dataNeg.push('No aceptan equivocarse y siempre tratan de justificarse y de responsabilizar a otros.')
+            j.dataNeg.push('Toman todo como personal.')
+            j.dataNeg.push('Si se les cuestiona, se molestan y buscarán un error en la persona que cuestiona para usarlo de defensa.')
+            j.dataNeg.push('Tratan de voltear todo para culpar a otro.')
+            j.dataNeg.push('Personas inseguras e impotentes.')
+            j.dataNeg.push('Desorganizados, obsesivos, y cobardes
+• Se paralizan ante una emergencia o si tienen que tomar una decisión.')
+            j.dataNeg.push('Muy manipuladores y sienten que son perfectos en todo lo que hacen.')
+            j.dataNeg.push('Poca tolerancia.')
+            j.dataNeg.push('Cuando desconocen un tema, entran en pánico y escapan con cualquier pretexto.')
+            j.dataNeg.push('Tienden a ser obstinados, obsesivos y auto-perfeccionistas.')
+            j.dataNeg.push('Discriminadores y demasiado selectivos.')
+            j.dataNeg.push('Personas violentas, crueles y de destruir con palabras a quienes los rodean.')
+            j.dataNeg.push('Necesitan un enriquecimiento espiritual para que sobresalga lo positivo.')
+            j.dataNeg.push('Mala apreciación del dinero: codos o despilfarrados.')
+            j.dataNeg.push('Se quejan de que no tienen dinero (aunque no sea cierto) y gastan en cosas superfluas.')
+            j.dataNeg.push('Miedo de la enfermedad y de no poder generar la abundancia que quiero.')
+        }
+        if(num===9){
+            j.g='Emocional'
+            j.p='Marte'
+            j.pc='Amor y servicio.'
+            j.pd='Orgullo y egoismo.'
+
+            //Positivo 9
+            j.dataPos.push('Número mágico. Almas viejas. Gran adaptabilidad. El número de lo sutil.')
+            j.dataPos.push('Es el número del humanitario: gran solidaridad y apoyo a los demás
+• Consciencia social, les preocupan las causas mundiales.')
+            j.dataPos.push('Tratan de resolverle la vida a los demás, aun a costa de sus propias actividades o intereses.')
+            j.dataPos.push('Con frecuencia se rebelan contra la ley y el orden establecido.
+• Les es fácil hacerse de amigos a nivel superficial, pero más difícil a nivel profundo.')
+            j.dataPos.push('Se ponen demasiados compromisos encima, lo que hace que no cumplan o se les olvide o inventen mil pretextos.')
+            j.dataPos.push('Necesitan un reconocimiento constante de todo lo que hacen
+• Se enfocan mas en satisfacer a los demás que a ellos mismos o a su familia.')
+            j.dataPos.push('Muchísima sensibilidad para las artes.')
+            j.dataPos.push('Muchas habilidades y capacidades creativas, artísticas y espirituales.')
+            j.dataPos.push('Tienden a tener fama y llegar hacer públicas o adquirir un gran reconocimiento en lo que hacen. Van en busca del aplauso.')
+            j.dataPos.push('No pasan desapercibidos y generalmente hablarán de ellos.')
+            j.dataPos.push('Es natural para ellos estar en contacto con el esoterismo, las religiones, la filosofía, viajar y conocer otras culturas.')
+            j.dataPos.push('Sumamente generosos; jamás serán indiferentes al dolor ajeno y a la miseria.')
+            j.dataPos.push('Transmiten tranquilidad, paz y armonía.')
+            j.dataPos.push('Siempre dispuestos ayudar a los demás, estimulándolos, animándolos y apoyándolos.')
+            j.dataPos.push('Su interés, más que material, es el de trascender.')
+            j.dataPos.push('En ellos se manifiesta la más alta expresión del amor desinteresado.')
+            j.dataPos.push('Pueden llegar a ejercer poder sobre los demás, ya que serán admirados.')
+            j.dataPos.push('Su misión es convertir pasión en amor y sus deseos personales en entendimiento personal.')
+            j.dataPos.push('Necesidad de servicio obligado (bendiciones).')
+            j.dataPos.push('Congruentes con sus principios, no temen ir contra los convencionalismos.')
+            j.dataPos.push('Carácter fuerte, dominante y explosivo en ocasiones.')
+            j.dataPos.push('Rápida comprensión y muchos talentos. Una vez que captan la esencia, pierden interés.')
+            j.dataPos.push('Necesitan contacto con la naturaleza y los espacios abiertos que les ayudan a renovar su espíritu.')
+            j.dataPos.push('Aunque se muestran alegres y comunicativos, en el fondo son seres solitarios.')
+            j.dataPos.push('Nunca se entregan enteramente ni dejan que veas sus puntos vulnerables.')
+
+            //Negativo 9
+            j.dataNeg.push('Se vuelven egoístas y dramáticos.
+• Intensidad en las emociones. Impulsivos desde la emoción.')
+            j.dataNeg.push('Inhiben todas sus cualidades humanitarias
+• Superficiales, impacientes, irascibles y arrogantes.')
+            j.dataNeg.push('Reacciones muy agresivas y buscan los enfrentamientos.')
+            j.dataNeg.push('Se dan demasiada importancia, no soportan los fallos ajenos ni las oposiciones.')
+            j.dataNeg.push('Fatalistas y neuróticos, siempre a la defensiva.')
+            j.dataNeg.push('Se victimizan y cargan a los demás con culpas de lo que les pasa.
+• Si se van al lado egoísta, lo pagarán con gran quebranto moral que puede llevarlos al desequilibrio nervioso.')
+            j.dataNeg.push('Son personas que generalmente fueron heridas de pequeñas, o que sufrieron abandono, ausencia o maltrato de alguno de sus padres, por lo que la primera señal emocional que reciben en la vida es el de no ser aceptado como son.')
+            j.dataNeg.push('Camaleónicos: lloran cuando otros lloran, ríen cuando otros ríen y así terminan involucrados con gente o en asuntos que no les interesan o conciernen.')
+            j.dataNeg.push('Otros se aprovechan de ellos porque saben que darán o harán cualquier cosa que se les pida, aun en contra de ellos mismos.')
+            j.dataNeg.push('Fuerte carencia de autoestima.')
+            j.dataNeg.push('Su talón de Aquiles es su seguridad emocional, si no la consiguen se pueden desbaratar o convertirse en personas totalmente insensibles.')
+            j.dataNeg.push('Egoístas, envidiosos y abusivos.')
+            j.dataNeg.push('No les importa pasar por encima de quien sea con tal de conseguir lo que buscaban.')
+            j.dataNeg.push('Personas vengativas y maquiavélicas.')
+            j.dataNeg.push('Sin escrúpulos ni respeto a las necesidades de los demás.')
+            j.dataNeg.push('Es la vibración más destructiva de todas las vibraciones del universo. Puede sin ningún remordimiento destruir personas, hogares, corazones y traicionar.')
         }
         return j
     }

@@ -2011,7 +2011,8 @@ Rectangle{
     function unloadExt(){
         app.t='vn'
 
-        zm.ev=!zm.ev
+        zm.ev=false
+        zoolDataView.clearExtData()
         ai.width=r.width
         zm.objTapa.opacity=0.0
         aspsCircle.opacity=1.0

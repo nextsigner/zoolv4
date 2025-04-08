@@ -209,6 +209,25 @@ Rectangle {
                     visible: index===lv.currentIndex
                     //anchors.centerIn: parent
                 }
+                Item{width: 1; height: app.fs*0.5; visible: index===lv.currentIndex}
+                Text {
+                    text: '<b>Información:</b>'
+                    font.pixelSize: r.fs*0.75
+                    width: xDatos.width-app.fs
+                    color: xDatos.border.color
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    visible: index===lv.currentIndex
+                }
+                Text {
+                    id: txtDataInfo
+                    font.pixelSize: r.fs*0.5
+                    width: xDatos.width-app.fs
+                    wrapMode: Text.WordWrap
+                    //textFormat: Text.RichText
+                    color: xDatos.border.color
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    visible: index===lv.currentIndex
+                }
                 Row{
                     spacing: app.fs*0.25
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -343,6 +362,7 @@ Rectangle {
                 let sd=d.getDate()+'/'+parseInt(d.getMonth() + 1)+'/'+d.getFullYear()+' '+d.getHours()+':'+d.getMinutes()+'hs.'
                 sParams+='<b>Cread:</b> '+sd+'<br>'
                 txtDataParams.text=sParams
+                txtDataInfo.text=j.data
             }
         }
     }

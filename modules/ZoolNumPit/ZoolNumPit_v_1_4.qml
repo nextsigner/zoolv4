@@ -2538,7 +2538,6 @@ Rectangle {
         if(num===1){
             j.g='Mental'
             j.p='Sol'
-
             j.pc='Iniciador'
             j.pd='Orgullo'
 
@@ -2725,41 +2724,41 @@ Crueles; utilizan sus palabras como armas.')
 
             //Positivo 5
 
-            j.dataPos('Necesitan sentirse libres y no permiten que los opriman o dominen.')
-            j.dataPos('Gran optimismo, inspiración y entusiasmo.
+            j.dataPos.push('Necesitan sentirse libres y no permiten que los opriman o dominen.')
+            j.dataPos.push('Gran optimismo, inspiración y entusiasmo.
 * Mentalidad ágil, dinámica y muy curiosa.')
-            j.dataPos('Quieren experimentar y aceptar todo lo que sea desconocido, insólito y moderno.')
-            j.dataPos('Están en constante cambio, la rutina los marchita, los apaga; son los grandes aventureros.')
-            j.dataPos('Amantes de viajes, diversiones y transformación.')
-            j.dataPos('Se esfuerzan constantemente por alcanzar un sentir de estar vivos.')
-            j.dataPos('Gran magnetismo con el sexo opuesto. Vanidosos.')
-            j.dataPos('Suelen llevarse bien con todos los números ya que se adaptan a cualquier ambiente.')
-            j.dataPos('Valientes y osados, les atrae el peligro.')
-            j.dataPos('Inquietos, polifacéticos, impulsivos y cambiantes.')
-            j.dataPos('Corresponde al cuerpo físico. Les importa su apariencia y cuidan su cuerpo.')
-            j.dataPos('Realizan muchas actividades diferentes.')
-            j.dataPos('Son muy intuitivos y tienen grandes facultades psíquicas y de percepción.')
-            j.dataPos('Capaces de leer a las personas que los rodean con facilidad.')
-            j.dataPos('Extrovertidos; tendrán mucha facilidad para las ventas y relaciones públicas.')
+            j.dataPos.push('Quieren experimentar y aceptar todo lo que sea desconocido, insólito y moderno.')
+            j.dataPos.push('Están en constante cambio, la rutina los marchita, los apaga; son los grandes aventureros.')
+            j.dataPos.push('Amantes de viajes, diversiones y transformación.')
+            j.dataPos.push('Se esfuerzan constantemente por alcanzar un sentir de estar vivos.')
+            j.dataPos.push('Gran magnetismo con el sexo opuesto. Vanidosos.')
+            j.dataPos.push('Suelen llevarse bien con todos los números ya que se adaptan a cualquier ambiente.')
+            j.dataPos.push('Valientes y osados, les atrae el peligro.')
+            j.dataPos.push('Inquietos, polifacéticos, impulsivos y cambiantes.')
+            j.dataPos.push('Corresponde al cuerpo físico. Les importa su apariencia y cuidan su cuerpo.')
+            j.dataPos.push('Realizan muchas actividades diferentes.')
+            j.dataPos.push('Son muy intuitivos y tienen grandes facultades psíquicas y de percepción.')
+            j.dataPos.push('Capaces de leer a las personas que los rodean con facilidad.')
+            j.dataPos.push('Extrovertidos; tendrán mucha facilidad para las ventas y relaciones públicas.')
 
             //Negativo 5
-            j.dataNeg('')
-            j.dataNeg('En negativo, genera dominio. Auto-restricción o dominio y control sobre los demás.')
-            j.dataNeg('Suelen tener una vida difícil y conflictiva ya que atrae situaciones difíciles.')
-            j.dataNeg('Les cuesta mucho encontrar el equilibrio interior.')
-            j.dataNeg('Extremadamente introvertidos, rara vez los oirás hablar y pasan inadvertidos.')
-            j.dataNeg('Suele tomar decisiones precipitadas porque se vuelve impaciente.')
-            j.dataNeg('El más impulsivo de los números.')
-            j.dataNeg('Falta de sinceridad, irresponsabilidad, egoísmo.')
-            j.dataNeg('Se puede perder en los excesos de los placeres (sexo, alcohol, fiesta, comida, etc.).')
-            j.dataNeg('Su afecto es superficial por su falta de compromiso.')
-            j.dataNeg('Egoísta y violento. Descontento e insatisfecho.')
-            j.dataNeg('Generalmente de pequeños vivieron o fueron testigos de algún abuso.')
-            j.dataNeg('En la parte negativa muchos 5 indica alguna manera de abuso o violencia.')
-            j.dataNeg('Gran rencor y enojo contra la vida.')
-            j.dataNeg('Infieles y desleales.')
-            j.dataNeg('No son solidarios y no se harán cargo de los problemas de los demás (incluso de sus hijos, socios, familia, etc.).')
-            j.dataNeg('Tienden a ser vulgares en su comportamiento y forma de vestir.')
+            j.dataNeg.push('')
+            j.dataNeg.push('En negativo, genera dominio. Auto-restricción o dominio y control sobre los demás.')
+            j.dataNeg.push('Suelen tener una vida difícil y conflictiva ya que atrae situaciones difíciles.')
+            j.dataNeg.push('Les cuesta mucho encontrar el equilibrio interior.')
+            j.dataNeg.push('Extremadamente introvertidos, rara vez los oirás hablar y pasan inadvertidos.')
+            j.dataNeg.push('Suele tomar decisiones precipitadas porque se vuelve impaciente.')
+            j.dataNeg.push('El más impulsivo de los números.')
+            j.dataNeg.push('Falta de sinceridad, irresponsabilidad, egoísmo.')
+            j.dataNeg.push('Se puede perder en los excesos de los placeres (sexo, alcohol, fiesta, comida, etc.).')
+            j.dataNeg.push('Su afecto es superficial por su falta de compromiso.')
+            j.dataNeg.push('Egoísta y violento. Descontento e insatisfecho.')
+            j.dataNeg.push('Generalmente de pequeños vivieron o fueron testigos de algún abuso.')
+            j.dataNeg.push('En la parte negativa muchos 5 indica alguna manera de abuso o violencia.')
+            j.dataNeg.push('Gran rencor y enojo contra la vida.')
+            j.dataNeg.push('Infieles y desleales.')
+            j.dataNeg.push('No son solidarios y no se harán cargo de los problemas de los demás (incluso de sus hijos, socios, familia, etc.).')
+            j.dataNeg.push('Tienden a ser vulgares en su comportamiento y forma de vestir.')
         }
         if(num===6){
             j.g='Emocional'
@@ -2797,6 +2796,47 @@ Celosos y con tendencias a esclavizar y a castrar a otros.')
             j.dataNeg.push('Hipocondríacas, para manipular la atención y el cariño de otros.')
             j.dataNeg.push('Se recomienda respetar a sus seres queridos dándoles libertad y no tratar de resolver sus problemas, volviéndolos dependientes, inseguros e inútiles.')
             j.dataNeg.push('Supersticiosos.')
+        }
+        if(num===7){
+            j.g='Mental'
+            j.p='Neptuno'
+            j.pc='Conocimiento y Verdad'
+            j.pd='Indesición'
+
+            //Positivo 7
+            j.dataPos.push('El número de la verdad y el conocimiento.
+* Personas responsables, formales, serias, éticas, leales.')
+            j.dataPos.push('Energía interna; personas reflexivas, selectivas y reservadas.
+* Profundidad de pensamiento, gran intuición y espiritualidad.')
+            j.dataPos.push('Constante búsqueda del conocimiento; desde pequeños se creen vulnerables en eso.')
+            j.dataPos.push('Basan su seguridad personal en cuánto saben.
+* Buscadores de la verdad, sumamente analíticos, intuitivos y perceptivos.')
+            j.dataPos.push('Gran memoria, mente fotográfica y excelente para la investigación.
+* Grandes poderes de observación, mentalmente brillantes e independientes.')
+            j.dataPos.push('Desconfían de todo lo que ignoran, hasta que han podido analizar y comprender.')
+            j.dataPos.push('Una vez que entregan su confianza o admiración a alguien, tendrás un compañero fiel.')
+            j.dataPos.push('Se mantienen reservados con extraños.
+* Detestan las exhibiciones temperamentales.')
+            j.dataPos.push('A menudo solitarios y algo retraídos por naturaleza.')
+            j.dataPos.push('Analizan todos los pros y contras de aquello en lo que piensan involucrarse antes de actuar.')
+
+            //Negativo 7
+            j.dataNeg.push('Fuerte indecisión, les cuesta mucho trabajo enfrentar las cosas.
+* Parálisis por análisis.')
+            j.dataNeg.push('Crean escenarios en su mente "conspiracionales".')
+            j.dataNeg.push('Mucho miedo a no tomar la decisión "correcta".')
+            j.dataNeg.push('Culpa. Especialmente por una madre prejuiciosa y exigente.
+* Fríos, engreídos, orgullosos o antipáticos.')
+            j.dataNeg.push('Se aíslan y desconectan de todos y de todo, entrando sólo en su mundo interno.')
+            j.dataNeg.push('Tendencia a las depresiones periódicas por vivir en un mundo ficticio sin adaptarse a la realidad.')
+            j.dataNeg.push('Pesimistas, sombríos, huraños, desconfiados, acomplejados y egoístas.
+* Obsesión y neurosis con la limpieza y la pulcritud.')
+            j.dataNeg.push('Tienden a adicciones al trabajo, alcohol, a medicinas, al tabaco, etc.
+* Accidentes frecuentes y propensos más propensos a enfermedades (niñez).')
+            j.dataNeg.push('Reprimidos, sienten necesidad de libertad pero son incapaces de soltarse.')
+            j.dataNeg.push('Actitudes enfermizas o paranoicas.')
+            j.dataNeg.push('Se evaden de la realidad. Pueden hacerlo por medio de la lectura, aunque las evasiones más peligrosas del 7 suelen ser el alcohol, el sexo o la droga.')
+            j.dataNeg.push('Dificultad para convivir, ya que una vez que establecen un código de comportamiento, tratarán con gran insistencia de que los demás lo sigan.')
         }
         return j
     }

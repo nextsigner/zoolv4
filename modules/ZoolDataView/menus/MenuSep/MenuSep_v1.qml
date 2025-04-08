@@ -90,6 +90,34 @@ ZoolMenus{
                         anchors.bottom: parent.top
                     }
                 }
+                Column{
+                    Text {
+                        text: "Información"
+                        font.pixelSize: app.fs*0.5
+                        color: apps.fontColor
+                    }
+                    Rectangle{
+                        width: app.fs*20
+                        height: app.fs*10
+                        border.width: 1
+                        border.color: apps.fontColor
+                        color: 'transparent'
+                        clip: true
+                        radius: app.fs*0.1
+                        Flickable{
+                            contentWidth: width
+                            contentHeight: taInfo.contentHeight+app.fs
+                            anchors.fill: parent
+                            TextArea{
+                                id: taInfo
+                                width: parent.width-app.fs*0.5
+                                height: parent.height
+                                color: apps.fontColor
+                                wrapMode: TextArea.WordWrap
+                            }
+                        }
+                    }
+                }
                 Row{
                     spacing: app.fs*0.25
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -118,6 +146,10 @@ ZoolMenus{
                 let nd=new Date(Date.now())
                 p.params.ms=nd.getTime()
                 p.params.n=tiNombre.t.text
+                p.params.data=taInfo.text
+                if(!p.params.c){
+                    p.params.c=zm.currentLugar
+                }
                 zfdm.addExtDataAndSave(p)
                 zm.fileDataBack=JSON.stringify(p, null, 2)
                 xSetName.destroy(0)

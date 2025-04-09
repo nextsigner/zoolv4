@@ -161,7 +161,7 @@ Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
                     zpin.visible=!zpin.visible
-                    //mkMisionData()
+                    mkMisionData()
                 }
             }
             ZoolPinaculo{
@@ -927,6 +927,7 @@ Rectangle {
                                 if(rbF.checked)genero='f'
                                 let data=''
                                 if(checkBoxFormula.checked){
+                                    data+='N° de Misión '+num+'\n'
                                     data+='Fórmula: '+f0.text+'\n\n'
                                 }
                                 data+=getItemJson('mision'+num)
@@ -3150,23 +3151,12 @@ Celosos y con tendencias a esclavizar y a castrar a otros.')
         let a = ct.currentDate.getFullYear()
 
         let j0={}
-//        j.mision1=''
-//        j.mision2=''
-//        j.mision3=''
-//        j.mision4=''
-//        j.mision5=''
-//        j.mision6=''
-//        j.mision7=''
-//        j.mision8=''
-//        j.mision9=''
-//        j.mision11=''
-//        j.mision22=''
 
         for(var i2=0;i2<mNums.length;i2++){
             let num=mNums[i2]
 
             let s=''
-            let j = getNumDataInfo(r.currentNumNacimiento)
+            let j = getNumDataInfo(num)
             s+='Número de Misión '+num+'\n\n'
             s+='Grupo: '+j.g+'\n'
             s+='Planeta Asociado: '+j.p+'\n'

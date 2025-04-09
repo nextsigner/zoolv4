@@ -28,7 +28,7 @@ Rectangle {
     property alias logView: zoolNumPitLog
 
     property bool calcForm: false
-    property string jsonPath: './modules/ZoolNumPit/numv3.json'
+    property string jsonPath: './modules/ZoolNumPit/numv4.json'
     property string jsonNum: ''
     property var aDes: ['dato1', 'dato2', 'dato3', 'dato4', 'dato5', 'dato6', 'dato7', 'dato8', 'dato9']
 
@@ -135,6 +135,8 @@ Rectangle {
         anchors.fill: parent
         onClicked: {
             //zpin.visible=!zpin.visible
+
+
         }
     }
     Flickable{
@@ -159,6 +161,7 @@ Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
                     zpin.visible=!zpin.visible
+                    //mkMisionData()
                 }
             }
             ZoolPinaculo{
@@ -385,11 +388,11 @@ Rectangle {
 
                                             s+='Manifestaciones positivas del N° '+num+'\n\n'
                                             for(var i=0;i<j.dataPos.length;i++){
-                                                s+=j.dataPos[i]+'\n\n'
+                                                s+=j.dataPos[i]+'\n'
                                             }
                                             s+='\n\nManifestaciones negativas del N° '+num+'\n\n'
                                             for(var i=0;i<j.dataNeg.length;i++){
-                                                s+=j.dataNeg[i]+'\n\n'
+                                                s+=j.dataNeg[i]+'\n'
                                             }
                                             r.logView.l(s)
                                             r.logView.visible=true
@@ -881,16 +884,24 @@ Rectangle {
                             height: width
                             anchors.verticalCenter: parent.verticalCenter
                             onClicked: {
+                                let d =  ct.currentDate.getDate()
+                                let m = ct.currentDate.getMonth() + 1
+                                let a = ct.currentDate.getFullYear()
+
+                                let num=bigNumToPitNum(d+m+a, true)
+                                if(num===13||num===14||num===16||num===19){
+                                    num=r.currentNumNacimiento
+                                }
                                 let genero='m'
                                 if(rbF.checked)genero='f'
                                 r.logView.clear()
                                 if(checkBoxFormula.checked){
-                                    r.logView.l('N° de Misión '+r.currentNumNacimiento+'\n')
+                                    r.logView.l('N° de Misión '+num+'\n')
                                     r.logView.l('Fórmula: '+f0.text+'\n')
-                                    r.logView.l(getItemJson('per'+r.currentNumNacimiento+genero))
+                                    r.logView.l(getItemJson('mision'+num))
                                 }else{
-                                    r.logView.l('¿Cómo es su vibración de misión '+r.currentNumNacimiento+'?\n')
-                                    r.logView.l(getItemJson('per'+r.currentNumNacimiento+genero))
+                                    r.logView.l('¿Cómo es su vibración de misión '+num+'?\n')
+                                    r.logView.l(getItemJson('mision'+num))
                                 }
                                 r.logView.visible=true
                                 r.logView.flk.contentY=0
@@ -903,6 +914,14 @@ Rectangle {
                             height: width
                             anchors.verticalCenter: parent.verticalCenter
                             onClicked: {
+                                let d =  ct.currentDate.getDate()
+                                let m = ct.currentDate.getMonth() + 1
+                                let a = ct.currentDate.getFullYear()
+
+                                let num=bigNumToPitNum(d+m+a, true)
+                                if(num===13||num===14||num===16||num===19){
+                                    num=r.currentNumNacimiento
+                                }
                                 if(txtDataSearchNom.text==='')return
                                 let genero='m'
                                 if(rbF.checked)genero='f'
@@ -910,7 +929,7 @@ Rectangle {
                                 if(checkBoxFormula.checked){
                                     data+='Fórmula: '+f0.text+'\n\n'
                                 }
-                                data+=getItemJson('per'+r.currentNumNacimiento+genero)
+                                data+=getItemJson('mision'+num)
                                 clipboard.setText(data)
                                 let j={}
                                 j.text='Se copió el dato del número de MISIÓN se ha copiado al portapepeles.'
@@ -1252,20 +1271,6 @@ Rectangle {
                     //                            }
                     //                        }
                     //                    }
-                    Row{
-                        spacing: app.fs*0.25
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        Button{
-                            text:  'Años Personales'
-                            anchors.verticalCenter: parent.verticalCenter
-                            onClicked: {
-                                r.logView.clear()
-                                r.logView.l(mkDataList())
-                                r.logView.visible=true
-                                r.logView.flk.contentY=0
-                            }
-                        }
-                    }
                     Button{
                         text:  'Cuadro Num. Carta'
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -1282,6 +1287,35 @@ Rectangle {
                                 clipboard.setText(r.logView.text)
                             }else{
                                 r.logView.cp()
+                            }
+                        }
+                    }
+                    Row{
+                        spacing: app.fs*0.25
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        Button{
+                            text:  'Años Personales'
+                            anchors.verticalCenter: parent.verticalCenter
+                            onClicked: {
+                                r.logView.clear()
+                                r.logView.l(mkDataList())
+                                r.logView.visible=true
+                                r.logView.flk.contentY=0
+                            }
+                        }
+                        Comps.ButtonIcon{
+                            text: '\uf0c5'
+                            width: app.fs*0.6
+                            height: width
+                            anchors.verticalCenter: parent.verticalCenter
+                            onClicked: {
+                                let data=''
+                                data+=mkDataList()
+                                clipboard.setText(data)
+                                let j={}
+                                j.text='Se copió el dato de los años personales se ha copiado al portapepeles.'
+                                zpn.addNot(j, true, 5000)
+                                //calc()
                             }
                         }
                     }
@@ -1999,12 +2033,12 @@ Rectangle {
         if(ret>9){
             m0=(''+ret).split('')
             ret=parseInt(m0[0]) + parseInt(m0[1])
-            r.sFormulaNumPer+='='+parseInt(m0[0]) +'+'+ parseInt(m0[1])
+            r.sFormulaNumPer+='='+parseInt(m0[0])+parseInt(m0[1])+'='+parseInt(m0[0]) +'+'+ parseInt(m0[1])
         }
         if(ret>9){
             m0=(''+ret).split('')
             ret=parseInt(m0[0]) + parseInt(m0[1])
-            r.sFormulaNumPer+='='+parseInt(m0[0]) +'+'+ parseInt(m0[1])
+            r.sFormulaNumPer+='='+parseInt(m0[0])+parseInt(m0[1])+'='+parseInt(m0[0]) +'+'+ parseInt(m0[1])
         }
         if(ret>9){
             m0=(''+ret).split('')
@@ -2151,7 +2185,11 @@ Rectangle {
         txtDataNomIntExt.text='<b>* Interior:</b> '+numNomInt+'<br />       <b>* Exterior:</b> '+numNomExt
 
         //Número de Personalidad se suma el número de Karma/Misión más el número de Nombre
-        r.currentNumPersonalidad=bigNumToPitNum(r.currentNumNacimiento+r.currentNumNombre, true)
+        let num=bigNumToPitNum(r.currentNumNacimiento+r.currentNumNombre, true)
+        if(num===13||num===14||num===16||num===19){
+            num=bigNumToPitNum(r.currentNumNacimiento+r.currentNumNombre, false)
+        }
+        r.currentNumPersonalidad=num
 
         //Número de Firma
         text=txtDataSearchFirma.text
@@ -2172,6 +2210,15 @@ Rectangle {
 
     }
     function getTodo(formula){
+        let d =  ct.currentDate.getDate()
+        let m = ct.currentDate.getMonth() + 1
+        let a = ct.currentDate.getFullYear()
+
+        let num=bigNumToPitNum(d+m+a, true)
+        if(num===13||num===14||num===16||num===19){
+            num=r.currentNumNacimiento
+        }
+
         let m0=txtDataSearchFecha.text.split('.')
         if(m0.length<=2){
             log.lv('Error en la fecha del módulo NumPit. Elformato debería ser algo como esto: 20.6.1975')
@@ -2195,13 +2242,13 @@ Rectangle {
 
         //Número de nacimiento o karma
         if(formula){
-            ret+='N° de Misión '+r.currentNumNacimiento+'\n\n'
+            ret+='N° de Misión '+num+'\n\n'
             ret+='Fórmula: '+f0.text+'\n'
-            ret+=getItemJson('per'+r.currentNumNacimiento+genero)
+            ret+=getItemJson('mision'+num)
         }else{
-            ret+=''+txtDataSearchNom.text+' nació con un número de MISIÓN '+r.currentNumNacimiento+'\n'
-            ret+='¿Cómo se manifiesta esta vibración de misión N° '+r.currentNumNacimiento+' en su forma de ser y en algunos asuntos de su vida?\n\n'
-            ret+=getItemJson('per'+r.currentNumNacimiento+genero)
+            ret+=''+txtDataSearchNom.text+' nació con un número de MISIÓN '+num+'\n'
+            ret+='¿Cómo se manifiesta esta vibración de misión N° '+num+' en su forma de ser y en algunos asuntos de su vida?\n\n'
+            ret+=getItemJson('mision'+num)
         }
         ret+='\n\n'
 
@@ -2889,24 +2936,24 @@ Celosos y con tendencias a esclavizar y a castrar a otros.')
 
             //Positivo 8
             j.dataPos.push('Número del poder. Mueven dos energías: Abundancia y Sanación.')
-j.dataPos.push('Poseen la personalidad más potente de todas.')
+            j.dataPos.push('Poseen la personalidad más potente de todas.')
             j.dataPos.push('Tenacidad, ambición y fuerza de voluntad; vinculados al poder, al honor y al éxito.')
             j.dataPos.push('Buenos líderes de grupos; siempre en busca del éxito y el progreso material.')
             j.dataPos.push('Les gusta tomar las decisiones finales en todos los asuntos de importancia.')
             j.dataPos.push('Luchan por sus metas, sin importar los obstáculos.')
-j.dataPos.push('Los 8 casi siempre superan su condición de nacimiento.')
+            j.dataPos.push('Los 8 casi siempre superan su condición de nacimiento.')
             j.dataPos.push('Sueñan siempre en grande; tienen una gran necesidad de probar su éxito material.')
             j.dataPos.push('Esta vibración es la más ligada a las cosas materiales; olfato especial para las finanzas.')
             j.dataPos.push('Los veremos como dirigentes, directores, empresarios, o gerentes de grandes empresas.')
             j.dataPos.push('Mentalmente brillantes. Su mente va más rápido que la de los demás.')
             j.dataPos.push('Son exigentes consigo mismos y con los demás.')
-j.dataPos.push('Son prácticos, constructivos y realistas')
+            j.dataPos.push('Son prácticos, constructivos y realistas')
             j.dataPos.push('Enorme capacidad de trabajo y sus enormes poderes de concentración y autodominio.')
             j.dataPos.push('Le gusta trabajar para él mismo, ya que no le gusta estar bajo supervisión directa.')
             j.dataPos.push('Eficientes y disciplinados; trabajadores incansables y tienen la habilidad de abstraerse en sus proyectos por su concentración.')
             j.dataPos.push('Ponen pasión e intensidad a todo lo que hacen.')
             j.dataPos.push('Enérgicos, combatientes, organizadas, exigentes')
-j.dataPos.push('Directos, francos, con capacidad de dirigir y saber mandar.')
+            j.dataPos.push('Directos, francos, con capacidad de dirigir y saber mandar.')
             j.dataPos.push('Poderes de sanación. Gran poder para mover energía con las manos.')
             j.dataPos.push('Jamás adoptan posiciones ambiguas: Para ellos ha de ser todo o nada, sí o no, blanco o negro.')
             j.dataPos.push('Honestos, sinceros y directos, detestan la mentira, la injusticia y el engaño.')
@@ -2919,10 +2966,10 @@ j.dataPos.push('Directos, francos, con capacidad de dirigir y saber mandar.')
 
             //Negativo 8
             j.dataNeg.push('En negativo, el 8 genera carencia y enfermedad (para sí y otros).')
-j.dataNeg.push('Fracasos, ruina o peligroso por su gran inflexibilidad.')
+            j.dataNeg.push('Fracasos, ruina o peligroso por su gran inflexibilidad.')
             j.dataNeg.push('Deben cuidarse siempre de los excesos en todo sentido.')
             j.dataNeg.push('Terco hasta la obsesión, intolerante e intransigente.')
-j.dataNeg.push('Olvidan ternura y la compasión.')
+            j.dataNeg.push('Olvidan ternura y la compasión.')
             j.dataNeg.push('Sus exigencias, frialdad, dureza y egocentrismo los convierten en tiranos que pueden hacer muy amarga la vida de quienes les rodean.')
             j.dataNeg.push('Su ambición de progreso puede ser compulsiva. No saben cuando parar.')
             j.dataNeg.push('Personas autoritarias con actitudes agresivas, cortantes, dominantes y controladoras.')
@@ -2932,7 +2979,7 @@ j.dataNeg.push('Olvidan ternura y la compasión.')
             j.dataNeg.push('Tratan de voltear todo para culpar a otro.')
             j.dataNeg.push('Personas inseguras e impotentes.')
             j.dataNeg.push('Desorganizados, obsesivos, y cobardes.')
-j.dataNeg.push('Se paralizan ante una emergencia o si tienen que tomar una decisión.')
+            j.dataNeg.push('Se paralizan ante una emergencia o si tienen que tomar una decisión.')
             j.dataNeg.push('Muy manipuladores y sienten que son perfectos en todo lo que hacen.')
             j.dataNeg.push('Poca tolerancia.')
             j.dataNeg.push('Cuando desconocen un tema, entran en pánico y escapan con cualquier pretexto.')
@@ -2953,13 +3000,13 @@ j.dataNeg.push('Se paralizan ante una emergencia o si tienen que tomar una decis
             //Positivo 9
             j.dataPos.push('Número mágico. Almas viejas. Gran adaptabilidad. El número de lo sutil.')
             j.dataPos.push('Es el número del humanitario: gran solidaridad y apoyo a los demás.')
-j.dataPos.push('Consciencia social, les preocupan las causas mundiales.')
+            j.dataPos.push('Consciencia social, les preocupan las causas mundiales.')
             j.dataPos.push('Tratan de resolverle la vida a los demás, aun a costa de sus propias actividades o intereses.')
             j.dataPos.push('Con frecuencia se rebelan contra la ley y el orden establecido.')
-j.dataPos.push('Les es fácil hacerse de amigos a nivel superficial, pero más difícil a nivel profundo.')
+            j.dataPos.push('Les es fácil hacerse de amigos a nivel superficial, pero más difícil a nivel profundo.')
             j.dataPos.push('Se ponen demasiados compromisos encima, lo que hace que no cumplan o se les olvide o inventen mil pretextos.')
             j.dataPos.push('Necesitan un reconocimiento constante de todo lo que hacen.')
-j.dataPos.push('Se enfocan mas en satisfacer a los demás que a ellos mismos o a su familia.')
+            j.dataPos.push('Se enfocan mas en satisfacer a los demás que a ellos mismos o a su familia.')
             j.dataPos.push('Muchísima sensibilidad para las artes.')
             j.dataPos.push('Muchas habilidades y capacidades creativas, artísticas y espirituales.')
             j.dataPos.push('Tienden a tener fama y llegar hacer públicas o adquirir un gran reconocimiento en lo que hacen. Van en busca del aplauso.')
@@ -2982,14 +3029,14 @@ j.dataPos.push('Se enfocan mas en satisfacer a los demás que a ellos mismos o a
 
             //Negativo 9
             j.dataNeg.push('Se vuelven egoístas y dramáticos.')
-j.dataNeg.push('Intensidad en las emociones. Impulsivos desde la emoción.')
+            j.dataNeg.push('Intensidad en las emociones. Impulsivos desde la emoción.')
             j.dataNeg.push('Inhiben todas sus cualidades humanitarias.')
-j.dataNeg.push('Superficiales, impacientes, irascibles y arrogantes.')
+            j.dataNeg.push('Superficiales, impacientes, irascibles y arrogantes.')
             j.dataNeg.push('Reacciones muy agresivas y buscan los enfrentamientos.')
             j.dataNeg.push('Se dan demasiada importancia, no soportan los fallos ajenos ni las oposiciones.')
             j.dataNeg.push('Fatalistas y neuróticos, siempre a la defensiva.')
             j.dataNeg.push('Se victimizan y cargan a los demás con culpas de lo que les pasa.')
-j.dataNeg.push('Si se van al lado egoísta, lo pagarán con gran quebranto moral que puede llevarlos al desequilibrio nervioso.')
+            j.dataNeg.push('Si se van al lado egoísta, lo pagarán con gran quebranto moral que puede llevarlos al desequilibrio nervioso.')
             j.dataNeg.push('Son personas que generalmente fueron heridas de pequeñas, o que sufrieron abandono, ausencia o maltrato de alguno de sus padres, por lo que la primera señal emocional que reciben en la vida es el de no ser aceptado como son.')
             j.dataNeg.push('Camaleónicos: lloran cuando otros lloran, ríen cuando otros ríen y así terminan involucrados con gente o en asuntos que no les interesan o conciernen.')
             j.dataNeg.push('Otros se aprovechan de ellos porque saben que darán o harán cualquier cosa que se les pida, aun en contra de ellos mismos.')
@@ -3009,14 +3056,14 @@ j.dataNeg.push('Si se van al lado egoísta, lo pagarán con gran quebranto moral
 
             //Positivo 11
             j.dataPos.push('Formado por dos unos: mayor grado de individualidad y creatividad.')
-j.dataPos.push('Vienen invitados a hacer cosas en gran escala, más por inspiración que ambición.')
+            j.dataPos.push('Vienen invitados a hacer cosas en gran escala, más por inspiración que ambición.')
             j.dataPos.push('Inclinación a trabajar por la paz, la armonía, altos ideales y a ser guías o maestros.')
             j.dataPos.push('Son Maestros Espirituales: vienen a enseñar con el ejemplo y con sus conocimientos un camino que lleve a crecer internamente.')
             j.dataPos.push('Idealistas, profundos pensadores; les gusta la filosofía y el comportamiento humano.')
             j.dataPos.push('Sobresalen por su inteligencia y excelente memoria.')
             j.dataPos.push('Les gusta el desarrollo humano y la docencia en cualquier nivel.')
             j.dataPos.push('Facilidad para la escritura, la poesía y la literatura.')
-j.dataPos.push('Creatividad artística, pueden ser famosos escritores.')
+            j.dataPos.push('Creatividad artística, pueden ser famosos escritores.')
             j.dataPos.push('Muy intuitivos y tienen dones de Clarividencia.')
             j.dataPos.push('Ha nacido para ser inspiración, luz y guía entre sus semejantes.')
             j.dataPos.push('Buscadores de la verdad, sumamente analíticos, estudiosos y con grandes poderes de observación. Exige de seres queridos un alto nivel de comportamiento desde su ideal de amor o amistad.')
@@ -3034,7 +3081,7 @@ j.dataPos.push('Creatividad artística, pueden ser famosos escritores.')
             j.dataNeg.push('Insatisfechos porque la vida no es como la pensaron (extremadamente idealistas).')
             j.dataNeg.push('Viven en un mundo ficticio sin adaptarse a la realidad, (fugas y adicciones).')
             j.dataNeg.push('Sombríos, desconfiados, acomplejados y muy egoístas.')
-j.dataNeg.push('No conectan con la gente; se aíslan.')
+            j.dataNeg.push('No conectan con la gente; se aíslan.')
             j.dataNeg.push('Gran desprecio y desinterés por los sentimientos y necesidades de otras personas.')
             j.dataNeg.push('Obsesión, neurosis y desconexión.')
             j.dataNeg.push('Gran capacidad para manipular y hacer que todos terminen haciendo lo que ellos quieren, utilizando una posición de víctima.')
@@ -3065,10 +3112,10 @@ j.dataNeg.push('No conectan con la gente; se aíslan.')
             j.dataPos.push('Vienen a enseñar. Su ejemplo debería servir para que todos se atrevan a luchar por su progreso y enriquecimiento espiritual. Enseñar a pescar.')
             j.dataPos.push('Su fuerza está en el dominio de sí mismos y del mundo material.')
             j.dataPos.push('Inspiración, energía, generosidad, orden y disciplina excepcionales.')
-j.dataPos.push('Tenderán a buscar el conocimiento y profundizarse en todo lo que les llame la atención, al grado tal que pueden convertirse en expertos.')
+            j.dataPos.push('Tenderán a buscar el conocimiento y profundizarse en todo lo que les llame la atención, al grado tal que pueden convertirse en expertos.')
             j.dataPos.push('Cuando ellos creen en algo, no habrá nadie que los haga cambiar de pensar, salvo que haya motivos bien fundamentados, ya que no se aferran a las cosas sin tener una razón válida.')
             j.dataPos.push('Para ellos no existen los términos medios: blanco o negro.')
-j.dataPos.push('Personas muy ambiciosas con mucha visión de la vida y de los negocios.')
+            j.dataPos.push('Personas muy ambiciosas con mucha visión de la vida y de los negocios.')
             j.dataPos.push('Se rodearán de personas preparadas e inteligentes, valor que para ellos es indispensable.')
             j.dataPos.push('Admirarán a pocas personas.')
 
@@ -3093,5 +3140,50 @@ j.dataPos.push('Personas muy ambiciosas con mucha visión de la vida y de los ne
             j.dataNeg.push('Inflexibles y despiadados.')
         }
         return j
+    }
+    function mkMisionData(){
+
+        let mNums=[1,2,3,4,5,6,7,8,9,11,22]
+
+        let d =  ct.currentDate.getDate()
+        let m = ct.currentDate.getMonth() + 1
+        let a = ct.currentDate.getFullYear()
+
+        let j0={}
+//        j.mision1=''
+//        j.mision2=''
+//        j.mision3=''
+//        j.mision4=''
+//        j.mision5=''
+//        j.mision6=''
+//        j.mision7=''
+//        j.mision8=''
+//        j.mision9=''
+//        j.mision11=''
+//        j.mision22=''
+
+        for(var i2=0;i2<mNums.length;i2++){
+            let num=mNums[i2]
+
+            let s=''
+            let j = getNumDataInfo(r.currentNumNacimiento)
+            s+='Número de Misión '+num+'\n\n'
+            s+='Grupo: '+j.g+'\n'
+            s+='Planeta Asociado: '+j.p+'\n'
+            s+='Palabra clave: '+j.pc+'\n'
+            s+='Punto débil: '+j.pd+'\n\n'
+
+            s+='Manifestaciones positivas del N° '+num+'\n\n'
+            for(var i=0;i<j.dataPos.length;i++){
+                s+=j.dataPos[i]+'\n'
+            }
+            s+='\n\nManifestaciones negativas del N° '+num+'\n\n'
+            for(i=0;i<j.dataNeg.length;i++){
+                s+=j.dataNeg[i]+'\n'
+            }
+            j0['mision'+mNums[i2]]=s
+        }
+        //log.lv('json:'+JSON.stringify(j0, null, 2))
+        clipboard.setText(JSON.stringify(j0, null, 2))
     }
 }

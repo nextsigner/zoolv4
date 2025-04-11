@@ -282,6 +282,14 @@ Item{
         json.exts=data.exts
         unik.setFile(apps.url, JSON.stringify(json, null, 2))
     }
+    function setExt(ext, index){
+        let jsonData=unik.getFile(apps.url)
+        let json=JSON.parse(jsonData)
+        let exts=json.exts
+        exts[index]=ext
+        //log.lv('exts: '+JSON.stringify(exts, null, 2))
+        unik.setFile(apps.url, JSON.stringify(json, null, 2))
+    }
     //<--Get Json Data
 
     //-->Info Data Params Man

@@ -325,14 +325,19 @@ Rectangle{
     }
     function click(mouse){
         apps.zFocus='xMed'
-        if (mouse.button === Qt.RightButton) {
 
-            //menuRuedaZodiacal.uX=mouseX
-            //menuRuedaZodiacal.uY=mouseY
-            //menuRuedaZodiacal.isBack=false
-            menuRuedaZodiacal.popup()
-        }else{
+        if (mouse.button === Qt.LeftButton   && (mouse.modifiers & Qt.ControlModifier)) {
             apps.xAsShowIcon=!apps.xAsShowIcon
+        }else{
+            if (mouse.button === Qt.RightButton) {
+
+                //menuRuedaZodiacal.uX=mouseX
+                //menuRuedaZodiacal.uY=mouseY
+                //menuRuedaZodiacal.isBack=false
+                menuRuedaZodiacal.popup()
+            }else{
+                //apps.xAsShowIcon=!apps.xAsShowIcon
+            }
         }
     }
     function doubleClick(mouse){
@@ -826,7 +831,7 @@ Rectangle{
         let jd=unik.getFile('./modules/ZoolMap/themes.json')
         let lt=JSON.parse(jd).themes.length
         if(apps.currentThemeIndex>0){
-           apps.currentThemeIndex--
+            apps.currentThemeIndex--
         }else{
             apps.currentThemeIndex=lt-1
         }
@@ -1609,15 +1614,15 @@ Rectangle{
     }
     function showInfoData(bodieIndex, signIndex, houseIndex){
         let b=zm.aBodiesFiles[bodieIndex]
-               let s=zm.aSignsLowerStyle[signIndex]
-               let h=parseInt(houseIndex)
-               let data = getData('modules/ZoolMap/ZoolMapData/'+b+'.json', b, s, 'casa_'+h)
-               let t='<h1>'+b+' en '+s+' en Casa '+h+'</h1>'
-               zm.mkWindowDataView(t, data, app.width*0.5-app.fs*10, app.height*0.5-xApp.height*0.25, app.fs*20, xApp.height*0.5, app, app.fs*0.75)
+        let s=zm.aSignsLowerStyle[signIndex]
+        let h=parseInt(houseIndex)
+        let data = getData('modules/ZoolMap/ZoolMapData/'+b+'.json', b, s, 'casa_'+h)
+        let t='<h1>'+b+' en '+s+' en Casa '+h+'</h1>'
+        zm.mkWindowDataView(t, data, app.width*0.5-app.fs*10, app.height*0.5-xApp.height*0.25, app.fs*20, xApp.height*0.5, app, app.fs*0.75)
         return
-//        let b=zm.aBodiesFiles[bodieIndex]
-//        let s=zm.aSignsLowerStyle[signIndex]
-//        let h=parseInt(houseIndex)
+        //        let b=zm.aBodiesFiles[bodieIndex]
+        //        let s=zm.aSignsLowerStyle[signIndex]
+        //        let h=parseInt(houseIndex)
         let c=''
         c+='import QtQuick 2.0\n'
         c+='import unik.UnikQProcess 1.0\n'

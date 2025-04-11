@@ -1,1 +1,1 @@
-Se publica Zool v5.4.9 para Windows
+Se agrega Editar a ZoolFileExtDataManager

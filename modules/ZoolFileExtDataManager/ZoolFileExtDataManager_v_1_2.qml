@@ -6,6 +6,7 @@ import ZoolText 1.1
 import ZoolButton 1.2
 import Qt.labs.settings 1.1
 
+import ZoolDataEditor 2.0
 
 Rectangle {
     id: r
@@ -218,16 +219,19 @@ Rectangle {
                     anchors.horizontalCenter: parent.horizontalCenter
                     visible: index===lv.currentIndex
                 }
+                Item{width: 1; height: app.fs*0.25}
                 Text {
                     id: txtDataInfo
                     font.pixelSize: r.fs*0.5
                     width: xDatos.width-app.fs
                     wrapMode: Text.WordWrap
                     //textFormat: Text.RichText
+                    textFormat: Text.MarkdownText
                     color: xDatos.border.color
                     anchors.horizontalCenter: parent.horizontalCenter
                     visible: index===lv.currentIndex
                 }
+                Item{width: 1; height: app.fs*0.25}
                 Row{
                     spacing: app.fs*0.25
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -239,6 +243,29 @@ Rectangle {
                         onClicked: {
                             zfdm.deleteExt(j.ms)
                             updateList()
+                        }
+                    }
+                    ZoolButton{
+                        id: btnEdit
+                        text:'Editar'
+                        onClicked: {
+                            let obj=compEditor.createObject(capa101, {visible: true, text: j.data, title: j.n, j:j, i: index})
+                            //                            obj.save = function (text){
+                            //                                //log.lv('json ext: '+JSON.stringify(j, null, 2))
+                            //                                //return
+                            //                                //j.data=text
+                            //                                //let exts=zfdm.getExts()
+                            //                                //let ext=exts[index]
+                            //                                let json={}
+                            //                                json.params=j
+                            //                                json.params.data=text
+                            //                                j.data=text
+                            //                                //zfdm.setExt(ext, index)
+                            //                                zfdm.setExt(json, index)
+                            //                                obj.uTextSaved=text
+                            //                                updateList()
+                            //                                lv.currentIndex=index
+                            //                            }
                         }
                     }
                     ZoolButton{
@@ -299,12 +326,12 @@ Rectangle {
                             zoolDataView.setDataView(strSep, aL, aR)
 
                             if(t==='dirprim'){
-//                                let vDirPrimA=j.dirprimA
-//                                let vDirPrimM=j.dirprimM
-//                                let vDirPrimD=j.dirprimD
-//                                let vDirPrimH=j.dirprimH
-//                                let vDirPrimMin=j.dirprimMin
-//                                let dateEvento=new Date(1976, 5,20,23,4)
+                                //                                let vDirPrimA=j.dirprimA
+                                //                                let vDirPrimM=j.dirprimM
+                                //                                let vDirPrimD=j.dirprimD
+                                //                                let vDirPrimH=j.dirprimH
+                                //                                let vDirPrimMin=j.dirprimMin
+                                //                                let dateEvento=new Date(1976, 5,20,23,4)
                                 let dateEvento=new Date(a, m, d, h,min)
                                 let section=zsm.getPanel('ZoolFileManager').getSection('ZoolFileDirPrimLoader')
                                 section.setDirPrimRotationFromExternalItem(app.currentDate, dateEvento)
@@ -316,7 +343,7 @@ Rectangle {
                     }
                 }
 
-            }            
+            }
             /*Rectangle{
                 width: txtDelete.contentWidth+app.fs*0.35
                 height: width
@@ -362,7 +389,7 @@ Rectangle {
                 let sd=d.getDate()+'/'+parseInt(d.getMonth() + 1)+'/'+d.getFullYear()+' '+d.getHours()+':'+d.getMinutes()+'hs.'
                 sParams+='<b>Cread:</b> '+sd+'<br>'
                 txtDataParams.text=sParams
-                txtDataInfo.text=j.data
+                if(j.data)txtDataInfo.text=j.data
             }
         }
     }
@@ -471,6 +498,36 @@ Rectangle {
                 let m0=dato.split('<!-- extra -->')
                 txtData.text=m0[0]
                 txtDataExtra.text=m0[1]
+            }
+        }
+    }
+    Component{
+        id: compEditor
+        ZoolDataEditor{
+            id: editorDin
+            width: xLatIzq.width
+            height: xApp.height
+            x: width
+            //y: zoolDataView.height
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 0-zoolDataView.height*0.5
+            property var j
+            property int i: -1
+            function save(text){
+                //log.lv('json ext: '+JSON.stringify(j, null, 2))
+                //return
+                //j.data=text
+                //let exts=zfdm.getExts()
+                //let ext=exts[index]
+                let json={}
+                json.params=editorDin.j
+                json.params.data=text
+                editorDin.j.data=text
+                //zfdm.setExt(ext, index)
+                zfdm.setExt(json, editorDin.i)
+                uTextSaved=text
+                updateList()
+                //lv.currentIndex=index
             }
         }
     }

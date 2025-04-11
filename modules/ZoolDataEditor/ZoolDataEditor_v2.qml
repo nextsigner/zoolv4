@@ -15,9 +15,14 @@ Rectangle{
     property alias e: editor
     property alias text: editor.text
     property bool editing: false
-    onVisibleChanged: {
-        if(editing)editor.textEdit.focus=visible
-    }
+    property string uTextSaved: ''
+    //property var man
+    //property var save: function (text){
+        //log.lv('ZoolDataEditor::save dice: '+text)
+    //}
+//    onVisibleChanged: {
+//        if(editing)editor.textEdit.focus=visible
+//    }
     onEditingChanged: {
         if(editing){
             editor.textEdit.focus=r.visible
@@ -82,7 +87,7 @@ Rectangle{
                     wrapMode: Text.WordWrap//Text.WrapAnywhere
                     color: apps.fontColor
                     //textFormat: TextEdit.MarkdownText
-                    text: visible?xEditor.e.text:''
+                    text: visible?r.e.text:''
                     textFormat: Text.MarkdownText
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
@@ -110,7 +115,8 @@ Rectangle{
                     opacity: diff?0.5:1.0
                     property bool diff: false
                     onClicked: {
-                        save()
+                        //r.uTextSaved=editor.text
+                        save(editor.text)
                     }
                     Text{
                         text:  '\uf0c7'
@@ -124,9 +130,9 @@ Rectangle{
                         repeat: true
                         interval: 250
                         onTriggered: {
-                            let json=JSON.parse(app.fileData)
-                            let d0=''
-                            if(json.params.data)d0=json.params.data
+                            //let json=JSON.parse(app.fileData)
+                            let d0=''//r.uTextSaved
+                            //if(json.params.data)d0=json.params.data
                             let d1=editor.text
                             botSave.diff=d1===d0
                         }
@@ -192,8 +198,9 @@ Rectangle{
         }
     }
     function showInfo(){
-        let j=zfdm.getJsonAbs()
-        let info=zfdm.getInfo(false)
+        //let j=zfdm.getJsonAbs()
+        //let info=zfdm.getInfo(false)
+        let info=editor.text
         r.e.text=info
         r.l.text='Información de '+j.params.n.replace(/_/g, ' ')
         r.editing=false
@@ -202,21 +209,7 @@ Rectangle{
     function enter(){
         //Qt.quit()
     }
-    function save(){
-        /*let json=JSON.parse(app.fileData)
-        json.params.data=editor.text
-        if(unik.fileExist(apps.url.replace('file://', ''))){
-            let dataModNow=new Date(Date.now())
-            json.params.msmod=dataModNow.getTime()
-        }*/
-        zfdm.setInfo(false, editor.text)
-        //let njson=JSON.stringify(json)
-        //app.fileData=njson
-        //app.currentData=app.fileData
-        //unik.setFile(apps.url.replace('file://', ''), app.fileData)
-        r.editing=!r.editing
-    }
     function close(){
-        r.visible=false
+        r.destroy(0)
     }
 }

@@ -1,1 +1,1 @@
-Se agrega Editar a ZoolFileExtDataManager
+Se crea zool_swe_v1.py para pyswisseph v2.8.0 para Windows y GNU/Linux

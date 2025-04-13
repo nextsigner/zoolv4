@@ -5,7 +5,7 @@ Rectangle {
     height: width
     color: indexAsp!==-1?arrColors[indexAsp]:(!apps.panelAspShowBg?'transparent':apps.backgroundColor)
     //color: indexAsp!==-1?arrColors[indexAsp]:(!apps.panelAspShowBg?'blue':'red')
-    property var arrColors: ['red','#ff8833',  'green', '#124cb1']
+    property var arrColors: ['red','#ff8833',  'green', '#124cb1', '#90EE90', '#FFC0CB', '#EE82EE']
     property int indexAsp: -1
     property int indexPosAsp: -1
     property int bodie: -1

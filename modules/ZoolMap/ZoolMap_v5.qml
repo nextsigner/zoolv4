@@ -1102,7 +1102,8 @@ Rectangle{
         ai.width=r.width
         zoolDataBodies.loadJson(j)
         zoolElementsView.load(j, false)
-        panelAspects.load(j)
+        let jsonAsps=aspsCircle.getAsps(j)
+        panelAspects.load(jsonAsps)
         //log.lv('Nakshatra length:'+nakshatraView.aNakshatra.length)
         //log.lv('Nakshatra index:'+nakshatraView.getIndexNakshatra(j.pc.c1.gdec))
         //log.lv('Nakshatra:'+nakshatraView.getNakshatraName(nakshatraView.getIndexNakshatra(j.pc.c1.gdec)))
@@ -1184,7 +1185,8 @@ Rectangle{
         ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
         zoolDataBodies.loadJsonBack(j)
         zoolElementsView.load(j, true)
-        panelAspectsBack.load(j)
+        let jsonAsps=aspsCircleBack.getAsps(j)
+        panelAspectsBack.load(jsonAsps)
         panelAspectsBack.visible=true
         r.currentNakshatraBack=nakshatraView.getNakshatraName(nakshatraView.getIndexNakshatra(j.pc.c1.gdec))
         //resizeAspsCircle()

@@ -92,12 +92,14 @@ Rectangle {
             repeat: false
             interval: 500
             onTriggered: {
+                if(!bgTotal.json)return
                 clearSL(bgTotal)
                 var x = bgTotal.width*0.5;
                 var y = bgTotal.height*0.5;
                 var radius=bgTotal.width*0.5
                 var cx=bgTotal.width*0.5
                 var cy=bgTotal.height*0.5
+                //log.lv('bgTotal.json: '+JSON.stringify(bgTotal.json, null, 2))
                 if(bgTotal.json&&bgTotal.json.asps){
                     let asp=bgTotal.json.asps
                     for(var i=0;i<Object.keys(asp).length;i++){
@@ -108,6 +110,9 @@ Rectangle {
                                 let a=asp['asp'+parseInt(i +1)]
                                 let colorAsp='black'
                                 //# -1 = no hay aspectos. 0 = oposición. 1 = cuadratura. 2 = trígono
+                                if(a.ia===-1){
+                                    colorAsp='gray'
+                                }
                                 if(a.ia===0){
                                     colorAsp='red'
                                 }
@@ -119,6 +124,15 @@ Rectangle {
                                 }
                                 if(a.ia===3){
                                     colorAsp='blue'
+                                }
+                                if(a.ia===4){
+                                    colorAsp='#90EE90'
+                                }
+                                if(a.ia===5){
+                                    colorAsp='#FFC0CB'
+                                }
+                                if(a.ia===6){
+                                    colorAsp='#EE82EE'
                                 }
                                 drawAsp(cx, cy, a.gdeg1, a.gdeg2, colorAsp, i, bgTotal, r.isExt)
                             }
@@ -176,7 +190,9 @@ Rectangle {
     function load(json){
         clearSL(bgTotal)
         r.aAspStr1=[]
-        bgTotal.json=json
+        bgTotal.json=getAsps(json)
+
+        //console.log('jsonAsps:'+JSON.stringify(json, null, 2))
     }
     function clear(){
         clearSL(bgTotal)
@@ -200,5 +216,122 @@ Rectangle {
         theta *= 180 / Math.PI; // rads to degs, range (-180, 180]
         //if (theta < 0) theta = 360 + theta; // range [0, 360)
         return theta;
+    }
+    function getAsps(json){
+        let j={}
+        j.asps={}
+        let indexAsp=1
+        let aAspsReg=[]
+        for(var i=0;i<zm.aBodies.length;i++){
+            //log.lv('aBodies['+i+']: '+aBodies[i])
+            let g1=json.pc['c'+i].gdec
+            //log.lv('g1 de '+aBodies[i]+': '+g1)
+            for(var i2=0;i2<zm.aBodies.length;i2++){
+                //log.lv('g2 de '+aBodies[i2]+': '+g2+'\n\n')
+                let g2=json.pc['c'+i2].gdec
+                let aspType=getAsp(g1, g2)
+                if(aspType!==-1){
+                    //log.lv('aspType: '+aspType+' entre '+aBodies[i]+' y '+aBodies[i2]+'\n\n')
+                    let search=''+i2+':'+i
+                    if(aAspsReg.indexOf(search)<0&&i!==i2){
+                        j.asps['asp'+indexAsp]={}
+                        j.asps['asp'+indexAsp].ic1=i
+                        j.asps['asp'+indexAsp].ic2=i2
+                        j.asps['asp'+indexAsp].c1=zm.aBodies[i]
+                        j.asps['asp'+indexAsp].c2=zm.aBodies[i2]
+                        j.asps['asp'+indexAsp].ia=aspType
+                        j.asps['asp'+indexAsp].gdeg1=g1
+                        j.asps['asp'+indexAsp].gdeg2=g2
+                        j.asps['asp'+indexAsp].dga=diffDegn(g1, g2)
+                        aAspsReg.push(''+i+':'+i2)
+                        indexAsp++
+                    }
+                }
+            }
+        }
+        //log.lv('Nuevo Json Asps: '+JSON.stringify(j, null, 2))
+        //log.lv('Total asps: '+indexAsp)
+        //json.asps=j
+        return j
+    }
+    function getAsp(g1, g2) {
+      let asp = -1; // -1 = no hay aspectos. 0 = oposición. 1 = cuadratura. 2 = trígono. 3 = conjunción. 4 = sextil. 5 = semicuadratura. 6 = quincuncio
+      let orbeConjunccion = 8;
+      let orbeOposicion = 8;
+      let orbeTrigono = 8;
+      let orbeCuadratura = 7;
+      let orbeSextil = 6;
+      let orbeSemicuadratura = 2;
+      let orbeQuincuncio = 2;
+
+
+      let difDeg;
+
+      // Calculo conjunción.
+      difDeg = diffDegn(g1, g2);
+      if (difDeg < orbeConjunccion && difDeg > -orbeConjunccion) {
+        asp = 3; // Conjunción
+        return asp;
+      }
+
+      // Calculo oposición.
+      difDeg = diffDegn(g1, g2);
+      if (difDeg < 180.00 + orbeOposicion && difDeg > 180.00 - orbeOposicion) {
+        asp = 0; // Oposición
+        return asp;
+      }
+
+      // Calculo cuadratura.
+      difDeg = diffDegn(g1, g2);
+      if (difDeg < 90.00 + orbeCuadratura && difDeg > 90.00 - orbeCuadratura) {
+        asp = 1; // Cuadratura
+        return asp;
+      }
+
+      // Calculo trígono.
+      difDeg = diffDegn(g1, g2);
+      if (difDeg < 120.00 + orbeTrigono && difDeg > 120.00 - orbeTrigono) {
+        asp = 2; // Trígono
+        return asp;
+      }
+
+      // Calculo sextil.
+      difDeg = diffDegn(g1, g2);
+      if (difDeg < 60.00 + orbeSextil && difDeg > 60.00 - orbeSextil) {
+        asp = 4; // Sextil
+        return asp;
+      }
+
+      // Calculo semicuadratura (45 grados).
+      difDeg = diffDegn(g1, g2);
+      if (difDeg < 45.00 + orbeSemicuadratura && difDeg > 45.00 - orbeSemicuadratura) {
+        asp = 5; // Semicuadratura
+        return asp;
+      }
+
+      difDeg = diffDegn(g1, g2);
+      if (difDeg < 135.00 + orbeSemicuadratura && difDeg > 135.00 - orbeSemicuadratura) {
+        asp = 5; // Semicuadratura
+        return asp;
+      }
+
+      // Calculo quincuncio (150 grados).
+      difDeg = diffDegn(g1, g2);
+      if (difDeg < 150.00 + orbeQuincuncio && difDeg > 150.00 - orbeQuincuncio) {
+        asp = 6; // Quincuncio
+        return asp;
+      }
+
+      difDeg = diffDegn(g1, g2);
+      if (difDeg < 210.00 + orbeQuincuncio && difDeg > 210.00 - orbeQuincuncio) {
+        asp = 6; // Quincuncio
+        return asp;
+      }
+
+      return asp; // -1 = no hay aspectos dentro de los orbes definidos
+    }
+    function diffDegn(deg1, deg2) {
+      let diff = Math.abs(deg1 - deg2) % 360;
+      return Math.min(diff, 360 - diff);
     }
 }

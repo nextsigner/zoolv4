@@ -13,6 +13,7 @@ Rectangle {
     //border.color: 'red'
     property url uItemGrabber
     property int cellWidth: app.fs*0.45
+    property string uAspShowed: '???'
     Row{
         id: row
         visible: apps.showAspPanel

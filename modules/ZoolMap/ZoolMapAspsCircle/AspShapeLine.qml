@@ -30,10 +30,12 @@ Rectangle{
                 shapeBg.opacity=0.0
                 r.z=0
                 zm.aspShowSelected=false
+                zm.anv.n=''
             }else{
                 shapeBg.opacity=1.0
                 zm.aspShowSelected=true
                 r.z=r.parent.children.length+1
+                zm.anv.n=zm.objZoolAspectsView.uAspShowed
             }
         }
     }

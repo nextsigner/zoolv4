@@ -69,6 +69,26 @@ Rectangle {
                 //apps.showAspCircle=true
                 zm.lastAspShowed='int'
                 zm.uAspShow='int_'+arrColors[indexAsp]+'_bodie_'+r.bodie+'_'+r.objectName
+                let aspName='?'
+                // -1 = no hay aspectos. 0 = oposición. 1 = cuadratura. 2 = trígono. 3 = conjunción. 4 = sextil. 5 = semicuadratura. 6 = quincuncio
+                if(indexAsp===0){
+                    aspName='Oposición'
+                }else if(indexAsp===1){
+                    aspName='Cuadratura'
+                }else if(indexAsp===2){
+                    aspName='Trígono'
+                }else if(indexAsp===3){
+                    aspName='Conjunción'
+                }else if(indexAsp===4){
+                    aspName='Sextil'
+                }else if(indexAsp===5){
+                    aspName='Semicuadratura'
+                }else if(indexAsp===6){
+                    aspName='Quincuncio'
+                }else{
+                    aspName=''
+                }
+                zm.objZoolAspectsView.uAspShowed=aspName
             }else{
                 zm.objAspsCircle.currentAspSelected=-1
                 //swegz.zm.objAspsCircle.currentAspSelected=-1

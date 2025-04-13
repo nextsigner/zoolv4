@@ -1,1 +1,1 @@
-Se agrega semisextil, semicuadratura y quincuncio a los aspectos.
+Se agrega aspNameView a ZoolMap v5

@@ -45,6 +45,7 @@ Rectangle{
     property alias xzm: xSweg
 
     property alias cm: capaMods
+    property alias anv: aspNameView
     property alias oc: centro
     property alias objTapa: tapa
     property alias objSignsCircle: signCircle
@@ -695,6 +696,25 @@ Rectangle{
                                 }
                             }
                         }
+                    }
+                }
+                Rectangle{
+                    id: aspNameView
+                    width: aspNameText.contentWidth+app.fs*0.25
+                    height: aspNameText.contentHeight+app.fs*0.25
+                    color: apps.backgroundColor
+                    border.width: 1
+                    border.color: apps.fontColor
+                    radius: app.fs*0.1
+                    anchors.centerIn: parent
+                    property string n: ''
+                    opacity: n===''?0.0:1.0
+                    Text{
+                        id: aspNameText
+                        text:'<b>'+parent.n+'</b>'
+                        font.pixelSize: app.fs*0.5
+                        color: apps.fontColor
+                        anchors.centerIn: parent
                     }
                 }
                 Item{

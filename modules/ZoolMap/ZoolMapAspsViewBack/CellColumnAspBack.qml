@@ -4,6 +4,7 @@ Item {
     id: r
     width: colCellsPlanets.width
     height:  cellWidth
+    property bool isExt: false
     property int cellWidth: 10
     property int planet: -1
     property alias col: colCells
@@ -16,6 +17,7 @@ Item {
                 indexPlanet: r.planet
                 opacity: r.planet===index?1.0:0.0
                 rotation: 180
+                isExt: r.isExt
             }
         }
     }
@@ -27,6 +29,7 @@ Item {
                 objectName: 'cellAsp_'+index
                 width: r.cellWidth
                 opacity: index>planet&&r.planet!==index?1.0:0.0
+                isExt: r.isExt
                 //indexAsp: 2
             }
         }

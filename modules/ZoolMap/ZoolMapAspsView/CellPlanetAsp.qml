@@ -6,6 +6,8 @@ Rectangle {
     border.color: 'gray'
     height: width
     antialiasing: true
+    property bool isExt: false
+    property int yIndex: -1
     property int indexPlanet: -1
     property string folderImg: '../../../modules/ZoolMap/imgs/imgs_v1'
     Image {

@@ -11,6 +11,7 @@ Rectangle {
     antialiasing: true
     //border.width: 4
     //border.color: 'red'
+    property bool isExt: false
     property url uItemGrabber
     property int cellWidth: app.fs*0.45
     property string uAspShowed: '???'
@@ -21,7 +22,7 @@ Rectangle {
         Repeater{
             //model: r.visible?15:0
             model: r.visible?20:0
-            CellColumnAsp{planet: index;cellWidth: r.cellWidth; objectName: 'cellRowAsp_'+index}
+            CellColumnAsp{isExt:r.isExt; planet: index;cellWidth: r.cellWidth; objectName: 'cellRowAsp_'+index}
         }
     }
     Rectangle{
@@ -66,6 +67,38 @@ Rectangle {
 //        border.color: 'red'
 //        visible: apps.dev
 //    }
+    Rectangle{
+        id: axisLineX
+        width: 300
+        height: app.fs*0.1
+        color: 'red'
+        property string text: '???'
+        visible: text!=='???' && text!==''
+        Rectangle{
+            width: labelAsp.contentWidth+app.fs*0.5
+            height: labelAsp.contentHeight+app.fs*0.5
+            color: apps.backgroundColor
+            border.width: parent.height
+            border.color: axisLineX.color
+            radius: app.fs*0.1
+            anchors.left: parent.right
+            anchors.bottom: parent.bottom
+            //anchors.baselineOffset: 0-parent.height
+            Text{
+                id: labelAsp
+                text: axisLineX.text
+                font.pixelSize: app.fs*0.5
+                color: apps.fontColor
+                anchors.centerIn: parent
+            }
+        }
+    }
+    function setAspTip(t, x, y, i){
+        axisLineX.text=t
+        axisLineX.x=r.cellWidth*(x+1)
+        axisLineX.y=y+r.cellWidth*0.5-axisLineX.height*0.5
+        axisLineX.width=0+(r.cellWidth*(i+1)-r.cellWidth*(x))+(r.cellWidth)
+    }
     function clear(){
         if(!r.visible)return
         //for(var i=0;i<15;i++){

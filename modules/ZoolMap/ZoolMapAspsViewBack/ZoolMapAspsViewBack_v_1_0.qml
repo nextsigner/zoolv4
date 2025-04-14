@@ -7,6 +7,7 @@ Rectangle {
     height: cellWidth*15
     color: 'transparent'
     antialiasing: true
+    property bool isExt: true
     property url uItemGrabber
     property int cellWidth: app.fs*0.45
     Row{
@@ -14,7 +15,7 @@ Rectangle {
         visible: apps.showAspPanelBack
         Repeater{
             model: r.visible?20:0
-            CellColumnAspBack{planet: index;cellWidth: r.cellWidth; objectName: 'cellRowAsp_'+index}
+            CellColumnAspBack{planet: index;cellWidth: r.cellWidth; objectName: 'cellRowAsp_'+index; isExt: r.isExt}
         }
     }
 //    MouseArea{

@@ -5,7 +5,9 @@ Rectangle {
     height: width
     color: indexAsp!==-1?arrColors[indexAsp]:(!apps.panelAspShowBg?'transparent':apps.backgroundColor)
     //color: indexAsp!==-1?arrColors[indexAsp]:(!apps.panelAspShowBg?'blue':'red')
+    property bool isExt: false
     property var arrColors: ['red','#ff8833',  'green', '#124cb1', '#90EE90', '#FFC0CB', '#EE82EE']
+    property int yIndex: -1
     property int indexAsp: -1
     property int indexPosAsp: -1
     property int bodie: -1
@@ -59,6 +61,19 @@ Rectangle {
         anchors.fill: parent
         property int uCurrentPlanetIndex: -1
         //enabled: false
+        hoverEnabled: true
+        onEntered: {
+            if(indexAsp>=0){
+                let aspName=zm.objAspsCircle.getAspName(indexAsp)
+                zoolMapAsInfoView.text=aspName
+                var obj=!r.isExt?zm.objZoolAspectsView:zm.objZoolAspectsViewBack
+                //obj.setAspAxis(r.indexPosAsp)
+                obj.setAspTip(aspName, r.bodie, r.y, r.yIndex)
+            }else{
+                zoolMapAsInfoView.text=''
+            }
+        }
+        onExited: zoolMapAsInfoView.text=''
         onClicked: {
             if(zm.objAspsCircle.currentAspSelected!==r.indexPosAsp){
                 zm.objAspsCircle.currentAspSelected=r.indexPosAsp
@@ -69,25 +84,7 @@ Rectangle {
                 //apps.showAspCircle=true
                 zm.lastAspShowed='int'
                 zm.uAspShow='int_'+arrColors[indexAsp]+'_bodie_'+r.bodie+'_'+r.objectName
-                let aspName='?'
-                // -1 = no hay aspectos. 0 = oposición. 1 = cuadratura. 2 = trígono. 3 = conjunción. 4 = sextil. 5 = semicuadratura. 6 = quincuncio
-                if(indexAsp===0){
-                    aspName='Oposición'
-                }else if(indexAsp===1){
-                    aspName='Cuadratura'
-                }else if(indexAsp===2){
-                    aspName='Trígono'
-                }else if(indexAsp===3){
-                    aspName='Conjunción'
-                }else if(indexAsp===4){
-                    aspName='Sextil'
-                }else if(indexAsp===5){
-                    aspName='Semicuadratura'
-                }else if(indexAsp===6){
-                    aspName='Quincuncio'
-                }else{
-                    aspName=''
-                }
+                let aspName=zm.objAspsCircle.getAspName(indexAsp)
                 zm.objZoolAspectsView.uAspShowed=aspName
             }else{
                 zm.objAspsCircle.currentAspSelected=-1

@@ -4,6 +4,7 @@ Rectangle {
     id: r
     height: width
     color: indexAsp!==-1?arrColors[indexAsp]:(!apps.panelAspShowBg?'transparent':apps.backgroundColor)
+    property bool isExt: true
     property var arrColors: ['red','#ff8833',  'green', '#124cb1']
     property int indexAsp: -1
     property int indexPosAsp: -1
@@ -56,6 +57,18 @@ Rectangle {
         id: ma
         anchors.fill: parent
         property int uCurrentPlanetIndex: -1
+        hoverEnabled: true
+        onEntered: {
+            if(indexAsp>=0){
+                let aspName=zm.objAspsCircle.getAspName(indexAsp)
+                zoolMapAsInfoView.text=aspName
+                var obj=r.isExt?zm.objZoolAspectsView:zm.objZoolAspectsViewBack
+                obj.setAspAxis(r.indexPosAsp)
+            }else{
+                zoolMapAsInfoView.text=''
+            }
+        }
+        onExited: zoolMapAsInfoView.text=''
         onClicked: {
             if(zm.objAspsCircleBack.currentAspSelected!==r.indexPosAsp){
                 zm.objAspsCircleBack.currentAspSelected=r.indexPosAsp

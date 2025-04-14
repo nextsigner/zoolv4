@@ -1,1 +1,1 @@
-Se agrega aspNameView a ZoolMap v5
+Se comienza agregar setAspTip(x, y, i) a ZoolMapAspView, falta ponerlo en ZoolAspViewBack

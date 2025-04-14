@@ -334,4 +334,28 @@ Rectangle {
       let diff = Math.abs(deg1 - deg2) % 360;
       return Math.min(diff, 360 - diff);
     }
+    function getAspName(indexAsp){
+        // -1 = no hay aspectos. 0 = oposición. 1 = cuadratura. 2 = trígono. 3 = conjunción. 4 = sextil. 5 = semicuadratura. 6 = quincuncio
+        let aspName=''
+        if(indexAsp<0){
+            aspName='Indefinido'
+        }else if(indexAsp===0){
+            aspName='Oposición'
+        }else if(indexAsp===1){
+            aspName='Cuadratura'
+        }else if(indexAsp===2){
+            aspName='Trígono'
+        }else if(indexAsp===3){
+            aspName='Conjunción'
+        }else if(indexAsp===4){
+            aspName='Sextil'
+        }else if(indexAsp===5){
+            aspName='Semicuadratura'
+        }else if(indexAsp===6){
+            aspName='Quincuncio'
+        }else{
+            aspName='?'
+        }
+        return aspName
+    }
 }

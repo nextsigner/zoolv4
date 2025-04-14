@@ -4,6 +4,7 @@ Item {
     id: r
     width: colCellsPlanets.width
     height:  cellWidth
+    property bool isExt: false
     property int cellWidth: 10
     property int planet: -1
     property alias col: colCells
@@ -17,6 +18,9 @@ Item {
                 indexPlanet: r.planet
                 opacity: r.planet===index?1.0:0.0
                 enabled: opacity===1.0
+                yIndex: index
+                isExt: r.isExt
+
                 //visible: r.planet===index
             }
         }
@@ -32,6 +36,8 @@ Item {
                 opacity: index>planet&&r.planet!==index?1.0:0.0
                 enabled: opacity===1.0
                 bodie: r.planet
+                yIndex: index
+                isExt: r.isExt
                 //visible: false
                 //visible: opacity===1.0
                 //indexAsp: 2

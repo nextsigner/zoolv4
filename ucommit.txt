@@ -1,1 +1,1 @@
-Se comienza agregar setAspTip(x, y, i) a ZoolMapAspView, falta ponerlo en ZoolAspViewBack
+Se agrega la función setAspTip(x, y, i) a ZoolMapAspsViewBack

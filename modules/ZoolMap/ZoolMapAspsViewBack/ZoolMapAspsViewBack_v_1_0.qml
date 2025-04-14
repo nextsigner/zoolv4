@@ -67,6 +67,39 @@ Rectangle {
             anchors.leftMargin: app.fs*0.1
         }
     }
+    Rectangle{
+        id: axisLineX
+        width: 300
+        height: app.fs*0.1
+        color: 'red'
+        property string text: '???'
+        //visible: text!=='???' && text!==''
+        Rectangle{
+            width: labelAsp.contentWidth+app.fs*0.5
+            height: labelAsp.contentHeight+app.fs*0.5
+            color: apps.backgroundColor
+            border.width: parent.height
+            border.color: axisLineX.color
+            radius: app.fs*0.1
+            anchors.left: parent.right
+            anchors.bottom: parent.bottom
+            Text{
+                id: labelAsp
+                text: axisLineX.text
+                font.pixelSize: app.fs*0.5
+                color: apps.fontColor
+                transform: Scale{ yScale: -1 }
+                anchors.centerIn: parent
+                anchors.verticalCenterOffset: height
+            }
+        }
+    }
+    function setAspTip(t, x, y, i){
+        axisLineX.text=t
+        axisLineX.x=r.cellWidth*(x+1)
+        axisLineX.y=y+r.cellWidth*0.5-axisLineX.height*0.5
+        axisLineX.width=0+(r.cellWidth*(i+1)-r.cellWidth*(x))+(r.cellWidth)
+    }
     function clear(){
         if(!r.visible)return
         for(var i=0;i<15;i++){

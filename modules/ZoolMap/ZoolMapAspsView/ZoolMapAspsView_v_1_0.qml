@@ -83,7 +83,6 @@ Rectangle {
             radius: app.fs*0.1
             anchors.left: parent.right
             anchors.bottom: parent.bottom
-            //anchors.baselineOffset: 0-parent.height
             Text{
                 id: labelAsp
                 text: axisLineX.text

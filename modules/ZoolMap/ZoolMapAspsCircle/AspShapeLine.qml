@@ -36,6 +36,7 @@ Rectangle{
                 zm.aspShowSelected=true
                 r.z=r.parent.children.length+1
                 zm.anv.n=zm.objZoolAspectsView.uAspShowed
+                zm.anv.z=zm.anv.z+1000
             }
         }
     }

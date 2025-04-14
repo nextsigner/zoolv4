@@ -2039,6 +2039,7 @@ Rectangle{
         app.t='vn'
 
         zm.ev=false
+        aspsCircleBack.clear()
         zoolDataView.clearExtData()
         ai.width=r.width
         zm.objTapa.opacity=0.0

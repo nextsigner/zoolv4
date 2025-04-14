@@ -16,6 +16,7 @@ Rectangle {
     property int widthNodosAspSelected: 8
     property var aAspStr1: []
     property var aAspStr2: []
+    property var aAspsColors: ['red','#ff8833',  'green', '#124cb1', '#90EE90', '#FFC0CB', '#EE82EE']
     onOpacityChanged:{
         if(opacity===0.0){
             tShow.restart()

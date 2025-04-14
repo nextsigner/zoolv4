@@ -7,7 +7,9 @@ Rectangle {
     height: width
     antialiasing: true
     property bool isExt: true
+    property int yIndex: -1
     property int indexPlanet: -1
+    property int bodie: -1
     property string folderImg: '../../../modules/ZoolMap/imgs/imgs_v1'
     Image {
         id: img

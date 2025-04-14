@@ -17,7 +17,9 @@ Item {
                 indexPlanet: r.planet
                 opacity: r.planet===index?1.0:0.0
                 rotation: 180
+                bodie: r.planet
                 isExt: r.isExt
+                yIndex: index
             }
         }
     }
@@ -29,7 +31,9 @@ Item {
                 objectName: 'cellAsp_'+index
                 width: r.cellWidth
                 opacity: index>planet&&r.planet!==index?1.0:0.0
+                bodie: r.planet
                 isExt: r.isExt
+                yIndex: index
                 //indexAsp: 2
             }
         }

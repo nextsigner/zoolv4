@@ -5,9 +5,11 @@ Rectangle {
     height: width
     color: indexAsp!==-1?arrColors[indexAsp]:(!apps.panelAspShowBg?'transparent':apps.backgroundColor)
     property bool isExt: true
-    property var arrColors: ['red','#ff8833',  'green', '#124cb1']
+    property var arrColors: zm.objAspsCircle.aAspsColors
+    property int yIndex: -1
     property int indexAsp: -1
     property int indexPosAsp: -1
+    property int bodie: -1
     SequentialAnimation{
         running: indexPosAsp===zm.objAspsCircleBack.currentAspSelected&&zm.objAspsCircleBack.currentAspSelected!==-1
         loops: Animation.Infinite
@@ -59,16 +61,18 @@ Rectangle {
         property int uCurrentPlanetIndex: -1
         hoverEnabled: true
         onEntered: {
+            let aspName=zm.objAspsCircle.getAspName(indexAsp)
+            var obj=!r.isExt?zm.objZoolAspectsView:zm.objZoolAspectsViewBack
             if(indexAsp>=0){
-                let aspName=zm.objAspsCircle.getAspName(indexAsp)
-                zoolMapAsInfoView.text=aspName
-                var obj=r.isExt?zm.objZoolAspectsView:zm.objZoolAspectsViewBack
-                obj.setAspAxis(r.indexPosAsp)
+                obj.setAspTip(aspName, r.bodie, r.y, r.yIndex)
             }else{
-                zoolMapAsInfoView.text=''
+                obj.setAspTip('', r.bodie, r.y, r.yIndex)
             }
         }
-        onExited: zoolMapAsInfoView.text=''
+        onExited: {
+            var obj=!r.isExt?zm.objZoolAspectsView:zm.objZoolAspectsViewBack
+            obj.setAspTip('', r.bodie, r.y, r.yIndex)
+        }
         onClicked: {
             if(zm.objAspsCircleBack.currentAspSelected!==r.indexPosAsp){
                 zm.objAspsCircleBack.currentAspSelected=r.indexPosAsp
@@ -78,6 +82,8 @@ Rectangle {
                 //apps.showAspCircleBack=true
                 zm.lastAspShowed='ext'
                 zm.uAspShow='ext_'+arrColors[indexAsp]+'_bodie_'+r.bodie+'_'+r.objectName
+                let aspName=zm.objAspsCircle.getAspName(indexAsp)
+                zm.objZoolAspectsView.uAspShowed=aspName
             }else{
                 zm.objAspsCircleBack.currentAspSelected=-1
                 //swegz.sweg.objAspsCircle.currentAspSelected=-1

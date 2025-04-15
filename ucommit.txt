@@ -1,1 +1,1 @@
-Se agregan aspName tip a ZoolMapAs
+Se publica Zool v5.15.3 para Windows

@@ -248,6 +248,21 @@ Item{
                 z: parent.z-1
                 visible: zm.aspShowSelected
                 onVisibleChanged: {
+                    let difExtRot=0
+                    if(r.isBack){
+                        let jInt=zm.currentJson
+                        let jExt=zm.currentJsonBack
+                        let gAscInt=jInt.ph.h1.gdec
+                        let gAscExt=jExt.ph.h1.gdec
+                        if(gAscInt>gAscExt){
+                            difExtRot=gAscInt-gAscExt
+                        }else{
+                            difExtRot=gAscExt-gAscInt
+                        }
+                        //log.lv('gAscInt: '+gAscInt+' gAscExt: '+gAscExt)
+                        //log.lv('difExtRot: '+difExtRot)
+                    }
+
                     labelAspName.text=zm.objZoolAspectsView.uAspShowed
                     let rot=0
                     if(r.ih===1){
@@ -277,7 +292,7 @@ Item{
                     }else{
                         rot=0
                     }
-                    puntoPivote1.rot=rot
+                    puntoPivote1.rot=rot-difExtRot
                 }
                 Rectangle{
                     width: puntoPivote1.width

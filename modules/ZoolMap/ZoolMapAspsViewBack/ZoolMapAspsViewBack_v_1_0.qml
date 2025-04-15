@@ -72,8 +72,8 @@ Rectangle {
         width: 300
         height: app.fs*0.1
         color: 'red'
-        property string text: '???'
-        //visible: text!=='???' && text!==''
+        property string text: ''
+        visible: text!=='???' && text!==''
         Rectangle{
             width: labelAsp.contentWidth+app.fs*0.5
             height: labelAsp.contentHeight+app.fs*0.5

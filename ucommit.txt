@@ -1,1 +1,1 @@
-Se publica Zool v5.15.3 para Windows
+Se agrega screenshot a README.md

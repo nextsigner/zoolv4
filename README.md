@@ -1,4 +1,4 @@
-# zoolv4
+# zool
 
 ## Zool Aplicación de Astrología
 #
@@ -6,9 +6,13 @@
 #
 Zool es una aplicación de escritorio para Windows. Sirve para realizar varios tipos de tareas relacionadas con la astrología. Crear cartas natales astrales, revoluciones solares, direcciones primarias, proyecciones secundarias y otras tareas más.
 #
-[**Descargar Ultima Versión v5.4.15.3**](https://github.com/nextsigner/zoolv4/releases/download/astrology/Zool_v5.4.15.3.exe)
+![Kazam_screenshot_00014](https://github.com/user-attachments/assets/650ac9d2-da69-40a2-b629-00bc5af8fb23)
 #
-Aún no se ha preparado un instalador para GNU/Linux
+[**Descargar Zool**](https://github.com/nextsigner/zoolv4/releases)
+#
+## Usuarios GNU/Linux
+#
+Descargar la versión para Windows, instalar y ejecutar con wine.
 #
 ### Tipo de Licencia
 #

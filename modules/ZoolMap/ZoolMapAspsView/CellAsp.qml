@@ -86,7 +86,8 @@ Rectangle {
                 zm.lastAspShowed='int'
                 zm.uAspShow='int_'+arrColors[indexAsp]+'_bodie_'+r.bodie+'_'+r.objectName
                 let aspName=zm.objAspsCircle.getAspName(indexAsp)
-                zm.objZoolAspectsView.uAspShowed=aspName
+                let aspDeg=zm.objAspsCircle.getAspDeg(aspName)
+                zm.objZoolAspectsView.uAspShowed=aspName+' °'+aspDeg
             }else{
                 zm.objAspsCircle.currentAspSelected=-1
                 //swegz.zm.objAspsCircle.currentAspSelected=-1

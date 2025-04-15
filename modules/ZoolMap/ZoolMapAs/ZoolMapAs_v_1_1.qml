@@ -247,6 +247,95 @@ Item{
                 anchors.centerIn: parent
                 z: parent.z-1
                 visible: zm.aspShowSelected
+                onVisibleChanged: {
+                    labelAspName.text=zm.objZoolAspectsView.uAspShowed
+                    let rot=0
+                    if(r.ih===1){
+                        rot=-90
+                    }else if(r.ih===2){
+                        rot=-135
+                    }else if(r.ih===3){
+                        rot=0
+                    }else if(r.ih===4){
+                        rot=90
+                    }else if(r.ih===5){
+                        rot=90
+                    }else if(r.ih===6){
+                        rot=-270
+                    }else if(r.ih===7){
+                        rot=180
+                    }else if(r.ih===8){
+                        rot=180
+                    }else if(r.ih===9){
+                        rot=90
+                    }else if(r.ih===10){
+                        rot=-90
+                    }else if(r.ih===11){
+                        rot=-90
+                    }else if(r.ih===12){
+                        rot=-180
+                    }else{
+                        rot=0
+                    }
+                    puntoPivote1.rot=rot
+                }
+                Rectangle{
+                    width: puntoPivote1.width
+                    height: width
+                    color: puntoPivote1.color
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.right
+                }
+                Rectangle{
+                    id: puntoPivote1
+                    width: 1//app.fs*0.25
+                    height: width
+                    color: parent.color
+                    rotation: 0-r.rotation-rot
+                    anchors.verticalCenter: parent.verticalCenter
+                    //anchors.top: parent.verticalCenter
+                    anchors.horizontalCenter: parent.left
+                    property int rot: 0
+                    Rectangle{
+                        width: 1//parent.height
+                        height: app.fs*3
+                        color: parent.parent.color
+                        anchors.top: parent.verticalCenter
+                        //visible: false
+                        Rectangle{
+                            width: app.fs*0.25
+                            height: width
+                            radius: width*0.5
+                            color: parent.color
+                            anchors.horizontalCenter: parent.left
+                            anchors.verticalCenter: parent.top
+                        }
+                        Rectangle{
+                            width: 20
+                            height: width
+                            radius: width*0.5
+                            color: 'red'
+                            anchors.horizontalCenter: parent.left
+                            anchors.verticalCenter: parent.bottom
+                            Rectangle{
+                                width: labelAspName.contentWidth+app.fs*0.35
+                                height: labelAspName.contentHeight+app.fs*0.35
+                                color: apps.backgroundColor
+                                border.width: 1
+                                border.color: apps.fontColor
+                                anchors.centerIn: parent
+                                rotation: puntoPivote1.rot-270-90
+                                Text{
+                                    id: labelAspName
+                                    text: '??????'
+                                    font.pixelSize: app.fs*0.5
+                                    color: apps.fontColor
+                                    anchors.centerIn: parent
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 

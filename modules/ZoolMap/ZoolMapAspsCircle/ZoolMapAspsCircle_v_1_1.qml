@@ -359,4 +359,25 @@ Rectangle {
         }
         return aspName
     }
+    function getAspDeg(asp) {
+      switch (asp.toLowerCase()) {
+        case "oposición":
+          return 180;
+        case "cuadratura":
+          return 90;
+        case "trígono":
+          return 120;
+        case "conjunción":
+          return 0;
+        case "sextil":
+          return 60;
+        case "semicuadratura":
+          return 45;
+        case "quincuncio":
+          return 150;
+        default:
+          return null; // Retorna null si el aspecto no es reconocido
+      }
+    }
+
 }

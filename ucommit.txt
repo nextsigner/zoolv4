@@ -1,1 +1,1 @@
-Se agrega la función setAspTip(x, y, i) a ZoolMapAspsViewBack
+Se agregan aspName tip a ZoolMapAs

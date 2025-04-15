@@ -19,7 +19,7 @@ Rectangle{
         running:  !r.isBack?(aspsCircle.currentAspSelected===r.n):(aspsCircleBack.currentAspSelected===r.n)
         //running:  aspsCircle.currentAspSelected===r.n
         repeat: true
-        interval: 250
+        interval: 400
         onRunningChanged: {
             shapeBg.opacity=0.0
             r.z=0
@@ -30,13 +30,13 @@ Rectangle{
                 shapeBg.opacity=0.0
                 r.z=0
                 zm.aspShowSelected=false
-                zm.anv.n=''
+                //zm.anv.n=''
             }else{
                 shapeBg.opacity=1.0
                 zm.aspShowSelected=true
                 r.z=r.parent.children.length+1
-                zm.anv.n=zm.objZoolAspectsView.uAspShowed
-                zm.anv.z=zm.anv.z+1000
+                //zm.anv.n=zm.objZoolAspectsView.uAspShowed
+                //zm.anv.z=zm.anv.z+1000
             }
         }
     }

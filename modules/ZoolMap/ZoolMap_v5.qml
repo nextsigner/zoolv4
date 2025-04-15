@@ -45,7 +45,7 @@ Rectangle{
     property alias xzm: xSweg
 
     property alias cm: capaMods
-    property alias anv: aspNameView
+    //property alias anv: aspNameView
     property alias oc: centro
     property alias objTapa: tapa
     property alias objSignsCircle: signCircle
@@ -698,7 +698,7 @@ Rectangle{
                         }
                     }
                 }
-                Rectangle{
+                /*Rectangle{
                     id: aspNameView
                     width: aspNameText.contentWidth+app.fs*0.25
                     height: aspNameText.contentHeight+app.fs*0.25
@@ -716,7 +716,7 @@ Rectangle{
                         color: apps.fontColor
                         anchors.centerIn: parent
                     }
-                }
+                }*/
                 Item{
                     id: capaMods
                     anchors.fill: parent

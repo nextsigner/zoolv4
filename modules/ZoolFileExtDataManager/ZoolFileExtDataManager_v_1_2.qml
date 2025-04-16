@@ -277,7 +277,7 @@ Rectangle {
                             let json={}
                             json.params=j
                             //zm.ev=true
-                            zm.loadBack(json)
+                            //zm.loadBack(json)
                             //return
                             let t=j.t
                             let hsys=j.hsys
@@ -332,9 +332,13 @@ Rectangle {
                                 //                                let vDirPrimH=j.dirprimH
                                 //                                let vDirPrimMin=j.dirprimMin
                                 //                                let dateEvento=new Date(1976, 5,20,23,4)
-                                let dateEvento=new Date(a, m, d, h,min)
-                                let section=zsm.getPanel('ZoolFileManager').getSection('ZoolFileDirPrimLoader')
-                                section.setDirPrimRotationFromExternalItem(app.currentDate, dateEvento)
+                                app.t=t
+                                let dateEvento=new Date(a, m-1, d, h,min)
+                                let panelIndex=zsm.getPanelIndex('ZoolMods')
+                                zsm.currentIndex=panelIndex
+                                let section=zsm.getPanel('ZoolMods').getSection('ZoolFileDirPrimLoader')
+                                section.moduleEnabled=true
+                                section.setCurrentDateInitAndEvento(zm.currentDate, dateEvento)
                             }else{
                                 if(apps.dev)log.lv('ZoolFileExtDataManager Boton Cargar... gmt: '+gmt)
                                 //app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, strEdad, t, hsys,ms, aR)

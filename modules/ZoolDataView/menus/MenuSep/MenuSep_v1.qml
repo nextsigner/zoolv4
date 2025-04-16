@@ -19,6 +19,10 @@ ZoolMenus{
             let p=JSON.parse(sp)
             let nd=new Date(Date.now())
             p.params.ms=nd.getTime()
+            //log.lv('app.t: '+app.t)
+            if(app.t==='dirprim'){
+                p.params.dirPrimRot=zm.dirPrimRot
+            }
             zfdm.addExtDataAndSave(p)
         }
     }
@@ -149,6 +153,10 @@ ZoolMenus{
                 p.params.data=taInfo.text
                 if(!p.params.c){
                     p.params.c=zm.currentLugar
+                }
+                //log.lv('app.t: '+app.t)
+                if(app.t==='dirprim'){
+                    p.params.dirPrimRot=zm.dirPrimRot
                 }
                 zfdm.addExtDataAndSave(p)
                 zm.fileDataBack=JSON.stringify(p, null, 2)

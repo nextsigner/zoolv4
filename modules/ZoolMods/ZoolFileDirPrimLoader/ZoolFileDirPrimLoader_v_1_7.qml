@@ -176,20 +176,7 @@ Rectangle {
                     visible: r.moduleEnabled
                     anchors.horizontalCenter: parent.horizontalCenter
                     onCurrentDateChanged: {
-                        //log.lv('tLoad.. r.moduleEnabled: '+r.moduleEnabled)
-                        if(!r.moduleEnabled)return
-                        //log.lv('tLoad.. r.loadingFromExternal: '+r.loadingFromExternal)
-                        if(!r.visible && !r.loadingFromExternal)return
-                        if(!zm.ev){
-                            zm.loadFromFile(apps.url, 'dirprim', true)
-                            r.moduleEnabled=true
-                        }
-
-                        tLoad.restart()
-                        if(app.j.eventoEsMenorAInicio(zm.currentDate, currentDate)){
-                            currentDate=zm.currentDate
-                            return
-                        }
+                        setDateChanged(currentDate)
                     }
                     Timer{
                         id: tLoad
@@ -679,6 +666,7 @@ Rectangle {
 
         //Lo que suceda a continuación es si ya se ha definido app.t o app.t a dirprim
         if(zm.ev&&zm.t==='dirprim')return
+        //log.lv('E1...')
         tUpdateParamsEvento.restart()
         r.loadingFromExternal=true
 
@@ -697,6 +685,10 @@ Rectangle {
         setDirPrimRotation()
     }
 
+    function setCurrentDateInitAndEvento(dInit, dEvent){
+        controlTimeFecha.currentDate=dInit
+        controlTimeFechaEvento.currentDate=dEvent
+    }
 
 
     //    function loadJsonFromArgsBack(){
@@ -957,5 +949,20 @@ Rectangle {
         tiNombre.t.selectAll()
         tiNombre.t.focus=true
     }
+    function setDateChanged(date){
+        //log.lv('tLoad.. r.moduleEnabled: '+r.moduleEnabled)
+        if(!r.moduleEnabled)return
+        //log.lv('tLoad.. r.loadingFromExternal: '+r.loadingFromExternal)
+        if(!r.visible && !r.loadingFromExternal)return
+        if(!zm.ev){
+            zm.loadFromFile(apps.url, 'dirprim', true)
+            r.moduleEnabled=true
+        }
 
+        tLoad.restart()
+        if(app.j.eventoEsMenorAInicio(zm.currentDate, date)){
+            controlTimeFechaEvento.currentDate=zm.currentDate
+            return
+        }
+    }
 }

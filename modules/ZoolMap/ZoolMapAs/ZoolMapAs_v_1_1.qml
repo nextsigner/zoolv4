@@ -250,6 +250,7 @@ Item{
                 onVisibleChanged: {
                     let difExtRot=0
                     if(r.isBack){
+                        if(!zm.currentJson || zm.currentJsonBack)return
                         let jInt=zm.currentJson
                         let jExt=zm.currentJsonBack
                         let gAscInt=jInt.ph.h1.gdec

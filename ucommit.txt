@@ -1,1 +1,1 @@
-Se agrega screenshot a README.md
+Se corrige error de creación y carga de DirPrim desde Exts

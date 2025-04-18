@@ -145,11 +145,19 @@ ZoolMenus{
                 tiNombre.t.text=p.params.n
             }
             function setNom(){
+
+                let panel=zsm.getPanel('ZoolMods')
+                let section=panel.getSection('ZoolFileDirPrimLoader')
+                let currentDate=section.getCurrentDate()
+
                 let sp=zm.fileDataBack
                 let p=JSON.parse(sp)
                 let nd=new Date(Date.now())
                 p.params.ms=nd.getTime()
                 p.params.n=tiNombre.t.text
+                p.params.d=currentDate.getDate()
+                p.params.m=currentDate.getMonth()+1
+                p.params.a=currentDate.getFullYear()
                 p.params.data=taInfo.text
                 if(!p.params.c){
                     p.params.c=zm.currentLugar

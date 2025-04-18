@@ -965,4 +965,7 @@ Rectangle {
             return
         }
     }
+    function getCurrentDate(){
+        return controlTimeFechaEvento.currentDate
+    }
 }

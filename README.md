@@ -10,6 +10,8 @@ Zool es una aplicación de escritorio para Windows. Sirve para realizar varios t
 #
 [**Descargar Zool**](https://github.com/nextsigner/zoolv4/releases)
 #
+#https://www.python.org/ftp/python/3.8.10/python-3.8.10-amd64.exe
+
 ## Usuarios GNU/Linux
 #
 Descargar la versión para Windows, instalar y ejecutar con wine.

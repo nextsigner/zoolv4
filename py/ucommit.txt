@@ -1,1 +1,1 @@
-Se agregan los modulos portables de pyswisseph 2.10.3.2 para Windows y GNU/Linux
+Se modifican todos los import swisseph por la manera de importación de los pyswisseph portables entodos los archivos python

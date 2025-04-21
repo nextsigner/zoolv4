@@ -70,14 +70,17 @@ ZoolMainWindow{
     property bool dev: Qt.application.arguments.indexOf('-dev')>=0
     property string version: '0.0.-1'
     //property string sweBodiesPythonFile: Qt.platform.os==='linux'?'astrologica_swe_v4.py':'astrologica_swe.py'
-    property string sweBodiesPythonFile: 'zool_swe_v1.py'
+    //property string sweBodiesPythonFile: 'zool_swe_v1.py'
+    //property string sweBodiesPythonFile: Qt.platform.os==='linux'?'zool_swe_v1.py':'zool_swe_win_2.10.3.2_v1.py'
+    property string sweBodiesPythonFile: 'zool_swe_portable_2.10.3.2_v1.py'
+
     property var j: JS
     property var c: CAP
 
     property string mainLocation: ''
     //property string pythonLocation: Qt.platform.os==='linux'?'python3':pythonLocationSeted?'"'+pythonLocationSeted+'"':'"'+unik.getPath(4)+'/Python/python.exe'+'"'
 
-    property string pythonLocation: Qt.platform.os==='linux'?'python3':'"'+currentPath+'/Python/python.exe'+'"'
+    property string pythonLocation: Qt.platform.os==='linux'?'python3':'python'
 
     property int fs: apps.fs//Qt.platform.os==='linux'?width*0.02:width*0.02
     property string stringRes: 'Screen'+Screen.width+'x'+Screen.height

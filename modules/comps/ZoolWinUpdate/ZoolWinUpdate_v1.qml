@@ -6,16 +6,15 @@ Item{
         id: setZoolLastVersion
         function setData(data, isData){
             if(isData){
-                console.log('Host: '+data)
-                let m0=data.split('\n')
                 let s=''
-                for(var i=0;i<m0.length;i++){
-                    if(m0[i].indexOf('<link>')>=0 && m0[i].indexOf('Zool_v')>=0 && m0[i].indexOf('.exe')>=0){
-                        let m1=m0[i].split('Zool_v')
-                        let m2=m1[1].split('.exe')
-                        s+=''+m2[0]+'\n'
-                        break
-                    }
+                let m0=data.split('Zool v')
+                if(m0.length>1){
+                    let m1=m0[1].split(' for Windows 64bit')
+                    s+=''+m1[0]
+                    s=s.replace(/ /g, '')
+                }else{
+                    console.log('Error en ZoolWinUpdate::setData(data, isData): data --> '+data)
+                    return
                 }
                 let jsonNot={}
                 jsonNot.id='winuptate'
@@ -28,7 +27,7 @@ Item{
                     zpn.addNot(jsonNot, true, 20000)
                 }else{
                     jsonNot.text='Hay una nueva versión de Zool disponible\n\nVersión actual: '+v2+'\nVersión disponible: '+v1+''
-                    jsonNot.url='https://sourceforge.net/projects/zool/files/'
+                    jsonNot.url='https://github.com/nextsigner/zoolv4/releases/latest'
                     jsonNot.bot1Text='Ver página de Descarga'
                     zpn.addNot(jsonNot, true, 20000)
                 }
@@ -56,7 +55,8 @@ Item{
 
     Component.onCompleted: {
         let ms=new Date(Date.now()).getTime()
-        app.j.getRD('https://sourceforge.net/projects/zool/rss?path=/&r='+ms, setZoolLastVersion)
+        app.j.getRD('https://github.com/nextsigner/zoolv4/releases/latest?r='+ms, setZoolLastVersion)
+
 
     }
 }

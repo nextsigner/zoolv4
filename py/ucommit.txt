@@ -1,1 +1,0 @@
-Se modifican todos los import swisseph por la manera de importación de los pyswisseph portables entodos los archivos python

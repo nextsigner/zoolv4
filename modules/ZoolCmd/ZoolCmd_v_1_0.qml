@@ -373,7 +373,7 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
         app.currentDataBack=j
         let finalCmd=''
             +app.pythonLocation+' "'+unik.currentFolderPath()+'/py/astrologica_swe_search_revsol.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+hsys+' "'+unik.currentFolderPath()+'"'
-        //console.log('finalCmd: '+finalCmd)
+        console.log('finalCmd: '+finalCmd)
         let c=''
         c+=''
                 +'  if(logData.length<=3||logData==="")return\n'

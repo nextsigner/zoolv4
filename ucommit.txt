@@ -1,1 +1,1 @@
-Se corrige error de fecha en Guardar como Dirección Primaria en MenuSep_v1.qml
+Se elimina geoloc.py

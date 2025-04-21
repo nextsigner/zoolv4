@@ -56,6 +56,8 @@ import NodeIOQml 1.1
 
 import ZoolRemoteDataManager 1.0
 
+import comps.PushOver 1.0
+
 
 ZoolMainWindow{
     id: app
@@ -588,7 +590,7 @@ ZoolMainWindow{
             }
         }
     }
-
+    PushOver{id: pushOver}
     //    Text{
     //        text: '->'+menuBar.expanded
     //        font.pixelSize: app.fs*3

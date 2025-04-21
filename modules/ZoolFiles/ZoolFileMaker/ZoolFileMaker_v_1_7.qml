@@ -669,10 +669,10 @@ Rectangle {
                       }else{
                           tiCiudad.t.color=apps.fontColor
                           if(crear){
-                              r.ulat=coordenadas.latitud
-                              r.ulon=coordenadas.longitud
-                              //setNewJsonFileData()
-                              //r.state='hide'
+                              r.lat=coordenadas.latitud
+                              r.lon=coordenadas.longitud
+                              setNewJsonFileData()
+                              r.state='hide'
                           }else{
                               r.ulat=coordenadas.latitud
                               r.ulon=coordenadas.longitud
@@ -928,18 +928,27 @@ Rectangle {
                                                const longitud = parseFloat(respuesta[0].lon);
                                                resolve({ latitud, longitud });
                                            } else {
-                                               reject('No se encontraron coordenadas para el lugar especificado.');
+                                               reject('No se encontraron coordenadas para el lugar
+ especificado.');
+                                               log.clear()
+                                               log.lv('No se encontraron las coordenadas de geolocalización de '+tiCiudad.text)
                                            }
                                        } catch (error) {
                                            reject('Error al parsear la respuesta JSON.');
+                                           log.clear()
+                                           log.lv('Hay un error de red en estos momentos. Error al solicitar las coordenadas de geolocalización de '+tiCiudad.text)
                                        }
                                    } else {
                                        reject(`Error en la petición: Código de estado ${xhr.status}`);
+                                       log.clear()
+                                       log.lv('Hay un error de red en estos momentos. Error al solicitar las coordenadas de geolocalización de '+tiCiudad.text)
                                    }
                                };
 
                                xhr.onerror = function() {
                                    reject('Error de red al realizar la petición.');
+                                   log.clear()
+                                   log.lv('Hay un error de red en estos momentos. Error al solicitar las coordenadas de geolocalización de '+tiCiudad.text)
                                };
 
                                xhr.send();

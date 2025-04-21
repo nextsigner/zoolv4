@@ -1,1 +1,1 @@
-Se elimina geoloc.py
+Se agrega PushOver Notificacion para el desarrollador.

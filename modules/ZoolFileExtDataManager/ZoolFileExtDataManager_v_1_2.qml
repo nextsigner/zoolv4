@@ -346,8 +346,6 @@ Rectangle {
                                     stringSectionTypeName='ZoolFileDirPrimLoader'
                                     section=panel.getSection(stringSectionTypeName)
                                     panel.showSection(stringSectionTypeName)
-                                    //sectionIndex=panel.getSectionIndex(stringSectionTypeName)
-
                                     section.moduleEnabled=true
                                     section.setCurrentDateInitAndEvento(zm.currentDate, dateEvento)
                                 }
@@ -357,9 +355,6 @@ Rectangle {
                                     panel.showSection(stringSectionTypeName)
                                     section.setFromExt(dateEvento)
                                 }
-
-                                //log.lv('zsm.currentIndex: '+zsm.currentIndex)
-
                             }else{
                                 if(apps.dev)log.lv('ZoolFileExtDataManager Boton Cargar... gmt: '+gmt)
                                 //app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, strEdad, t, hsys,ms, aR)

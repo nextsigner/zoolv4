@@ -1,1 +1,1 @@
-Se corrige la función Cargar en ZoolFileExtManager
+Se eleiminan versiones anteriores de ZoolFileExtDataManager v1.0 y v1.1

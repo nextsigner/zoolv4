@@ -56,8 +56,7 @@ Item{
         zm.loadJsonFromFilePath(apps.url)
     }
 
-    //Conversores
-
+    //--->Conversores
     //Convertir Date a String día/mes/año
     function dateToDMA(d, sep){
         if(!sep)sep='/'
@@ -74,4 +73,12 @@ Item{
         r+=d.getMinutes()
         return r
     }
+    //Convertir Date a Día de la semana
+    function obtenerDiaDeLaSemana(fecha) {
+      const dias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+      const diaIndice = fecha.getDay();
+      return dias[diaIndice];
+    }
+    //-->Conversores
+
 }

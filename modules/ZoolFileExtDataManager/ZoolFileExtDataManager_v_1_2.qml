@@ -167,7 +167,12 @@ Rectangle {
                         if(s.fzoom<=1.0)return
                         s.fzoom-=0.05
                     }else{
-                        lv.currentIndex=index
+                        if(lv.currentIndex!==index){
+                            lv.currentIndex=index
+                        }else{
+                            lv.currentIndex=-1
+                        }
+
                     }
 
                 }
@@ -190,6 +195,7 @@ Rectangle {
                     anchors.horizontalCenter: parent.horizontalCenter
                     //anchors.centerIn: parent
                 }
+                Item{width: 1; height: parent.spacing; visible: index===lv.currentIndex}
                 Text {
                     id: txtDataNom
                     font.pixelSize: r.fs//*0.5
@@ -202,15 +208,22 @@ Rectangle {
                 Text {
                     id: txtDataParams
                     font.pixelSize: r.fs*0.5
-                    width: xDatos.width-app.fs
-                    wrapMode: Text.WordWrap
+                    //width: xDatos.width-app.fs
+                    //wrapMode: Text.WordWrap
                     textFormat: Text.RichText
                     color: xDatos.border.color
                     anchors.horizontalCenter: parent.horizontalCenter
-                    visible: index===lv.currentIndex
+                    visible: !tSetFsText.running && index===lv.currentIndex
+                    Timer{
+                        id: tSetFsText
+                        running: parent.contentWidth>xDatos.width-app.fs && index===lv.currentIndex
+                        repeat: true
+                        interval: 100
+                        onTriggered: parent.font.pixelSize-=1
+                    }
                     //anchors.centerIn: parent
                 }
-                Item{width: 1; height: app.fs*0.5; visible: index===lv.currentIndex}
+                Item{width: 1; height: parent.spacing; visible: index===lv.currentIndex}
                 Text {
                     text: '<b>Información:</b>'
                     font.pixelSize: r.fs*0.75
@@ -219,7 +232,7 @@ Rectangle {
                     anchors.horizontalCenter: parent.horizontalCenter
                     visible: index===lv.currentIndex
                 }
-                Item{width: 1; height: app.fs*0.25}
+                Item{width: 1; height: parent.spacing; visible: index===lv.currentIndex}
                 Text {
                     id: txtDataInfo
                     font.pixelSize: r.fs*0.5
@@ -231,7 +244,7 @@ Rectangle {
                     anchors.horizontalCenter: parent.horizontalCenter
                     visible: index===lv.currentIndex
                 }
-                Item{width: 1; height: app.fs*0.25}
+                Item{width: 1; height: parent.spacing; visible: index===lv.currentIndex}
                 Row{
                     spacing: app.fs*0.25
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -271,16 +284,10 @@ Rectangle {
                     ZoolButton{
                         id: btnLoadExt
                         text:'Cargar'
-                        //colorInverted: true
-                        visible: index===lv.currentIndex
                         onClicked: {
                             let json={}
                             json.params=j
-                            //zm.ev=true
-                            //zm.loadBack(json)
-                            //return
                             let t=j.t
-                            //log.lv('t: '+t)
                             let hsys=j.hsys?j.hsys:'T'
                             let nom=j.n
                             let d=j.d
@@ -362,52 +369,30 @@ Rectangle {
                         }
                     }
                 }
-
             }
-            /*Rectangle{
-                width: txtDelete.contentWidth+app.fs*0.35
-                height: width
-                radius: app.fs*0.3
-                anchors.right: parent.right
-                anchors.rightMargin: app.fs*0.3
-                anchors.top: parent.top
-                anchors.topMargin: app.fs*0.3
-                color: index!==lv.currentIndex?apps.fontColor:apps.backgroundColor
-                visible: index===lv.currentIndex
-                Text {
-                    id: txtDelete
-                    text: 'X'
-                    font.pixelSize: r.fs*0.25
-                    anchors.centerIn: parent
-                    color: index===lv.currentIndex?apps.fontColor:apps.backgroundColor
-                }
-                MouseArea{
-                    anchors.fill: parent
-                    onDoubleClicked: {
-                        if(zfdm.deleteExtToJsonFile(j.extId)){
-                            r.updateList()
-                        }
-                    }
-                }
-            }*/
+
             Component.onCompleted: {
                 //let nom=j.n
+                let date=new Date(j.a, j.m-1, j.d)
+                let diaSemana=zdm.obtenerDiaDeLaSemana(date)
                 let tipo=''
                 if(j.t==='sin')tipo='Sinastría'
                 if(j.t==='rs')tipo='Revolución Solar'
                 if(j.t==='trans')tipo='Tránsitos'
+                if(j.t==='dirprim')tipo='Direcciones Primarias'
+                if(j.t==='progsec´')tipo='Proyecciones Secundarias'
                 txtDataTipo.text='<b>'+tipo+'</b>'
-                txtDataNom.text='<b>'+j.n+'</b>'
-                let sParams=''+j.d+'/'+j.m+'/'+j.a+' '
-                sParams+=''+j.h+':'+j.min+'hs<br><br>'
-                sParams+='<b>Ubicación:</b> '+j.c+'<br><br>'
-                sParams+='<b>Gmt:</b> '+j.gmt+'<br><br>'
+                txtDataNom.text='<b>'+j.n.replace(/\n/g, '')+'</b>'
+                let sParams='<b>Fecha:</b> '+diaSemana+' '+j.d+'/'+j.m+'/'+j.a+' '
+                sParams+='<b>Hora:</b> '+j.h+':'+j.min+'hs  '
+                sParams+='<b>Gmt:</b> '+j.gmt+'<br>'
+                sParams+='<b>Ubicación:</b> '+j.c+'<br>'
                 sParams+='<b>Lat:</b> '+j.lat+' '
                 sParams+='<b>Long:</b> '+j.lon+' '
-                sParams+='<b>Alt:</b> '+j.alt+'<br><br>'
+                sParams+='<b>Alt:</b> '+j.alt+'<br>'
                 let d=new Date(j.ms)
                 let sd=d.getDate()+'/'+parseInt(d.getMonth() + 1)+'/'+d.getFullYear()+' '+d.getHours()+':'+d.getMinutes()+'hs.'
-                sParams+='<b>Cread:</b> '+sd+'<br>'
+                sParams+='<b>Fecha de Creación:</b> '+sd+''
                 txtDataParams.text=sParams
                 if(j.data)txtDataInfo.text=j.data
             }
@@ -443,7 +428,7 @@ Rectangle {
                 Text {
                     id: txtData
                     text: dato
-                    font.pixelSize: r.fs*0.5
+                    font.pixelSize: r.fs*0.1
                     width: xDatosView.width-app.fs
                     wrapMode: Text.WordWrap
                     textFormat: Text.RichText
@@ -453,7 +438,7 @@ Rectangle {
                 }
                 Text {
                     id: txtDataExtra
-                    font.pixelSize: r.fs*0.35
+                    font.pixelSize: r.fs*0.25
                     width: xDatosView.width-app.fs
                     wrapMode: Text.WordWrap
                     textFormat: Text.RichText
@@ -462,6 +447,7 @@ Rectangle {
                 }
                 Row{
                     spacing: xDatosView.fs
+                    visible: index===lv.currentIndex
                     ZoolButton{
                         text:'Eliminar Archivo'
                         colorInverted: true

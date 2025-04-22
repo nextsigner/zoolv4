@@ -1,1 +1,1 @@
-Se eleiminan versiones anteriores de ZoolFileExtDataManager v1.0 y v1.1
+Se agrega conversos date a día de semana en zfm

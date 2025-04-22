@@ -170,6 +170,21 @@ Rectangle {
         }
         return obj
     }
+    function getSectionIndex(typeOfSection){
+        let ci=-1
+        let obj
+        for(var i=0;i<xSections.children.length;i++){
+            let o=xSections.children[i].children[0]
+            //log.lv('getSectionIndex( '+typeOfSection+' ): ' +app.j.qmltypeof(o))
+            if(''+app.j.qmltypeof(o)===''+typeOfSection){
+                obj=o
+                ci=i//zsm.aPanelsIds.indexOf(app.j.qmltypeof(o))
+                break
+            }
+        }
+
+        return ci
+    }
     function enter(){
         panelActive.enter()
     }

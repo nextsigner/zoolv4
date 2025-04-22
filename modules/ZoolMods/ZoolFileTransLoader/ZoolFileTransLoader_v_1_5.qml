@@ -678,5 +678,8 @@ Rectangle {
         tiNombre.t.selectAll()
         tiNombre.t.focus=true
     }
-
+    function setFromExt(date){
+        controlTimeFecha.currentDate=date
+        loadTrans()
+    }
 }

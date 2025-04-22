@@ -280,7 +280,8 @@ Rectangle {
                             //zm.loadBack(json)
                             //return
                             let t=j.t
-                            let hsys=j.hsys
+                            //log.lv('t: '+t)
+                            let hsys=j.hsys?j.hsys:'T'
                             let nom=j.n
                             let d=j.d
                             let m=j.m
@@ -293,7 +294,7 @@ Rectangle {
                             let alt=j.alt
                             let ciudad=j.c
                             let strEdad='Edad: '+zm.getEdad(d, m, a, h, min)+' años'
-                            if(t==='rs'){
+                            if(t==='rs'||t==='trans'){
                                 let currentAnio=new Date(app.currentDate).getFullYear()
                                 strEdad='Edad: '+parseInt(a - currentAnio)+' años'
                                 //strEdad='Edad: '+Math.abs(parseInt(currentAnio - a))+' años'
@@ -325,7 +326,7 @@ Rectangle {
 
                             zoolDataView.setDataView(strSep, aL, aR)
 
-                            if(t==='dirprim'){
+                            if(t==='dirprim'||t==='trans'){
                                 //                                let vDirPrimA=j.dirprimA
                                 //                                let vDirPrimM=j.dirprimM
                                 //                                let vDirPrimD=j.dirprimD
@@ -334,11 +335,31 @@ Rectangle {
                                 //                                let dateEvento=new Date(1976, 5,20,23,4)
                                 app.t=t
                                 let dateEvento=new Date(a, m-1, d, h,min)
+                                let panel=zsm.getPanel('ZoolMods')
                                 let panelIndex=zsm.getPanelIndex('ZoolMods')
+                                let sectionIndex=-1
                                 zsm.currentIndex=panelIndex
-                                let section=zsm.getPanel('ZoolMods').getSection('ZoolFileDirPrimLoader')
-                                section.moduleEnabled=true
-                                section.setCurrentDateInitAndEvento(zm.currentDate, dateEvento)
+
+                                let section
+                                let stringSectionTypeName=''
+                                if(t==='dirprim'){
+                                    stringSectionTypeName='ZoolFileDirPrimLoader'
+                                    section=panel.getSection(stringSectionTypeName)
+                                    panel.showSection(stringSectionTypeName)
+                                    //sectionIndex=panel.getSectionIndex(stringSectionTypeName)
+
+                                    section.moduleEnabled=true
+                                    section.setCurrentDateInitAndEvento(zm.currentDate, dateEvento)
+                                }
+                                if(t==='trans'){
+                                    stringSectionTypeName='ZoolFileTransLoader'
+                                    section=panel.getSection(stringSectionTypeName)
+                                    panel.showSection(stringSectionTypeName)
+                                    section.setFromExt(dateEvento)
+                                }
+
+                                //log.lv('zsm.currentIndex: '+zsm.currentIndex)
+
                             }else{
                                 if(apps.dev)log.lv('ZoolFileExtDataManager Boton Cargar... gmt: '+gmt)
                                 //app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, strEdad, t, hsys,ms, aR)

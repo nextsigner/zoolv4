@@ -1,1 +1,1 @@
-Se agrega PushOver Notificacion para el desarrollador.
+Se corrige la función Cargar en ZoolFileExtManager

@@ -1,6 +1,9 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import ZoolMenus 1.0
+import ZoolMenus.ZoolMenuFiles 1.0
+import ZoolMenus.ZoolMenuView 1.0
+import ZoolMenus.ZoolMenuHelp 1.0
 
 ZoolMenus{
     id: r
@@ -33,81 +36,8 @@ ZoolMenus{
             }
         }
     }*/
-    ZoolMenus{
-        title: 'Ver'
-        w: r.w
-        Action {
-            text: "Cambiar Colores"//apps.fontColor==='white'?qsTr("Tema Claro"):qsTr("Tema Oscuro")
-            onTriggered: {
-                zm.nextTheme()
-            }
-        }
-        Action {
-            enabled: app.t==='vn'
-            text: qsTr("Ver Mapa Evolutivo")
-            onTriggered: {
-                zev.visible=true
-            }
-        }
-        Action {
-            text: !apps.xAsShowIcon?qsTr("Ocultar glifos"):qsTr("Ver glifos");
-            onTriggered: {
-                apps.xAsShowIcon=!apps.xAsShowIcon
-            }
-        }
-        /*Action {enabled: zm.ev; text: qsTr("Descartar exterior"); onTriggered: {
-                app.t=zm.getParams().t
-                zm.ev=false
-                zm.lastAspShowed='int'
-                zm.objAspsCircle.show=true
-                zm.objAspsCircleBack.show=false
-                zm.fileDataBack=''
-                zm.loadFromFile(apps.url, zm.getParams().t, false)
-                zoolDataView.clearExtData()
-            }
-        }*/
-        Action {text: zm.ev?'Ocultar Exterior':'Ver Exterior'; onTriggered: {
-                zm.ev=!zm.ev
-            }
-        }
-        Action {text: qsTr("Zoom 1.0"); onTriggered: {
-                zm.zoomTo(1.0, true)
-            }
-        }
-        Action {text: qsTr("Zoom 1.5"); onTriggered: {
-                zm.zoomTo(1.5, true)
-            }
-        }
-        Action {
-            text: qsTr(apps.showNumberLines?"Ocultar grados":"Mostrar grados")
-            onTriggered: {apps.showNumberLines=!apps.showNumberLines}
-        }
-        Action {
-            text: qsTr("Cargar Ejemplo")
-            onTriggered: {
-                zm.loadJsonFromFilePath('/home/ns/gd/Zool/Ricardo.json')
-            }
-        }
-    }
-    ZoolMenus{
-        title: 'Archivo'
-        w: r.w
-        isContainer: true
-        Action {text: qsTr("Recargar archivo interior"); onTriggered: {
-                zm.unloadExt()
-            }
-        }
-        Action {text: qsTr("Cargar Tránsitos de Ahora"); onTriggered: {
-                zm.loadNow()
-            }
-        }
-        Action {
-            id: aDeleteExt
-            text: qsTr("Eliminar Exterior oculto")
-            onTriggered: {app.j.deleteJsonBackHidden()}
-
-        }
-    }
+    ZoolMenuFiles{}
+    ZoolMenuView{}
     ZoolMenus{
         title: 'Sabianos'
         w: r.w
@@ -223,6 +153,7 @@ ZoolMenus{
         }
 
     }
+    ZoolMenuHelp{}
     Action {text: qsTr("Salir"); onTriggered: {
             Qt.quit()
         }

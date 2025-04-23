@@ -18,7 +18,7 @@ import comps.ZoolAppSettings 1.0
 import comps.FocusSen 1.0
 import ZoolNewsAndUpdates 3.4
 import ZoolMainWindow 1.0
-import ZoolTopMenuBar 1.0
+
 import ZoolText 1.1
 import ZoolDataBar 3.1
 import ZoolDataView 1.2
@@ -31,11 +31,14 @@ import web.ZoolServerFileDataManager 1.0
 import ZoolMap 5.0
 import ZoolBodiesGuiTools 1.0
 
+//-->Menus
+import ZoolMenus.ZoolTopMenuBar 1.1
 import ZoolMenus.ZoolMenuCtxAs 1.0
-
 import ZoolMenus.ZoolMapMenuCtx 1.0
 import ZoolMenuCtxPlanetsAsc 1.0
 import ZoolMenuCtxHouses 1.0
+//<--Menus
+
 
 import ZoolControlsTime 1.0
 
@@ -632,6 +635,9 @@ ZoolMainWindow{
 
 
     Component.onCompleted: {
+        menuBar.aMenuItems.push(menuRuedaZodiacal)
+
+
         if(apps.workSpace==='')apps.workSpace=unik.getPath(3)+'/Zool'
         if(!unik.folderExist(unik.getPath(3)+'/Zool')){
             unik.mkdir(unik.getPath(3)+'/Zool')

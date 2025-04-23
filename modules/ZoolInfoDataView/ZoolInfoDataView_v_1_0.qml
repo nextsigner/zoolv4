@@ -28,6 +28,10 @@ Rectangle {
             textFormat: r.markDown?Text.MarkdownText:Text.RichText
         }
     }
+    function showData(d){
+        data.text=d
+        r.visible=true
+    }
     function loadData(file){
         //log.l('XInfoData file: '+file)
         //log.visible=true

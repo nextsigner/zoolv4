@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQuick.Window 2.0
 
 Item{
     id: r
@@ -80,5 +81,12 @@ Item{
       return dias[diaIndice];
     }
     //-->Conversores
+
+    //-->GUI
+    function showMsgBox(title, text, width, height){
+        zm.mkWindowDataView(title, text, width, height, width, height, app, app.fs*0.75)
+
+    }
+    //<--GUI
 
 }

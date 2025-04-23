@@ -124,7 +124,7 @@ Rectangle{
                         repeat: true
                         interval: 250
                         onTriggered: {
-                            let json=JSON.parse(app.fileData)
+                            let json=zfdm.getJsonAbs()//JSON.parse(app.fileData)
                             let d0=''
                             if(json.params.data)d0=json.params.data
                             let d1=editor.text

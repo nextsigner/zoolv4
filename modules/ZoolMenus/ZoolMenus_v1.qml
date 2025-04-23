@@ -5,9 +5,9 @@ Menu {
     id: r
     width: app.fs*8
     parent: capa101
-    onOpenedChanged:  menuBar.expanded=opened
+    //onOpenedChanged:  menuBar.expanded=opened
     //onCurrentIndexChanged: menuBar.uCMI=aMI[currentIndex]
-    Component.onCompleted: menuBar.aMenuItems.push(this)
+    //Component.onCompleted: menuBar.aMenuItems.push(this)
     property int w: 400
     property int fs: app.fs*0.75
     property real scaleExpandWidh: 0.5

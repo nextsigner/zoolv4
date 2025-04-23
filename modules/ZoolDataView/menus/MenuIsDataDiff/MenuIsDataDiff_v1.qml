@@ -4,8 +4,10 @@ import ZoolMenus 1.0
 
 ZoolMenus{
     id: r
-    title: 'Menu Nombre'//+app.planetas[r.currentIndexPlanet]
-    Action {text: qsTr("Guardar Archivo"); onTriggered: {
+    title: 'Guardar archivo'//+app.planetas[r.currentIndexPlanet]
+    Action {
+        text: qsTr("Guardar Archivo")
+        onTriggered: {
             let date=new Date(Date.now())
             let msmod=date.getTime()
             let json=zm.currentJson.params

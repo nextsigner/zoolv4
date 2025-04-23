@@ -1,0 +1,1 @@
+copyAll4Install.sh

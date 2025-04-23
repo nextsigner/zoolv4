@@ -1,1 +1,1 @@
-Se agrega conversos date a día de semana en zfm
+Se crean menus files, view y help

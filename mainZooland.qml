@@ -44,7 +44,7 @@ import ZoolControlsTime 1.0
 
 import ZoolSectionsManager 1.2
 
-import ZoolDataBodies 3.2
+import gui.ZoolDataBodies 3.3
 
 import comps.ZoolPanelNotifications 1.1
 import web.ZoolWebStatusManager 1.0

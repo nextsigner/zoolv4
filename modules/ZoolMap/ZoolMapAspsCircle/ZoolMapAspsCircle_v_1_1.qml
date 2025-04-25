@@ -195,6 +195,13 @@ Rectangle {
 
         //console.log('jsonAsps:'+JSON.stringify(json, null, 2))
     }
+    function loadFromJsonAsps(json){
+        clearSL(bgTotal)
+        r.aAspStr1=[]
+        bgTotal.json=json
+
+        //console.log('jsonAsps:'+JSON.stringify(json, null, 2))
+    }
     function clear(){
         clearSL(bgTotal)
     }

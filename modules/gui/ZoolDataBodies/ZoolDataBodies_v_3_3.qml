@@ -2,8 +2,8 @@ import QtQuick 2.7
 import QtQuick.Controls 2.0
 import Qt.labs.folderlistmodel 2.12
 
-
-import ZoolDataBodies.ZoolDataBodiesItem 1.0
+import gui.ZoolDataBodies.ZoolBodiesSelView 1.0
+import gui.ZoolDataBodies.ZoolDataBodiesItem 1.0
 
 Rectangle {
     id: r
@@ -19,11 +19,25 @@ Rectangle {
     property int currentIndex: -1
     property int currentIndexBack: -1
     Behavior on x{NumberAnimation{duration: app.msDesDuration}}
-    Row{
-        width: parent.width-r.border.width*2
-        anchors.horizontalCenter: parent.horizontalCenter
-        ZoolDataBodiesItem{id: xBodiesInt; isBack: false; isLatFocus: r.latFocus===0}
-        ZoolDataBodiesItem{id: xBodiesExt; isBack: true; isLatFocus: r.latFocus===1}
+    Column{
+        Row{
+            ZoolBodiesSelView{
+                id: zbsv
+                width: !zm.ev?r.width:r.width*0.5
+            }
+            ZoolBodiesSelView{
+                id: zbsvExt
+                width: r.width*0.5
+                isExt: true
+                visible: zm.ev
+            }
+        }
+        Row{
+            width: parent.width-r.border.width*2
+            anchors.horizontalCenter: parent.horizontalCenter
+            ZoolDataBodiesItem{id: xBodiesInt; isBack: false; hZBSL: zbsv.height;isLatFocus: r.latFocus===0}
+            ZoolDataBodiesItem{id: xBodiesExt; isBack: true; hZBSL: zbsv.height; isLatFocus: r.latFocus===1}
+        }
     }
     Rectangle{
         width: labelCargando.contentWidth+app.fs*0.25
@@ -42,6 +56,7 @@ Rectangle {
             anchors.centerIn: parent
         }
     }
+
     function loadJson(json){
         r.latFocus=0
         xBodiesInt.loadJson(json)
@@ -65,9 +80,9 @@ Rectangle {
                 currentIndexBack=23
             }
         }
-//        if(currentIndexBack===-1){
-//            zm.centerZoomAndPos()
-//        }
+        //        if(currentIndexBack===-1){
+        //            zm.centerZoomAndPos()
+        //        }
     }
     function toDown(){
         if(zoolDataBodies.latFocus===0){

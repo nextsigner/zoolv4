@@ -1,1 +1,1 @@
-Se mueve ZoolDataBodies a gui
+Se agrega ZoolBodiesSelView

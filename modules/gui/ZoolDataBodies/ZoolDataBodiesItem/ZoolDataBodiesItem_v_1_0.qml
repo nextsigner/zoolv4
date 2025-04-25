@@ -9,6 +9,7 @@ Column{
     property bool isBack: false
     property bool isLatFocus: false
     property int currentIndex: !isBack?zoolDataBodies.currentIndex:zoolDataBodies.currentIndexBack
+    property int hZBSL: 0
     Behavior on opacity{NumberAnimation{id:numAn1;duration:10}}
     Rectangle{
         id: headerLv
@@ -50,7 +51,7 @@ Column{
         id: lv
         spacing: app.fs*0.1
         width: r.width-app.fs*0.25//r.parent.width-r.border.width*2
-        height: xLatDer.height-headerLv.height
+        height: xLatDer.height-headerLv.height-r.hZBSL
         delegate: compItemList
         model: lm
         cacheBuffer: 60

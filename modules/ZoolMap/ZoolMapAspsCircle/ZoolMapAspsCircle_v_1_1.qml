@@ -136,6 +136,7 @@ Rectangle {
                                     colorAsp='#EE82EE'
                                 }
                                 drawAsp(cx, cy, a.gdeg1, a.gdeg2, colorAsp, i, bgTotal, r.isExt)
+                                drawAsp(cx, cy, a.gdeg1, a.gdeg2, "#FF8833", i, bgTotal, r.isExt)
                             }
                         }
                     }
@@ -163,19 +164,39 @@ Rectangle {
         var px1 = coords[0]
         var py1 = coords[1]
         angulo= gdeg2
-        coords=gCoords(radius, angulo)
-        var px2 = coords[0]
-        var py2 = coords[1]
-        drawAspRect(px1+cx, py1+cy, px2+cx, py2+cy, c, i, item, isBack, 360-angulo)
+        var px2
+        var py2
+        if(c!=='#FF8833'){
+            coords=gCoords(radius, angulo)
+            px2 = coords[0]
+            py2 = coords[1]
+            drawAspRect(px1+cx, py1+cy, px2+cx, py2+cy, c, i, item, isBack, 360-angulo)
+        }else{
+            coords=gCoords(radius+(app.fs*2), angulo)
+            px2 = coords[0]
+            py2 = coords[1]
+            //drawAspAxisRect(cx, cy, px1+cx, py1+cy, c, i, item, isBack, 360-angulo)
+        }
+
     }
     function drawAspRect(sx, sy, px, py, c, i, item, isBack, angulo){
         let s='s'+sx+'-'+sy+'-'+px+'-'+py
         //let comp=Qt.createComponent("../../comps/AspShapeLine.qml")
         let comp=Qt.createComponent("../../../modules/ZoolMap/ZoolMapAspsCircle/AspShapeLine.qml")
         let obj=comp.createObject(item,{sx: sx, sy: sy, px: px, py: py, c: c, n:i, isBack: isBack})
-//        if(i<3){
-//            let objLineSen=compLineSen.createObject(item,{x: sx, y: sy, color: c, rotation: angulo})
-//        }
+        //        if(i<3){
+        //            let objLineSen=compLineSen.createObject(item,{x: sx, y: sy, color: c, rotation: angulo})
+        //        }
+        r.aAspStr1.push(s)
+    }
+    function drawAspAxisRect(sx, sy, px, py, c, i, item, isBack, angulo){
+        let s='s'+sx+'-'+sy+'-'+px+'-'+py
+        //let comp=Qt.createComponent("../../comps/AspShapeLine.qml")
+        let comp=Qt.createComponent("../../../modules/ZoolMap/ZoolMapAspsCircle/AspShapeAxisLine.qml")
+        let obj=comp.createObject(item,{sx: sx, sy: sy, px: px, py: py, c: c, n:i, isBack: isBack})
+        //        if(i<3){
+        //            let objLineSen=compLineSen.createObject(item,{x: sx, y: sy, color: c, rotation: angulo})
+        //        }
         r.aAspStr1.push(s)
     }
     function gCoords(radius, angle) {
@@ -263,84 +284,84 @@ Rectangle {
         return j
     }
     function getAsp(g1, g2) {
-      let asp = -1; // -1 = no hay aspectos. 0 = oposición. 1 = cuadratura. 2 = trígono. 3 = conjunción. 4 = sextil. 5 = semicuadratura. 6 = quincuncio
-      let orbeConjunccion = 8;
-      let orbeOposicion = 8;
-      let orbeTrigono = 8;
-      let orbeCuadratura = 7;
-      let orbeSextil = 6;
-      let orbeSemicuadratura = 2;
-      let orbeQuincuncio = 2;
+        let asp = -1; // -1 = no hay aspectos. 0 = oposición. 1 = cuadratura. 2 = trígono. 3 = conjunción. 4 = sextil. 5 = semicuadratura. 6 = quincuncio
+        let orbeConjunccion = 8;
+        let orbeOposicion = 8;
+        let orbeTrigono = 8;
+        let orbeCuadratura = 7;
+        let orbeSextil = 6;
+        let orbeSemicuadratura = 2;
+        let orbeQuincuncio = 2;
 
 
-      let difDeg;
+        let difDeg;
 
-      // Calculo conjunción.
-      difDeg = diffDegn(g1, g2);
-      if (difDeg < orbeConjunccion && difDeg > -orbeConjunccion) {
-        asp = 3; // Conjunción
-        return asp;
-      }
+        // Calculo conjunción.
+        difDeg = diffDegn(g1, g2);
+        if (difDeg < orbeConjunccion && difDeg > -orbeConjunccion) {
+            asp = 3; // Conjunción
+            return asp;
+        }
 
-      // Calculo oposición.
-      difDeg = diffDegn(g1, g2);
-      if (difDeg < 180.00 + orbeOposicion && difDeg > 180.00 - orbeOposicion) {
-        asp = 0; // Oposición
-        return asp;
-      }
+        // Calculo oposición.
+        difDeg = diffDegn(g1, g2);
+        if (difDeg < 180.00 + orbeOposicion && difDeg > 180.00 - orbeOposicion) {
+            asp = 0; // Oposición
+            return asp;
+        }
 
-      // Calculo cuadratura.
-      difDeg = diffDegn(g1, g2);
-      if (difDeg < 90.00 + orbeCuadratura && difDeg > 90.00 - orbeCuadratura) {
-        asp = 1; // Cuadratura
-        return asp;
-      }
+        // Calculo cuadratura.
+        difDeg = diffDegn(g1, g2);
+        if (difDeg < 90.00 + orbeCuadratura && difDeg > 90.00 - orbeCuadratura) {
+            asp = 1; // Cuadratura
+            return asp;
+        }
 
-      // Calculo trígono.
-      difDeg = diffDegn(g1, g2);
-      if (difDeg < 120.00 + orbeTrigono && difDeg > 120.00 - orbeTrigono) {
-        asp = 2; // Trígono
-        return asp;
-      }
+        // Calculo trígono.
+        difDeg = diffDegn(g1, g2);
+        if (difDeg < 120.00 + orbeTrigono && difDeg > 120.00 - orbeTrigono) {
+            asp = 2; // Trígono
+            return asp;
+        }
 
-      // Calculo sextil.
-      difDeg = diffDegn(g1, g2);
-      if (difDeg < 60.00 + orbeSextil && difDeg > 60.00 - orbeSextil) {
-        asp = 4; // Sextil
-        return asp;
-      }
+        // Calculo sextil.
+        difDeg = diffDegn(g1, g2);
+        if (difDeg < 60.00 + orbeSextil && difDeg > 60.00 - orbeSextil) {
+            asp = 4; // Sextil
+            return asp;
+        }
 
-      // Calculo semicuadratura (45 grados).
-      difDeg = diffDegn(g1, g2);
-      if (difDeg < 45.00 + orbeSemicuadratura && difDeg > 45.00 - orbeSemicuadratura) {
-        asp = 5; // Semicuadratura
-        return asp;
-      }
+        // Calculo semicuadratura (45 grados).
+        difDeg = diffDegn(g1, g2);
+        if (difDeg < 45.00 + orbeSemicuadratura && difDeg > 45.00 - orbeSemicuadratura) {
+            asp = 5; // Semicuadratura
+            return asp;
+        }
 
-      difDeg = diffDegn(g1, g2);
-      if (difDeg < 135.00 + orbeSemicuadratura && difDeg > 135.00 - orbeSemicuadratura) {
-        asp = 5; // Semicuadratura
-        return asp;
-      }
+        difDeg = diffDegn(g1, g2);
+        if (difDeg < 135.00 + orbeSemicuadratura && difDeg > 135.00 - orbeSemicuadratura) {
+            asp = 5; // Semicuadratura
+            return asp;
+        }
 
-      // Calculo quincuncio (150 grados).
-      difDeg = diffDegn(g1, g2);
-      if (difDeg < 150.00 + orbeQuincuncio && difDeg > 150.00 - orbeQuincuncio) {
-        asp = 6; // Quincuncio
-        return asp;
-      }
+        // Calculo quincuncio (150 grados).
+        difDeg = diffDegn(g1, g2);
+        if (difDeg < 150.00 + orbeQuincuncio && difDeg > 150.00 - orbeQuincuncio) {
+            asp = 6; // Quincuncio
+            return asp;
+        }
 
-      difDeg = diffDegn(g1, g2);
-      if (difDeg < 210.00 + orbeQuincuncio && difDeg > 210.00 - orbeQuincuncio) {
-        asp = 6; // Quincuncio
-        return asp;
-      }
+        difDeg = diffDegn(g1, g2);
+        if (difDeg < 210.00 + orbeQuincuncio && difDeg > 210.00 - orbeQuincuncio) {
+            asp = 6; // Quincuncio
+            return asp;
+        }
 
-      return asp; // -1 = no hay aspectos dentro de los orbes definidos
+        return asp; // -1 = no hay aspectos dentro de los orbes definidos
     }
     function diffDegn(deg1, deg2) {
-      let diff = Math.abs(deg1 - deg2) % 360;
-      return Math.min(diff, 360 - diff);
+        let diff = Math.abs(deg1 - deg2) % 360;
+        return Math.min(diff, 360 - diff);
     }
     function getAspName(indexAsp){
         // -1 = no hay aspectos. 0 = oposición. 1 = cuadratura. 2 = trígono. 3 = conjunción. 4 = sextil. 5 = semicuadratura. 6 = quincuncio
@@ -367,24 +388,24 @@ Rectangle {
         return aspName
     }
     function getAspDeg(asp) {
-      switch (asp.toLowerCase()) {
+        switch (asp.toLowerCase()) {
         case "oposición":
-          return 180;
+            return 180;
         case "cuadratura":
-          return 90;
+            return 90;
         case "trígono":
-          return 120;
+            return 120;
         case "conjunción":
-          return 0;
+            return 0;
         case "sextil":
-          return 60;
+            return 60;
         case "semicuadratura":
-          return 45;
+            return 45;
         case "quincuncio":
-          return 150;
+            return 150;
         default:
-          return null; // Retorna null si el aspecto no es reconocido
-      }
+            return null; // Retorna null si el aspecto no es reconocido
+        }
     }
 
 }

@@ -20,6 +20,8 @@ Item{
     anchors.centerIn: parent
     z: !selected?numAstro:20
 
+    property alias b: bodie
+
     property string folderImg: '../../../modules/ZoolMap/imgs/imgs_v1'
 
     property bool isHovered: false

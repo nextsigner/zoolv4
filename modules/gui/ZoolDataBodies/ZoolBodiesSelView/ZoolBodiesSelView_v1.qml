@@ -84,6 +84,7 @@ Rectangle{
         }
     }
     function searchAsp(numAstro){
+        zm.objAspsCircle.clearAxis()
         let j1
         let j2
         if(!zm.ev){
@@ -126,6 +127,8 @@ Rectangle{
                     j.asps['asp'+indexAsp].dga=zm.objAspsCircle.diffDegn(g1, g2)
                     aAspsReg.push(''+numAstro+':'+i)
                     indexAsp++
+                    zm.objAspsCircle.drawAspAxisRect(numAstro, aspType, g1, r.isExt)
+                    zm.objAspsCircle.drawAspAxisRect(numAstro, aspType, g2, r.isExt)
                 }
                 //log.lv('indexAspName: '+indexAspName)
             }

@@ -136,13 +136,23 @@ Rectangle {
                                     colorAsp='#EE82EE'
                                 }
                                 drawAsp(cx, cy, a.gdeg1, a.gdeg2, colorAsp, i, bgTotal, r.isExt)
-                                drawAsp(cx, cy, a.gdeg1, a.gdeg2, "#FF8833", i, bgTotal, r.isExt)
+                                //drawAsp(cx, cy, a.gdeg1, a.gdeg2, colorAsp, i, bgTotal, r.isExt)
                             }
                         }
                     }
                 }
             }
         }
+    }
+    Rectangle{
+        id: xAxis
+        width: r.width
+        height: width
+        color: 'transparent'//apps.backgroundColor//'black'
+        border.width: 0
+        border.color: 'blue'
+        radius: width*0.5
+        anchors.centerIn: r
     }
     Component{
         id: compLineSen
@@ -164,20 +174,10 @@ Rectangle {
         var px1 = coords[0]
         var py1 = coords[1]
         angulo= gdeg2
-        var px2
-        var py2
-        if(c!=='#FF8833'){
-            coords=gCoords(radius, angulo)
-            px2 = coords[0]
-            py2 = coords[1]
-            drawAspRect(px1+cx, py1+cy, px2+cx, py2+cy, c, i, item, isBack, 360-angulo)
-        }else{
-            coords=gCoords(radius+(app.fs*2), angulo)
-            px2 = coords[0]
-            py2 = coords[1]
-            //drawAspAxisRect(cx, cy, px1+cx, py1+cy, c, i, item, isBack, 360-angulo)
-        }
-
+        coords=gCoords(radius, angulo)
+        var px2 = coords[0]
+        var py2 = coords[1]
+        drawAspRect(px1+cx, py1+cy, px2+cx, py2+cy, c, i, item, isBack, 360-angulo)
     }
     function drawAspRect(sx, sy, px, py, c, i, item, isBack, angulo){
         let s='s'+sx+'-'+sy+'-'+px+'-'+py
@@ -189,15 +189,24 @@ Rectangle {
         //        }
         r.aAspStr1.push(s)
     }
-    function drawAspAxisRect(sx, sy, px, py, c, i, item, isBack, angulo){
-        let s='s'+sx+'-'+sy+'-'+px+'-'+py
-        //let comp=Qt.createComponent("../../comps/AspShapeLine.qml")
-        let comp=Qt.createComponent("../../../modules/ZoolMap/ZoolMapAspsCircle/AspShapeAxisLine.qml")
-        let obj=comp.createObject(item,{sx: sx, sy: sy, px: px, py: py, c: c, n:i, isBack: isBack})
-        //        if(i<3){
-        //            let objLineSen=compLineSen.createObject(item,{x: sx, y: sy, color: c, rotation: angulo})
-        //        }
-        r.aAspStr1.push(s)
+    function drawAspAxisRect(numAstro, indexAsp, angulo, isExt){
+        let comp=Qt.createComponent("../../../modules/ZoolMap/ZoolMapAspsCircle/AspAxisLine.qml")
+        let as=zm.objPlanetsCircle.getAs(numAstro)
+        let l1=zm.objPlanetsCircle.width
+        let l2=zm.objAspsCircle.width//-((app.fs*as.pos))
+        let l3=(l1-(l1-l2))*0.5
+        let l=l3-zm.planetSize-(zm.planetSize*as.pos)
+        //log.lv('as.pos:'+as.pos)
+        //log.lv('l1:'+l1)
+        //log.lv('l2:'+l2)
+        //log.lv('l:'+l)
+        //let obj=comp.createObject(xAxis,{numAstro:numAstro, indexAsp: indexAsp, l:l, rot: angulo, isExt: isExt})
+        //r.aAspStr1.push(s)
+    }
+    function clearAxis(){
+        for(var i=0;i<xAxis.children.length;i++){
+            xAxis.children[i].destroy(0)
+        }
     }
     function gCoords(radius, angle) {
         var d = Math.PI/180 //to convert deg to rads
@@ -213,6 +222,8 @@ Rectangle {
         clearSL(bgTotal)
         r.aAspStr1=[]
         bgTotal.json=getAsps(json)
+
+        //drawAspAxisRect(0, 0, 0, false)
 
         //console.log('jsonAsps:'+JSON.stringify(json, null, 2))
     }

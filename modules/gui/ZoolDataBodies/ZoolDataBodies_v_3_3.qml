@@ -14,6 +14,7 @@ Rectangle {
     border.width: 1
     border.color: apps.fontColor
     state: 'show'
+    property alias objZbsv: zbsv
     property var uJson
     property int latFocus: 0
     property int currentIndex: -1

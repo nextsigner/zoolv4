@@ -1035,6 +1035,8 @@ ApplicationWindow {
             //zm.zmc.start()
 
             //zm.unloadExt()
+            //zoolDataBodies.objZbsv.selBodie(0)
+            zm.capturing=!zm.capturing
         }
     }
 }

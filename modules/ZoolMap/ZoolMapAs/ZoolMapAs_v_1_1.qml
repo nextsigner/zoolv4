@@ -7,7 +7,7 @@ import "../../../comps" as Comps
 import ZoolMap.ZoolMapBodie 1.0
 import ZoolMap.ZoolMapAsCotaDeg 1.0
 import ZoolMap.ZoolMapAsCotaText 1.0
-import ZoolMap.ZoolMapPointerPlanet 1.0
+import ZoolMap.ZoolMapPointerPlanet 1.1
 
 Item{
     id: r
@@ -364,12 +364,13 @@ Item{
             mdeg: objData.m
             rsgdeg:objData.gdec-(30*is)
             ih:objData.ih
-            expand: r.selected
+            //expand: r.selected
             iconoSignRot: parent.objImg.rotation
             p: r.numAstro
             cotaLong: app.fs*6
             pointerFs: app.fs*4
             opacity: r.selected&&app.showPointerXAs?1.0:0.0// && JSON.parse(app.currentData).params.t!=='pron'
+            isExt: r.isBack
             onPointerRotChanged: {
                 r.uRot=pointerRot
                 //saveRot()

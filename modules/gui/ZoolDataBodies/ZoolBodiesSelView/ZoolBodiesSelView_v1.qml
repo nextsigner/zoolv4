@@ -136,4 +136,12 @@ Rectangle{
         //log.lv('j: '+JSON.stringify(j, null, 2))
         zm.objAspsCircle.loadFromJsonAsps(j)
     }
+    function selBodie(numAstro){
+        for(var i=0;i<asContainer.children.length;i++){
+            asContainer.children[i].selected=false
+        }
+        if(numAstro>=0){
+            asContainer.children[numAstro].selected=true
+        }
+    }
 }

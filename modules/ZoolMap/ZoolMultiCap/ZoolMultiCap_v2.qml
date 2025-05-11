@@ -16,6 +16,9 @@ Item{
             zm.capturing=true
             if(zm.currentPlanetIndex<19){
                 zm.currentPlanetIndex++
+                zm.capturing=true
+                //zoolDataBodies.objZbsv.searchAsp(zm.currentPlanetIndex)
+                //zoolDataBodies.objZbsv.selBodie(zm.currentPlanetIndex)
                 //zpn.addNot('cpi: '+zm.currentPlanetIndex, true, 20000)
                 let pos=zm.objPlanetsCircle.getAs(zm.currentPlanetIndex).getPos()
                 zm.panTo(pos.x, pos.y)
@@ -25,6 +28,9 @@ Item{
                 tTimerCapBodies.restart()
             }else{
                 zm.currentPlanetIndex=-1
+                //zoolDataBodies.objZbsv.selBodie(-1)
+                //zoolDataBodies.objZbsv.selBodie(-1)
+                //zm.capturing=false
                 stop()
                 //zm.centerZoomAndPos()
                 zm.isMultiCapturingPlanets=false
@@ -124,6 +130,7 @@ Item{
         onTriggered: {
             //log.lv('tInitTimerSelectBodies....')
             tTimerSelectBodies.start()
+
         }
     }
 
@@ -141,6 +148,7 @@ Item{
             zm.currentHouseIndex=0
             zm.objHousesCircle.currentHouse=-1
             zm.centerZoomAndPos()
+            zm.capturing=false
         }
     }
     /*Timer{
@@ -277,8 +285,12 @@ Item{
             let fn=fileUrl
             fn=fn.replace('file://', '')
             result.saveToFile(fn);
+            let jsonNot={}
+            jsonNot.id='captura_'+fn
+            jsonNot.text='imgUrl='+fn
+            zpn.addNot(jsonNot, true, 20000)
             if(openInExternal)Qt.openUrlExternally(fileUrl)
-            zm.capturing=false
+            //zm.capturing=false
             r.itemForCap=undefined
         });
     }

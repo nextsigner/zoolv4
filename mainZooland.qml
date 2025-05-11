@@ -241,6 +241,7 @@ ZoolMainWindow{
                         fillMode: Image.PreserveAspectCrop
                         visible: zm.capturing
                     }
+                    /*
                     Image{
                         id: xAspsUItemGrabber
                         source: zm.objZoolAspectsView.uItemGrabber
@@ -289,6 +290,7 @@ ZoolMainWindow{
                         }
                         visible: zm.capturing
                     }
+                    */
                     Rectangle{
                         anchors.fill: parent
                         color: 'transparent'

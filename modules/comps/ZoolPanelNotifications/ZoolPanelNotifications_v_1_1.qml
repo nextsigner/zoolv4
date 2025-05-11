@@ -93,6 +93,7 @@ Item{
                 spacing: app.fs*0.1
                 anchors.centerIn: parent
                 anchors.horizontalCenterOffset: 0-app.fs*0.25
+                visible: !xImg.visible
                 Text{
                     id: txt
                     text: xTxt.jsonNot.text
@@ -127,6 +128,24 @@ Item{
                         let obj=Qt.createQmlObject(xTxt.jsonNot.qml, app, 'qmlNotCode')
                     }
                 }
+            }
+            Rectangle{
+                id: xImg
+                width: parent.width-app.fs*0.5
+                height: img.height+app.fs*0.5
+                color: apps.backgroundColor
+                border.width: 1
+                border.color: apps.fontColor
+                anchors.centerIn: parent
+                visible: xTxt.jsonNot.text.indexOf('imgUrl=')===0
+                Image {
+                    id: img
+                    width: xTxt.width
+                    fillMode: Image.PreserveAspectFit
+                    source: parent.visible?xTxt.jsonNot.text.split('imgUrl=')[1]:''
+                    anchors.centerIn: parent
+                }
+
             }
             ZoolButton{
                 text: 'X'

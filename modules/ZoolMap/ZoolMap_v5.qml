@@ -199,8 +199,8 @@ Rectangle{
     property int borderSignCircleWidth: 2
     property color pointerBgColor:"#FFFFFF"
     property color pointerFontColor:"red"
-    property int pointerBorderWidth:1
-    property color pointerBorderColor:"#000000"
+    property int pointerBorderWidth:3
+    property color pointerBorderColor:"#FF0000"
     //<--Theme
 
     property var aTexts: []
@@ -878,7 +878,7 @@ Rectangle{
         r.pointerBgColor=t.pointerBgColor
         r.pointerFontColor=t.pointerFontColor
         r.pointerBorderWidth=t.pointerBorderWidth
-        r.pointerBorderColor=t.pointerBorderColor
+        r.pointerBorderColor=t.pointerBorderColor?t.pointerBorderColor:'red'
         apps.fontColor=t.fontColor
         apps.backgroundColor=t.backgroundColor
         r.themeName=t.name

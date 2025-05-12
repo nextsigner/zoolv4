@@ -33,8 +33,14 @@ def getJson(fecha_hora, g1, g2):
         "min": fecha_hora.minute,
         "isData": True,
         "ai": ai,
+        "mi": mi,
+        "di": di,
         "af": af,
+        "mf": mf,
+        "df": df,
+        "tol": tol,
         "b": aBodies[planeta_num][0],
+        "numAstro": planeta_num,
         "gb": g1, #Grado Buscado
         "gr": g2 #Grado Retornado
     }
@@ -57,7 +63,7 @@ def encontrar_fecha_longitud(longitud_deseada):
         # Incrementa la fecha en un día para la siguiente iteración
         tjd += tol
 
-    return {"isData": False, "ai": ai, "af": af, "b": aBodies[planeta_num][0], "gb": longitud_deseada, "gr": -1.0}
+    return {"isData": False, "ai": ai, "mi": mi, "di": di, "af": af, "mf": mf, "df": df, "b": aBodies[planeta_num][0], "gb": longitud_deseada, "gr": -1.0, "tol": tol, "numAstro": planeta_num}
 
 if __name__ == "__main__":
     fecha_encontrada = encontrar_fecha_longitud(longitud_objetivo)

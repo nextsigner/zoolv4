@@ -7,6 +7,7 @@ import ZoolText 1.1
 import ZoolTextInput 1.0
 import ZoolButton 1.2
 import ZoolControlsTime 1.0
+import ZoolMods.ZoolFileTransLoader.BodiesButtons 1.0
 
 Rectangle {
     id: r
@@ -31,7 +32,7 @@ Rectangle {
     property string uParamsLoaded: ''
     onVisibleChanged: {
         //if(visible)zoolVoicePlayer.stop()
-      //if(visible)zoolVoicePlayer.speak('Sección para cargar tránsitos.', true)
+        //if(visible)zoolVoicePlayer.speak('Sección para cargar tránsitos.', true)
     }
     Timer{
         running: r.uParamsLoaded!==''
@@ -102,7 +103,7 @@ Rectangle {
                     onCurrentIndexChanged: {
                         if(currentIndex===app.ahys.indexOf(apps.currentHsys))return
                         apps.currentHsys=app.ahys[currentIndex]
-                        updateUParams()                        
+                        updateUParams()
                     }
                 }
             }
@@ -432,6 +433,56 @@ Rectangle {
                 }
             }
             Column{
+                spacing: app.fs*0.5
+                Text{
+                    text: "AAA: "+bb.aSelected.toString()
+                    font.pixelSize: app.fs*0.5
+                    color: 'white'
+                }
+                BodiesButtons{
+                    id: bb
+                    width: r.width-app.fs*0.5
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    onSelected:{
+                        //log.lv('--->bsel1: '+bb.bsel1)
+                        //log.lv('--->bsel2: '+bb.bsel2)
+                        /*let numAstroInt=zm.currentPlanetIndex
+                        if(bb.aSelected.length===0){
+                            return
+                        }else if(bb.aSelected.length===1){
+                            numAstroInt=bb.aSelected[0]
+                        }else if(bb.aSelected.length===2){
+                            numAstroInt=bb.aSelected[1]
+                        }else{
+                            bb.unSelBodie(bb.aSelected[1])
+                        }
+                        return*/
+
+
+
+
+
+                        let numAstroBuscado=-1
+                        let b
+
+                        if(bb.bsel2>=0){
+                            b=zm.currentJson.pc['c'+bb.bsel1]
+                            numAstroBuscado=bb.bsel2
+                        }else{
+                            numAstroBuscado=bb.bsel1
+                            b=zm.currentJson.pc['c'+bb.bsel1]
+                        }
+                        searchBodieDateFronLong(numAstroBuscado, b.gdec, 2025, 1, 1, 2026, 1, 1, 0.1)
+                    }
+                }
+            }
+            /*Button{
+                text: 'Buscar'
+                onClicked: {
+                    searchBodieDateFronLong(4, 150.00, 2025, 1, 1, 2026, 1, 1, 0.1)
+                }
+            }*/
+            Column{
                 id: colLatLon
                 anchors.horizontalCenter: parent.horizontalCenter
                 visible: r.lat===r.ulat&&r.lon===r.ulon && !cbUseIntCoords.checked
@@ -635,8 +686,70 @@ Rectangle {
 
         let strEdad='Edad: '+zm.getEdad(d, m, a, h, min)+' años'
         let aR=[]
-        zm.loadBackFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, vCiudad, strEdad, t, hsys, -1, aR)        
+        zm.loadBackFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, vCiudad, strEdad, t, hsys, -1, aR)
     }
+    //Crear Proceso para searchBodieDateFronLong.py
+    function searchBodieDateFronLong(numAstro, g, ai, mi, di, af, mf, df, tol){
+        let d = new Date(Date.now())
+        let ms=d.getTime()
+        let c='import QtQuick 2.0\n'
+        c+='import unik.UnikQProcess 1.0\n'
+        c+='UnikQProcess{\n'
+        c+='    id: uqp'+ms+'\n'
+        c+='    onLogDataChanged:{\n'
+        c+='            console.log(logData)\n'
+        c+='        let result=(\'\'+logData).replace(/\\n/g, \'\')\n'
+        c+='        let json=JSON.parse(result)\n'
+        c+='        if(json){\n'
+        c+='            revSearchBodieDateFronLongResult(json)\n'
+        c+='        }else{\n'
+        c+='            log.lv(\'Error al consultar: searchBodieDateFronLong.py.\')\n'
+        c+='        }\n'
+        c+='        uqp'+ms+'.destroy(0)\n'
+        c+='    }\n'
+        c+='    Component.onCompleted:{\n'
+        c+='        let cmd=\''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/searchBodieDateFronLong.py" "'+unik.currentFolderPath()+'" '+numAstro+' '+g+' '+ai+' '+mi+' '+di+' '+af+' '+mf+' '+df+' '+tol+'\'\n'
+        c+='        run(cmd)\n'
+        c+='    }\n'
+        c+='}\n'
+        if(apps.dev)log.lv('\n\n'+c+'\n\n')
+        let comp=Qt.createQmlObject(c, xuqp, 'uqpcodenewtrans')
+    }
+    function revSearchBodieDateFronLongResult(j){
+        let jNot={}
+        jNot.id='trans_rev'
+        if(j.isData){
+            let gred=redondearPersonalizado(j.gr)
+            //log.lv('Grados: '+j.gb+' <--> '+gred)
+            if(j.gb>gred && j.tol < 0.005){
+                jNot.text='Reprocesando: '+JSON.stringify(j, null, 2)
+                searchBodieDateFronLong(j.numAstro, j.gb, j.ai, j.mi, j.di, j.af, j.mf, j.df, j.tol*0.5)
+            }else{
+                setSearchBodieDateFronLongResult(j)
+                jNot.text='Procesado: '+JSON.stringify(j, null, 2)
+            }
+        }
+        zpn.addNot(jNot, true, 15000)
+    }
+    function setSearchBodieDateFronLongResult(j){
+        controlTimeFecha.currentDate=new Date(j.a, j.m-1, j.d, j.h, j.min)
+        loadTrans()
+    }
+
+    function redondearPersonalizado(numero) {
+        const factor = Math.pow(10, 2); // Factor para dos decimales
+        const numeroString = numero.toString();
+        const partes = numeroString.split('.');
+
+        if (partes.length === 2 && partes[1].length > 3) {
+            const cuartoDecimal = parseInt(partes[1][3]);
+            if (cuartoDecimal >= 9) {
+                return (Math.floor(numero * factor) + 1) / factor;
+            }
+        }
+        return Math.round(numero * factor) / factor;
+    }
+
     function enter(){
         if(botCrear.focus&&tiNombre.text!==''&&tiFecha1.text!==''&&tiFecha2.text!==''&&tiFecha3.text!==''&&tiHora1.text!==''&&tiHora2.text!==''&&tiGMT.text!==''&&tiCiudad.text!==''){
             searchGeoLoc(true)

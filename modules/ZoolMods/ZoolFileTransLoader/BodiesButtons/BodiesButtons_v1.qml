@@ -41,14 +41,21 @@ Rectangle{
                     //searchAsp(numAstro)
                 }else{
                     bg1.color='transparent'
-                    if(r.bsel1!==-1)r.bsel1=-1
+                    if(r.bsel1!==-1){
+                        r.bsel2=-1
+                    }else{
+                        r.bsel1=-1
+                    }
                     r.selected(numAstro, false)
+
                 }
+                bg1.color=r.bsel1===numAstro?'green':(r.bsel2===numAstro?'red':'transparent')
             }
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
                     xa.selected=!xa.selected
+
                 }
             }
             Rectangle{
@@ -66,11 +73,11 @@ Rectangle{
                     opacity: 1.0//xa.selected?0.35:0.0
                     anchors.fill: parent
                     Timer{
-                        running: xa.selected
+                        running: false//xa.selected
                         repeat: true
-                        interval: 500
+                        interval: 100
                         onTriggered: {
-                            parent.color=r.bsel1===numAstro?'green':(r.bsel2===numAstro?'red':'transparent')
+                            //parent.color=r.bsel1===numAstro?'green':(r.bsel2===numAstro?'red':'transparent')
                         }
                     }
                 }

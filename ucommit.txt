@@ -1,1 +1,1 @@
-Se agrega botonera en ZoolFileTransLoader
+Se agrega controlsTime a BB en ZoolFileTransLoader

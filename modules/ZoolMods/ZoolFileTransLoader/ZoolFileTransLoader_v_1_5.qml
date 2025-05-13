@@ -197,6 +197,56 @@ Rectangle {
                     }
                 }
             }
+            Comps.XMarco{
+                id: xm1
+                width: r.width-app.fs*0.5
+                anchors.horizontalCenter: parent.horizontalCenter
+                Column{
+                    spacing: app.fs*0.5
+                    anchors.centerIn: parent
+                    ZoolControlsTime{
+                        id: controlTimeFechaForBB
+                        gmt: zm.currentGmt
+                        labelText: 'Buscar Tránsito'
+                        fs:xm1.width*0.07
+                        setAppTime: false
+                    }
+                    Text{
+                        text: 'Buscar desde '+controlTimeFechaForBB.dia+'/'+controlTimeFechaForBB.mes+'/'+controlTimeFechaForBB.anio+' hasta '
+                              +controlTimeFechaForBB.dia+'/'+controlTimeFechaForBB.mes+'/'+parseInt(controlTimeFechaForBB.anio + 1)
+                        width: bb.width
+                        wrapMode: Text.WordWrap
+                        font.pixelSize: app.fs*0.5
+                        color: 'white'
+                    }
+                    BodiesButtons{
+                        id: bb
+                        width: xm1.width-app.fs*0.5
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        onSelected:{
+                            let numAstroBuscado=-1
+                            let b
+
+                            if(bb.bsel2>=0){
+                                b=zm.currentJson.pc['c'+bb.bsel1]
+                                numAstroBuscado=bb.bsel2
+                            }else{
+                                numAstroBuscado=bb.bsel1
+                                b=zm.currentJson.pc['c'+bb.bsel1]
+                            }
+                            searchBodieDateFronLong(numAstroBuscado, b.gdec, controlTimeFechaForBB.anio, 1, 1, controlTimeFechaForBB.anio+1, 1, 1, 0.1)
+                        }
+                    }
+                    Text{
+                        id: rTxt
+                        text: "Esperando consulta."
+                        width: bb.width
+                        wrapMode: Text.WordWrap
+                        font.pixelSize: app.fs*0.5
+                        color: 'white'
+                    }
+                }
+            }
 
             Comps.XMarco{
                 Column{
@@ -258,6 +308,7 @@ Rectangle {
                     }
                 }
             }
+
             Row{
                 spacing: app.fs*0.5
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -432,50 +483,7 @@ Rectangle {
                     visible: settings.inputCoords
                 }
             }
-            Column{
-                spacing: app.fs*0.5
-                Text{
-                    text: "AAA: "+bb.aSelected.toString()
-                    font.pixelSize: app.fs*0.5
-                    color: 'white'
-                }
-                BodiesButtons{
-                    id: bb
-                    width: r.width-app.fs*0.5
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    onSelected:{
-                        //log.lv('--->bsel1: '+bb.bsel1)
-                        //log.lv('--->bsel2: '+bb.bsel2)
-                        /*let numAstroInt=zm.currentPlanetIndex
-                        if(bb.aSelected.length===0){
-                            return
-                        }else if(bb.aSelected.length===1){
-                            numAstroInt=bb.aSelected[0]
-                        }else if(bb.aSelected.length===2){
-                            numAstroInt=bb.aSelected[1]
-                        }else{
-                            bb.unSelBodie(bb.aSelected[1])
-                        }
-                        return*/
 
-
-
-
-
-                        let numAstroBuscado=-1
-                        let b
-
-                        if(bb.bsel2>=0){
-                            b=zm.currentJson.pc['c'+bb.bsel1]
-                            numAstroBuscado=bb.bsel2
-                        }else{
-                            numAstroBuscado=bb.bsel1
-                            b=zm.currentJson.pc['c'+bb.bsel1]
-                        }
-                        searchBodieDateFronLong(numAstroBuscado, b.gdec, 2025, 1, 1, 2026, 1, 1, 0.1)
-                    }
-                }
-            }
             /*Button{
                 text: 'Buscar'
                 onClicked: {
@@ -718,17 +726,27 @@ Rectangle {
     function revSearchBodieDateFronLongResult(j){
         let jNot={}
         jNot.id='trans_rev'
+        let sfecha=''
         if(j.isData){
             let gred=redondearPersonalizado(j.gr)
             //log.lv('Grados: '+j.gb+' <--> '+gred)
+            sfecha+=''+j.d+'/'+j.m+'/'+j.a+' '+j.h+':'+j.min
             if(j.gb>gred && j.tol < 0.005){
-                jNot.text='Reprocesando: '+JSON.stringify(j, null, 2)
+                jNot.text='Tránsito: Calculando'
                 searchBodieDateFronLong(j.numAstro, j.gb, j.ai, j.mi, j.di, j.af, j.mf, j.df, j.tol*0.5)
             }else{
                 setSearchBodieDateFronLongResult(j)
-                jNot.text='Procesado: '+JSON.stringify(j, null, 2)
+                jNot.text='Tránsito: Fecha obtenida'
             }
+            jNot.text+=' '+sfecha
+            rTxt.text=jNot.text
+        }else{
+            let sfi=''+j.di+'/'+j.mi+'/'+j.ai
+            let sff=''+j.df+'/'+j.mf+'/'+j.af
+            jNot.text='En las fechas '+sfi+' y '+sff+', no hay ningún tránsito de '+zm.aBodies[bb.bsel2]+' sobre '+zm.aBodies[bb.bsel1]
+            rTxt.text=jNot.text
         }
+
         zpn.addNot(jNot, true, 15000)
     }
     function setSearchBodieDateFronLongResult(j){

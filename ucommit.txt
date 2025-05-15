@@ -1,1 +1,1 @@
-Se agrega controlsTime a BB en ZoolFileTransLoader
+Se agrega boton guardar en ZoolFileTransLoader

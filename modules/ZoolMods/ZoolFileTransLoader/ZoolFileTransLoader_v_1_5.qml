@@ -211,6 +211,7 @@ Rectangle {
                         fs:xm1.width*0.07
                         setAppTime: false
                     }
+
                     Text{
                         text: 'Buscar desde '+controlTimeFechaForBB.dia+'/'+controlTimeFechaForBB.mes+'/'+controlTimeFechaForBB.anio+' hasta '
                               +controlTimeFechaForBB.dia+'/'+controlTimeFechaForBB.mes+'/'+parseInt(controlTimeFechaForBB.anio + 1)
@@ -219,22 +220,33 @@ Rectangle {
                         font.pixelSize: app.fs*0.5
                         color: 'white'
                     }
+                    Row{
+                        spacing: app.fs*0.5
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        ZoolButton{
+                            text: 'Ahora'
+                            onClicked:{
+                                controlTimeFechaForBB.currentDate=new Date(Date.now())
+                                initSearch()
+                            }
+                        }
+                        ZoolButton{
+                            text: 'Recargar Hora de Archivo'
+                            onClicked:{
+                                let json=JSON.parse(zm.currentData)
+                                let d=new Date(json.params.a, parseInt(json.params.m - 1), json.params.d, json.params.h, json.params.min)
+                                controlTimeFechaForBB.currentDate=d
+                                controlTimeFechaForBB.gmt=json.params.gmt
+                                initSearch()
+                            }
+                        }
+                    }
                     BodiesButtons{
                         id: bb
                         width: xm1.width-app.fs*0.5
                         anchors.horizontalCenter: parent.horizontalCenter
                         onSelected:{
-                            let numAstroBuscado=-1
-                            let b
-
-                            if(bb.bsel2>=0){
-                                b=zm.currentJson.pc['c'+bb.bsel1]
-                                numAstroBuscado=bb.bsel2
-                            }else{
-                                numAstroBuscado=bb.bsel1
-                                b=zm.currentJson.pc['c'+bb.bsel1]
-                            }
-                            searchBodieDateFronLong(numAstroBuscado, b.gdec, controlTimeFechaForBB.anio, 1, 1, controlTimeFechaForBB.anio+1, 1, 1, 0.1)
+                            initSearch()
                         }
                     }
                     Text{
@@ -244,6 +256,41 @@ Rectangle {
                         wrapMode: Text.WordWrap
                         font.pixelSize: app.fs*0.5
                         color: 'white'
+                    }
+                    Row{
+                        spacing: app.fs*0.5
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        ZoolButton{
+                            text: 'Guardar'
+                            onClicked:{
+                                let pExt=zm.currentJsonBack.params
+                                let n=''
+                                let b1=zm.aBodies[bb.bsel1]
+                                let b2
+                                let bInt=zm.currentJson.pc['c'+bb.bsel1]
+                                let bExt
+                                if(bb.bsel2>=0){
+                                    b2=zm.aBodies[bb.bsel2]
+                                    bExt=zm.currentJsonBack.pc['c'+bb.bsel2]
+                                }else{
+                                    b2=zm.aBodies[bb.bsel1]
+                                    bExt=zm.currentJsonBack.pc['c'+bb.bsel1]
+                                }
+                                //log.lv('json: '+JSON.stringify(, null, 2))
+                                let is=zm.getIndexSign(bInt.gdec)
+                                let aspIndex=zm.objAspsCircle.getAsp(bInt.gdec, bExt.gdec)
+                                let aspName=zm.objAspsCircle.getAspName(aspIndex)
+                                let dms=zm.getDDToDMS(bExt.gdec)
+                                let dmsDeg=dms.deg-(30*aspIndex)
+                                let dmsMin=dms.min
+                                let dmsSec=parseInt(dms.sec)
+                                n+=''+b2+' '+aspName+' '+b1+' '+pExt.d+'/'+pExt.m+'/'+pExt.a
+                                let data=''+b2+' transitando en '+aspName+' con '+b1+' en el signo '+zm.aSigns[is]+' por el grado °'+dmsDeg+' \''+dmsMin+' \'\''+dmsSec
+
+
+                                saveAsExt(n, data)
+                            }
+                        }
                     }
                 }
             }
@@ -697,6 +744,19 @@ Rectangle {
         zm.loadBackFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, vCiudad, strEdad, t, hsys, -1, aR)
     }
     //Crear Proceso para searchBodieDateFronLong.py
+    function initSearch(){
+        let numAstroBuscado=-1
+        let b
+
+        if(bb.bsel2>=0){
+            b=zm.currentJson.pc['c'+bb.bsel1]
+            numAstroBuscado=bb.bsel2
+        }else{
+            numAstroBuscado=bb.bsel1
+            b=zm.currentJson.pc['c'+bb.bsel1]
+        }
+        searchBodieDateFronLong(numAstroBuscado, b.gdec, controlTimeFechaForBB.anio, 1, 1, controlTimeFechaForBB.anio+1, 1, 1, 0.1)
+    }
     function searchBodieDateFronLong(numAstro, g, ai, mi, di, af, mf, df, tol){
         let d = new Date(Date.now())
         let ms=d.getTime()
@@ -745,15 +805,28 @@ Rectangle {
             let sff=''+j.df+'/'+j.mf+'/'+j.af
             jNot.text='En las fechas '+sfi+' y '+sff+', no hay ningún tránsito de '+zm.aBodies[bb.bsel2]+' sobre '+zm.aBodies[bb.bsel1]
             rTxt.text=jNot.text
+            controlTimeFechaForBB.anio++
+            initSearch()
         }
-
         zpn.addNot(jNot, true, 15000)
     }
     function setSearchBodieDateFronLongResult(j){
         controlTimeFecha.currentDate=new Date(j.a, j.m-1, j.d, j.h, j.min)
         loadTrans()
     }
-
+    function saveAsExt(n, data){
+        let sp=zm.fileDataBack
+        let p=JSON.parse(sp)
+        let nd=new Date(Date.now())
+        p.params.ms=nd.getTime()
+        p.params.n=n
+        p.params.data=data
+        if(!p.params.c){
+            p.params.c=zm.currentLugar
+        }
+        zfdm.addExtDataAndSave(p)
+        zm.fileDataBack=JSON.stringify(p, null, 2)
+    }
     function redondearPersonalizado(numero) {
         const factor = Math.pow(10, 2); // Factor para dos decimales
         const numeroString = numero.toString();

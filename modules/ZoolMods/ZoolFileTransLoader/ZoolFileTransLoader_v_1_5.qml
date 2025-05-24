@@ -31,11 +31,15 @@ Rectangle {
 
     property string uParamsLoaded: ''
 
-    property var cDateST: zm.currentDate //Search trans
+    property var cDateDesde: zm.currentDate //Search trans
+    property var cDateHasta
 
     onVisibleChanged: {
         //if(visible)zoolVoicePlayer.stop()
         //if(visible)zoolVoicePlayer.speak('Sección para cargar tránsitos.', true)
+    }
+    onCDateDesdeChanged: {
+       setInfoDesdeHasta()
     }
     Timer{
         running: r.uParamsLoaded!==''
@@ -222,16 +226,39 @@ Rectangle {
                         font.pixelSize: app.fs*0.5
                         color: 'white'
                     }
+                    Column{
+                        spacing: app.fs*0.1
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        Row{
+                            spacing: app.fs*0.1
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            Text{
+                                id: lDesde
+                                font.pixelSize: app.fs*0.35
+                                color: apps.fontColor
+                            }
+                            Text{
+                                text: '< -- >'
+                                font.pixelSize: app.fs*0.35
+                                color: apps.fontColor
+                            }
+                            Text{
+                                id: lHasta
+                                font.pixelSize: app.fs*0.35
+                                color: apps.fontColor
+                            }
+                        }
                     Row{
                         spacing: app.fs*0.5
                         anchors.horizontalCenter: parent.horizontalCenter
                         ZoolButton{
                             text: 'Definir a Fecha de Inicio'
                             onClicked:{
-                                cDateST=controlTimeFechaForBB.currentDate
+                                cDateDesde=controlTimeFechaForBB.currentDate
                             }
                         }
                     }
+                }
                     Row{
                         spacing: app.fs*0.5
                         anchors.horizontalCenter: parent.horizontalCenter                        
@@ -261,7 +288,7 @@ Rectangle {
                             if(!is1){
                                 initSearch()
                             }else{
-                                controlTimeFechaForBB.currentDate=r.cDateST
+                                controlTimeFechaForBB.currentDate=r.cDateDesde
                             }
 
                         }
@@ -773,7 +800,7 @@ Rectangle {
             b=zm.currentJson.pc['c'+bb.bsel1]
         }
         searchBodieDateFronLong(numAstroBuscado, b.gdec, controlTimeFechaForBB.anio, 1, 1, controlTimeFechaForBB.anio+1, 1, 1, 0.1)
-        //let fyd= new Date(r.cDateST)
+        //let fyd= new Date(r.cDateDesde)
         //let fy=fyd.getFullYear()
         //searchBodieDateFronLong(numAstroBuscado, b.gdec, fy, 1, 1, fy+1, 1, 1, 0.1)
     }
@@ -846,6 +873,22 @@ Rectangle {
         }
         zfdm.addExtDataAndSave(p)
         zm.fileDataBack=JSON.stringify(p, null, 2)
+    }
+    function setInfoDesdeHasta(){
+        let d=cDateDesde.getDate()
+        let m=cDateDesde.getMonth()+1
+        let a=cDateDesde.getFullYear()
+        lDesde.text='<b>Desde: </b>'+d+'/'+m+'/'+a
+
+        let myDate = new Date(cDateDesde); // Por ejemplo, la fecha actual
+        myDate.setFullYear(myDate.getFullYear() + 100);
+
+        cDateHasta=myDate
+
+        d=cDateHasta.getDate()
+        m=cDateHasta.getMonth()+1
+        a=cDateHasta.getFullYear()
+        lHasta.text='<b>Hasta: </b>'+d+'/'+m+'/'+a
     }
     function redondearPersonalizado(numero) {
         const factor = Math.pow(10, 2); // Factor para dos decimales

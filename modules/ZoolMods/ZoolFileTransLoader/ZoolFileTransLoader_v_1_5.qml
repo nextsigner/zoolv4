@@ -222,10 +222,14 @@ Rectangle {
                         font.pixelSize: app.fs*0.5
                         color: 'white'
                     }
-                    ZoolButton{
-                        text: 'Definir a Fecha de Inicio'
-                        onClicked:{
-                            cDateST=controlTimeFechaForBB.currentDate
+                    Row{
+                        spacing: app.fs*0.5
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        ZoolButton{
+                            text: 'Definir a Fecha de Inicio'
+                            onClicked:{
+                                cDateST=controlTimeFechaForBB.currentDate
+                            }
                         }
                     }
                     Row{

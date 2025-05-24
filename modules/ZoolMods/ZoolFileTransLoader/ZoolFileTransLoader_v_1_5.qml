@@ -30,6 +30,9 @@ Rectangle {
     property real ulon:-100.00
 
     property string uParamsLoaded: ''
+
+    property var cDateST: zm.currentDate //Search trans
+
     onVisibleChanged: {
         //if(visible)zoolVoicePlayer.stop()
         //if(visible)zoolVoicePlayer.speak('Sección para cargar tránsitos.', true)
@@ -211,7 +214,6 @@ Rectangle {
                         fs:xm1.width*0.07
                         setAppTime: false
                     }
-
                     Text{
                         text: 'Buscar desde '+controlTimeFechaForBB.dia+'/'+controlTimeFechaForBB.mes+'/'+controlTimeFechaForBB.anio+' hasta '
                               +controlTimeFechaForBB.dia+'/'+controlTimeFechaForBB.mes+'/'+parseInt(controlTimeFechaForBB.anio + 1)
@@ -220,9 +222,15 @@ Rectangle {
                         font.pixelSize: app.fs*0.5
                         color: 'white'
                     }
+                    ZoolButton{
+                        text: 'Definir a Fecha de Inicio'
+                        onClicked:{
+                            cDateST=controlTimeFechaForBB.currentDate
+                        }
+                    }
                     Row{
                         spacing: app.fs*0.5
-                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter                        
                         ZoolButton{
                             text: 'Ahora'
                             onClicked:{
@@ -246,7 +254,12 @@ Rectangle {
                         width: xm1.width-app.fs*0.5
                         anchors.horizontalCenter: parent.horizontalCenter
                         onSelected:{
-                            initSearch()
+                            if(!is1){
+                                initSearch()
+                            }else{
+                                controlTimeFechaForBB.currentDate=r.cDateST
+                            }
+
                         }
                     }
                     Text{
@@ -756,6 +769,9 @@ Rectangle {
             b=zm.currentJson.pc['c'+bb.bsel1]
         }
         searchBodieDateFronLong(numAstroBuscado, b.gdec, controlTimeFechaForBB.anio, 1, 1, controlTimeFechaForBB.anio+1, 1, 1, 0.1)
+        //let fyd= new Date(r.cDateST)
+        //let fy=fyd.getFullYear()
+        //searchBodieDateFronLong(numAstroBuscado, b.gdec, fy, 1, 1, fy+1, 1, 1, 0.1)
     }
     function searchBodieDateFronLong(numAstro, g, ai, mi, di, af, mf, df, tol){
         let d = new Date(Date.now())

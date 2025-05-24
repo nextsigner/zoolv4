@@ -1,1 +1,1 @@
-Se agrega boton guardar en ZoolFileTransLoader
+Se programan funciones de tránsitos

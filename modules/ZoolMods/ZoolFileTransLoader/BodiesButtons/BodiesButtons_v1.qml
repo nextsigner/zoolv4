@@ -15,7 +15,7 @@ Rectangle{
     //property var aSelected: []
     property int bsel1: -1
     property int bsel2: -1
-    signal selected(int numAstro, bool selected)
+    signal selected(int numAstro, bool selected, bool is1)
     Flow{
         id: asContainer
         spacing: 0//app.fs*0.1
@@ -37,19 +37,32 @@ Rectangle{
                     }else{
                         r.bsel2=numAstro
                     }
-                    r.selected(numAstro, true)
+                    if(r.bsel1===numAstro){
+                        unSelBodie(r.bsel2)
+                    }else{
+                        //selBodie(-1)
+                    }
+                    //r.selected(numAstro, true)
                     //searchAsp(numAstro)
                 }else{
                     bg1.color='transparent'
-                    if(r.bsel1!==-1){
+                    selBodie(-1)
+                    if(r.bsel1===numAstro){
+                        r.bsel1=-1
                         r.bsel2=-1
                     }else{
-                        r.bsel1=-1
+                        if(r.bsel1!==-1){
+                            r.bsel2=-1
+                        }else{
+                            r.bsel1=-1
+                        }
                     }
-                    r.selected(numAstro, false)
+                    //r.selected(numAstro, false)
 
                 }
+                r.selected(numAstro, selected, r.bsel1===numAstro)
                 bg1.color=r.bsel1===numAstro?'green':(r.bsel2===numAstro?'red':'transparent')
+                unSetBodiesColor()
             }
             MouseArea{
                 anchors.fill: parent
@@ -177,6 +190,13 @@ Rectangle{
             if(numAstro===i){
                 asContainer.children[i].selected=false
                 break
+            }
+        }
+    }
+    function unSetBodiesColor(){
+        for(var i=0;i<asContainer.children.length;i++){
+            if(numAstro!==r.bsel1 && numAstro!==r.bsel2){
+                asContainer.children[i].color='transparent'
             }
         }
     }

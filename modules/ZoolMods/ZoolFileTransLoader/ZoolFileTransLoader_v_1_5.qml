@@ -9,6 +9,7 @@ import ZoolTextInput 1.0
 import ZoolButton 1.2
 import ZoolControlsTime 1.0
 import ZoolMods.ZoolFileTransLoader.BodiesButtons 1.0
+import ZoolMods.ZoolFileTransLoader.TransList 1.0
 
 Rectangle {
     id: r
@@ -40,26 +41,7 @@ Rectangle {
         //if(visible)zoolVoicePlayer.speak('Sección para cargar tránsitos.', true)
     }
     onCDateDesdeChanged: {
-//        let myDate = new Date(cDateDesde);
 
-//        let addAnios=0
-
-//        let jsonNot={}
-
-//        if(cDateHasta===undefined){
-//            addAnios=100
-//            jsonNot.text='111'
-//        }else if(cDateHasta.getTime()>cDateDesde.getTime()){
-//            addAnios=0
-//            jsonNot.text='2222'
-//        }else{
-//            addAnios=0
-//            jsonNot.text='3333'
-//        }
-//        zpn.addNot(jsonNot, true, 20000)
-//        myDate.setFullYear(myDate.getFullYear() + addAnios);
-
-//        cDateHasta=myDate
         setInfoDesdeHasta()
     }
     onCDateHastaChanged: setInfoDesdeHasta()
@@ -72,7 +54,7 @@ Rectangle {
 
     //Timer para adelantar y separar los tiempos DESDE y HASTA
     Timer{
-        running: cDateDesde.getTime()===cDateHasta.getTime()
+        running: cDateDesde.getTime()>=cDateHasta.getTime()
         repeat: false
         interval: 1000
         onTriggered: {
@@ -291,7 +273,7 @@ Rectangle {
                                 checkable: true
                                 enabled: !botSetHasta.checked
                                 onClicked:{
-                                    cDateDesde=controlTimeFechaSetDesdeHasta.currentDate
+                                    //cDateDesde=controlTimeFechaSetDesdeHasta.currentDate
                                 }
                                 onCheckedChanged: if(checked)controlTimeFechaSetDesdeHasta.t=1
                                 FocusSen{
@@ -308,7 +290,7 @@ Rectangle {
                                 checkable: true
                                 enabled: !botSetDesde.checked
                                 onClicked:{
-                                    cDateDesde=controlTimeFechaSetDesdeHasta.currentDate
+                                    //cDateDesde=controlTimeFechaSetDesdeHasta.currentDate
                                 }
                                 onCheckedChanged: if(checked)controlTimeFechaSetDesdeHasta.t=2
                                 FocusSen{
@@ -392,6 +374,14 @@ Rectangle {
                         wrapMode: Text.WordWrap
                         font.pixelSize: app.fs*0.5
                         color: 'white'
+                    }
+                    TransList{
+                        id: tl
+                        width: bb.width
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        onSelected:{
+                            setSearchBodieDateFronLongResult(JSON.parse(j))
+                        }
                     }
                     Row{
                         spacing: app.fs*0.5
@@ -934,8 +924,14 @@ Rectangle {
                 jNot.text='Tránsito: Calculando'
                 searchBodieDateFronLong(j.numAstro, j.gb, j.ai, j.mi, j.di, j.af, j.mf, j.df, j.tol*0.5)
             }else{
-                setSearchBodieDateFronLongResult(j)
+                //setSearchBodieDateFronLongResult(j)
+                tl.addItem(j)
                 jNot.text='Tránsito: Fecha obtenida'
+                if(controlTimeFechaForBB.anio<cDateHasta.getFullYear()){
+                    controlTimeFechaForBB.anio++
+                    initSearch()
+                    return
+                }
             }
             jNot.text+=' '+sfecha
             rTxt.text=jNot.text

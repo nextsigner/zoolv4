@@ -1,1 +1,1 @@
-mm: Se agregan botones DESDE y HASTA en trans
+Se agrega TransList a trans

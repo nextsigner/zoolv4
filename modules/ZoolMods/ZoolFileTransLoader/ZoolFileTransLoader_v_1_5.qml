@@ -3,6 +3,7 @@ import QtQuick.Controls 2.0
 import Qt.labs.settings 1.1
 import "../../../comps" as Comps
 
+import comps.FocusSen 1.0
 import ZoolText 1.1
 import ZoolTextInput 1.0
 import ZoolButton 1.2
@@ -32,20 +33,53 @@ Rectangle {
     property string uParamsLoaded: ''
 
     property var cDateDesde: zm.currentDate //Search trans
-    property var cDateHasta
+    property var cDateHasta: zm.currentDate
 
     onVisibleChanged: {
         //if(visible)zoolVoicePlayer.stop()
         //if(visible)zoolVoicePlayer.speak('Sección para cargar tránsitos.', true)
     }
     onCDateDesdeChanged: {
-       setInfoDesdeHasta()
+//        let myDate = new Date(cDateDesde);
+
+//        let addAnios=0
+
+//        let jsonNot={}
+
+//        if(cDateHasta===undefined){
+//            addAnios=100
+//            jsonNot.text='111'
+//        }else if(cDateHasta.getTime()>cDateDesde.getTime()){
+//            addAnios=0
+//            jsonNot.text='2222'
+//        }else{
+//            addAnios=0
+//            jsonNot.text='3333'
+//        }
+//        zpn.addNot(jsonNot, true, 20000)
+//        myDate.setFullYear(myDate.getFullYear() + addAnios);
+
+//        cDateHasta=myDate
+        setInfoDesdeHasta()
     }
+    onCDateHastaChanged: setInfoDesdeHasta()
     Timer{
         running: r.uParamsLoaded!==''
         repeat: false
         interval: 100
         onTriggered: r.loadJsonFromArgsBack()
+    }
+
+    //Timer para adelantar y separar los tiempos DESDE y HASTA
+    Timer{
+        running: cDateDesde.getTime()===cDateHasta.getTime()
+        repeat: false
+        interval: 1000
+        onTriggered: {
+            let myDate = new Date(cDateDesde);
+            myDate.setFullYear(myDate.getFullYear() + 100);
+            cDateHasta=myDate
+        }
     }
     MouseArea{
         anchors.fill: parent
@@ -227,7 +261,7 @@ Rectangle {
                         color: 'white'
                     }
                     Column{
-                        spacing: app.fs*0.1
+                        spacing: app.fs*0.25
                         anchors.horizontalCenter: parent.horizontalCenter
                         Row{
                             spacing: app.fs*0.1
@@ -248,37 +282,95 @@ Rectangle {
                                 color: apps.fontColor
                             }
                         }
-                    Row{
-                        spacing: app.fs*0.5
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        ZoolButton{
-                            text: 'Definir a Fecha de Inicio'
-                            onClicked:{
-                                cDateDesde=controlTimeFechaForBB.currentDate
+                        Row{
+                            spacing: app.fs*0.5
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            ZoolButton{
+                                id: botSetDesde
+                                text: 'DESDE'
+                                checkable: true
+                                enabled: !botSetHasta.checked
+                                onClicked:{
+                                    cDateDesde=controlTimeFechaSetDesdeHasta.currentDate
+                                }
+                                onCheckedChanged: if(checked)controlTimeFechaSetDesdeHasta.t=1
+                                FocusSen{
+                                    width: parent.width+4
+                                    height: parent.height+4
+                                    border.width:2
+                                    anchors.centerIn: parent
+                                    visible: parent.checked
+                                }
+                            }
+                            ZoolButton{
+                                id: botSetHasta
+                                text: 'HASTA'
+                                checkable: true
+                                enabled: !botSetDesde.checked
+                                onClicked:{
+                                    cDateDesde=controlTimeFechaSetDesdeHasta.currentDate
+                                }
+                                onCheckedChanged: if(checked)controlTimeFechaSetDesdeHasta.t=2
+                                FocusSen{
+                                    width: parent.width+4
+                                    height: parent.height+4
+                                    border.width:2
+                                    anchors.centerIn: parent
+                                    visible: parent.checked
+                                }
                             }
                         }
-                    }
-                }
-                    Row{
-                        spacing: app.fs*0.5
-                        anchors.horizontalCenter: parent.horizontalCenter                        
-                        ZoolButton{
-                            text: 'Ahora'
-                            onClicked:{
-                                controlTimeFechaForBB.currentDate=new Date(Date.now())
-                                initSearch()
+                        ZoolControlsTime{
+                            id: controlTimeFechaSetDesdeHasta
+                            gmt: zm.currentGmt
+                            labelText: botSetDesde.ckecked?'Definir Fecha de Inicio':'Definir Fecha de Final'
+                            fs:xm1.width*0.07
+                            setAppTime: false
+                            visible: botSetDesde.checked || botSetHasta.checked
+                            property int t: -1
+                            onVisibleChanged:{
+                                if(visible){
+                                    if(botSetDesde.checked){
+                                        currentDate=r.cDateDesde
+                                        return
+                                    }
+                                    if(botSetHasta.checked){
+                                        currentDate=r.cDateHasta
+                                        return
+                                    }
+                                }else{
+                                    if(t===1){
+                                        cDateDesde=currentDate
+                                    }
+                                    if(t===2){
+                                        cDateHasta=currentDate
+                                    }
+                                }
                             }
                         }
-                        ZoolButton{
-                            text: 'Recargar Hora de Archivo'
-                            onClicked:{
-                                let json=JSON.parse(zm.currentData)
-                                let d=new Date(json.params.a, parseInt(json.params.m - 1), json.params.d, json.params.h, json.params.min)
-                                controlTimeFechaForBB.currentDate=d
-                                controlTimeFechaForBB.gmt=json.params.gmt
-                                initSearch()
+                        Row{
+                            spacing: app.fs*0.5
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            ZoolButton{
+                                text: 'Ahora'
+                                visible: botSetDesde.checked
+                                onClicked:{
+                                    controlTimeFechaSetDesdeHasta.currentDate=new Date(Date.now())
+                                }
+                            }
+                            ZoolButton{
+                                text: 'Recargar desde Interior'
+                                visible: botSetDesde.checked
+                                onClicked:{
+                                    let json=JSON.parse(zm.currentData)
+                                    let d=new Date(json.params.a, parseInt(json.params.m - 1), json.params.d, json.params.h, json.params.min)
+                                    controlTimeFechaSetDesdeHasta.currentDate=d
+                                    controlTimeFechaSetDesdeHasta.gmt=json.params.gmt
+                                    //initSearch()
+                                }
                             }
                         }
+
                     }
                     BodiesButtons{
                         id: bb
@@ -879,11 +971,6 @@ Rectangle {
         let m=cDateDesde.getMonth()+1
         let a=cDateDesde.getFullYear()
         lDesde.text='<b>Desde: </b>'+d+'/'+m+'/'+a
-
-        let myDate = new Date(cDateDesde); // Por ejemplo, la fecha actual
-        myDate.setFullYear(myDate.getFullYear() + 100);
-
-        cDateHasta=myDate
 
         d=cDateHasta.getDate()
         m=cDateHasta.getMonth()+1

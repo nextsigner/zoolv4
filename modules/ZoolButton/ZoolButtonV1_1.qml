@@ -9,6 +9,7 @@ Item{
     property int fs: app.fs*0.5
     property int paddingWidth: app.fs*0.25
     property bool colorInverted: false
+    property alias checkable: btn.checkable
     signal clicked
     property bool pressed: false
     Timer{

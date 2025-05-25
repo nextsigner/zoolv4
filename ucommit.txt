@@ -1,1 +1,1 @@
-Se edita desde mm 2
+mm: Se agregan botones DESDE y HASTA en trans

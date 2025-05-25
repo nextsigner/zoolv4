@@ -13,6 +13,8 @@ Item{
     property bool pressed: false
     property alias borderWidth: bg.border.width
     property alias borderColor: bg.border.color
+    property alias checkable: btn.checkable
+    property alias checked: btn.checked
     Timer{
         id: tP
         running: r.pressed

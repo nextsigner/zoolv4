@@ -883,7 +883,8 @@ Rectangle {
             b=zm.currentJson.pc['c'+bb.bsel1]
         }
         let dHasta=new Date(r.cDateHasta)
-        searchBodieDateFronLong(numAstroBuscado, b.gdec, controlTimeFechaForBB.anio, controlTimeFechaForBB.mes, controlTimeFechaForBB.dia, dHasta.getFullYear(), dHasta.getMonth()+1, dHasta.getDate(), 0.1)
+        searchBodieDateFronLong(numAstroBuscado, b.gdec, controlTimeFechaForBB.anio, controlTimeFechaForBB.mes, controlTimeFechaForBB.dia, controlTimeFechaForBB.anio+1, 1, 1, 0.1)
+        //searchBodieDateFronLong(numAstroBuscado, b.gdec, controlTimeFechaForBB.anio, controlTimeFechaForBB.mes, controlTimeFechaForBB.dia, dHasta.getFullYear(), dHasta.getMonth()+1, dHasta.getDate(), 0.1)
         //let fyd= new Date(r.cDateDesde)
         //let fy=fyd.getFullYear()
         //searchBodieDateFronLong(numAstroBuscado, b.gdec, fy, 1, 1, fy+1, 1, 1, 0.1)
@@ -915,6 +916,7 @@ Rectangle {
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcodenewtrans')
     }
     function revSearchBodieDateFronLongResult(j){
+        let d1=new Date(controlTimeFechaForBB.currentDate)
         let jNot={}
         jNot.id='trans_rev'
         let sfecha=''
@@ -931,7 +933,7 @@ Rectangle {
                     tl.addItem(j)
                     jNot.text='Tránsito: Fecha obtenida'
                 }
-                let d1=new Date(controlTimeFechaForBB.currentDate)
+
                 let d2=new Date(r.cDateHasta)
                 let d3=new Date(j.a, j.m-1, j.d, j.h, j.min)
                 //log.lv('d1: '+d1.toString())
@@ -939,7 +941,15 @@ Rectangle {
                 //log.lv('d3: '+d3.toString())
                 //if(controlTimeFechaForBB.anio<cDateHasta.getFullYear()){
                 if(d3.getTime()<d2.getTime()){
-                    controlTimeFechaForBB.anio++
+                    let myDate = new Date(controlTimeFechaForBB.currentDate);
+                    myDate.setDate(myDate.getDate() + 20);
+                    controlTimeFechaForBB.currentDate=myDate
+                    //d3=d3.setMonth(d3.getMonth()+1)
+                    //controlTimeFechaForBB.currentDate=d3
+                    //controlTimeFechaForBB.mes++
+                    //controlTimeFechaForBB.anio=j.a
+                    //controlTimeFechaForBB.mes=j.m
+                    //controlTimeFechaForBB.dia=j.d
                     initSearch()
                     return
                 }
@@ -951,10 +961,16 @@ Rectangle {
             let sff=''+j.df+'/'+j.mf+'/'+j.af
             jNot.text='En las fechas '+sfi+' y '+sff+', no hay ningún tránsito de '+zm.aBodies[bb.bsel2]+' sobre '+zm.aBodies[bb.bsel1]
             rTxt.text=jNot.text
-            if(controlTimeFechaForBB.currentDate.getTime()<cDateHasta.getTime()){
-                controlTimeFechaForBB.anio++
+            //if(controlTimeFechaForBB.currentDate.getTime()<cDateHasta.getTime()){
+                //controlTimeFechaForBB.anio++
+               //controlTimeFechaForBB.mes++
+            //d1=d1.setMonth(d1.getMonth()+1)
+            //controlTimeFechaForBB.currentDate=d1
+            let myDate = new Date(controlTimeFechaForBB.currentDate);
+            myDate.setDate(myDate.getDate() + 20);
+            controlTimeFechaForBB.currentDate=myDate
                 initSearch()
-            }
+            //}
         }
         zpn.addNot(jNot, true, 15000)
     }

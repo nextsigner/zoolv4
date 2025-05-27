@@ -5,7 +5,7 @@ Rectangle{
     width: 300
     height: lv.height
     color: 'transparent'
-    border.width: 2
+    border.width: 1
     border.color: apps.fontColor
     clip: true
     property alias olv: lv
@@ -13,6 +13,7 @@ Rectangle{
     signal selected(string j)
     ListView{
         id: lv
+        spacing: app.fs*0.1
         model: lm
         delegate: compItem
         width: r.width
@@ -37,6 +38,7 @@ Rectangle{
                 color: index===lv.currentIndex?apps.fontColor:apps.backgroundColor
                 border.width: 1
                 border.color:index!==lv.currentIndex?apps.fontColor:apps.backgroundColor
+                radius: app.fs*0.1
                 anchors.horizontalCenter: parent.horizontalCenter
                 MouseArea{
                     anchors.fill: parent
@@ -49,35 +51,14 @@ Rectangle{
                     id: t1
                     width: parent.width-app.fs*0.2
                     wrapMode: Text.WordWrap
-                    font.pixelSize: app.fs*0.5
+                    font.pixelSize: app.fs*0.55
                     color: index!==lv.currentIndex?apps.fontColor:apps.backgroundColor
                     horizontalAlignment: Text.AlignHCenter
                     anchors.centerIn: parent
                 }
-                Component.onCompleted: {
-                    /*
- {
-  "a": 1976,
-  "af": 1977,
-  "ai": 1976,
-  "b": "Marte",
-  "d": 10,
-  "df": 1,
-  "di": 1,
-  "gb": 134.45937343697767,
-  "gr": 134.4070384569482,
-  "h": 16,
-  "isData": true,
-  "m": 6,
-  "mf": 1,
-  "mi": 1,
-  "min": 48,
-  "numAstro": 4,
-  "tol": 0.1
-}
-                    */
-                    t1.text=j.b+' '+j.d+'/'+j.m+'/'+j.a+' '+j.h+':'+j.min
-                    //console.log(t1.text)
+                Component.onCompleted: {                   
+                    let sAsp=zm.objAspsCircle.getAspName(j.aspIndex)
+                    t1.text='<b>'+sAsp+'</b> '+j.b+' '+j.d+'/'+j.m+'/'+j.a//+' '+j.h+':'+j.min
                 }
         }
     }

@@ -1,1 +1,1 @@
-Se agrega TransList a trans
+Se optimizan las búsquedas de trans

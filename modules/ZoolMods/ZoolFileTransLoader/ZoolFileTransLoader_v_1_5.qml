@@ -59,7 +59,7 @@ Rectangle {
         interval: 1000
         onTriggered: {
             let myDate = new Date(cDateDesde);
-            myDate.setFullYear(myDate.getFullYear() + 100);
+            myDate.setFullYear(myDate.getFullYear() + 2);
             cDateHasta=myDate
         }
     }
@@ -359,6 +359,7 @@ Rectangle {
                         width: xm1.width-app.fs*0.5
                         anchors.horizontalCenter: parent.horizontalCenter
                         onSelected:{
+                            tl.clear()
                             if(!is1){
                                 initSearch()
                             }else{
@@ -402,7 +403,7 @@ Rectangle {
                                     b2=zm.aBodies[bb.bsel1]
                                     bExt=zm.currentJsonBack.pc['c'+bb.bsel1]
                                 }
-                                //log.lv('json: '+JSON.stringify(, null, 2))
+                                //lolv('json: '+JSON.stringify(, null, 2))
                                 let is=zm.getIndexSign(bInt.gdec)
                                 let aspIndex=zm.objAspsCircle.getAsp(bInt.gdec, bExt.gdec)
                                 let aspName=zm.objAspsCircle.getAspName(aspIndex)
@@ -881,7 +882,8 @@ Rectangle {
             numAstroBuscado=bb.bsel1
             b=zm.currentJson.pc['c'+bb.bsel1]
         }
-        searchBodieDateFronLong(numAstroBuscado, b.gdec, controlTimeFechaForBB.anio, 1, 1, controlTimeFechaForBB.anio+1, 1, 1, 0.1)
+        let dHasta=new Date(r.cDateHasta)
+        searchBodieDateFronLong(numAstroBuscado, b.gdec, controlTimeFechaForBB.anio, controlTimeFechaForBB.mes, controlTimeFechaForBB.dia, dHasta.getFullYear(), dHasta.getMonth()+1, dHasta.getDate(), 0.1)
         //let fyd= new Date(r.cDateDesde)
         //let fy=fyd.getFullYear()
         //searchBodieDateFronLong(numAstroBuscado, b.gdec, fy, 1, 1, fy+1, 1, 1, 0.1)
@@ -925,9 +927,18 @@ Rectangle {
                 searchBodieDateFronLong(j.numAstro, j.gb, j.ai, j.mi, j.di, j.af, j.mf, j.df, j.tol*0.5)
             }else{
                 //setSearchBodieDateFronLongResult(j)
-                tl.addItem(j)
-                jNot.text='Tránsito: Fecha obtenida'
-                if(controlTimeFechaForBB.anio<cDateHasta.getFullYear()){
+                if(!tl.isDateInList(j)){
+                    tl.addItem(j)
+                    jNot.text='Tránsito: Fecha obtenida'
+                }
+                let d1=new Date(controlTimeFechaForBB.currentDate)
+                let d2=new Date(r.cDateHasta)
+                let d3=new Date(j.a, j.m-1, j.d, j.h, j.min)
+                //log.lv('d1: '+d1.toString())
+                //log.lv('d2: '+d2.toString())
+                //log.lv('d3: '+d3.toString())
+                //if(controlTimeFechaForBB.anio<cDateHasta.getFullYear()){
+                if(d3.getTime()<d2.getTime()){
                     controlTimeFechaForBB.anio++
                     initSearch()
                     return
@@ -940,8 +951,10 @@ Rectangle {
             let sff=''+j.df+'/'+j.mf+'/'+j.af
             jNot.text='En las fechas '+sfi+' y '+sff+', no hay ningún tránsito de '+zm.aBodies[bb.bsel2]+' sobre '+zm.aBodies[bb.bsel1]
             rTxt.text=jNot.text
-            controlTimeFechaForBB.anio++
-            initSearch()
+            if(controlTimeFechaForBB.currentDate.getTime()<cDateHasta.getTime()){
+                controlTimeFechaForBB.anio++
+                initSearch()
+            }
         }
         zpn.addNot(jNot, true, 15000)
     }

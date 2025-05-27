@@ -87,4 +87,15 @@ Rectangle{
     function clear(){
         lm.clear()
     }
+    function isDateInList(j){
+        let ret=false
+        for(var i=0;i<lm.count;i++){
+            let j0=lm.get(i).j
+            if(j.a===j0.a && j.m===j0.m && j.d===j0.d){
+                ret=true
+                break
+            }
+        }
+        return ret
+    }
 }

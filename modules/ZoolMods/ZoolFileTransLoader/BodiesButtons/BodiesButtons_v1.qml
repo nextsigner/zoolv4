@@ -195,7 +195,7 @@ Rectangle{
     }
     function unSetBodiesColor(){
         for(var i=0;i<asContainer.children.length;i++){
-            if(numAstro!==r.bsel1 && numAstro!==r.bsel2){
+            if(asContainer.children[i].numAstro!==r.bsel1 && asContainer.children[i].numAstro!==r.bsel2){
                 asContainer.children[i].color='transparent'
             }
         }

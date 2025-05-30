@@ -234,14 +234,6 @@ Rectangle {
                         fs:xm1.width*0.07
                         setAppTime: false
                     }
-                    Text{
-                        text: 'Buscar desde '+controlTimeFechaForBB.dia+'/'+controlTimeFechaForBB.mes+'/'+controlTimeFechaForBB.anio+' hasta '
-                              +controlTimeFechaForBB.dia+'/'+controlTimeFechaForBB.mes+'/'+parseInt(controlTimeFechaForBB.anio + 1)
-                        width: bb.width
-                        wrapMode: Text.WordWrap
-                        font.pixelSize: app.fs*0.5
-                        color: 'white'
-                    }
                     Column{
                         spacing: app.fs*0.25
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -368,13 +360,29 @@ Rectangle {
 
                         }
                     }
-                    Text{
-                        id: rTxt
-                        text: "Esperando consulta."
-                        width: bb.width
-                        wrapMode: Text.WordWrap
-                        font.pixelSize: app.fs*0.5
-                        color: 'white'
+                    Item{
+                        width: parent.width
+                        height: app.fs*6
+                        Column{
+                            spacing: app.fs*0.1
+                            anchors.centerIn: parent
+                            Text{
+                                text: 'Buscar desde '+controlTimeFechaForBB.dia+'/'+controlTimeFechaForBB.mes+'/'+controlTimeFechaForBB.anio+' hasta '
+                                      +controlTimeFechaForBB.dia+'/'+controlTimeFechaForBB.mes+'/'+parseInt(controlTimeFechaForBB.anio + 1)
+                                width: bb.width
+                                wrapMode: Text.WordWrap
+                                font.pixelSize: app.fs*0.5
+                                color: 'white'
+                            }
+                            Text{
+                                id: rTxt
+                                text: "Esperando consulta."
+                                width: bb.width
+                                wrapMode: Text.WordWrap
+                                font.pixelSize: app.fs*0.5
+                                color: 'white'
+                            }
+                        }
                     }
                     TransList{
                         id: tl

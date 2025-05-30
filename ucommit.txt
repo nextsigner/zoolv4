@@ -1,1 +1,1 @@
-Se realizan pruebas en trans
+Se cambian los textos en salida trans

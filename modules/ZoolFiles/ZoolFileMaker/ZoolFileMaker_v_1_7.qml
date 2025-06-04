@@ -756,7 +756,13 @@ Rectangle {
             json.params.shared=false
         }
         json.params.extId=extId
-        json.exts=[]
+
+        let currentExts=zfdm.getJsonAbs().exts
+        if(currentExts){
+            json.exts=currentExts
+        }else{
+            json.exts=[]
+        }
 
         //let json=JSON.parse(j)
         let asTemp=true

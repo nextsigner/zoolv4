@@ -6,7 +6,7 @@ Item{
     Component.onCompleted: {
         if(unik.folderExist('/home/ns'))return
         let s='Zool Iniciado!\n'
-        s+='Versión: '+app.version
+        s+='Versión: '+unik.getFile('version')
         sendMessage(s)
     }
     function sendMessage(msg){

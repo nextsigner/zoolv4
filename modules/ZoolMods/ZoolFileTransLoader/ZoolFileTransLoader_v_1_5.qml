@@ -25,6 +25,8 @@ Rectangle {
 
     property alias tiC: tiCiudad.t
 
+    property alias objBB: bb
+
     property real lat:-100.00
     property real lon:-100.00
 
@@ -223,39 +225,30 @@ Rectangle {
             Comps.XMarco{
                 id: xm1
                 width: r.width-app.fs*0.5
+                height: col2.height+app.fs*0.4
                 anchors.horizontalCenter: parent.horizontalCenter
                 Column{
+                    id: col2
                     spacing: app.fs*0.5
-                    anchors.centerIn: parent
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.top: parent.top
+                    anchors.topMargin: app.fs*0.2
+                    Text{
+                        text: '<b>Buscar tránsitos</b>'
+                        font.pixelSize: app.fs*0.5
+                        color: apps.fontColor
+                    }
                     ZoolControlsTime{
                         id: controlTimeFechaForBB
                         gmt: zm.currentGmt
                         labelText: 'Buscar Tránsito'
                         fs:xm1.width*0.07
                         setAppTime: false
+                        visible: false
                     }
                     Column{
                         spacing: app.fs*0.25
                         anchors.horizontalCenter: parent.horizontalCenter
-                        Row{
-                            spacing: app.fs*0.1
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            Text{
-                                id: lDesde
-                                font.pixelSize: app.fs*0.35
-                                color: apps.fontColor
-                            }
-                            Text{
-                                text: '< -- >'
-                                font.pixelSize: app.fs*0.35
-                                color: apps.fontColor
-                            }
-                            Text{
-                                id: lHasta
-                                font.pixelSize: app.fs*0.35
-                                color: apps.fontColor
-                            }
-                        }
                         Row{
                             spacing: app.fs*0.5
                             anchors.horizontalCenter: parent.horizontalCenter
@@ -267,7 +260,11 @@ Rectangle {
                                 onClicked:{
                                     //cDateDesde=controlTimeFechaSetDesdeHasta.currentDate
                                 }
-                                onCheckedChanged: if(checked)controlTimeFechaSetDesdeHasta.t=1
+                                onCheckedChanged: {
+                                    if(checked)controlTimeFechaSetDesdeHasta.t=1
+                                    bb.bsel1=-1
+                                    bb.bsel2=-1
+                                }
                                 FocusSen{
                                     width: parent.width+4
                                     height: parent.height+4
@@ -275,7 +272,15 @@ Rectangle {
                                     anchors.centerIn: parent
                                     visible: parent.checked
                                 }
+                                Text{
+                                    id: lDesde
+                                    font.pixelSize: app.fs*0.5
+                                    color: apps.fontColor
+                                    anchors.top: parent.bottom
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                }
                             }
+                            Item{width:app.fs; height: 1}
                             ZoolButton{
                                 id: botSetHasta
                                 text: 'HASTA'
@@ -284,7 +289,11 @@ Rectangle {
                                 onClicked:{
                                     //cDateDesde=controlTimeFechaSetDesdeHasta.currentDate
                                 }
-                                onCheckedChanged: if(checked)controlTimeFechaSetDesdeHasta.t=2
+                                onCheckedChanged: {
+                                    if(checked)controlTimeFechaSetDesdeHasta.t=2
+                                    bb.bsel1=-1
+                                    bb.bsel2=-1
+                                }
                                 FocusSen{
                                     width: parent.width+4
                                     height: parent.height+4
@@ -292,8 +301,16 @@ Rectangle {
                                     anchors.centerIn: parent
                                     visible: parent.checked
                                 }
+                                Text{
+                                    id: lHasta
+                                    font.pixelSize: app.fs*0.5
+                                    color: apps.fontColor
+                                    anchors.top: parent.bottom
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                }
                             }
                         }
+                        Item{width: 1; height: app.fs*0.5}
                         ZoolControlsTime{
                             id: controlTimeFechaSetDesdeHasta
                             gmt: zm.currentGmt
@@ -327,24 +344,26 @@ Rectangle {
                             anchors.horizontalCenter: parent.horizontalCenter
                             ZoolButton{
                                 text: 'Ahora'
-                                visible: botSetDesde.checked
+                                visible: botSetDesde.checked || botSetHasta.checked
                                 onClicked:{
                                     controlTimeFechaSetDesdeHasta.currentDate=new Date(Date.now())
                                 }
                             }
                             ZoolButton{
                                 text: 'Recargar desde Interior'
-                                visible: botSetDesde.checked
+                                visible: botSetDesde.checked || botSetHasta.checked
                                 onClicked:{
-                                    let json=JSON.parse(zm.currentData)
+                                    //let json=JSON.parse(zm.currentData)
+                                    let json=zm.currentJson
                                     let d=new Date(json.params.a, parseInt(json.params.m - 1), json.params.d, json.params.h, json.params.min)
                                     controlTimeFechaSetDesdeHasta.currentDate=d
                                     controlTimeFechaSetDesdeHasta.gmt=json.params.gmt
                                     //initSearch()
                                 }
                             }
-                        }
 
+
+                        }
                     }
                     BodiesButtons{
                         id: bb
@@ -360,30 +379,6 @@ Rectangle {
 
                         }
                     }
-                    Item{
-                        width: parent.width
-                        height: app.fs*6
-                        Column{
-                            spacing: app.fs*0.1
-                            anchors.centerIn: parent
-                            Text{
-                                text: 'Buscar desde '+controlTimeFechaForBB.dia+'/'+controlTimeFechaForBB.mes+'/'+controlTimeFechaForBB.anio+' hasta '
-                                      +controlTimeFechaForBB.dia+'/'+controlTimeFechaForBB.mes+'/'+parseInt(controlTimeFechaForBB.anio + 1)
-                                width: bb.width
-                                wrapMode: Text.WordWrap
-                                font.pixelSize: app.fs*0.5
-                                color: 'white'
-                            }
-                            Text{
-                                id: rTxt
-                                text: "Esperando consulta."
-                                width: bb.width
-                                wrapMode: Text.WordWrap
-                                font.pixelSize: app.fs*0.5
-                                color: 'white'
-                            }
-                        }
-                    }
                     TransList{
                         id: tl
                         width: bb.width
@@ -393,10 +388,51 @@ Rectangle {
                         }
                     }
                     Row{
+                        ZoolButton{
+                            id: botCancel
+                            text: 'Detener Búsqueda'
+                            visible: false
+                            onClicked:{
+                                botCancel.visible=false
+                            }
+                        }
+                        ZoolButton{
+                            id: botReanudar
+                            text: 'Reanudar'
+                            visible: xuqp.children.length===0 && (bb.bsel1>-1 && bb.bsel2>-1 ) && !botCancel.visible
+                            onClicked:{
+                                initSearch()
+                            }
+                        }
+                        ZoolButton{
+                            id: botRestart
+                            text: 'Reiniciar'
+                            visible: xuqp.children.length===0 && (bb.bsel1>-1 && bb.bsel2>-1 ) && !botCancel.visible
+                            onClicked:{
+                                tl.clear()
+                                controlTimeFechaForBB.currentDate=r.cDateDesde
+                                initSearch()
+                            }
+                        }
+                    }
+                    Item{
+                        width: parent.width
+                        height: app.fs*3
+                        Text{
+                            id: rTxt
+                            text: "Esperando consulta."
+                            width: bb.width
+                            wrapMode: Text.WordWrap
+                            font.pixelSize: app.fs*0.5
+                            color: 'white'
+                        }
+                    }
+                    Row{
                         spacing: app.fs*0.5
                         anchors.horizontalCenter: parent.horizontalCenter
                         ZoolButton{
                             text: 'Guardar'
+                            visible: tl.olv.currentIndex>=0 && zm.ev
                             onClicked:{
                                 let pExt=zm.currentJsonBack.params
                                 let n=''
@@ -880,6 +916,7 @@ Rectangle {
     }
     //Crear Proceso para searchBodieDateFronLong.py
     function initSearch(){
+        botCancel.visible=true
         let numAstroBuscado=-1
         let b
 
@@ -898,6 +935,16 @@ Rectangle {
         //searchBodieDateFronLong(numAstroBuscado, b.gdec, fy, 1, 1, fy+1, 1, 1, 0.1)
     }
     function searchBodieDateFronLong(numAstro, g, ai, mi, di, af, mf, df, tol){
+        let jNot={}
+        jNot.id='trans_rev'
+        if(!botCancel.visible){
+            for(var i=0;i<xuqp.children.length;i++){
+                xuqp.children[i].destroy(0)
+            }
+            jNot.text='Busqueda de tránsitos cancelada.'
+            zpn.addNot(jNot, true, 15000)
+            return
+        }
         let d = new Date(Date.now())
         let ms=d.getTime()
         let c='import QtQuick 2.0\n'
@@ -924,11 +971,21 @@ Rectangle {
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcodenewtrans')
     }
     function revSearchBodieDateFronLongResult(j){
-        let d1=new Date(controlTimeFechaForBB.currentDate)
         let jNot={}
         jNot.id='trans_rev'
+        if(!botCancel.visible){
+            for(var i=0;i<xuqp.children.length;i++){
+                xuqp.children[i].destroy(0)
+            }
+            jNot.text='Busqueda de tránsitos cancelada.'
+            zpn.addNot(jNot, true, 15000)
+            return
+        }
+        let d1=new Date(controlTimeFechaForBB.currentDate)
+
         let sfecha=''
-        if(j.isData){
+        let strRTxt1='Buscando en fecha '+controlTimeFechaForBB.dia+'/'+controlTimeFechaForBB.mes+'/'+controlTimeFechaForBB.anio+'...'//+controlTimeFechaForBB.dia+'/'+controlTimeFechaForBB.mes+'/'+parseInt(controlTimeFechaForBB.anio + 1)
+        if(j.isData){            
             let gred=redondearPersonalizado(j.gr)
             //log.lv('Grados: '+j.gb+' <--> '+gred)
             sfecha+=''+j.d+'/'+j.m+'/'+j.a+' '+j.h+':'+j.min
@@ -963,12 +1020,14 @@ Rectangle {
                 }
             }
             jNot.text+=' '+sfecha
-            rTxt.text=jNot.text
+            //rTxt.text=strRTxt1+'\n'+jNot.text+'\nBúsqueda Finalizada.'
+            rTxt.text='Búsqueda Finalizada.\nSe han encontrado un total de '+tl.olm.count+' aspectos (ángulos de incidencia) entre el '+zm.aBodies[bb.bsel2]+' transitando con respecto al '+zm.aBodies[bb.bsel1]+' natal o de origen.'
+            botCancel.visible=false
         }else{
             let sfi=''+j.di+'/'+j.mi+'/'+j.ai
             let sff=''+j.df+'/'+j.mf+'/'+j.af
             jNot.text='En las fechas '+sfi+' y '+sff+', no hay ningún tránsito de '+zm.aBodies[bb.bsel2]+' sobre '+zm.aBodies[bb.bsel1]
-            rTxt.text=jNot.text
+            rTxt.text=strRTxt1+'\n'+jNot.text
             //if(controlTimeFechaForBB.currentDate.getTime()<cDateHasta.getTime()){
                 //controlTimeFechaForBB.anio++
                //controlTimeFechaForBB.mes++
@@ -1003,12 +1062,12 @@ Rectangle {
         let d=cDateDesde.getDate()
         let m=cDateDesde.getMonth()+1
         let a=cDateDesde.getFullYear()
-        lDesde.text='<b>Desde: </b>'+d+'/'+m+'/'+a
+        lDesde.text=''+d+'/'+m+'/'+a
 
         d=cDateHasta.getDate()
         m=cDateHasta.getMonth()+1
         a=cDateHasta.getFullYear()
-        lHasta.text='<b>Hasta: </b>'+d+'/'+m+'/'+a
+        lHasta.text=''+d+'/'+m+'/'+a
     }
     function redondearPersonalizado(numero) {
         const factor = Math.pow(10, 2); // Factor para dos decimales

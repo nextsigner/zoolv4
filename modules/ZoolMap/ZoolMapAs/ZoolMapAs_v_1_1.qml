@@ -186,7 +186,8 @@ Item{
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
         anchors.leftMargin: zm.planetSize
-        visible: (app.t==='dirprim'  || app.t==='trans' || app.t==='progsec') && r.isBack
+        //visible: (app.t==='dirprim'  || app.t==='trans' || app.t==='progsec') && r.isBack
+        visible: (app.t==='dirprim' || app.t==='progsec') && r.isBack
         Rectangle{
             width: r.width
             height: 1
@@ -195,6 +196,56 @@ Item{
         }
         Rectangle{
             width: r.width
+            height: 1
+            anchors.bottom: parent.bottom
+            color: apps.houseColorBack
+        }
+    }
+    Item{
+        id: ejePosBackTrans
+        width: r.width*0.5
+        height: 3
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.left: parent.left
+        anchors.leftMargin: zm.planetSize
+        visible:  false//&& r.isBack
+        Timer{
+            running: app.t==='trans'
+            repeat: true
+            interval: 1000
+            onRunningChanged: {
+                if(!running)parent.visible=false
+            }
+            onTriggered: {
+                let panel=zsm.getPanel('ZoolMods')
+                let section=panel.getSection('ZoolFileTransLoader')
+                let bb=section.objBB
+                //if(bb.bsel1 === r.numAstro || bb.bsel2 === r.numAstro){
+                if(bb.bsel2 === r.numAstro && r.isBack){
+                    ejeTrans1.opacity=1.0
+                    ejeTrans2.opacity=1.0
+                    parent.visible=true
+                }else if(bb.bsel1 === r.numAstro && !r.isBack){
+                    ejeTrans1.opacity=1.0
+                    ejeTrans2.opacity=1.0
+                    parent.visible=true
+                }else{
+                    ejeTrans1.opacity=0.0
+                    ejeTrans2.opacity=0.0
+                    parent.visible=false
+                }
+            }
+        }
+        Rectangle{
+            id: ejeTrans1
+            width: r.width*0.5-zm.planetSize
+            height: 1
+            anchors.top: parent.top
+            color: apps.houseColorBack
+        }
+        Rectangle{
+            id: ejeTrans2
+            width: r.width*0.5-zm.planetSize
             height: 1
             anchors.bottom: parent.bottom
             color: apps.houseColorBack
@@ -369,7 +420,7 @@ Item{
             p: r.numAstro
             cotaLong: app.fs*6
             pointerFs: app.fs*4
-            opacity: r.selected&&app.showPointerXAs?1.0:0.0// && JSON.parse(app.currentData).params.t!=='pron'
+            opacity: (r.selected && app.showPointerXAs)||(ejePosBackTrans.visible)?1.0:0.0// && JSON.parse(app.currentData).params.t!=='pron'
             isExt: r.isBack
             onPointerRotChanged: {
                 r.uRot=pointerRot

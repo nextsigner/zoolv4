@@ -43,8 +43,14 @@ Rectangle{
                 MouseArea{
                     anchors.fill: parent
                     onClicked: {
-                        lv.currentIndex=index
-                        r.selected(JSON.stringify(j))
+                        if(lv.currentIndex!==index){
+                            lv.currentIndex=index
+                            r.selected(JSON.stringify(j))
+                        }else{
+                            lv.currentIndex=-1
+                            zm.ev=false
+                        }
+
                     }
                 }
                 Text{
@@ -66,6 +72,7 @@ Rectangle{
         lm.append(lm.ai(j))
     }
     function clear(){
+        lv.currentIndex=-1
         lm.clear()
     }
     function isDateInList(j){

@@ -19,6 +19,8 @@ Si te interesa apoyar la programación y el desarrollo de esta aplicación, pued
 * Divulgando, difundiendo o promocionando esta aplicación en las redes sociales.
 * Haciendo una donación para afrontar los gastos de servicios de internet, servidores, equipos y horas de esfuerzo dedicados al desarrollo de esta aplicación.
 #
+**Súmate al Grupo de Facebook de la Aplicación Zool:** [Unirme](https://www.facebook.com/groups/386512166139820)
+#
 ### ¿Cuáles son las formas de hacer una donación?
 #
 * Puedes donar en Paypal en https://paypal.me/lucentrica

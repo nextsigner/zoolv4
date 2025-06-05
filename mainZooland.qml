@@ -48,6 +48,7 @@ import gui.ZoolDataBodies 3.3
 
 import comps.ZoolPanelNotifications 1.1
 import web.ZoolWebStatusManager 1.0
+import comps.ZoolIntSplash 1.0
 //import MinymaClient 1.0
 
 import ZoolDataManager 1.0
@@ -549,6 +550,7 @@ ZoolMainWindow{
             ZoolInfoDataView{id: xInfoData}
             ZoolDataEditor{id: xEditor}
             ZoolEvolutionView{id: zev}
+            ZoolIntSplash{id: zis}
         }
         Comps.XSelectColor{
             id: xSelectColor
@@ -637,6 +639,9 @@ ZoolMainWindow{
 
 
     Component.onCompleted: {
+        let c='import ZoolDataManager 1.0\n'
+        c+='ZoolDataManager{}'
+        let obj=Qt.createQmlObject(c, capa101, 'ziscode')
         menuBar.aMenuItems.push(menuRuedaZodiacal)
 
 

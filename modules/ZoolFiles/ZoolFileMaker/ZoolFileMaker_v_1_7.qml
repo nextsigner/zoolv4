@@ -234,8 +234,9 @@ Rectangle {
                 padding: app.fs*0.25
                 horizontalAlignment: TextInput.AlignLeft
                 onTextChanged: {
+                    settings.inputCoords=false
                     tSearch.restart()
-                    t.color='white'
+                    t.color='white'                    
                 }
                 Text {
                     text: 'Lugar, ciudad, provincia,\nregión y/o país de nacimiento'
@@ -509,6 +510,7 @@ Rectangle {
                         TextArea{
                             id: taInforme
                             width: xInforme.width-app.fs*0.5
+                            height: parent.parent.height
                             font.pixelSize: app.fs*0.5
                             color: apps.fontColor
                             wrapMode: TextArea.WordWrap
@@ -519,6 +521,7 @@ Rectangle {
             Row{
                 anchors.horizontalCenter: parent.horizontalCenter
                 spacing: app.fs*0.25
+                visible: false
                 ZoolText{
                     text: 'Compartir con la\ncomunidad Zool'
                     fs: app.fs*0.5

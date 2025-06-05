@@ -64,7 +64,7 @@ Rectangle {
         property bool showConfig: false
 
     }
-    Text{
+    /*Text{
         text: 'ZoolFileManager v1.2'
         font.pixelSize: app.fs*0.5
         color: apps.fontColor
@@ -77,7 +77,7 @@ Rectangle {
             anchors.fill: parent
             onClicked: settings.showModuleVersion=!settings.showModuleVersion
         }
-    }
+    }*/
     Column{
         Rectangle{
             id: xBtns

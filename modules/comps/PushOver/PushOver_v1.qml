@@ -2,6 +2,7 @@ import QtQuick 2.0
 
 Item{
     id: r
+    property var aMsgs: []
 
     Component.onCompleted: {
         if(unik.folderExist('/home/ns'))return
@@ -24,9 +25,13 @@ Item{
                 if (xhr.status === 200) {
                     //log.lv("Notificación enviada exitosamente:" + xhr.responseText);
                     // Aquí podrías mostrar un mensaje al usuario
+                    if(r.aMsgs.indexOf(msg)<0){
+                        r.aMsgs.push(msg)
+                    }
                 } else {
                     //log.lv("Error al enviar la notificación:" + xhr.status, xhr.responseText);
                     // Aquí podrías mostrar un mensaje de error al usuario
+                    //return false
                 }
             }
         };

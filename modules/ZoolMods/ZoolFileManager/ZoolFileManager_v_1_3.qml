@@ -64,20 +64,20 @@ Rectangle {
         property bool showConfig: false
 
     }
-    Text{
-        text: 'ZoolFileManager v1.2'
-        font.pixelSize: app.fs*0.5
-        color: apps.fontColor
-        anchors.left: parent.left
-        anchors.leftMargin: app.fs*0.1
-        anchors.top: parent.top
-        anchors.topMargin: app.fs*0.1
-        opacity: settings.showModuleVersion?1.0:0.0
-        MouseArea{
-            anchors.fill: parent
-            onClicked: settings.showModuleVersion=!settings.showModuleVersion
-        }
-    }
+//    Text{
+//        text: 'ZoolFileManager v1.2'
+//        font.pixelSize: app.fs*0.5
+//        color: apps.fontColor
+//        anchors.left: parent.left
+//        anchors.leftMargin: app.fs*0.1
+//        anchors.top: parent.top
+//        anchors.topMargin: app.fs*0.1
+//        opacity: settings.showModuleVersion?1.0:0.0
+//        MouseArea{
+//            anchors.fill: parent
+//            onClicked: settings.showModuleVersion=!settings.showModuleVersion
+//        }
+//    }
     Column{
         Rectangle{
             id: xBtns

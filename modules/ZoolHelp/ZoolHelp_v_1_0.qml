@@ -1,6 +1,8 @@
 import QtQuick 2.12
 import ZoolButton 1.2
 
+import comps.FormContactoPushOver 1.0
+
 Rectangle{
     id: r
     width: parent.width
@@ -11,7 +13,7 @@ Rectangle{
     property int svIndex: zsm.currentIndex
     property int itemIndex: -1
     property int fs: app.fs*0.75
-    property var aAsuntos: ['Inicio', 'Video Tutoriales', 'Teclado', 'Mouse', 'Mapa Astrológico', 'Aspectos', 'Panel Métodos', 'Panel Cuerpos', 'Panel Secciones', 'Sabianos', 'Evolutiva', 'Editar Archivo', 'Advertencias', 'Agradecimientos', 'Sobre Qt']
+    property var aAsuntos: ['Inicio', 'Video Tutoriales', 'Teclado', 'Mouse', 'Mapa Astrológico', 'Aspectos', 'Panel Métodos', 'Panel Cuerpos', 'Panel Secciones', 'Sabianos', 'Evolutiva', 'Editar Archivo', 'Advertencias', 'Agradecimientos', 'Contacto', 'Sobre Qt']
     property string uAsunto: 'Inicio'
     Column{
         id: col0
@@ -55,19 +57,31 @@ Rectangle{
                 id: flk
                 anchors.fill: parent
                 contentWidth: parent.width
-                contentHeight: txtData.contentHeight+app.fs
-                Text{
-                    id: txtData
-                    text: '<b>Ayuda (Area en construcción)</b>'
-                    font.pixelSize: r.fs*0.65
-                    color: apps.fontColor
-                    textFormat: Text.MarkdownText
-                    width: xTxtData.width-app.fs
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    //anchors.centerIn: parent
-                    //textFormat: Text.MarkdownText
-                    wrapMode: Text.WordWrap
-                    onLinkActivated: Qt.openUrlExternally(link)
+                contentHeight: colAll.height+app.fs
+                Column{
+                    id: colAll
+                    Text{
+                        id: txtData
+                        text: '<b>Ayuda (Area en construcción)</b>'
+                        font.pixelSize: r.fs*0.65
+                        color: apps.fontColor
+                        textFormat: Text.MarkdownText
+                        width: xTxtData.width-app.fs
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        //anchors.centerIn: parent
+                        //textFormat: Text.MarkdownText
+                        wrapMode: Text.WordWrap
+                        onLinkActivated: Qt.openUrlExternally(link)
+                    }
+                    Column{
+                        width: parent.parent.width
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        FormContactoPushOver{
+                            width: r.width-app.fs*0.5
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            visible: r.uAsunto==='Contacto'
+                        }
+                    }
                 }
             }
         }

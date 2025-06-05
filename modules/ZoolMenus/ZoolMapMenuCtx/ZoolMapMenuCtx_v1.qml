@@ -121,7 +121,7 @@ ZoolMenus{
                 app.c.captureSweg()
             }
         }*/
-        Action {text: qsTr("Crear imagen acutal y abrir"); onTriggered: {
+        Action {text: qsTr("Crear imagen actual y abrir"); onTriggered: {
                 zm.zmc.startSinNombreYAbrir()
             }
         }

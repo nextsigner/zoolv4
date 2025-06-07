@@ -8,11 +8,11 @@ import ZoolSectionsManager.ZoolFileExtDataManager 1.2
 import ZoolSectionsManager.ZoolMods 1.0
 import ZoolSectionsManager.ZoolListLunar 1.0
 import ZoolSectionsManager.ZoolSabianos 1.1
+import ZoolSectionsManager.ZoolRevolutionList 1.5
+import ZoolSectionsManager.ZoolNumPit 1.4
 
 
 
-import ZoolRevolutionList 1.5
-import ZoolNumPit 1.4
 import ZoolModulesManager 1.0
 import ZoolHelp 1.0
 

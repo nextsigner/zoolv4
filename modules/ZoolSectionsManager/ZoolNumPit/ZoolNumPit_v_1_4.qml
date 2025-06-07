@@ -1,16 +1,16 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Dialogs 1.2
-import "../"
+import "../../"
 import ZoolButton 1.2
 import ZoolControlsTime 1.0
 
-import ZoolNumPit.ZoolPinaculo 1.0
+import ZoolSectionsManager.ZoolNumPit.ZoolPinaculo 1.0
 
-import "../../comps" as Comps
+import "../../../comps" as Comps
 
 
-import ZoolNumPit.ZoolNumPitLog 1.0
+import ZoolSectionsManager.ZoolNumPit.ZoolNumPitLog 1.0
 
 Rectangle {
     id: r
@@ -28,7 +28,7 @@ Rectangle {
     property alias logView: zoolNumPitLog
 
     property bool calcForm: false
-    property string jsonPath: './modules/ZoolNumPit/numv4.json'
+    property string jsonPath: './modules/ZoolSectionsManager/ZoolNumPit/numv4.json'
     property string jsonNum: ''
     property var aDes: ['dato1', 'dato2', 'dato3', 'dato4', 'dato5', 'dato6', 'dato7', 'dato8', 'dato9']
 
@@ -2434,7 +2434,7 @@ Rectangle {
         if(aa<realAA){
             tt='pasado'
         }
-        let jd=unik.getFile('modules/ZoolNumPit/num_prognosis.json').replace(/\n/g, '')
+        let jd=unik.getFile('modules/ZoolSectionsManager/ZoolNumPit/num_prognosis.json').replace(/\n/g, '')
         let j=JSON.parse(jd)
         let prognosis=j.prognosis
         let dataPrognosis=prognosis[ctx]

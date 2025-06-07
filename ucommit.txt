@@ -1,1 +1,1 @@
-Se mueve ZoolSabianos a ZoolSectionsManager
+Se mueve ZoolNumPit a ZoolSectionsManager

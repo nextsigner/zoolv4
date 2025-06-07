@@ -1,15 +1,15 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import Qt.labs.settings 1.1
-import "../../../comps" as Comps
+import "../../../../comps" as Comps
 
 import comps.FocusSen 1.0
 import ZoolText 1.1
 import ZoolTextInput 1.0
 import ZoolButton 1.2
 import ZoolControlsTime 1.0
-import ZoolMods.ZoolFileTransLoader.BodiesButtons 1.0
-import ZoolMods.ZoolFileTransLoader.TransList 1.0
+import ZoolSectionsManager.ZoolMods.ZoolFileTransLoader.BodiesButtons 1.0
+import ZoolSectionsManager.ZoolMods.ZoolFileTransLoader.TransList 1.0
 
 Rectangle {
     id: r

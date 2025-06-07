@@ -11,7 +11,7 @@ Rectangle{
     radius: app.fs*0.1
     property int xAsWidth: r.width/(parseInt(zm.aBodies.length/4))-1//!zm.ev?r.width/(parseInt(zm.aBodies.length/2))-1:(r.width/(parseInt(zm.aBodies.length/2))-1)*2
     property bool isExt: false
-    property string folderImg: '../../../../modules/ZoolMap/imgs/imgs_v1'
+    property string folderImg: '../../../../../modules/ZoolMap/imgs/imgs_v1'
     //property var aSelected: []
     property int bsel1: -1
     property int bsel2: -1

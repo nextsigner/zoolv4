@@ -1,1 +1,1 @@
-Se mueve ZoolMods a ZoolSectionsManager
+Se mueve ZoolMods a ZoolSectionsManager CORREGIDO

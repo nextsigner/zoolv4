@@ -1,1 +1,1 @@
-Se mueve ZoolFiles a ZoolSectionsManager
+Se muerve ZoolFileExtDataManager a ZoolSectionsManager

@@ -2,9 +2,9 @@ import QtQuick 2.7
 import QtQuick.Window 2.0
 import QtQuick.Controls 2.0
 import Qt.labs.settings 1.1
-import "../../comps" as Comps
+import "../../../comps" as Comps
 
-import ZoolSabianos.ZoolSabianosView 1.1
+import ZoolSectionsManager.ZoolSabianos.ZoolSabianosView 1.1
 import ZoolButton 1.1
 import ZoolText 1.1
 
@@ -19,7 +19,7 @@ Rectangle {
 
     property alias view: sabianosView
 
-    property string folderData: './modules/ZoolSabianos/data'
+    property string folderData: './modules/ZoolSectionsManager/ZoolSabianos/data'
 
     property bool showSource: false
     property string htmlFolder: ''

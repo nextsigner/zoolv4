@@ -1,1 +1,1 @@
-Se mueve ZoolListLunar a ZoolSectionsManager
+Se mueve ZoolSabianos a ZoolSectionsManager

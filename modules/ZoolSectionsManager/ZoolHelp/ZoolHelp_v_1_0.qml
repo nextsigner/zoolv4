@@ -107,7 +107,7 @@ Rectangle{
         getData(0)
     }
     function getData(index){
-        let fn='./modules/ZoolHelp/'+(r.aAsuntos[index]).replace(/ /g, '_')+'.md'
+        let fn='./modules/ZoolSectionsManager/ZoolHelp/'+(r.aAsuntos[index]).replace(/ /g, '_')+'.md'
         if(!unik.fileExist(fn)){
             let data='## '+r.aAsuntos[index]
             unik.setFile(fn, data)

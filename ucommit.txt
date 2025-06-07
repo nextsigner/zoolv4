@@ -1,1 +1,1 @@
-Se mueve ZoolNumPit a ZoolSectionsManager
+Se mueve ZoolHelp a ZoolSectionsManager

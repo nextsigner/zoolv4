@@ -3,6 +3,7 @@ import QtQuick.Controls 2.12
 import '../../comps' as Comps
 
 
+import ZoolModulesManager 1.0
 import ZoolSectionsManager.ZoolFiles.ZoolFileManager 1.4
 import ZoolSectionsManager.ZoolFileExtDataManager 1.2
 import ZoolSectionsManager.ZoolMods 1.0
@@ -10,11 +11,11 @@ import ZoolSectionsManager.ZoolListLunar 1.0
 import ZoolSectionsManager.ZoolSabianos 1.1
 import ZoolSectionsManager.ZoolRevolutionList 1.5
 import ZoolSectionsManager.ZoolNumPit 1.4
+import ZoolSectionsManager.ZoolHelp 1.0
 
 
 
-import ZoolModulesManager 1.0
-import ZoolHelp 1.0
+
 
 import ZoolButton 1.2
 

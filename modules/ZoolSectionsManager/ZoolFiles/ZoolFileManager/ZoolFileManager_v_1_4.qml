@@ -1,10 +1,10 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import Qt.labs.settings 1.1
-import "../../../comps" as Comps
+import "../../../../comps" as Comps
 
-import ZoolFiles.ZoolFileMaker 1.7
-import ZoolFiles.ZoolFileLoader 1.4
+import ZoolSectionsManager.ZoolFiles.ZoolFileMaker 1.7
+import ZoolSectionsManager.ZoolFiles.ZoolFileLoader 1.4
 
 import ZoolButton 1.0
 import ZoolText 1.1
@@ -249,5 +249,17 @@ Rectangle {
     }
     function toTab(){
         getSectionVisible().toTab()
+    }
+    property bool hasUnUsedFunction: true
+    function unUsed(){
+        for(var i=0;i<xSections.children.length;i++){
+            let o=xSections.children[i]
+            if(o.hasUnUsedFunction){
+                o.unUsed();
+                //log.lv('Panel Anterior con unUsed(): '+panelType)
+            }else{
+                //log.lv('Panel Anterior sin unUsed(): '+panelType)
+            }
+        }
     }
 }

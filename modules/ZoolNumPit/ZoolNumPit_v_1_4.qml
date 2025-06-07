@@ -3176,4 +3176,10 @@ Celosos y con tendencias a esclavizar y a castrar a otros.')
         //log.lv('json:'+JSON.stringify(j0, null, 2))
         clipboard.setText(JSON.stringify(j0, null, 2))
     }
+    //-->Funciones de Control Focus y Teclado
+    property bool hasUnUsedFunction: true
+    function unUsed(){
+        //log.lv(app.j.qmltypeof(r)+'.unUsed()...')
+    }
+    //-->Funciones de Control Focus y Teclado
 }

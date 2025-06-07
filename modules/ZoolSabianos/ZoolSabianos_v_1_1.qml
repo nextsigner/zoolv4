@@ -760,5 +760,11 @@ Rectangle {
         let fn='sabianos_'+r.signos[sabianosView.numSign]+'_grado_'+parseInt(sabianosView.numDegree+ 1)+'_texto_'+parseInt(sabianosView.currentInterpreter + 1)+'.png'
         return fn
     }
+    //-->Funciones de Control Focus y Teclado
+    property bool hasUnUsedFunction: true
+    function unUsed(){
+        //log.lv(app.j.qmltypeof(r)+'.unUsed()...')
+    }
+    //-->Funciones de Control Focus y Teclado
 }
 

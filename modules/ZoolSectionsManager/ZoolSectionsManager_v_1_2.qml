@@ -3,7 +3,7 @@ import QtQuick.Controls 2.12
 import '../../comps' as Comps
 
 import ZoolFileExtDataManager 1.2
-import ZoolFiles.ZoolFileManager 1.4
+import ZoolSectionsManager.ZoolFiles.ZoolFileManager 1.4
 import ZoolMods 1.0
 import ZoolListLunar 1.0
 import ZoolSabianos 1.1
@@ -22,6 +22,7 @@ Item{
     height: xLatIzq.height//-indicatorSV.height-xPanelesTits.height
     clip: true
     property int currentIndex: count-1//apps.currentSwipeViewIndex
+    property var currentSectionPrev: r
     property int count: indicatorSV.count
     property var aPanelsIds: []
     property var currentSectionFocused: r
@@ -29,6 +30,9 @@ Item{
     property string uPanelIdHovered: ''
 
     property string currentSectionFocusedName: ''
+
+
+
     onCurrentSectionFocusedChanged: {
         r.currentSectionFocusedName=app.j.qmltypeof(currentSectionFocused)
     }
@@ -38,6 +42,18 @@ Item{
     onCurrentIndexChanged:{
         apps.currentSwipeViewIndex=currentIndex
         r.showPanel(r.aPanelsIds[zsm.currentIndex])
+        if(r.currentSectionPrev!==r){
+            let panelPrevio=getPanel(app.j.qmltypeof(currentSectionPrev))
+            let panelType=app.j.qmltypeof(panelPrevio)
+            if(r.currentSectionPrev.hasUnUsedFunction){
+                r.currentSectionPrev.unUsed();
+                //log.lv('Panel Anterior con unUsed(): '+panelType)
+            }else{
+                //log.lv('Panel Anterior sin unUsed(): '+panelType)
+            }
+        }
+
+        r.currentSectionPrev=getPanel(app.j.qmltypeof(getPanelObject(currentIndex)))
         zsm.getPanel('ZoolRevolutionList').desactivar()
     }
     MouseArea{
@@ -269,6 +285,9 @@ Item{
             }
         }
         return obj
+    }
+    function getPanelObject(index){
+        return xPanels.children[Math.abs(xPanels.children.length-1-index)].children[0]
     }
     function showPanel(typeOfSection){
         //let newCi=-1

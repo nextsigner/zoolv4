@@ -1022,4 +1022,10 @@ Rectangle {
         c+='}\n'
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcodenewvn')
     }
+    //-->Funciones de Control Focus y Teclado
+    property bool hasUnUsedFunction: true
+    function unUsed(){
+        //log.lv(app.j.qmltypeof(r)+'.unUsed()...')
+    }
+    //-->Funciones de Control Focus y Teclado
 }

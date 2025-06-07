@@ -203,4 +203,16 @@ Rectangle {
     function toDown(){
         panelActive.toDown()
     }
+    property bool hasUnUsedFunction: true
+    function unUsed(){
+        for(var i=0;i<xSections.children.length;i++){
+            let o=xSections.children[i]
+            if(o.hasUnUsedFunction){
+                o.unUsed();
+                //log.lv('Panel Anterior con unUsed(): '+panelType)
+            }else{
+                //log.lv('Panel Anterior sin unUsed(): '+panelType)
+            }
+        }
+    }
 }

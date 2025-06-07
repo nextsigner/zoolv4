@@ -1,1 +1,1 @@
-./module/ZoolMods
+Se mueve ZoolMods a ZoolSectionsManager

@@ -419,6 +419,15 @@ Rectangle {
                                 initSearch()
                             }
                         }
+                        ZoolButton{
+                            id: botMkText
+                            text: 'Copiar'
+                            visible: tl.olm.count>0
+                            onClicked:{
+                                let s=tl.getData(bb.bsel1)
+                                clipboard.setText(s)
+                            }
+                        }
                     }
                     Item{
                         width: parent.width

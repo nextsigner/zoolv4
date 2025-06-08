@@ -1,1 +1,1 @@
-Se crea BodieButtons v2 en ZoolFileTransLoader
+Se crea boton Copiar en ZoolFileTransLoader

@@ -86,4 +86,14 @@ Rectangle{
         }
         return ret
     }
+    function getData(bsel1){
+        let ret=''
+        for(var i=0;i<lm.count;i++){
+            let j0=lm.get(i).j
+            let aspName=zm.objAspsCircle.getAspName(j0.aspIndex)
+            ret+=''+j0.d+'/'+j0.m+'/'+j0.a+' '+aspName+' '+j0.b+' sobre el '+zm.aBodies[bsel1]+'\n'
+
+        }
+        return ret
+    }
 }

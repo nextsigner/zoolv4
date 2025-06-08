@@ -3,7 +3,7 @@ import QtQuick.Controls 2.0
 import Qt.labs.settings 1.1
 import "../../../comps" as Comps
 
-import ZoolSectionsManager.ZoolMods.ZoolFileTransLoader 1.5
+import ZoolSectionsManager.ZoolMods.ZoolFileTransLoader 1.6
 import ZoolSectionsManager.ZoolMods.ZoolFileDirPrimLoader 1.7
 import ZoolSectionsManager.ZoolMods.ZoolFileProgSecLoader 1.0
 import ZoolButton 1.0

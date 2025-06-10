@@ -10,6 +10,7 @@ import ZoolMap.ZoolMapAspsView 1.0
 import ZoolMap.ZoolMapAspsViewBack 1.0
 import ZoolMap.ZoolMapAsInfoView 1.0
 import ZoolElementsView 1.0
+import ZoolMap.NumberLines 1.0
 
 import ZoolMap.ZoolMapNakshatraView 1.0
 
@@ -183,6 +184,7 @@ Rectangle{
 
     //-->Theme
     property string themeName: 'Zool'
+    property var aSignsColors: ['red', '#FBE103', '#09F4E2', '#0D9FD6']
     property color bodieColor: apps.fontColor
     property color bodieColorBack: apps.fontColor
     property color bodieBgColor: 'transparent'
@@ -658,7 +660,10 @@ Rectangle{
                     ZoolMapPlanetsCircle{id: planetsCircle; width: signCircle.width-signCircle.w*2; z: ai.z+4;}
                 }
 
-                //NumberLines{visible:true}
+                NumberLines{
+                    visible: apps.showNumberLines
+
+                }
                 ZoolMapNakshatraView{id: nakshatraView; width: ca.width; z: aspsCircle.z+1}
                 Rectangle{
                     id: capaFront

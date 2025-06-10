@@ -1,1 +1,1 @@
-Se crea boton Copiar en ZoolFileTransLoader
+Se crea ZoolHelp->Menú Ver

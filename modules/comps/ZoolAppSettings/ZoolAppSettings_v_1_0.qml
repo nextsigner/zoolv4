@@ -75,7 +75,7 @@ Settings{
     property bool previewEnabled: true
     property int zmCurrenThemeIndex: 0
     property string swegMod: 'vn'
-    property bool showNumberLines: false
+    property bool showNumberLines: true
     property bool showDec: false
     property bool showXAsLineCenter: false
     property color xAsLineCenterColor: 'red'

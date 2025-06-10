@@ -2,6 +2,7 @@ import QtQuick 2.12
 import ZoolButton 1.2
 
 import comps.FormContactoPushOver 1.0
+import ZoolSectionsManager.ZoolHelp.MenuVer 1.0
 
 Rectangle{
     id: r
@@ -13,7 +14,7 @@ Rectangle{
     property int svIndex: zsm.currentIndex
     property int itemIndex: -1
     property int fs: app.fs*0.75
-    property var aAsuntos: ['Inicio', 'Video Tutoriales', 'Teclado', 'Mouse', 'Mapa Astrológico', 'Aspectos', 'Panel Métodos', 'Panel Cuerpos', 'Panel Secciones', 'Sabianos', 'Evolutiva', 'Editar Archivo', 'Advertencias', 'Agradecimientos', 'Contacto', 'Sobre Qt']
+    property var aAsuntos: ['Inicio', 'Video Tutoriales', 'Teclado', 'Mouse', 'Mapa Astrológico', 'Aspectos', 'Panel Métodos', 'Panel Cuerpos', 'Panel Secciones', 'Sabianos', 'Evolutiva', 'Editar Archivo', 'Menú Ver', 'Advertencias', 'Agradecimientos', 'Contacto', 'Sobre Qt']
     property string uAsunto: 'Inicio'
     Column{
         id: col0
@@ -21,7 +22,7 @@ Rectangle{
         anchors.centerIn: parent
         Rectangle{
             id: xCab
-            width: r.width
+            width: r.width-app.fs*0.5
             height: flow.height
             color: apps.backgroundColor
             border.width: 1
@@ -36,7 +37,7 @@ Rectangle{
                     model: r.aAsuntos
                     ZoolButton{
                         text: modelData
-                        colorInverted: r.uAsunto===modelData
+                        colorInverted: r.uAsunto!==modelData
                         onClicked:{
                             r.uAsunto=modelData
                             getData(index)
@@ -47,12 +48,13 @@ Rectangle{
         }
         Rectangle{
             id: xTxtData
-            width: r.width
+            width: r.width-app.fs*0.5
             height: r.height-xCab.height-app.fs*0.5
             color: apps.backgroundColor
             border.width: 1
             border.color: apps.fontColor
             clip: true
+            anchors.horizontalCenter: parent.horizontalCenter
             Flickable{
                 id: flk
                 anchors.fill: parent
@@ -60,6 +62,8 @@ Rectangle{
                 contentHeight: colAll.height+app.fs
                 Column{
                     id: colAll
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    Item{width: 1; height: app.fs*0.5}
                     Text{
                         id: txtData
                         text: '<b>Ayuda (Area en construcción)</b>'
@@ -80,6 +84,11 @@ Rectangle{
                             width: r.width-app.fs*0.5
                             anchors.horizontalCenter: parent.horizontalCenter
                             visible: r.uAsunto==='Contacto'
+                        }
+                        MenuVer{
+                            width: r.width-app.fs*0.5
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            visible: r.uAsunto==='Menú Ver'
                         }
                     }
                 }

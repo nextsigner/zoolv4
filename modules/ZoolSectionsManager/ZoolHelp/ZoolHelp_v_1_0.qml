@@ -15,7 +15,7 @@ Rectangle{
     property int svIndex: zsm.currentIndex
     property int itemIndex: -1
     property int fs: app.fs*0.75
-    property var aAsuntos: ['Inicio', 'Video Tutoriales', 'Teclado', 'Mouse', 'Mapa Astrológico', 'Aspectos', 'Panel Métodos', 'Panel Cuerpos', 'Panel Secciones', 'Sabianos', 'Evolutiva', 'Editar Archivo', 'Menú Archivo', 'Menú Ver', 'Advertencias', 'Agradecimientos', 'Contacto', 'Sobre Qt']
+    property var aAsuntos: ['Inicio', 'Video Tutoriales', 'Cómo Usarlo', 'Teclado', 'Mouse', 'Mapa Astrológico', 'Aspectos', 'Panel Métodos', 'Panel Cuerpos', 'Panel Secciones', 'Sabianos', 'Evolutiva', 'Editar Archivo', 'Menú Archivo', 'Menú Ver', 'Advertencias', 'Agradecimientos', 'Contacto', 'Sobre Qt']
     property string uAsunto: 'Inicio'
     Column{
         id: col0
@@ -99,6 +99,23 @@ Rectangle{
                             aAsuntos: ['Cambiar Colores', 'Mostrar grados']
                             anchors.horizontalCenter: parent.horizontalCenter
                             visible: r.uAsunto==='Menú Ver'
+                        }
+                        MenuGrupo{
+                            width: r.width-app.fs*0.5
+                            grupo: 'ComoUsarlo'
+                            aAsuntos: ['Areas de la Aplicación']
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            visible: r.uAsunto==='Cómo Usarlo'
+                            onVisibleChanged:{
+                                if(visible){
+                                    let c='import QtQuick 2.0\n'
+                                    c='import ZoolSectionsManager.ZoolHelp.BotZonas 1.0\n'
+                                    c+='BotZonas{}'
+                                    let comp=Qt.createQmlObject(c, cic, 'icicode')
+                                }else{
+                                    clearCIC()
+                                }
+                            }
                         }
 
                     }

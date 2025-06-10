@@ -10,6 +10,7 @@ Rectangle{
     property int fs: app.fs*0.75
     property var aAsuntos: []
     property string uAsunto: aAsuntos[0]
+    property alias cic: colItemContainer
     onVisibleChanged: {
         if(visible){
             //r.grupo=app.j.qmltypeof(r)
@@ -75,6 +76,7 @@ Rectangle{
                     onLinkActivated: Qt.openUrlExternally(link)
                 }
                 Column{
+                    id: colItemContainer
                     width: parent.parent.width
                     anchors.horizontalCenter: parent.horizontalCenter
 //                    Rectangle{
@@ -120,6 +122,11 @@ Rectangle{
         let fd=unik.getFile(fn)
         txtData.text=fd
         //log.lv('txtData.text: '+txtData.text)
+    }
+    function clearCIC(){
+        for(var i=0;i<colItemContainer.children.length;i++){
+            colItemContainer.children[i].destroy(0)
+        }
     }
 
 }

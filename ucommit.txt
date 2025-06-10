@@ -1,1 +1,1 @@
-Se crea ZoolHelp->Menú Ver
+Se crea MenuGrupo en ZoolHelp

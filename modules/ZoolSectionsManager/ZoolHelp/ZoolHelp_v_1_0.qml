@@ -2,7 +2,8 @@ import QtQuick 2.12
 import ZoolButton 1.2
 
 import comps.FormContactoPushOver 1.0
-import ZoolSectionsManager.ZoolHelp.MenuVer 1.0
+
+import ZoolSectionsManager.ZoolHelp.MenuGrupo 1.0
 
 Rectangle{
     id: r
@@ -14,7 +15,7 @@ Rectangle{
     property int svIndex: zsm.currentIndex
     property int itemIndex: -1
     property int fs: app.fs*0.75
-    property var aAsuntos: ['Inicio', 'Video Tutoriales', 'Teclado', 'Mouse', 'Mapa Astrológico', 'Aspectos', 'Panel Métodos', 'Panel Cuerpos', 'Panel Secciones', 'Sabianos', 'Evolutiva', 'Editar Archivo', 'Menú Ver', 'Advertencias', 'Agradecimientos', 'Contacto', 'Sobre Qt']
+    property var aAsuntos: ['Inicio', 'Video Tutoriales', 'Teclado', 'Mouse', 'Mapa Astrológico', 'Aspectos', 'Panel Métodos', 'Panel Cuerpos', 'Panel Secciones', 'Sabianos', 'Evolutiva', 'Editar Archivo', 'Menú Archivo', 'Menú Ver', 'Advertencias', 'Agradecimientos', 'Contacto', 'Sobre Qt']
     property string uAsunto: 'Inicio'
     Column{
         id: col0
@@ -85,11 +86,21 @@ Rectangle{
                             anchors.horizontalCenter: parent.horizontalCenter
                             visible: r.uAsunto==='Contacto'
                         }
-                        MenuVer{
+                        MenuGrupo{
                             width: r.width-app.fs*0.5
+                            grupo: 'MenuArchivo'
+                            aAsuntos: ['Recargar archivo interior']
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            visible: r.uAsunto==='Menú Archivo'
+                        }
+                        MenuGrupo{
+                            width: r.width-app.fs*0.5
+                            grupo: 'MenuVer'
+                            aAsuntos: ['Cambiar Colores', 'Mostrar grados']
                             anchors.horizontalCenter: parent.horizontalCenter
                             visible: r.uAsunto==='Menú Ver'
                         }
+
                     }
                 }
             }
@@ -116,7 +127,14 @@ Rectangle{
         getData(0)
     }
     function getData(index){
-        let fn='./modules/ZoolSectionsManager/ZoolHelp/'+(r.aAsuntos[index]).replace(/ /g, '_')+'.md'
+        let folder=''
+        if(r.aAsuntos[index].indexOf('Menú')===0){
+            folder=r.aAsuntos[index].replace(/ /g, '').replace(/ú/g, 'u')+'/'
+        }
+        if(!unik.folderExist(unik.getPath(5)+'/modules/ZoolSectionsManager/ZoolHelp/'+folder)){
+            unik.mkdir(unik.getPath(5)+'/modules/ZoolSectionsManager/ZoolHelp/'+folder)
+        }
+        let fn=unik.getPath(5)+'/modules/ZoolSectionsManager/ZoolHelp/'+folder+(r.aAsuntos[index]).replace(/ /g, '_')+'.md'
         if(!unik.fileExist(fn)){
             let data='## '+r.aAsuntos[index]
             unik.setFile(fn, data)

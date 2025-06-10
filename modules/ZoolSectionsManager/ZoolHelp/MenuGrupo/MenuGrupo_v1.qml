@@ -6,13 +6,13 @@ Rectangle{
     width: parent.width
     height: col0.height+app.fs
     color: 'transparent'
-    property string grupo: 'MenuVer'
+    property string grupo: ''
     property int fs: app.fs*0.75
-    property var aAsuntos: ['Cambiar Colores', 'Mostrar grados']
-    property string uAsunto: 'Cambiar Colores'
+    property var aAsuntos: []
+    property string uAsunto: aAsuntos[0]
     onVisibleChanged: {
         if(visible){
-            r.grupo=app.j.qmltypeof(r)
+            //r.grupo=app.j.qmltypeof(r)
             getData(0)
         }
     }
@@ -104,8 +104,13 @@ Rectangle{
         //        }
     }
     function getData(index){
-        if(!r.visible)return
-        let fn='./modules/ZoolSectionsManager/ZoolHelp/'+r.grupo+'/'+(r.aAsuntos[index]).replace(/ /g, '_')+'.md'
+        if(!r.visible || r.grupo==='')return
+        let folder=unik.getPath(5)+'/modules/ZoolSectionsManager/ZoolHelp/'+r.grupo
+        if(!unik.folderExist(folder)){
+            unik.mkdir(folder)
+        }
+        let fn=unik.getPath(5)+'/modules/ZoolSectionsManager/ZoolHelp/'+r.grupo+'/'+(r.aAsuntos[index]).replace(/ /g, '_')+'.md'
+        //log.lv('Cargando: '+fn)
         if(!unik.fileExist(fn)){
             let data='## '+r.aAsuntos[index]
             unik.setFile(fn, data)

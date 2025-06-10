@@ -26,7 +26,7 @@ Rectangle{
             width: r.width-app.fs*0.5
             height: flow.height
             color: apps.backgroundColor
-            border.width: 1
+            border.width: 0
             border.color: apps.fontColor
             clip: true
             Flow{

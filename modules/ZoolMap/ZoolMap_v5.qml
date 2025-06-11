@@ -2044,12 +2044,15 @@ Rectangle{
         app.t='vn'
 
         zm.ev=false
+        //aspsCircle.clear()
         aspsCircleBack.clear()
         zoolDataView.clearExtData()
         ai.width=r.width
         zm.objTapa.opacity=0.0
         aspsCircle.opacity=1.0
+        aspsCircle.visible=true
         aspsCircleBack.opacity=0.0
+        aspsCircle.visible=false
         panelAspectsBack.opacity=0.0
         loadFromFile(apps.url, 'vn', false)
     }

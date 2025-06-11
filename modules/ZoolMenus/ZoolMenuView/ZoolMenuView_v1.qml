@@ -26,6 +26,29 @@ ZoolMenus{
             apps.xAsShowIcon=!apps.xAsShowIcon
         }
     }
+    Action {
+        text: zm.objAspsCircle.visible?qsTr("Ocultar Aspectos Internos"):qsTr("Ver Aspectos Internos");
+        onTriggered: {
+            zm.objAspsCircle.visible=!zm.objAspsCircle.visible
+            if(zm.objAspsCircle.visible){
+                zm.objAspsCircle.opacity=1.0
+            }else{
+                zm.objAspsCircle.opacity=0.0
+            }
+        }
+    }
+    Action {
+        text: zm.objAspsCircleBack.visible?qsTr("Ocultar Aspectos Externos"):qsTr("Ver Aspectos Externos");
+        onTriggered: {
+            zm.objAspsCircleBack.visible=!zm.objAspsCircleBack.visible
+            if(zm.objAspsCircleBack.visible){
+                zm.objAspsCircleBack.opacity=1.0
+            }else{
+                zm.objAspsCircleBack.opacity=0.0
+            }
+        }
+    }
+
     Action {text: zm.ev?'Ocultar Exterior':'Ver Exterior'; onTriggered: {
             zm.ev=!zm.ev
         }

@@ -1,7 +1,7 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import Qt.labs.settings 1.1
-import ZoolControlsTime 1.0
+import ZoolControlsTime 1.1
 import ZoolTextInput 1.0
 //import "../../comps" as Comps
 //import "../../js/Funcs.js" as JS
@@ -179,8 +179,14 @@ Rectangle {
                     id: controlTimeFecha
                     gmt: 0
                     fs: r.width*0.07
+                    restartCFocusFromZero: false
                     KeyNavigation.tab: tiCiudad.t
                     setAppTime: false
+                    onCFocusChanged:{
+                        if(cFocus===-1){
+                            tiCiudad.t.focus=true
+                        }
+                    }
                     onGmtChanged:{
                         if(cbPreview.checked){
                             loadTemp()

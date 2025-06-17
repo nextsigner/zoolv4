@@ -56,6 +56,7 @@ Item{
     Component.onCompleted: {
         let ms=new Date(Date.now()).getTime()
         app.j.getRD('https://github.com/nextsigner/zoolv4/releases/latest?r='+ms, setZoolLastVersion)
+        //unik.downloadZipFile('https://github.com/nextsigner/zoolv4/releases/download/zool-release/zoolv4_5.6.11.0.zip', 'C:\aqui')
 
 
     }

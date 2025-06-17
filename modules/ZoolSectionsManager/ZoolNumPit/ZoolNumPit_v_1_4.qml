@@ -3,7 +3,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Dialogs 1.2
 import "../../"
 import ZoolButton 1.2
-import ZoolControlsTime 1.0
+import ZoolControlsTime 1.1
 
 import ZoolSectionsManager.ZoolNumPit.ZoolPinaculo 1.0
 
@@ -2405,6 +2405,8 @@ Rectangle {
         }
         r.currentTipoPin4=tPin
     }
+
+    //-->Teclado
     function toEnter(){
         if(txtDataSearchFecha.focus){
             calc()
@@ -2416,6 +2418,15 @@ Rectangle {
     function toLeft(){}
     function toRight(){}
     function toTab(){}
+    function toEscape(){
+        ct.toEscape()
+    }
+    function isFocus(){
+        if(ct.isFocus())return true
+        return false
+    }
+    //<--Teclado
+
     function updateGenero(){
         let p=zfdm.getJsonAbsParams(false)
         if(p.g==='m'){

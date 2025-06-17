@@ -298,7 +298,7 @@ ApplicationWindow {
                 return
             }
             if(apps.zFocus==='xLatIzq'){
-                zsm.currentSectionFocused.enter()
+                zsm.currentSectionFocused.toEnter()
                 return
             }
             if(xEditor.visible){
@@ -348,6 +348,10 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Esc'
         onActivated: {
+            if(zsm.getPanel('ZoolNumPit').isFocus()){
+                zsm.getPanel('ZoolNumPit').toEscape()
+                return
+            }
             if(zsm.getPanel('ZoolNumPit').logView.visible){
                 zsm.getPanel('ZoolNumPit').logView.visible=false
                 return
@@ -1036,7 +1040,9 @@ ApplicationWindow {
 
             //zm.unloadExt()
             //zoolDataBodies.objZbsv.selBodie(0)
-            zm.capturing=!zm.capturing
+            //zm.capturing=!zm.capturing
+           // let d = unik.downloadZipFile('https://github.com/nextsigner/zoolv4/releases/download/zool-release/zoolv4_5.6.11.0.zip', '/home/ns/', false)
+            //log.lv('d: '+d)
         }
     }
 }

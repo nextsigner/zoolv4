@@ -229,6 +229,8 @@ Rectangle {
         }
         return obj
     }
+
+    //-->Teclado
     function enter(){
         panelActive.enter()
     }
@@ -250,6 +252,14 @@ Rectangle {
     function toTab(){
         getSectionVisible().toTab()
     }
+    function toEscape(){
+        getSectionVisible().toEscape()
+    }
+    function isFocus(){
+        getSectionVisible().isFocus()
+    }
+    //<--Teclado
+
     property bool hasUnUsedFunction: true
     function unUsed(){
         for(var i=0;i<xSections.children.length;i++){

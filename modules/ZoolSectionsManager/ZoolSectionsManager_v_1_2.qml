@@ -341,6 +341,8 @@ Item{
         log.lv(s)
 
     }
+
+    //-->Teclado
     function toEnter(){
         r.currentSectionFocused=getPanelVisible()
     }
@@ -376,4 +378,8 @@ Item{
     function toTab(){
         getPanelVisible().toTab()
     }
+    function toEscape(){
+        getPanelVisible().toEscape()
+    }
+    //<--Teclado
 }

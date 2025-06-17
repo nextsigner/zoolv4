@@ -240,6 +240,10 @@ Rectangle {
                 padding: app.fs*0.25
                 horizontalAlignment: TextInput.AlignLeft
                 onTextChanged: {
+                    if(text==='Ingresa un lugar aquí'){
+                        selectAll()
+                        return
+                    }
                     settings.inputCoords=false
                     tSearch.restart()
                     t.color='white'                    
@@ -812,6 +816,8 @@ Rectangle {
         tiNombre.t.focus=true
 
     }
+
+    //-->Teclado
     function toRight(){
         if(controlTimeFecha.focus){
             controlTimeFecha.toRight()
@@ -850,11 +856,37 @@ Rectangle {
         if(tiNombre.t.focus){
             cbGenero.focus=true
         }else if(cbGenero.focus){
+            controlTimeFecha.cFocus=0
+            //tiCiudad.t.focus=true
+        }else if(controlTimeFecha.cFocus<5){
+            controlTimeFecha.cFocus++
+        }else if(controlTimeFecha.cFocus===5){
             tiCiudad.t.focus=true
+        }else if(tiCiudad.t.focus){
+            if(tiNombre.t.text===''){
+                zpn.log('Aún no se ha complatado el campo para el nombre.')
+                tiNombre.t.focus=true
+                return
+
+            }
+            if(tiCiudad.t.text===''){
+                tiCiudad.t.text='Ingresa un lugar aquí'
+                return
+            }
+            botCrear.focus=true
         }else{
             tiNombre.t.focus=true
         }
     }
+    function toEscape(){
+        tiNombre.t.focus=false
+    }
+    function isFocus(){
+        if(controlTimeFecha.isFocus())return true
+        return false
+    }
+    //<--Teclado
+
     function setInitFocus(){
         tiNombre.t.selectAll()
         tiNombre.t.focus=true

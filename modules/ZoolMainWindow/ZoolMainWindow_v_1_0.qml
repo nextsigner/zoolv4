@@ -348,24 +348,31 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Esc'
         onActivated: {
-            if(zsm.getPanel('ZoolNumPit').isFocus()){
-                zsm.getPanel('ZoolNumPit').toEscape()
-                return
-            }
-            if(zsm.getPanel('ZoolNumPit').logView.visible){
-                zsm.getPanel('ZoolNumPit').logView.visible=false
-                return
-            }
-            if(zsm.getPanel('ZoolSabianos').view.visible){
-                zsm.getPanel('ZoolSabianos').view.visible=false
-                return
+            if(apps.zFocus==='xLatIzq'){
+                if(zsm.getPanel('ZoolNumPit').isFocus()){
+                    zsm.getPanel('ZoolNumPit').toEscape()
+                    return
+                }
+                if(zsm.getPanel('ZoolNumPit').logView.visible){
+                    zsm.getPanel('ZoolNumPit').logView.visible=false
+                    return
+                }
+                if(zsm.getPanel('ZoolSabianos').view.visible){
+                    zsm.getPanel('ZoolSabianos').view.visible=false
+                    return
+                }
+                if(zsm.getPanelVisible().isFocus()){
+                    zsm.getPanelVisible().toEscape()
+                    return
+                }
+                if(zsm.currentSectionFocusedName!=='ZoolSectionsManager'){
+                    zsm.currentSectionFocused=zsm
+                    return
+                }
+                //Qt.quit()
             }
             if(log.visible){
                 log.visible=false
-                return
-            }
-            if(zsm.currentSectionFocusedName!=='ZoolSectionsManager'){
-                zsm.currentSectionFocused=zsm
                 return
             }
             if(apps.dev && !log.visible){
@@ -378,28 +385,6 @@ ApplicationWindow {
             }
             if(app.objInFullWin){
                 //app.objInFullWin.escaped()
-                return
-            }
-//            if(ncv.log.visible){
-//                ncv.log.visible=false
-//                return
-//            }
-            //            if(log.visible){
-            //                log.visible=false
-            //                return
-            //            }
-            //Efecto sobre los paneles
-            if(zsm.getPanel('ZoolFileManager').visible&&zsm.getPanel('ZoolFileManager').ti.focus){
-                zsm.getPanel('ZoolFileManager').ti.focus=false
-                return
-            }
-            if(zsm.getPanel('ZoolFileManager').visible&&(zsm.getPanel('ZoolFileManager').tiN.focus||zsm.getPanel('ZoolFileManager').tiC.focus)){
-                if(zsm.getPanel('ZoolFileManager').tiN.focus){
-                    zsm.getPanel('ZoolFileManager').tiN.focus=false
-                }
-                if(zsm.getPanel('ZoolFileManager').tiC.focus){
-                    zsm.getPanel('ZoolFileManager').tiC.focus=false
-                }
                 return
             }
             if(xEditor.visible&&xEditor.e.textEdit.focus){
@@ -429,34 +414,12 @@ ApplicationWindow {
                 //sweg.objHousesCircleBack.currentHouse=-1
                 return
             }
-            if(zsm.getPanel('ZoolSabianos').view.visible){
-                zsm.getPanel('ZoolSabianos').view.visible=false
-                return
-            }
-            if(xBottomBar.objPanelCmd.state==='show'){
+
+
+            /*if(xBottomBar.objPanelCmd.state==='show'){
                 xBottomBar.objPanelCmd.state='hide'
                 return
-            }
-            //            if(panelRsList.state==='show'){
-            //                panelRsList.state='hide'
-            //                return
-            //            }
-            if(zsm.getPanel('ZoolFileManager').state==='show'){
-                zsm.getPanel('ZoolFileManager').state='hide'
-                return
-            }
-//            if(zoolDataBodies.state==='show'){
-//                zoolDataBodies.state='hide'
-//                return
-//            }
-            if(zsm.getPanel('ZoolFileManager').state==='show'){
-                zsm.getPanel('ZoolFileManager').state='hide'
-                return
-            }
-            //            if(panelControlsSign.state==='show'){
-            //                panelControlsSign.state='hide'
-            //                return
-            //            }
+            }*/
             if(xInfoData.visible){
                 xInfoData.visible=false
                 return

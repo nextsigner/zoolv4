@@ -2417,9 +2417,18 @@ Rectangle {
     function toDown(){}
     function toLeft(){}
     function toRight(){}
-    function toTab(){}
+    function toTab(){
+        if(!ct.isFocus()){
+            ct.cFocus=0
+            return
+        }
+    }
     function toEscape(){
-        ct.toEscape()
+        if(ct.isFocus()){
+            ct.toEscape()
+            r.focus=true
+            return
+        }
     }
     function isFocus(){
         if(ct.isFocus())return true

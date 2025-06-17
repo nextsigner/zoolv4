@@ -507,6 +507,24 @@ Rectangle {
         t6.visible=true
         //t7.visible=true
         t8.visible=true
+        if(cFocus===0){
+            editCellData.parent=xAnio
+        }
+        if(cFocus===1){
+            editCellData.parent=xMes
+        }
+        if(cFocus===2){
+            editCellData.parent=xDia
+        }
+        if(cFocus===3){
+            editCellData.parent=xGmt
+        }
+        if(cFocus===4){
+            editCellData.parent=xHora
+        }
+        if(cFocus===5){
+            editCellData.parent=xMinuto
+        }
     }
     Timer{
         running: false//r.cFocus>=0 && editCellData.parent!==r

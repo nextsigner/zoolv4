@@ -251,73 +251,54 @@ ApplicationWindow {
             zm.currentPlanetIndex=21
         }
     }
-    Shortcut{
-        sequence: 'Return'
-        onActivated: {
-            if(xBottomBar.state==='show'){
-                xBottomBar.enter()
-                return
-            }
-            if(apps.zFocus==='xLatDer'){
-                zoolDataBodies.toEnter()
-                return
-            }
-            if(apps.zFocus==='xLatIzq'){
-                zsm.toEnter()
-                /*if(apps.currentSwipeViewIndex===2&&zsm.getPanel('ZoolFileManager').currentIndex>=0){
-                    zsm.getPanel('ZoolFileManager').enter()
-                    return
-                }
-                //                if(apps.currentSwipeViewIndex===3){
-                //                    zsm.getPanel('ZoolFileManager').enter()
-                //                    return
-                //                }
-                if(apps.currentSwipeViewIndex===3){
-                    panelRsList.enter()
-                    return
-                }
-                if(apps.currentSwipeViewIndex===4){
-                    ncv.enter()
-                    return
-                }*/
-            }
-        }
-    }
+
 
     //Esto en algunos casos funciona con la tecla Return
     //de la derecha del teclado.
     Shortcut{
+        sequence: 'Return'
+        onActivated: {
+            ctrlReturnEnter(false, 'Return')
+        }
+    }
+    Shortcut{
         sequence: 'Enter'
         onActivated: {
-            if(menuBar.expanded){
-                menuBar.e()
-                return
-            }
-            if(apps.zFocus==='xLatDer'){
-                zoolDataBodies.toEnter()
-                return
-            }
-            if(apps.zFocus==='xLatIzq'){
-                zsm.currentSectionFocused.toEnter()
-                return
-            }
-            if(xEditor.visible){
-                //xEditor.enter()
-                //return
-            }
-            /*
-            if(apps.currentSwipeViewIndex===3&&zsm.getPanel('ZoolFileManager').currentIndex>=0){
-                zsm.getPanel('ZoolFileManager').enter()
-                return
-            }
-            if(apps.currentSwipeViewIndex===3){
-                zsm.getPanel('ZoolFileManager').enter()
-                return
-            }
-            if(apps.currentSwipeViewIndex===5){
-                panelRsList.enter()
-                return
-            }*/
+            ctrlReturnEnter(false, 'Enter')
+        }
+    }
+    Shortcut{
+        sequence: 'Ctrl+Return'
+        onActivated: {
+            ctrlReturnEnter(true, 'Return')
+        }
+    }
+    Shortcut{
+        sequence: 'Ctrl+Enter'
+        onActivated: {
+            ctrlReturnEnter(true, 'Enter')
+        }
+    }
+    function ctrlReturnEnter(ctrl, tecla){
+        if(menuBar.expanded){
+            menuBar.e()
+            return
+        }
+        if(apps.zFocus==='xLatDer'){
+            zoolDataBodies.toEnter(ctrl)
+            return
+        }
+        if(apps.zFocus==='xLatIzq'){
+            zsm.getPanelVisible().toEnter(ctrl)
+            return
+        }
+        if(xBottomBar.state==='show'){
+            xBottomBar.enter()
+            return
+        }
+        if(apps.zFocus==='xLatDer'){
+            zoolDataBodies.toEnter()
+            return
         }
     }
     Shortcut{

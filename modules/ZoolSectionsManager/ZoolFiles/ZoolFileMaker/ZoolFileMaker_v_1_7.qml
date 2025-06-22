@@ -113,7 +113,7 @@ Rectangle {
                 width: r.width-app.fs*0.5
                 t.font.pixelSize: app.fs*0.65
                 anchors.horizontalCenter: parent.horizontalCenter
-                KeyNavigation.tab: controlTimeFecha
+                KeyNavigation.tab: cbGenero//controlTimeFecha
                 t.maximumLength: 30
                 borderColor:apps.fontColor
                 borderRadius: app.fs*0.25
@@ -121,8 +121,9 @@ Rectangle {
                 horizontalAlignment: TextInput.AlignLeft
                 onTextChanged: if(cbPreview.checked)loadTemp()
                 onEnterPressed: {
-                    controlTimeFecha.focus=true
-                    controlTimeFecha.cFocus=0
+                    cbGenero.focus=true
+                    //controlTimeFecha.focus=true
+                    //controlTimeFecha.cFocus=0
                 }
                 Text {
                     text: 'Nombre'
@@ -818,6 +819,23 @@ Rectangle {
     }
 
     //-->Teclado
+    function toEnter(){
+        if(tiNombre.t.text===''){
+           tiNombre.t.focus=true
+        }else if(cbGenero.currentText==='No Binario'){
+            cbGenero.focus=true
+        }else if(cbGenero.focus){
+            controlTimeFecha.cFocus=0
+        }else if(controlTimeFecha.cFocus<5){
+            controlTimeFecha.cFocus++
+        }else if(controlTimeFecha.cFocus>=4){
+            tiCiudad.t.focus=true
+        }else if(tiCiudad.t.text===''){
+            tiCiudad.t.focus=true
+        }else{
+            tiNombre.t.focus=true
+        }
+    }
     function toRight(){
         if(controlTimeFecha.focus){
             controlTimeFecha.toRight()

@@ -231,8 +231,8 @@ Rectangle {
     }
 
     //-->Teclado
-    function enter(){
-        getSectionVisible().enter()
+    function toEnter(ctrl){
+        getSectionVisible().toEnter(ctrl)
     }
     function clear(){
         getSectionVisible().clear()

@@ -891,6 +891,7 @@ Rectangle {
 //        }
 //    }
 
+    //-->Teclado
     function toEnter(){
         zm.loadJsonFromFilePath(r.currentFile)
         r.currentIndex=-1
@@ -913,8 +914,36 @@ Rectangle {
         }
     }
     function toLeft(){}
-    function toRight(){}
-    function toTab(){}
+    function toRight(){
+
+    }
+    function toTab(){
+        if(lv.currentIndex<0){
+            txtDataSearch.focus=!txtDataSearch.focus
+            if(txtDataSearch.focus){
+                txtDataSearch.selectAll()
+            }else{
+                lv.currentIndex=0
+            }
+        }else{
+            if(lv.currentIndex<lm.count){
+                lv.currentIndex++
+            }else{
+                lv.currentIndex=-1
+                txtDataSearch.focus=true
+            }
+        }
+    }
+    function toEscape(){
+        txtDataSearch.text='Archivos'
+        txtDataSearch.focus=false
+        lv.currentIndex=-1
+    }
+    function isFocus(){
+        return txtDataSearch.focus
+    }
+    //<--Teclado
+
     function setInitFocus(){
         txtDataSearch.focus=true
         txtDataSearch.selectAll()

@@ -346,27 +346,33 @@ Item{
     function toEnter(){
         r.currentSectionFocused=getPanelVisible()
     }
-    function toLeft(){
-        //setCurrentSectionFocusedName()
-        if(!currentSectionFocused || currentSectionFocused===r){
-            if(r.currentIndex>0){
-                r.currentIndex--
+    function toLeft(ctrl){
+        if(!ctrl){
+            //setCurrentSectionFocusedName()
+            if(!currentSectionFocused || currentSectionFocused===r){
+                if(r.currentIndex>0){
+                    r.currentIndex--
+                }else{
+                    r.currentIndex=r.aPanelesTits.length-1
+                }
             }else{
-                r.currentIndex=r.aPanelesTits.length-1
+                getPanelVisible().toLeft()
             }
         }else{
-            getPanelVisible().toLeft()
+            getPanelVisible().toLeft(ctrl)
         }
     }
-    function toRight(){
-        if(!currentSectionFocused || currentSectionFocused===r){
-            if(r.currentIndex<r.aPanelesTits.length-1){
-                r.currentIndex++
-            }else{
-                r.currentIndex=0
+    function toRight(ctrl){
+        if(!ctrl){
+            if(!currentSectionFocused || currentSectionFocused===r){
+                if(r.currentIndex<r.aPanelesTits.length-1){
+                    r.currentIndex++
+                }else{
+                    r.currentIndex=0
+                }
             }
         }else{
-            getPanelVisible().toRight()
+            getPanelVisible().toRight(ctrl)
         }
     }
     function toUp(){

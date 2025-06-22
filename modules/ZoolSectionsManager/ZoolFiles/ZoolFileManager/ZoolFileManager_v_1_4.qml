@@ -76,14 +76,14 @@ Rectangle {
                 anchors.centerIn: parent
                 ZoolButton{
                     text:'Crear'
-                    colorInverted: zoolFileMaker.visible
+                    colorInverted: !zoolFileMaker.visible
                     onClicked: {
                         showSection('ZoolFileMaker')
                     }
                 }
                 ZoolButton{
                     text:'Buscar'
-                    colorInverted: zoolFileLoader.visible
+                    colorInverted: !zoolFileLoader.visible
                     onClicked: {
                         showSection('ZoolFileLoader')
                     }
@@ -232,22 +232,48 @@ Rectangle {
 
     //-->Teclado
     function enter(){
-        panelActive.enter()
+        getSectionVisible().enter()
     }
     function clear(){
-        panelActive.clear()
+        getSectionVisible().clear()
     }
-    function toLeft(){
-        panelActive.toLeft()
+    function toLeft(ctrl){
+        if(!ctrl){
+            getSectionVisible().toLeft()
+        }else{
+            if(r.currentIndex>0){
+                r.currentIndex--
+            }else{
+                r.currentIndex=1
+            }
+            if(r.currentIndex===0){
+                showSection('ZoolFileMaker')
+            }else{
+                showSection('ZoolFileLoader')
+            }
+        }
     }
-    function toRight(){
-        panelActive.toRight()
+    function toRight(ctrl){
+        if(!ctrl){
+            getSectionVisible().toRight()
+        }else{
+            if(r.currentIndex===0){
+                r.currentIndex=1
+            }else{
+                r.currentIndex=0
+            }
+            if(r.currentIndex===0){
+                showSection('ZoolFileMaker')
+            }else{
+                showSection('ZoolFileLoader')
+            }
+        }
     }
     function toUp(){
-        panelActive.toUp()
+        getSectionVisible().toUp()
     }
     function toDown(){
-        panelActive.toDown()
+        getSectionVisible().toDown()
     }
     function toTab(){
         getSectionVisible().toTab()
@@ -256,7 +282,7 @@ Rectangle {
         getSectionVisible().toEscape()
     }
     function isFocus(){
-        getSectionVisible().isFocus()
+        return getSectionVisible().isFocus()
     }
     //<--Teclado
 

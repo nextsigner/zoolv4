@@ -585,78 +585,28 @@ ApplicationWindow {
             //xAreaInteractiva.next()
         }
     }
+//    Shortcut{
+//        sequence: 'Ctrl+Left'
+//        onActivated: {
+//            //if(zsm.getPanel('ZoolFileManager').state==='show'){
+
+
+//        }
+//    }
+    Shortcut{
+        sequence: 'Left'
+       onActivated: {
+            ctrlLeft(false)
+        }
+    }
     Shortcut{
         sequence: 'Ctrl+Left'
         onActivated: {
-            //if(zsm.getPanel('ZoolFileManager').state==='show'){
-            if(apps.zFocus==='xLatDer'){
-                zoolDataBodies.latFocus=zoolDataBodies.latFocus===0?1:0
-                return
-            }
-            if(apps.zFocus==='xLatIzq' || zsm.getPanel('ZoolSabianos').view.visible){
-                if(zsm.getPanel('ZoolSabianos').view.visible){
-                    zsm.getPanel('ZoolSabianos').view.toleft()
-                    return
-                }
-                if(zsm.currentIndex===2){
-                    zsm.getPanel('ZoolFileManager').toLeft()
-                    return
-                }
-            }
-
-            if(zm.currentPlanetIndex>=0 && app.currentXAs){
-                app.currentXAs.rot(false)
-                return
-            }
-            if(zm.currentPlanetIndexBack>=0 && app.currentXAsBack){
-                app.currentXAsBack.rot(false)
-                return
-            }
-            if(menuBar.expanded&&!zsm.getPanel('ZoolSabianos').view.visible){
-                menuBar.left()
-                return
-            }
-
+            ctrlLeft(true)
         }
     }
-    Shortcut{
-        sequence: 'Ctrl+Right'
-        onActivated: {
-            if(apps.zFocus==='xLatDer'){
-                zoolDataBodies.latFocus=zoolDataBodies.latFocus===0?1:0
-                return
-            }
-            if(apps.zFocus==='xLatDer'){
-                zoolDataBodies.latFocus=zoolDataBodies.latFocus===0?1:0
-                return
-            }
-            if(apps.zFocus==='xLatIzq' || zsm.getPanel('ZoolSabianos').view.visible){
-                if(zsm.currentIndex===2){
-                    zsm.getPanel('ZoolFileManager').toRight()
-                    return
-                }
-                if(zsm.getPanel('ZoolSabianos').view.visible){
-                    zsm.getPanel('ZoolSabianos').view.toright()
-                    return
-                }
-            }
-            if(zm.currentPlanetIndex>=0 && app.currentXAs){
-                app.currentXAs.rot(true)
-                return
-            }
-            if(zm.currentPlanetIndexBack>=0 && app.currentXAsBack){
-                app.currentXAsBack.rot(true)
-                return
-            }
-            if(menuBar.expanded&&!zsm.getPanel('ZoolSabianos').view.visible){
-                menuBar.right()
-                return
-            }
-        }
-    }
-    Shortcut{
-        sequence: 'Left'
-        onActivated: {
+    function ctrlLeft(ctrl){
+        if(!ctrl){
             if(zsm.getPanel('ZoolSabianos').view.visible){
                 if(zsm.getPanel('ZoolSabianos').view.visible){
                     zsm.getPanel('ZoolSabianos').view.toleft()
@@ -675,11 +625,53 @@ ApplicationWindow {
                 zm.toLeft(false)
                 return
             }
+        }else{
+            if(apps.zFocus==='xLatIzq' || zsm.getPanel('ZoolSabianos').view.visible){
+                if(zsm.getPanel('ZoolSabianos').view.visible){
+                    zsm.getPanel('ZoolSabianos').view.toleft()
+                    return
+                }
+                if(zsm.currentIndex===2){
+                    zsm.getPanel('ZoolFileManager').toLeft()
+                    return
+                }
+            }
+
+            if(apps.zFocus==='xMed'){
+                if(zm.currentPlanetIndex>=0 && app.currentXAs){
+                    app.currentXAs.rot(false)
+                    return
+                }
+                if(zm.currentPlanetIndexBack>=0 && app.currentXAsBack){
+                    app.currentXAsBack.rot(false)
+                    return
+                }
+            }
+            if(apps.zFocus==='xLatDer'){
+                zoolDataBodies.latFocus=zoolDataBodies.latFocus===0?1:0
+                return
+            }
+            if(menuBar.expanded&&!zsm.getPanel('ZoolSabianos').view.visible){
+                menuBar.left()
+                return
+            }
+            zsm.toLeft(ctrl)
         }
     }
     Shortcut{
         sequence: 'Right'
         onActivated: {
+            ctrlRight(false)
+        }
+    }
+    Shortcut{
+        sequence: 'Ctrl+Right'
+        onActivated: {
+            ctrlRight(true)
+        }
+    }
+    function ctrlRight(ctrl){
+        if(!ctrl){
             if(zsm.getPanel('ZoolSabianos').view.visible){
                 if(zsm.getPanel('ZoolSabianos').view.visible){
                     zsm.getPanel('ZoolSabianos').view.toright()
@@ -687,18 +679,45 @@ ApplicationWindow {
                 }
 
             }
-//            if(apps.zFocus==='xLatIzq' && zsm.getPanel('ZoolFileManager').visible){
-//                zsm.currentSectionFocused.toRight()
-//                return
-//            }
             if(apps.zFocus==='xLatIzq'){
-                zsm.toRight()
+                zsm.toRight(ctrl)
             }
             if(apps.zFocus==='xMed'){
                 zm.toRight(false)
                 return
             }
+        }else{
+            if(apps.zFocus==='xLatDer'){
+                zoolDataBodies.latFocus=zoolDataBodies.latFocus===0?1:0
+                return
+            }
+            if(apps.zFocus==='xLatIzq' || zsm.getPanel('ZoolSabianos').view.visible){
+                if(zsm.currentIndex===2){
+                    zsm.getPanel('ZoolFileManager').toRight()
+                    return
+                }
+                if(zsm.getPanel('ZoolSabianos').view.visible){
+                    zsm.getPanel('ZoolSabianos').view.toright()
+                    return
+                }
+            }
+            if(apps.zFocus==='xMed'){
+                if(zm.currentPlanetIndex>=0 && app.currentXAs){
+                    app.currentXAs.rot(true)
+                    return
+                }
+                if(zm.currentPlanetIndexBack>=0 && app.currentXAsBack){
+                    app.currentXAsBack.rot(true)
+                    return
+                }
+            }
+            if(menuBar.expanded&&!zsm.getPanel('ZoolSabianos').view.visible){
+                menuBar.right()
+                return
+            }
+            zsm.toRight(ctrl)
         }
+
     }
 
     //Ver/Ocultar xLatIzq

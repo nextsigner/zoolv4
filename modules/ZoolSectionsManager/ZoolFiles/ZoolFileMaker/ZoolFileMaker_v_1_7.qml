@@ -853,7 +853,9 @@ Rectangle {
         }
     }
     function toTab(){
-        if(tiNombre.t.focus){
+        if(tiNombre.t.text===''){
+            tiNombre.t.focus=true
+        }else if(tiNombre.t.focus){
             cbGenero.focus=true
         }else if(cbGenero.focus){
             controlTimeFecha.cFocus=0
@@ -875,11 +877,13 @@ Rectangle {
             }
             botCrear.focus=true
         }else{
+            //log.lv('Entrando a tiNombre...')
             tiNombre.t.focus=true
         }
     }
     function toEscape(){
         tiNombre.t.focus=false
+        tiCiudad.t.focus=false
     }
     function isFocus(){
         if(controlTimeFecha.isFocus())return true

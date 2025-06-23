@@ -1,1 +1,1 @@
-Se optimiza para teclado 2
+Se optimiza uso del teclado para ZoolFileMaker

@@ -8,6 +8,7 @@ import ZoolTextInput 1.0
 
 import ZoolText 1.0
 import ZoolButton 1.2
+import comps.FocusSen 1.0
 
 Rectangle {
     id: r
@@ -564,17 +565,11 @@ Rectangle {
                     font.pixelSize: app.fs*0.5
                     KeyNavigation.tab: tiNombre.t
                     visible: r.ulat!==-1&&r.ulon!==-1&&tiNombre.text!==''&&tiCiudad.text!==''
+                    onFocusChanged: {
+                        if(focus)flk.contentY=flk.contentHeight-flk.height
+                    }
                     onClicked: {
-                        cbPreview.checked=false
-                        if(!cbInputCoords.checked){
-                            searchGeoLoc(true)
-                        }else{
-                            r.lat=parseFloat(tiLat.t.text)
-                            r.lon=parseFloat(tiLon.t.text)
-                            r.ulat=r.lat
-                            r.ulon=r.lon
-                            setNewJsonFileData()
-                        }
+                        mk()
                     }
                     //
                     Timer{
@@ -649,6 +644,13 @@ Rectangle {
                     //                        }
                     //                    }
 
+                    FocusSen{
+                        width: parent.width+4
+                        height: parent.height+4
+                        border.width:2
+                        anchors.centerIn: parent
+                        visible: parent.focus
+                    }
                 }
             }
         }
@@ -817,7 +819,26 @@ Rectangle {
         tiNombre.t.focus=true
 
     }
-
+    function mk(){
+        tiNombre.t.focus=false
+        cbGenero.focus=false
+        tiCiudad.t.focus=false
+        tiLat.t.focus=false
+        tiLon.t.focus=false
+        tiAlt.t.focus=false
+        cbPreview.checked=false
+        botCrear.focus=false
+        botClear.focus=false
+        if(!cbInputCoords.checked){
+            searchGeoLoc(true)
+        }else{
+            r.lat=parseFloat(tiLat.t.text)
+            r.lon=parseFloat(tiLon.t.text)
+            r.ulat=r.lat
+            r.ulon=r.lon
+            setNewJsonFileData()
+        }
+    }
     //-->Teclado
     function toEnter(){
         if(tiNombre.t.text===''){
@@ -826,14 +847,25 @@ Rectangle {
             cbGenero.focus=true
         }else if(cbGenero.focus){
             controlTimeFecha.cFocus=0
-        }else if(controlTimeFecha.cFocus<5){
+        }else if(controlTimeFecha.cFocus<5 && controlTimeFecha.cFocus!==-1){
+            controlTimeFecha.setEditData()
             controlTimeFecha.cFocus++
         }else if(controlTimeFecha.cFocus>=4){
             tiCiudad.t.focus=true
         }else if(tiCiudad.t.text===''){
+            controlTimeFecha.setEditData()
+            controlTimeFecha.cFocus=-1
             tiCiudad.t.focus=true
+        }else if(tiCiudad.t.focus){
+            //tiNombre.t.focus=true
+            botCrear.focus=true
+        }else if(botCrear.focus){
+            mk()
+        }else if(tiNombre.t.focus){
+            cbGenero.focus=true
         }else{
             tiNombre.t.focus=true
+            flk.contentY=0
         }
     }
     function toRight(){
@@ -871,37 +903,61 @@ Rectangle {
         }
     }
     function toTab(){
+        //log.lv('controlTimeFecha.cFocus: '+controlTimeFecha.cFocus)
         if(tiNombre.t.text===''){
+            controlTimeFecha.cFocus=-1
             tiNombre.t.focus=true
+            flk.contentY=0
         }else if(tiNombre.t.focus){
+            controlTimeFecha.cFocus=-1
             cbGenero.focus=true
         }else if(cbGenero.focus){
             controlTimeFecha.cFocus=0
-            //tiCiudad.t.focus=true
-        }else if(controlTimeFecha.cFocus<5){
+        }else if(controlTimeFecha.cFocus<5 && controlTimeFecha.cFocus!==-1){
+            controlTimeFecha.setEditData()
             controlTimeFecha.cFocus++
         }else if(controlTimeFecha.cFocus===5){
+            controlTimeFecha.cFocus=-1
+            controlTimeFecha.setEditData()
             tiCiudad.t.focus=true
         }else if(tiCiudad.t.focus){
+            controlTimeFecha.cFocus=-1
+            tiCiudad.t.focus=false
             if(tiNombre.t.text===''){
                 zpn.log('Aún no se ha complatado el campo para el nombre.')
                 tiNombre.t.focus=true
+                flk.contentY=0
                 return
 
             }
             if(tiCiudad.t.text===''){
+                controlTimeFecha.cFocus=-1
                 tiCiudad.t.text='Ingresa un lugar aquí'
                 return
+            }else{
+                tiCiudad.t.focus=false
             }
             botCrear.focus=true
         }else{
             //log.lv('Entrando a tiNombre...')
             tiNombre.t.focus=true
+            flk.contentY=0
         }
     }
     function toEscape(){
         tiNombre.t.focus=false
+        cbGenero.focus=false
+        controlTimeFecha.focus=false
+        controlTimeFecha.cFocus=-1
         tiCiudad.t.focus=false
+        tiLat.t.focus=false
+        tiLon.t.focus=false
+        tiAlt.t.focus=false
+        botClear.focus=false
+        botCrear.focus=false
+        cbInputCoords.checked=false
+        cbInputCoords.focus=false
+
     }
     function isFocus(){
         if(controlTimeFecha.isFocus())return true

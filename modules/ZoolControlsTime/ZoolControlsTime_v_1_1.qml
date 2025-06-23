@@ -745,6 +745,33 @@ Rectangle {
         r.setAppTime=sap
     }
 
+    function setEditData(){
+        if(editCellData.parent!==r){
+            //log.lv('tiData.text: '+tiData.text)
+            let n = editCellData.parent.objectName
+            //log.lv('n: '+n)
+            let data=-1
+            if(r.cFocus===0){
+                r.anio=parseInt(tiData.text)
+            }
+            if(r.cFocus===1){
+                r.mes=parseInt(tiData.text)
+            }
+            if(r.cFocus===2){
+                r.dia=parseInt(tiData.text)
+            }
+            if(r.cFocus===3){
+                r.gmt=parseInt(tiData.text)
+            }
+            if(r.cFocus===4){
+                r.hora=parseInt(tiData.text)
+            }
+            if(r.cFocus===5){
+                r.minuto=parseInt(tiData.text)
+            }
+        }
+    }
+
     //-->Teclado
     function toRight(){
         if(r.cFocus<5){

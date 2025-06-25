@@ -387,5 +387,8 @@ Item{
     function toEscape(){
         getPanelVisible().toEscape()
     }
+    function toHelp(){
+        getPanelVisible().toHelp()
+    }
     //<--Teclado
 }

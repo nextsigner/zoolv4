@@ -981,6 +981,15 @@ ApplicationWindow {
             sweg.width-=app.fs
         }
     }
+    Shortcut{
+        sequence: 'F1'
+        onActivated: {
+            if(apps.zFocus==='xLatIzq'){
+                zsm.getPanelVisible().toHelp()
+                return
+            }
+        }
+    }
     property int rv: 0
     Shortcut{
         sequence: '*'

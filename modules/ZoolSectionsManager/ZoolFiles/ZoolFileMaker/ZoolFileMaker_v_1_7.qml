@@ -126,6 +126,14 @@ Rectangle {
                     //controlTimeFecha.focus=true
                     //controlTimeFecha.cFocus=0
                 }
+                FocusSen{
+                    width: parent.r.width
+                    height: parent.r.height
+                    radius: parent.r.radius
+                    border.width:2
+                    anchors.centerIn: parent
+                    visible: parent.t.focus
+                }
                 Text {
                     text: 'Nombre'
                     font.pixelSize: app.fs*0.5
@@ -250,6 +258,14 @@ Rectangle {
                     tSearch.restart()
                     t.color='white'                    
                 }
+                FocusSen{
+                    width: parent.r.width
+                    height: parent.r.height
+                    radius: parent.r.radius
+                    border.width:2
+                    anchors.centerIn: parent
+                    visible: parent.t.focus
+                }
                 Text {
                     text: 'Lugar, ciudad, provincia,\nregión y/o país de nacimiento'
                     font.pixelSize: app.fs*0.5
@@ -308,6 +324,14 @@ Rectangle {
                             //controlTimeFecha.focus=true
                             //controlTimeFecha.cFocus=0
                         }
+                        FocusSen{
+                            width: parent.r.width
+                            height: parent.r.height
+                            radius: parent.r.radius
+                            border.width:2
+                            anchors.centerIn: parent
+                            visible: parent.t.focus
+                        }
                         Text {
                             text: 'Latitud'
                             font.pixelSize: app.fs*0.5
@@ -358,6 +382,14 @@ Rectangle {
                         onEnterPressed: {
                             //controlTimeFecha.focus=true
                             //controlTimeFecha.cFocus=0
+                        }
+                        FocusSen{
+                            width: parent.r.width
+                            height: parent.r.height
+                            radius: parent.r.radius
+                            border.width:2
+                            anchors.centerIn: parent
+                            visible: parent.t.focus
                         }
                         Text {
                             text: 'Longitud'
@@ -469,6 +501,14 @@ Rectangle {
                             //controlTimeFecha.focus=true
                             //controlTimeFecha.cFocus=0
                         }
+                        FocusSen{
+                            width: parent.r.width
+                            height: parent.r.height
+                            radius: parent.r.radius
+                            border.width:2
+                            anchors.centerIn: parent
+                            visible: parent.t.focus
+                        }
                         Text {
                             text: 'Altura'
                             font.pixelSize: app.fs*0.5
@@ -493,6 +533,13 @@ Rectangle {
                         checked: settings.inputCoords
                         anchors.verticalCenter: parent.verticalCenter
                         onCheckedChanged: settings.inputCoords=checked
+                        FocusSen{
+                            width: parent.width+4
+                            height: parent.height+4
+                            border.width:2
+                            anchors.centerIn: parent
+                            visible: parent.focus
+                        }
                     }
                 }
             }
@@ -514,6 +561,13 @@ Rectangle {
                     border.color: apps.fontColor
                     radius: app.fs*0.1
                     clip: true
+                    FocusSen{
+                        width: parent.width
+                        height: parent.height
+                        border.width:2
+                        anchors.centerIn: parent
+                        visible: taInforme.focus
+                    }
                     Flickable{
                         contentWidth: xInforme.width
                         contentHeight: taInforme.contentHeight+app.fs
@@ -526,6 +580,9 @@ Rectangle {
                             font.pixelSize: app.fs*0.5
                             color: apps.fontColor
                             wrapMode: TextArea.WordWrap
+                            Keys.onTabPressed: {
+                                botCrear.focus=true
+                            }
                         }
                     }
                 }
@@ -653,6 +710,44 @@ Rectangle {
                     }
                 }
             }
+        }
+    }
+    Rectangle{
+        id: xHelp
+        anchors.fill: parent
+        color: apps.backgroundColor
+        border.width: 1
+        border.color: apps.fontColor
+        parent: zsm
+        visible: false
+        Rectangle{
+            width: lx.contentWidth+app.fs*0.1
+            height: lx.contentHeight+app.fs*0.1
+            color: apps.fontColor
+            anchors.right: parent.right
+            anchors.rightMargin: app.fs*0.25
+            anchors.top: parent.top
+            anchors.topMargin: app.fs*0.25
+            MouseArea{
+                anchors.fill: parent
+                onClicked: xHelp.visible=false
+            }
+            Text{
+                id: lx
+                text: 'X'
+                font.pixelSize: app.fs*0.5
+                color: apps.backgroundColor
+                anchors.centerIn: parent
+            }
+        }
+        Text{
+            text:'<h2>Ayuda para Crear Mapa o Carta</h2><br><br><b>Presionar TAB: </b>Para saltar de un campo de introducción de datos a otro.<br><br><b>Presionar CTRL+ENTER: </b>Se graba o define el dato y se salta hacia el otro campo de introducción de datos.<br><br><b>Presionar F1: </b>Para ver u ocultar esta ayuda.'
+            width: parent.width-app.fs
+            height: contentHeight
+            font.pixelSize: app.fs*0.5
+            color: apps.fontColor
+            wrapMode: Text.WordWrap
+            anchors.centerIn: parent
         }
     }
     Timer{
@@ -912,15 +1007,19 @@ Rectangle {
             controlTimeFecha.cFocus=-1
             cbGenero.focus=true
         }else if(cbGenero.focus){
+            cbGenero.focus=false
             controlTimeFecha.cFocus=0
         }else if(controlTimeFecha.cFocus<5 && controlTimeFecha.cFocus!==-1){
-            controlTimeFecha.setEditData()
+            cbGenero.focus=false
+            if(controlTimeFecha.cFocus>=0)controlTimeFecha.setEditData()
             controlTimeFecha.cFocus++
         }else if(controlTimeFecha.cFocus===5){
+            cbGenero.focus=false
             controlTimeFecha.cFocus=-1
             controlTimeFecha.setEditData()
             tiCiudad.t.focus=true
         }else if(tiCiudad.t.focus){
+            cbGenero.focus=false
             controlTimeFecha.cFocus=-1
             tiCiudad.t.focus=false
             if(tiNombre.t.text===''){
@@ -937,11 +1036,52 @@ Rectangle {
             }else{
                 tiCiudad.t.focus=false
             }
-            botCrear.focus=true
+            if(cbInputCoords.checked && !tiAlt.t.focus){
+                tiCiudad.t.focus=false
+                if(tiLat.t.focus){
+                    tiLon.t.focus=true
+                }else if(tiLon.t.focus){
+                    tiAlt.t.focus=true
+                    return
+                }else if(tiAlt.t.focus){
+                    cbInputCoords.focus=true
+                    return
+                }else{
+                    tiLat.t.focus=true
+                }
+                flk.contentY=flk.contentHeight-flk.height
+            }else{
+                tiCiudad.t.focus=false
+                if(tiAlt.t.focus){
+                    tiAlt.t.focus=false
+                    cbInputCoords.focus=true
+                }else{
+                    cbInputCoords.focus=false
+                    tiAlt.t.focus=true
+                }
+                flk.contentY=flk.contentHeight-flk.height
+                return
+            }
+            if(cbInputCoords.focus){
+                cbInputCoords.focus=false
+                botCrear.focus=true
+            }
         }else{
             //log.lv('Entrando a tiNombre...')
-            tiNombre.t.focus=true
-            flk.contentY=0
+            if(tiAlt.t.focus){
+                tiAlt.t.focus=false
+                cbInputCoords.focus=true
+            }else if(cbInputCoords.focus){
+                cbInputCoords.focus=false
+                taInforme.focus=true
+            }else if(taInforme.focus){
+                cbInputCoords.focus=false
+                botCrear.focus=true
+            }else{
+                cbInputCoords.focus=false
+                tiNombre.t.focus=true
+                flk.contentY=0
+            }
         }
     }
     function toEscape(){
@@ -962,6 +1102,9 @@ Rectangle {
     function isFocus(){
         if(controlTimeFecha.isFocus())return true
         return false
+    }
+    function toHelp(){
+        xHelp.visible=!xHelp.visible
     }
     //<--Teclado
 

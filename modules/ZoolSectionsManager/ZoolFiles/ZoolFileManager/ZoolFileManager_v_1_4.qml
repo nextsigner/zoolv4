@@ -284,6 +284,9 @@ Rectangle {
     function isFocus(){
         return getSectionVisible().isFocus()
     }
+    function toHelp(){
+        getSectionVisible().toHelp()
+    }
     //<--Teclado
 
     property bool hasUnUsedFunction: true

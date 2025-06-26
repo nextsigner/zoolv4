@@ -354,10 +354,22 @@ Item{
         for(var i=0;i<r.children.length;i++){
             let o=r.children[i]
             //zpn.log(o.objectName)
-            if(o.objectName==='ItemHelp'){
+            if(o.objectName.indexOf('ItemHelp')>=0){
                 o.destroy(0)
             }
         }
+    }
+    function cleanOneDinamicItems(objectName){
+        let ret=false
+        for(var i=0;i<r.children.length;i++){
+            let o=r.children[i]
+            //zpn.log(o.objectName)
+            if(o.objectName.indexOf(objectName)>=0){
+                o.destroy(0)
+                ret=true
+            }
+        }
+        return ret
     }
     //-->Teclado
     function toEnter(){
@@ -413,11 +425,13 @@ Item{
         getPanelVisible().toEscape()
     }
     function toHelp(){
+        cleanDinamicItems()
         getPanelVisible().toHelp()
     }
     //<--Teclado
 
     function allToEscape(){
+        cleanDinamicItems()
         for(var i=0;i<xPanels.children.length;i++){
             let o=xPanels.children[i].children[0]
             o.toEscape()

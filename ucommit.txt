@@ -1,1 +1,1 @@
-Se programan ItemHelp dinámicos 1
+Se termina de programar para ItemHelp dinámicos

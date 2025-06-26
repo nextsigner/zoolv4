@@ -166,14 +166,18 @@ Rectangle{
         return tiJsonsFolder.t.focus
     }
     function toHelp(){
-        let text='<h2>Ayuda para realizar ajustes en Archivos</h2><br><br><b>Presionar TAB: </b>Para saltar de un campo de introducción de datos a otro.<br><br><b>Presionar CTRL+ENTER: </b>Se graba o define el dato y se salta hacia el otro campo de introducción de datos.<br><br><b>Presionar F1: </b>Para ver u ocultar esta ayuda.'
+        let itemHelpExist=zsm.cleanOneDinamicItems("ItemHelp_"+app.j.qmltypeof(r))
+        if(!itemHelpExist){
+            let text='<h2>Ayuda para realizar ajustes en Archivos</h2><br><br><b>Presionar TAB: </b>Para saltar de un campo de introducción de datos a otro.<br><br><b>Presionar CTRL+ENTER: </b>Se graba o define el dato y se salta hacia el otro campo de introducción de datos.<br><br><b>Presionar F1: </b>Para ver u ocultar esta ayuda.'
 
-        let c='import comps.ItemHelp 1.0\n'
-        c+='ItemHelp{\n'
-        c+='    text:"'+text+'"\n'
-        c+='    ctx: "'+zsm.cPanelName+'"\n'
-        c+='}\n'
-        let comp=Qt.createQmlObject(c, zsm, 'itemhelpcode')
+            let c='import comps.ItemHelp 1.0\n'
+            c+='ItemHelp{\n'
+            c+='    text:"'+text+'"\n'
+            c+='    ctx: "'+zsm.cPanelName+'"\n'
+            c+='    objectName: "ItemHelp_'+app.j.qmltypeof(r)+'"\n'
+            c+='}\n'
+            let comp=Qt.createQmlObject(c, zsm, 'itemhelpcode')
+        }
     }
     //<--Teclado
 }

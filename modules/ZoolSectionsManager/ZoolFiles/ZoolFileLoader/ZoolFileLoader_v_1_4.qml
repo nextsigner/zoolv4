@@ -526,44 +526,6 @@ Rectangle {
         visible: r.visible && lv.currentIndex>=0 && s.showToolItem
         parent: visible?xMed:r
     }
-    Rectangle{
-        id: xHelp
-        anchors.fill: parent
-        color: apps.backgroundColor
-        border.width: 1
-        border.color: apps.fontColor
-        parent: zsm
-        visible: false
-        Rectangle{
-            width: lx.contentWidth+app.fs*0.1
-            height: lx.contentHeight+app.fs*0.1
-            color: apps.fontColor
-            anchors.right: parent.right
-            anchors.rightMargin: app.fs*0.25
-            anchors.top: parent.top
-            anchors.topMargin: app.fs*0.25
-            MouseArea{
-                anchors.fill: parent
-                onClicked: xHelp.visible=false
-            }
-            Text{
-                id: lx
-                text: 'X'
-                font.pixelSize: app.fs*0.5
-                color: apps.backgroundColor
-                anchors.centerIn: parent
-            }
-        }
-        Text{
-            text:'<h2>Ayuda para Buscar Archivo</h2><br><br><b>Presionar TAB: </b>Para saltar de un campo de introducción de nomre de archivos hacia la lista de archivos encontrados.<id:br><br><b>Presionar ARRIBA o ABAJO: </b>Esto permite seleccionar en la lista uno a uno entre los archivos encontrados.<br><br><b>Presionar CTRL+ENTER: </b>Para cargar el archivo seleccionado como mapa o carta y poder visualizarla.<br><br><b>Presionar F1: </b>Para ver u ocultar esta ayuda.'
-            width: parent.width-app.fs
-            height: contentHeight
-            font.pixelSize: app.fs*0.5
-            color: apps.fontColor
-            wrapMode: Text.WordWrap
-            anchors.centerIn: parent
-        }
-    }
     function loadAsSin(fileName){
         zm.loadFromFile(fileName, 'sin', true)
 
@@ -995,7 +957,18 @@ Rectangle {
         return txtDataSearch.focus
     }
     function toHelp(){
-        xHelp.visible=!xHelp.visible
+        let itemHelpExist=zsm.cleanOneDinamicItems("ItemHelp_"+app.j.qmltypeof(r))
+        if(!itemHelpExist){
+            let text='<h2>Ayuda para Buscar Archivo</h2><br><br><b>Presionar TAB: </b>Para saltar de un campo de introducción de nomre de archivos hacia la lista de archivos encontrados.<id:br><br><b>Presionar ARRIBA o ABAJO: </b>Esto permite seleccionar en la lista uno a uno entre los archivos encontrados.<br><br><b>Presionar CTRL+ENTER: </b>Para cargar el archivo seleccionado como mapa o carta y poder visualizarla.<br><br><b>Presionar F1: </b>Para ver u ocultar esta ayuda.'
+
+            let c='import comps.ItemHelp 1.0\n'
+            c+='ItemHelp{\n'
+            c+='    text:"'+text+'"\n'
+            c+='    ctx: "'+zsm.cPanelName+'"\n'
+            c+='    objectName: "ItemHelp_'+app.j.qmltypeof(r)+'"\n'
+            c+='}\n'
+            let comp=Qt.createQmlObject(c, zsm, 'itemhelpcode')
+        }
     }
     //<--Teclado
 

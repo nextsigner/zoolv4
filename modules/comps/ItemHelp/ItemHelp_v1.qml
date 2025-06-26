@@ -6,7 +6,6 @@ Rectangle{
     color: apps.backgroundColor
     border.width: 1
     border.color: apps.fontColor
-    objectName: 'ItemHelp'
     property string text: '?'
     property string ctx: ''
     property string cCtx: zsm.cPanelName

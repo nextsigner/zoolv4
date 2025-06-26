@@ -64,17 +64,32 @@ Rectangle {
     Column{
         id: col
         anchors.horizontalCenter: parent.horizontalCenter
+        Item{
+            id: xth1
+            width: r.width
+            height: th1.contentHeight+app.fs*0.5
+            Text{
+                id: th1
+                text: 'Para ver la Ayuda presiona F1'
+                font.pixelSize: app.fs*0.35
+                color: apps.fontColor
+                anchors.centerIn: parent
+            }
+        }
         Column{
             id: colTopElements
-            Item{width: 1; height: app.fs*2; visible: colXConfig.visible}
+            Item{width: 1; height: app.fs*0.5; visible: colXConfig.visible}
             Column{
                 id: colXConfig
                 anchors.horizontalCenter: parent.horizontalCenter
-                visible: zoolFileManager.s.showConfig
+                visible: rowCfg.visible
             }
+            //Desactivado
             Row{
+                id: rowCfg
                 spacing: app.fs*0.25
                 anchors.horizontalCenter: parent.horizontalCenter
+                visible: false
                 ZoolText{
                     text:'Mostrar datos en el<br/>centro de la pantalla:'
                     fs: app.fs*0.5
@@ -89,7 +104,7 @@ Rectangle {
                     }
                 }
             }
-            Item{width: 1; height: app.fs; visible: zoolFileManager.s.showConfig}
+            Item{width: 1; height: app.fs; visible: rowCfg.visible}
             Rectangle{
                 id:xTit
                 width: lv.width
@@ -213,8 +228,7 @@ Rectangle {
         ListView{
             id: lv
             width: r.width
-            //height: r.height-xTit.height-xTitInf.height
-            height: r.height-colTopElements.height
+            height: r.height-colTopElements.height-xth1.height
             anchors.horizontalCenter: parent.horizontalCenter
             delegate: compItemList
             model: lm
@@ -541,7 +555,7 @@ Rectangle {
             }
         }
         Text{
-            text:'<h2>Ayuda para Buscar Archivo</h2><br><br><b>Presionar TAB: </b>Para saltar de un campo de introducción de datos a otro.<br><br><b>Presionar CTRL+ENTER: </b>Se graba o define el dato y se salta hacia el otro campo de introducción de datos.<br><br><b>Presionar F1: </b>Para ver u ocultar esta ayuda.'
+            text:'<h2>Ayuda para Buscar Archivo</h2><br><br><b>Presionar TAB: </b>Para saltar de un campo de introducción de nomre de archivos hacia la lista de archivos encontrados.<id:br><br><b>Presionar ARRIBA o ABAJO: </b>Esto permite seleccionar en la lista uno a uno entre los archivos encontrados.<br><br><b>Presionar CTRL+ENTER: </b>Para cargar el archivo seleccionado como mapa o carta y poder visualizarla.<br><br><b>Presionar F1: </b>Para ver u ocultar esta ayuda.'
             width: parent.width-app.fs
             height: contentHeight
             font.pixelSize: app.fs*0.5

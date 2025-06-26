@@ -12,6 +12,7 @@ import ZoolSectionsManager.ZoolSabianos 1.1
 import ZoolSectionsManager.ZoolRevolutionList 1.5
 import ZoolSectionsManager.ZoolNumPit 1.4
 import ZoolSectionsManager.ZoolHelp 1.0
+import ZoolSectionsManager.ZoolConfig 1.0
 
 
 
@@ -86,6 +87,9 @@ Item{
             id: xPanels
             width: r.width
             height: r.height-xPanelesTits.height-xIndicadorSV.height
+
+            //9
+            Comps.XPaneles{ZoolConfig{id: zoolConfig;}}
 
             //8
             Comps.XPaneles{ZoolHelp{id: zoolHelp;}}

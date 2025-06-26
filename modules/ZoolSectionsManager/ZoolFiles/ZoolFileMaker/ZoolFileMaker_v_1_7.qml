@@ -19,7 +19,7 @@ Rectangle {
     border.width: 2
     border.color: apps.fontColor
 
-    property alias xCfgItem: colXConfig
+    //property alias xCfgItem: colXConfig
 
     property alias tiN: tiNombre.t
     property alias tiC: tiCiudad.t
@@ -51,31 +51,31 @@ Rectangle {
         property bool showModuleVersion: false
         property bool inputCoords: false
     }
-    Text{
-        text: 'ZoolFileMaker v1.0'
-        font.pixelSize: app.fs*0.5
-        color: apps.fontColor
-        anchors.left: parent.left
-        anchors.leftMargin: app.fs*0.1
-        anchors.top: parent.top
-        anchors.topMargin: app.fs*0.1
-        opacity: settings.showModuleVersion?1.0:0.0
-        MouseArea{
-            anchors.fill: parent
-            onClicked: settings.showModuleVersion=!settings.showModuleVersion
-        }
-    }
-    ZoolButton{
-        text:'\uf013'
-        anchors.right: parent.right
-        anchors.rightMargin: app.fs*0.25
-        anchors.top: parent.top
-        anchors.topMargin: app.fs*0.25
-        z: col.z+1
-        onClicked:{
-            zoolFileManager.s.showConfig=!zoolFileManager.s.showConfig
-        }
-    }
+//    Text{
+//        text: 'ZoolFileMaker v1.0'
+//        font.pixelSize: app.fs*0.5
+//        color: apps.fontColor
+//        anchors.left: parent.left
+//        anchors.leftMargin: app.fs*0.1
+//        anchors.top: parent.top
+//        anchors.topMargin: app.fs*0.1
+//        opacity: settings.showModuleVersion?1.0:0.0
+//        MouseArea{
+//            anchors.fill: parent
+//            onClicked: settings.showModuleVersion=!settings.showModuleVersion
+//        }
+//    }
+//    ZoolButton{
+//        text:'\uf013'
+//        anchors.right: parent.right
+//        anchors.rightMargin: app.fs*0.25
+//        anchors.top: parent.top
+//        anchors.topMargin: app.fs*0.25
+//        z: col.z+1
+//        onClicked:{
+//            zoolFileManager.s.showConfig=!zoolFileManager.s.showConfig
+//        }
+//    }
     Flickable{
         id: flk
         width: r.width
@@ -88,31 +88,45 @@ Rectangle {
             id: col
             spacing: app.fs*0.75
             anchors.horizontalCenter: parent.horizontalCenter
-            Item{width: 1; height: app.fs; visible: colXConfig.visible}
-            Column{
-                id: colXConfig
-                anchors.horizontalCenter: parent.horizontalCenter
+            Item{width: 1; height: 1;}
+            Item{
+                id: xth1
+                width: r.width
+                height: th1.contentHeight//+app.fs*0.5
+                Text{
+                    id: th1
+                    text: 'Para ver la Ayuda presiona F1'
+                    font.pixelSize: app.fs*0.35
+                    color: apps.fontColor
+                    anchors.centerIn: parent
+                }
             }
+//            Item{width: 1; height: app.fs; visible: colXConfig.visible}
+//            Column{
+//                id: colXConfig
+//                anchors.horizontalCenter: parent.horizontalCenter
+//            }
             Column{
-                spacing: app.fs*0.35
+                spacing: app.fs*0.1
                 anchors.horizontalCenter: parent.horizontalCenter
                 ZoolText{
                     text: '<b>Crear una nueva carta</b>'
                     font.pixelSize: app.fs*0.65
                     color: 'white'
                 }
-                ZoolText{
-                    text: 'Mediante este formulario usted puede crear un nuevo esquema o mapa  energético, carta natal u otros.'
-                    w: r.width-app.fs
-                    font.pixelSize: app.fs*0.5
-                    color: 'white'
-                }
+//                ZoolText{
+//                    text: 'Mediante este formulario usted puede crear un nuevo esquema o mapa  energético, carta natal u otros.'
+//                    w: r.width-app.fs
+//                    font.pixelSize: app.fs*0.5
+//                    color: 'white'
+//                }
             }
-            Item{width: 1; height: app.fs; visible: colXConfig.visible}
+            Item{width: 1; height: 1;}
             ZoolTextInput{
                 id: tiNombre
                 width: r.width-app.fs*0.5
                 t.font.pixelSize: app.fs*0.65
+                t.parent.width: r.width-app.fs*0.5
                 anchors.horizontalCenter: parent.horizontalCenter
                 KeyNavigation.tab: cbGenero//controlTimeFecha
                 t.maximumLength: 30
@@ -242,6 +256,8 @@ Rectangle {
             ZoolTextInput{
                 id: tiCiudad
                 width: tiNombre.width
+                t.parent.width: r.width-app.fs*0.5
+                anchors.horizontalCenter: parent.horizontalCenter
                 t.font.pixelSize: app.fs*0.65;
                 KeyNavigation.tab: cbInputCoords.checked?tiLat.t:tiAlt.t
                 t.maximumLength: 50

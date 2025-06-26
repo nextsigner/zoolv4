@@ -649,7 +649,7 @@ Rectangle {
             anchors.centerIn: parent
             color: apps.fontColor
             font.pixelSize: r.fs
-            maximumLength: editCellData.m
+            maximumLength: editCellData.max
             validator: IntValidator {
                 bottom: editCellData.parent===xGmt?-12:1  // Opcional: número mínimo aceptado
                 //top: 3000 // Opcional: número máximo aceptado

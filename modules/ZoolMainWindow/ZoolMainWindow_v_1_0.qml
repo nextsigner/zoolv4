@@ -411,7 +411,7 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+Esc'
         onActivated: {
-            app.focus=true
+            xApp.focus=true
         }
     }
     Shortcut{

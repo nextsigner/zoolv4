@@ -728,44 +728,6 @@ Rectangle {
             }
         }
     }
-    Rectangle{
-        id: xHelp
-        anchors.fill: parent
-        color: apps.backgroundColor
-        border.width: 1
-        border.color: apps.fontColor
-        parent: zsm
-        visible: false
-        Rectangle{
-            width: lx.contentWidth+app.fs*0.1
-            height: lx.contentHeight+app.fs*0.1
-            color: apps.fontColor
-            anchors.right: parent.right
-            anchors.rightMargin: app.fs*0.25
-            anchors.top: parent.top
-            anchors.topMargin: app.fs*0.25
-            MouseArea{
-                anchors.fill: parent
-                onClicked: xHelp.visible=false
-            }
-            Text{
-                id: lx
-                text: 'X'
-                font.pixelSize: app.fs*0.5
-                color: apps.backgroundColor
-                anchors.centerIn: parent
-            }
-        }
-        Text{
-            text:'<h2>Ayuda para Crear Mapa o Carta</h2><br><br><b>Presionar TAB: </b>Para saltar de un campo de introducción de datos a otro.<br><br><b>Presionar CTRL+ENTER: </b>Se graba o define el dato y se salta hacia el otro campo de introducción de datos.<br><br><b>Presionar F1: </b>Para ver u ocultar esta ayuda.'
-            width: parent.width-app.fs
-            height: contentHeight
-            font.pixelSize: app.fs*0.5
-            color: apps.fontColor
-            wrapMode: Text.WordWrap
-            anchors.centerIn: parent
-        }
-    }
     Timer{
         id: tSearch
         running: false
@@ -1120,7 +1082,14 @@ Rectangle {
         return false
     }
     function toHelp(){
-        xHelp.visible=!xHelp.visible
+        let text='<h2>Ayuda para Crear Mapa o Carta</h2><br><br><b>Presionar TAB: </b>Para saltar de un campo de introducción de datos a otro.<br><br><b>Presionar CTRL+ENTER: </b>Se graba o define el dato y se salta hacia el otro campo de introducción de datos.<br><br><b>Presionar F1: </b>Para ver u ocultar esta ayuda.'
+
+        let c='import comps.ItemHelp 1.0\n'
+        c+='ItemHelp{\n'
+        c+='    text:"'+text+'"\n'
+        c+='    ctx: "'+zsm.cPanelName+'"\n'
+        c+='}\n'
+        let comp=Qt.createQmlObject(c, zsm, 'itemhelpcode')
     }
     //<--Teclado
 

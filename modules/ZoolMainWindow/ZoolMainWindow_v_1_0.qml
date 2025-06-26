@@ -652,6 +652,7 @@ ApplicationWindow {
         }
     }
     function ctrlRight(ctrl){
+        //zpn.log('ZoolMainWindow.ctrlRight('+ctrl+')')
         if(!ctrl){
             if(zsm.getPanel('ZoolSabianos').view.visible){
                 if(zsm.getPanel('ZoolSabianos').view.visible){
@@ -662,6 +663,7 @@ ApplicationWindow {
             }
             if(apps.zFocus==='xLatIzq'){
                 zsm.toRight(ctrl)
+                return
             }
             if(apps.zFocus==='xMed'){
                 zm.toRight(false)

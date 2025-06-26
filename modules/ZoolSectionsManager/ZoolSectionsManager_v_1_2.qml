@@ -34,6 +34,7 @@ Item{
     property var currentSectionFocused: r
     property var aPanelesTits: []
     property string uPanelIdHovered: ''
+    property string cPanelName: ''
 
     property string currentSectionFocusedName: ''
 
@@ -283,6 +284,9 @@ Item{
             //r.currentIndex=apps.currentSwipeViewIndex
         }
     }
+    Component.onCompleted: {
+        allToEscape()
+    }
     function getPanel(typeOfSection){
         let obj
         for(var i=0;i<xPanels.children.length;i++){
@@ -305,6 +309,7 @@ Item{
             //if(apps.dev)log.lv('getPanel( '+typeOfSection+' ): ' +app.j.qmltypeof(o))
             if(''+app.j.qmltypeof(o)===''+typeOfSection){
                 o.visible=true
+                r.cPanelName=typeOfSection
                 //newCi=i
                 //r.currentSectionFocused=o
             }else{
@@ -345,12 +350,22 @@ Item{
         log.lv(s)
 
     }
-
+    function cleanDinamicItems(){
+        for(var i=0;i<r.children.length;i++){
+            let o=r.children[i]
+            //zpn.log(o.objectName)
+            if(o.objectName==='ItemHelp'){
+                o.destroy(0)
+            }
+        }
+    }
     //-->Teclado
     function toEnter(){
+        cleanDinamicItems()
         r.currentSectionFocused=getPanelVisible()
     }
     function toLeft(ctrl){
+        cleanDinamicItems()
         if(!ctrl){
             //setCurrentSectionFocusedName()
             if(!currentSectionFocused || currentSectionFocused===r){
@@ -367,6 +382,8 @@ Item{
         }
     }
     function toRight(ctrl){
+        cleanDinamicItems()
+        //zpn.log('ZoolSectionsManager.toRight('+ctrl+')')
         if(!ctrl){
             if(!currentSectionFocused || currentSectionFocused===r){
                 if(r.currentIndex<r.aPanelesTits.length-1){
@@ -380,19 +397,30 @@ Item{
         }
     }
     function toUp(){
+        cleanDinamicItems()
         getPanelVisible().toUp()
     }
     function toDown(){
+        cleanDinamicItems()
         getPanelVisible().toDown()
     }
     function toTab(){
+        cleanDinamicItems()
         getPanelVisible().toTab()
     }
     function toEscape(){
+        cleanDinamicItems()
         getPanelVisible().toEscape()
     }
     function toHelp(){
         getPanelVisible().toHelp()
     }
     //<--Teclado
+
+    function allToEscape(){
+        for(var i=0;i<xPanels.children.length;i++){
+            let o=xPanels.children[i].children[0]
+            o.toEscape()
+        }
+    }
 }

@@ -46,7 +46,7 @@ Rectangle {
     property string uParamsLoaded: ''
 
     property bool loadingFromExternal: false
-    property string folderImg: '../../ZoolMap/imgs/imgs_v1'
+    property string folderImg: '../../../ZoolMap/imgs/imgs_v1'
     visible: false
     onVisibleChanged: {
         //r.moduleEnabled=visible

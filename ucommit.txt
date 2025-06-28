@@ -1,1 +1,1 @@
-Se publica Zool v5.6.26.0 para Windows
+Se agregan datos a ZoolDataSheet

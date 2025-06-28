@@ -525,6 +525,9 @@ Rectangle {
         if(cFocus===5){
             editCellData.parent=xMinuto
         }
+        if(cFocus===-1){
+            editCellData.parent=r
+        }
     }
     Timer{
         running: false//r.cFocus>=0 && editCellData.parent!==r
@@ -557,21 +560,27 @@ Rectangle {
                 //log.lv('n: '+n)
                 let data=-1
                 if(n==='xanio'){
+                    editCellData.max=4
                     data=r.anio
                 }
                 if(n==='xmes'){
+                    editCellData.max=2
                     data=r.mes
                 }
                 if(n==='xdia'){
+                    editCellData.max=2
                     data=r.dia
                 }
                 if(n==='xgmt'){
+                    editCellData.max=3
                     data=r.gmt
                 }
                 if(n==='xhora'){
+                    editCellData.max=2
                     data=r.hora
                 }
                 if(n==='xminuto'){
+                    editCellData.max=2
                     data=r.minuto
                 }
                 tiData.text=''+data
@@ -746,6 +755,7 @@ Rectangle {
     }
 
     function setEditData(){
+        //zpn.log('ZoolControlsTime.setEditData()')
         if(editCellData.parent!==r){
             //log.lv('tiData.text: '+tiData.text)
             let n = editCellData.parent.objectName
@@ -911,6 +921,7 @@ Rectangle {
         let d = new Date(r.currentDate)
         //log.lv('d: '+d.toString())
         let nd
+        //zpn.log('ZoonControlsTime.setCellData('+n+', '+i+').verHoraMinuto: '+r.verHoraMinuto)
         if(i!==3){
             if(i===0){
                 nd = new Date(n, d.getMonth(), d.getDate(), d.getHours(), d.getMinutes())

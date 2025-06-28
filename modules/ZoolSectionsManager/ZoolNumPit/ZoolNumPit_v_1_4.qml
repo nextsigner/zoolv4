@@ -7,6 +7,7 @@ import ZoolControlsTime 1.1
 
 import ZoolSectionsManager.ZoolNumPit.ZoolPinaculo 1.0
 
+import comps.FocusSen 1.0
 import "../../../comps" as Comps
 
 
@@ -451,6 +452,7 @@ Rectangle {
                                     spacing: app.fs*0.25
                                     anchors.horizontalCenter:  parent.horizontalCenter
                                     ZoolButton{
+                                        id: botVerInfo
                                         text: 'Ver información'
                                         fs: app.fs*0.5
                                         anchors.verticalCenter: parent.verticalCenter
@@ -461,6 +463,13 @@ Rectangle {
                                                 sexo='masc'
                                             }
                                             zm.getZiDataNum(r.currentNumNacimiento, sexo, !checkBoxShowInfo.checked)
+                                        }
+                                        FocusSen{
+                                            width: parent.width+4
+                                            height: parent.height+4
+                                            border.width:2
+                                            anchors.centerIn: parent
+                                            visible: parent.focus
                                         }
                                     }
                                 }
@@ -2408,6 +2417,28 @@ Rectangle {
 
     //-->Teclado
     function toEnter(){
+        if(ct.cFocus===0){
+            ct.setEditData()
+            ct.cFocus=1
+            calc()
+            return
+        }
+        if(ct.cFocus===1){
+            ct.setEditData()
+            ct.cFocus=2
+            calc()
+            return
+        }
+        if(ct.cFocus===2){
+            ct.setEditData()
+            ct.cFocus=-1
+            calc()
+            return
+        }
+        if(botVerInfo.focus){
+            botVerInfo.clicked()
+            return
+        }
         if(txtDataSearchFecha.focus){
             calc()
             return
@@ -2418,10 +2449,21 @@ Rectangle {
     function toLeft(){}
     function toRight(){}
     function toTab(){
-        if(!ct.isFocus()){
+        if(ct.cFocus<0){
+            ct.cFocus=0
+        }else if(ct.cFocus===0){
+            ct.cFocus=1
+        }else if(ct.cFocus===1){
+            ct.cFocus=2
+        }else{
+            //zpn.log('ZoolNumPit.toTab()')
+            botVerInfo.focus=true
+            flk.contentY+=app.fs*10
+        }
+        /*if(!ct.isFocus()){
             ct.cFocus=0
             return
-        }
+        }*/
     }
     function toEscape(){
         if(ct.isFocus()){
@@ -2431,8 +2473,9 @@ Rectangle {
         }
     }
     function isFocus(){
+        let ret=false
         if(ct.isFocus())return true
-        return false
+        return ret
     }
     //<--Teclado
 

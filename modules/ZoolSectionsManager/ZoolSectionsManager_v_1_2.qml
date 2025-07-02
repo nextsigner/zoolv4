@@ -13,6 +13,7 @@ import ZoolSectionsManager.ZoolRevolutionList 1.5
 import ZoolSectionsManager.ZoolNumPit 1.4
 import ZoolSectionsManager.ZoolHelp 1.0
 import ZoolSectionsManager.ZoolConfig 1.0
+import mods.ModulesManager 1.0
 
 
 
@@ -89,8 +90,11 @@ Item{
             width: r.width
             height: r.height-xPanelesTits.height-xIndicadorSV.height
 
-            //9
+            //10
             Comps.XPaneles{ZoolConfig{id: zoolConfig;}}
+
+            //9
+            Comps.XPaneles{ModulesManager{}}
 
             //8
             Comps.XPaneles{ZoolHelp{id: zoolHelp;}}
@@ -432,9 +436,19 @@ Item{
 
     function allToEscape(){
         cleanDinamicItems()
+        let aTypes=[]
         for(var i=0;i<xPanels.children.length;i++){
+            aTypes.push(app.j.qmltypeof(xPanels.children[i].children[0]))
+        }
+        //zpn.log('aTypes: '+aTypes)
+        for(i=0;i<xPanels.children.length;i++){
             let o=xPanels.children[i].children[0]
-            o.toEscape()
+            let sn=app.j.qmltypeof(o)
+            //zpn.log('r.aPanelsIds:'+r.aPanelsIds)
+            //zpn.log('sn:'+sn)
+            if(aTypes.indexOf(sn)>=0){
+                if(o)o.toEscape()
+            }
         }
     }
 }

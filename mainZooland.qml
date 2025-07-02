@@ -26,6 +26,7 @@ import ZoolEvolutionView 1.0
 import ZoolLogView 1.0
 
 import ZoolFileDataManager 1.0
+import ZoolDataSheet 1.0
 import web.ZoolServerFileDataManager 1.0
 //import ZoolBodies 1.10
 import ZoolMap 5.0
@@ -201,6 +202,7 @@ ZoolMainWindow{
     ZoolAppSettings{id: apps}
     ZoolRemoteDataManager{id: zrdm}
     ZoolFileDataManager{id: zfdm}
+    ZoolDataSheet{id: zds}
     ZoolServerFileDataManager{id: zsfdm}
     Rectangle{
         id: xVisibleItems

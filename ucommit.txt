@@ -1,1 +1,1 @@
-Se modifican los archivos python para importar pyswisseph directamente y no de modo portable.
+Se elimina Moude.md de raiz

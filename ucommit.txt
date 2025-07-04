@@ -1,1 +1,1 @@
-Se logra hacer funcionar PySwissEph 2.10.3.2 en zool-win-64
+Se modifican los archivos python para importar pyswisseph directamente y no de modo portable.

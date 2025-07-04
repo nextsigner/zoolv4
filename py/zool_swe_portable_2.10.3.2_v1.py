@@ -19,7 +19,7 @@ sys.path.insert(0, script_dir)
 system_name = platform.system()
 
 if system_name == "Windows":
-    import pyswisseph_win_2_10_3_2_portable.swisseph as swe
+    import swisseph as swe
 else:
     import pyswisseph_lin_2_10_3_2_portable.swisseph as swe
 

@@ -1,1 +1,1 @@
-Se agregan qml zoolv4 a zool-win-64
+Se logra hacer funcionar PySwissEph 2.10.3.2 en zool-win-64

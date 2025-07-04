@@ -5,7 +5,6 @@ folder2=/media/ns/Archivos/zool-win-64/build/zool-release
 sudo rm -r $folder2
 
 rsync -av --exclude='.git' \
-          --exclude='swe' \
           --exclude='old' \
           --exclude='*.cfg' \
           --exclude='copyAll4Install.sh' \
@@ -14,4 +13,4 @@ rsync -av --exclude='.git' \
           --exclude='mainZooland.qml' \
           $folder1 $folder2
 
-#cp -r /media/ns/Archivos/zooldev/PythonOk76Mb $folder2/Python
+cp -r /media/ns/Archivos/zooldev/PythonOk76Mb $folder2/Python

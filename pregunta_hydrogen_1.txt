@@ -1,1 +1,0 @@
-Quiero que me crees un archivo xml para la canción "Cumpleaños feliz" en el formato .h2song del software hydrogen 1.0.0 rc1. Aún no me lo crees. Antes te daré un código xml de ejemplo para que veas cómo es el formato del archivo, los tags que utiliza etc.

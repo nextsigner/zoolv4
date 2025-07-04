@@ -1,1 +1,1 @@
-Se elimina Moude.md de raiz 2
+Se eliminan archivos innecesarios de raiz

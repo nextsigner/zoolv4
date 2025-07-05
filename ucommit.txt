@@ -1,1 +1,1 @@
-Se eliminan archivos innecesarios de raiz
+Se retira carpeta swe

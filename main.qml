@@ -79,8 +79,9 @@ ZoolMainWindow{
     //property string sweBodiesPythonFile: Qt.platform.os==='linux'?'astrologica_swe_v4.py':'astrologica_swe.py'
 
     //Python
+    property string sweFolder: Qt.platform.os==='windows'?unik.getPath(1):'/usr/share/ephe'
     property string sweBodiesPythonFile: Qt.platform.os==='windows'?'astrologica_swe_v4.py':'zool_swe_portable_2.10.3.2_v1.py'
-    property string pythonLocation: Qt.platform.os==='windows'?unik.getPath(5)+"/Python/python.exe":'python3'
+    property string pythonLocation: Qt.platform.os==='windows'?unik.getPath(1)+"/Python/python.exe":'python3'
 
     property var j: JS
     property var c: CAP
@@ -642,6 +643,12 @@ ZoolMainWindow{
 
 
     Component.onCompleted: {
+        if(Qt.platform.os==='linux' && !unik.folderExist(app.sweFolder+'/swe')){
+            log.lv('Error de instalación de Zool para GNU/Linux.\nSwe no está instalado.')
+            return
+
+        }
+
         let c='import ZoolDataManager 1.0\n'
         c+='ZoolDataManager{}'
         let obj=Qt.createQmlObject(c, capa101, 'ziscode')

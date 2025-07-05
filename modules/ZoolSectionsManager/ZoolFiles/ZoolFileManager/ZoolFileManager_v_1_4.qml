@@ -54,7 +54,7 @@ Rectangle {
     }
     Settings{
         id: settings
-        fileName: './ZoolFileManager.cfg'
+        fileName: unik.getPath(4)+'/ZoolFileManager.cfg'
         property string currentQmlTypeShowed: 'ZoolFileMaker'
         property bool showModuleVersion: false
         property bool inputCoords: false

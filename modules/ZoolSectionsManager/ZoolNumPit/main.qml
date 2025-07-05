@@ -13,7 +13,7 @@ ApplicationWindow {
     property int fs: width*0.02
     Settings{
         id: apps
-        fileName:'/tmp/zool_'+Qt.platform.os+'.cfg'
+        fileName: unik.getPath(4)+'/zool_numpit_'+Qt.platform.os+'.cfg'
         property string host: 'http://localhost'
         property bool newClosed: false
 

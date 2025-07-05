@@ -28,7 +28,7 @@ Rectangle {
     }
     Settings{
         id: s
-        fileName: 'favorites.cfg'
+        fileName: unik.getPath(4)+'/favorites.cfg'
         property bool showToolItem: false
         property var favorites: []
     }

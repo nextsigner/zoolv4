@@ -49,7 +49,7 @@ Rectangle {
     }
     Settings{
         id: settings
-        fileName: './ZoolMods.cfg'
+        fileName: unik.getPath(4)+'/ZoolMods.cfg'
         property string currentQmlTypeShowed: 'ZoolFileTransLoader'
 
     }

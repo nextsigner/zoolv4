@@ -25,7 +25,7 @@ Rectangle {
 
     Settings{
         id: settings
-        fileName: './ModulesManager.cfg'
+        fileName: unik.getPath(4)+'/ModulesManager.cfg'
         property string currentQmlTypeShowed: 'ModulesLoader'//'Intelink'
     }
 

@@ -24,7 +24,8 @@ Rectangle{
     }
     Settings{
         id: s
-        fileName: './modules/ZoolElementsView/ZoolElementsView.cfg'
+        //fileName: './modules/ZoolElementsView/ZoolElementsView.cfg'
+        fileName: unik.getPath(4)+'/ZoolElementsView.cfg'
         property real zoom: 1.0
     }
 

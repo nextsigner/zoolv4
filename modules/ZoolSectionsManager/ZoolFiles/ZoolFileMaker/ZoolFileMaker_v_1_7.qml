@@ -47,7 +47,7 @@ Rectangle {
 
     Settings{
         id: settings
-        fileName: 'zoolFileMaker.cfg'
+        fileName: unik.getPath(4)+'/zoolFileMaker.cfg'
         property bool showModuleVersion: false
         property bool inputCoords: false
     }

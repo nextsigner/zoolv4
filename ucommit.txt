@@ -1,1 +1,1 @@
-Se configura sweFolder para GNU/Linux
+Se eliminan archivos cfg

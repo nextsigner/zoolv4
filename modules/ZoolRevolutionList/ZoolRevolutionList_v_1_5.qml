@@ -48,7 +48,7 @@ Rectangle {
     Item{id:xuqp}
     Settings{
         id: settings
-        fileName: 'zoolRevolutionList.cfg'
+        fileName: unik.getPath(4)+'/zoolRevolutionList.cfg'
         //property bool showModuleVersion: false
         property bool inputCoords: false
     }

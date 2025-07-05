@@ -4,7 +4,8 @@ import Qt.labs.settings 1.1
 
 Settings{
     id: r
-    fileName:'zool_'+Qt.platform.os+'.cfg'
+    //fileName:'zool_'+Qt.platform.os+'.cfg'
+    fileName: unik.getPath(4)+'/zool.cfg'
 
     property string lastVersion: '3.14.0'
 

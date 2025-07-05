@@ -72,7 +72,7 @@ Rectangle {
 
     Settings{
         id: settings
-        fileName: 'zoolFileTransLoader.cfg'
+        fileName: unik.getPath(4)+'/zoolFileTransLoader.cfg'
         property bool showModuleVersion: false
         property bool inputCoords: false
     }

@@ -28,6 +28,7 @@ import ZoolLogView 1.0
 import ZoolFileDataManager 1.0
 import ZoolDataSheet 1.0
 import web.ZoolServerFileDataManager 1.0
+import comps.ZipDownloader 1.0
 //import ZoolBodies 1.10
 import ZoolMap 5.0
 import ZoolBodiesGuiTools 1.0
@@ -206,6 +207,7 @@ ZoolMainWindow{
     ZoolFileDataManager{id: zfdm}
     ZoolDataSheet{id: zds}
     ZoolServerFileDataManager{id: zsfdm}
+    ZipDownloader{}
     Rectangle{
         id: xVisibleItems
         color: apps.backgroundColor

@@ -1,1 +1,1 @@
-Se eliminan archivos cfg
+Se programa ZipDownloader

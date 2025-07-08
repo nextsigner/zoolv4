@@ -9,6 +9,7 @@ Item{
     property string uStdOut: ''
 
     property string uZipFilePath: ''
+    property string uUrl: ''
     property string uFolder: unik.getPath(3)
 
     Item{
@@ -96,6 +97,7 @@ Item{
                 spacing: app.fs*0.25
                 Button{
                     text: 'Cancelar'
+                    font.pixelSize: app.fs*0.5
                     onClicked: {
                         cleanUqpCurl()
                         r.cPorc=0.00
@@ -103,7 +105,18 @@ Item{
                     }
                 }
                 Button{
+                    id: btnReintentar
+                    text: 'Reintentar'
+                    font.pixelSize: app.fs*0.5
+                    visible: false
+                    onClicked: {
+                        cleanUqpCurl()
+                        downloadGitHub(r.uUrl, r.uFolder)
+                    }
+                }
+                Button{
                     text: 'Cerrar'
+                    font.pixelSize: app.fs*0.5
                     onClicked: {
                         xProgresDialog.visible=false
                     }
@@ -137,6 +150,7 @@ Item{
         //return unik.downloadZipFile()
     }
     function downloadGitHub(url, folder){
+        r.uUrl=url
         r.uFolder=folder
         let u=getUrlFromRepositoryToZip(url)
         let m0=u.split('/')
@@ -151,8 +165,10 @@ Item{
             }
             if(!unik.folderExist(folder)){
                 zpn.log('Error en la descarga de repositorio GitHub: La carpeta '+folder+' no existe.')
+                //btnReintentar.visible=true
                 return
             }
+            //btnReintentar.visible=false
             r.uZipFilePath=folder+'/'+repName+'.zip'
             if(unik.fileExist(uZipFilePath)){
                 unik.deleteFile(r.uZipFilePath)
@@ -202,6 +218,13 @@ Item{
             let s2=s1.replace(/ /g, '')//m0[m0.length-1]
             let m0=s2.split('%')
             let s3=m0[m0.length-2]
+            if(!s3){
+                txtLog.text='Error al descargar.'
+                btnReintentar.visible=true
+                return
+            }
+            btnReintentar.visible=false
+            txtLog.text='Descargando...'
             let sf=s3.replace(/\n/g, '').replace(/\r/g, '').replace(/\[/g, '')
             let nporc=parseFloat(sf).toFixed(2)
             r.cPorc=nporc>=0.0?nporc:0.00
@@ -236,28 +259,34 @@ Item{
         log.lv('zipFilePath: '+zipFilePath)
         let fileNameOfFolder=zipFilePath.replace('.zip', '-main')
         let fileNameOfFolder2=fileNameOfFolder.replace('-main', '')
+        unik.deleteFile(fileNameOfFolder2)
         let c='import QtQuick 2.0\n'
         c+='import unik.UnikQProcess 1.0\n'
         c+='Item{\n'
         c+='UnikQProcess{\n'
         c+='    onLogDataChanged:{\n'
-        c+='        procMoveStdOut(logData)\n'
+        c+='        log.lv("Move: "+logData)\n'
+        c+='        procMoveStdOut(\'+logData+\', "'+fileNameOfFolder+'")\n'
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
-        c+='        let cmd=\'mv "'+fileNameOfFolder+'" "'+fileNameOfFolder2+'"\'\n'
+        c+='        let cmd=\'mv"'+fileNameOfFolder+'" "'+fileNameOfFolder2+'"\'\n'
         c+='        console.log("cmd Move: "+cmd)\n'
-        c+='        log.lv("cmd Move: "+cmd)\n'
-        //c+='        xProgresDialog.visible=true\n'
-        //c+='        run(cmd)\n'
+        //c+='        log.lv("cmd Move: "+cmd)\n'
+        c+='        run(cmd)\n'
         c+='    }\n'
         c+='}\n'
         c+='}\n'
         //log.lv(c)
+
         let comp=Qt.createQmlObject(c, xuqpCurl, 'uqp-curl-code')
     }
-    /*move "Z:/home/ns/Descargas/p400/zoolv4-main/*" "Z:/home/ns/Descargas/p400/"
-let m0
-rmdir "Z:/home/ns/Descargas/p400/zoolv4-main" /s /q*/
+    function procMoveStdOut(data, folder){
+        log.lv('procMoveStdOut(...).data: '+data)
+        log.lv('procMoveStdOut(...).folder: '+foder)
+        /*move "Z:/home/ns/Descargas/p400/zoolv4-main/*" "Z:/home/ns/Descargas/p400/"
+    let m0
+    rmdir "Z:/home/ns/Descargas/p400/zoolv4-main" /s /q*/
+    }
     function proc7ZipStdOut(data){
         let m0
         let m1

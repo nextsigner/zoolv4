@@ -207,7 +207,14 @@ ZoolMainWindow{
     ZoolFileDataManager{id: zfdm}
     ZoolDataSheet{id: zds}
     ZoolServerFileDataManager{id: zsfdm}
-    ZipDownloader{}
+    ZipDownloader{
+        id: zipDownloader
+        dev: true
+        Component.onCompleted: {
+            let url = 'https://github.com/nextsigner/zool-release'
+            download(url)
+        }
+    }
     Rectangle{
         id: xVisibleItems
         color: apps.backgroundColor

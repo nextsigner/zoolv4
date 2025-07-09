@@ -136,65 +136,48 @@ Item{
             }
         }
     }
-    /*Timer{
-        id: t7Zip
-        running: false
-        repeat: false
-        interval: 2000
-        onTriggered: {
-            if(r.cPorc>=100.00){
-                mkUqp7Zip(r.uZipFilePath, r.uFolder)
-            }
+    Component.onCompleted: {
+        if(r.version===''){
+            r.folderRoot=unik.getPath(4)+'/0.0.0.0'
+        }else{
+            r.folderRoot=unik.getPath(4)+'/'+r.version
         }
+        //let url = 'https://github.com/nextsigner/zool-release'
+        //downloadGitHub(url)
     }
-    Timer{
-        id: t7ZipFinished
-        running: false
-        repeat: false
-        interval: 5000
-        onTriggered: {
-            r.cPorc=100.00
-            r.uStdOut='Moviendo archivos descargados...'
-            mkUqpMove(r.uZipFilePath)
-        }
+
+    function getUqpCode(idName, cmd, onLogDataCode, onFinishedCode, onCompleteCode){
+        let c='import QtQuick 2.0\n'
+        c+='import unik.UnikQProcess 1.0\n'
+        c+='Item{\n'
+        c+='    UnikQProcess{\n'
+        c+='        id: '+idName+'\n'
+        c+='        onFinished:{\n'
+        c+='        '+onFinishedCode
+        c+='        '+idName+'.destroy(0)\n'
+        c+='        }\n'
+        c+='        onLogDataChanged:{\n'
+        c+='        '+onLogDataCode
+        c+='        }\n'
+        c+='        Component.onCompleted:{\n'
+        c+='        '+onCompleteCode
+        c+='            let cmd=\''+cmd+'\'\n'
+        c+='            if(r.dev)console.log("cmd '+idName+': "+cmd)\n'
+        c+='            if(r.dev)log.lv(cmd)\n'
+        c+='            run(cmd)\n'
+        c+='        }\n'
+        c+='    }\n'
+        c+='}\n'
+        return c
     }
-    Timer{
-        id: tCheckDownload
-        running: false
-        repeat: true
-        interval: 5000
-        property string uLogData: ''
-        property string zipFilePath: ''
-        onTriggered: {
-            if(unik.fileExist(zipFilePath)){
-                txtLog.text='Archivo descargado!'
-                r.cPorc=100.00
-                t7Zip.restart()
-            }else{
-                txtLog.text='Revisando archivo descargado...'
-            }
-        }
-    }
-    Timer{
-        id: tCheckMove
-        running: false
-        repeat: true
-        interval: 5000
-        property string folder: ''
-        onTriggered: {
-            if(unik.folderExist(folder)){
-                txtLog.text='Archivos movidos con éxito.'
-                stop()
-                let mainPath=folder+'/main.qml'
-                engine.addImportPaths(folder+'/modules')
-                engine.load(mainPath)
-            }else{
-                txtLog.text='Revisando archivos movidos...'
-            }
-        }
-    }*/
     function download(url, from){
         if(from===undefined || from==='github'){
+            let m0=url.split('/')
+            if(url.indexOf('github')>=0 && m0.length>3 && r.version!==''){
+                let nfr=r.folderRoot.replace(r.version, '').replace('0.0.0.0', '')
+                nfr=nfr+m0[m0.length-1]+'_'+r.version
+                r.folderRoot=nfr
+            }
             mkUqpCleanFolder(url, r.folderRoot)
         }else{
             //downloadGitHub(url)
@@ -248,30 +231,32 @@ Item{
     }
     function mkUqpCurl(url, folderPath, fileName){
         cleanUqpCurl()
-        let c='import QtQuick 2.0\n'
-        c+='import unik.UnikQProcess 1.0\n'
-        c+='Item{\n'
-        c+='UnikQProcess{\n'
-        c+='    id: uqp1\n'
-        c+='    onFinished:{\n'
-        c+='        txtLog.text="Archivo descargado!"\n'
-        c+='        r.cPorc=99.99\n'
+
+        let c=''
+
+        c='xProgresDialog.visible=true\n'
+        let onCompleteCode=c
+
+        c='uqpCurl'
+        let idName=c
+
+        c=''+r.curlPath+' -# -L -o "'+folderPath+'/'+fileName+'" "'+url+'"'
+        let cmd=c
+
+        c='        procCurlStdOut(logData)\n'
+        let onLogDataCode=c
+
+
+        c='        r.cPorc=99.99\n'
         c+='        procCurlStdOut("finished")\n'
-        c+='        uqp1.destroy(0)\n'
-        c+='    }\n'
-        c+='    onLogDataChanged:{\n'
-        c+='        procCurlStdOut(logData)\n'
-        c+='    }\n'
-        c+='    Component.onCompleted:{\n'
-        c+='        let cmd=\''+r.curlPath+' -# -L -o "'+folderPath+'/'+fileName+'" "'+url+'"\'\n'
-        c+='        console.log("cmd curl: "+cmd)\n'
-        c+='        xProgresDialog.visible=true\n'
-        c+='        run(cmd)\n'
-        c+='    }\n'
-        c+='}\n'
-        c+='}\n'
-        //log.lv(c)
-        let comp=Qt.createQmlObject(c, xuqpCurl, 'uqp-curl-code')
+        let onFinishedCode=c
+
+
+        let cf=getUqpCode(idName, cmd, onLogDataCode, onFinishedCode, onCompleteCode)
+
+        if(r.dev)log.lv('cf '+idName+': '+cf)
+
+        let comp=Qt.createQmlObject(cf, xuqpCurl, 'uqp-curl-code-'+idName)
     }
     function procCurlStdOut(data){
         let d=data
@@ -330,21 +315,45 @@ Item{
         }
     }
     function mkUqp7Zip(zipFilePath, folder){
-        //tCheckDownload.zipFilePath=zipFilePath
-        let c='import QtQuick 2.0\n'
+        let c=''
+
+        c='\n'
+        let onCompleteCode=c
+
+        c='uqp7z'
+        let idName=c
+
+        c=r.app7ZipPath+' x "'+zipFilePath+'" -o"'+folder+'" -aoa -bsp1'
+        let cmd=c
+
+        c='        proc7ZipStdOut(logData)\n'
+        let onLogDataCode=c
+
+
+        c='        proc7ZipStdOut("finished")\n'
+        let onFinishedCode=c
+
+
+        let cf=getUqpCode(idName, cmd, onLogDataCode, onFinishedCode, onCompleteCode)
+
+        if(r.dev)log.lv('cf '+idName+': '+cf)
+
+        let comp=Qt.createQmlObject(cf, xuqpCurl, 'uqp-curl-code-'+idName)
+
+        return
+        c='import QtQuick 2.0\n'
         c+='import unik.UnikQProcess 1.0\n'
         c+='Item{\n'
         c+='UnikQProcess{\n'
         c+='    id: uqp2\n'
         c+='    onFinished:{\n'
-        c+='        proc7ZipStdOut("finished")\n'
-        c+='        uqp2.destroy(0)\n'
+
         c+='    }\n'
         c+='    onLogDataChanged:{\n'
-        c+='        proc7ZipStdOut(logData)\n'
+
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
-        c+='        let cmd=\''+r.app7ZipPath+' x "'+zipFilePath+'" -o"'+folder+'" -aoa -bsp1   \'\n'
+
         c+='        if(r.dev)log.lv("cmd 7-Zip: "+cmd)\n'
         //c+='        xProgresDialog.visible=true\n'
         c+='        run(cmd)\n'
@@ -352,7 +361,7 @@ Item{
         c+='}\n'
         c+='}\n'
         //log.lv(c)
-        let comp=Qt.createQmlObject(c, xuqpCurl, 'uqp-curl-code')
+        comp=Qt.createQmlObject(c, xuqpCurl, 'uqp-curl-code')
     }
     function mkUqpMove(zipFilePath){
         //log.lv('zipFilePath: '+zipFilePath)
@@ -443,10 +452,26 @@ Item{
             txtLog.text='Cargando aplicación...'
             let mainPath=r.uZipFilePath
             mainPath=mainPath.replace('.zip', '-main')
-            if(r.dev)log.lv('unik.addImportPath(...): '+mainPath)
+            unik.deleteFile(r.uZipFilePath)
+
+            let unikeyCfgPath=unik.getPath(4)+'/unikey.cfg'
+            unik.deleteFile(unikeyCfgPath)
+            let j={}
+            j.args={}
+            j.args.folder=mainPath
+            unik.setFile(unikeyCfgPath, JSON.stringify(j, null, 2))
+            if(r.dev)log.lv('unikeyCfgPath: '+unikeyCfgPath)
+            if(r.dev)log.lv('unikey.cfg: '+JSON.stringify(j, null, 2))
+            unik.restartApp()
+            //unik.restartApp("-folder="+mainPath)
+//            Qt.application.arguments=[]
+//            unik.clearComponentCache()
+//            engine.load("qrc:/main.qml")
+
+            //if(r.dev)log.lv('unik.addImportPath(...): '+mainPath)
             //unik.addImportPath(mainPath+'/modules')
-            if(r.dev)log.lv('Cargando main.qml en '+mainPath)
-            mainPath=mainPath+'/main.qml'
+            //if(r.dev)log.lv('Cargando main.qml en '+mainPath)
+            //mainPath=mainPath+'/main.qml'
 
             //unik.clearComponentCache()
             //engine.load(mainPath)
@@ -481,14 +506,5 @@ Item{
         c+='}\n'
         //log.lv(c)
         let comp=Qt.createQmlObject(c, xuqpCurl, 'uqp-curl-code')
-    }
-    Component.onCompleted: {
-        if(r.version===''){
-            r.folderRoot=unik.getPath(4)+'/qmlcodes'
-        }else{
-            r.folderRoot=unik.getPath(4)+'/'+r.version
-        }
-        //let url = 'https://github.com/nextsigner/zool-release'
-        //downloadGitHub(url)
     }
 }

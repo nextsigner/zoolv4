@@ -22,13 +22,25 @@ Item{
                 v1=v1.replace(/ /g, '').replace(/\n/g, '')
                 let v2=app.version
                 v2=v2.replace(/ /g, '').replace(/\n/g, '')
-                if(v1===v2){
+                //if(v1===v2){
+                if(false){
                     jsonNot.text='Está utilizando la versión más actualizada de Zool.\n\nVersión actual: '+v2+'\nÚltima versión disponible: '+v1+''
                     zpn.addNot(jsonNot, true, 20000)
                 }else{
                     jsonNot.text='Hay una nueva versión de Zool disponible\n\nVersión actual: '+v2+'\nVersión disponible: '+v1+''
-                    jsonNot.url='https://github.com/nextsigner/zoolv4/releases/latest'
-                    jsonNot.bot1Text='Ver Repositorio GitHub'
+                    //jsonNot.url='https://github.com/nextsigner/zoolv4/releases/latest'
+                    //jsonNot.bot1Text='Ver Repositorio GitHub'
+                    let c='import QtQuick 2.0\n'
+                    c+='Item{\n'
+                    c+='    Component.onCompleted:{\n'
+                    //c+='        log.lv("Descargando actualización...")\n'
+                    c+='          let url = "https://github.com/nextsigner/zoolv4"\n'
+                    c+='          zipDownloader.version="'+v1+'"\n'
+                    c+='          zipDownloader.download(url)\n'
+                    c+='    }\n'
+                    c+='}\n'
+                    jsonNot.qml=c
+                    jsonNot.bot2Text='Actualizar ahora'
                     zpn.addNot(jsonNot, true, 20000)
                 }
 

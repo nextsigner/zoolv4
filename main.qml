@@ -210,9 +210,11 @@ ZoolMainWindow{
     ZipDownloader{
         id: zipDownloader
         dev: true
+        //version:'0.0.0.0'
+
         Component.onCompleted: {
-            let url = 'https://github.com/nextsigner/zool-release'
-            download(url)
+            //let url = 'https://github.com/nextsigner/zool-release'
+            //download(url)
         }
     }
     Rectangle{

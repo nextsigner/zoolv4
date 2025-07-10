@@ -1,1 +1,1 @@
-Se corrige error en zm.loadBack()
+Se edita archivo copyAll4Install-zool-win-64.sh

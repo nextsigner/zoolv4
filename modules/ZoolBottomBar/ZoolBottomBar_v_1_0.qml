@@ -11,7 +11,7 @@ Rectangle {
     //anchors.bottom: parent.bottom
     property alias objPanelCmd: panelCmd
     property alias objXState: xStatus
-    state: "hide"
+    state: apps.showCmd?"show":"hide"
     states: [
         State {
             name: "show"
@@ -33,9 +33,12 @@ Rectangle {
     ZoolCmd{
         id: panelCmd
         width: parent.width-xStatus.width
+        height: parent.height
+        //state: r.state
         //onStateChanged: if(state==='show')r.state='show'
     }
-    function enter(){
-        if(panelCmd.state==='show')panelCmd.enter()
+    function toEnter(){
+        panelCmd.toEnter()
+        //if(panelCmd.state==='show')panelCmd.enter()
     }
 }

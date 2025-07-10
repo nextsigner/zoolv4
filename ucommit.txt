@@ -1,1 +1,1 @@
-Se edita archivo copyAll4Install-zool-win-64.sh
+Se agrega qmlmesssagelogger

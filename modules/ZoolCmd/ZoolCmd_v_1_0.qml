@@ -1,8 +1,8 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import Qt.labs.folderlistmodel 2.12
-import "../../comps" as Comps
-
+import ZoolTextInput 1.0
+import comps.FocusSen 1.0
 
 Rectangle {
     id: r
@@ -12,12 +12,13 @@ Rectangle {
     border.color: 'white'
     color: 'black'
     //y:r.parent.height
+    anchors.verticalCenter: parent.verticalCenter
     property real lat
     property real lon
 
     property string uCmd: ''
 
-    state: 'hide'
+    /*state: 'hide'
     states: [
         State {
             name: "show"
@@ -40,35 +41,50 @@ Rectangle {
         if(state==='show')tiCmd.t.focus=true
         app.j.raiseItem(r)
     }
+
     onXChanged: {
         if(x===0){
             //txtDataSearch.selectAll()
             //txtDataSearch.focus=true
         }
-    }
-    Comps.XTextInput{
+    }*/
+    ZoolTextInput{
         id: tiCmd
         width: r.width
         height: r.height
         t.font.pixelSize: app.fs*0.65
-        //bw.width: 0
-        //anchors.verticalCenter: parent.verticalCenter
-        anchors.centerIn: parent
-        onPressed: {
-            addJsonCmds(text)
-            runCmd(text)
-        }
+        t.parent.width: r.width//-app.fs*0.5
+        t.focus: apps.showCmd
+        anchors.horizontalCenter: parent.horizontalCenter
+        //KeyNavigation.tab: cbGenero//controlTimeFecha
+        t.maximumLength: 300
+        borderColor:apps.fontColor
+        borderRadius: app.fs*0.25
+        padding: app.fs*0.25
+        horizontalAlignment: TextInput.AlignLeft
+        anchors.verticalCenter: parent.verticalCenter
         property int cmdIndex: 0
-        onDownPressed:{
-            if(Object.keys(getJsonCmds().cmds).length===0)return
-            tiCmd.text=getJsonCmd(tiCmd.cmdIndex)
-            if(tiCmd.cmdIndex<Object.keys(getJsonCmd().cmds).length-1){
-                tiCmd.cmdIndex++
-            }else{
-                tiCmd.cmdIndex=0
-            }
+        //onTextChanged: if(cbPreview.checked)loadTemp()
+        onEnterPressed: {
+            toEnter()
+        }
+        FocusSen{
+            width: parent.r.width
+            height: parent.r.height
+            radius: parent.r.radius
+            border.width:2
+            anchors.centerIn: parent
+            visible: parent.t.focus
+        }
+        Text {
+            text: 'Nombre'
+            font.pixelSize: app.fs*0.5
+            color: 'white'
+            //anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.top
         }
     }
+
     Item{id: xuqp}
     Component.onCompleted: app.cmd=r
     function runCmd(cmdarg){
@@ -82,13 +98,94 @@ Rectangle {
         let finalCmd=''
         let c=''
         let comando=cmd.split(' ')
+
+        //-->Comandos sin argumentos
+        if(comando.length===1){
+            if(comando[0]==='ve'){
+                log.clear()
+                log.lv('\n\nErrores: '+qmlErrorLogger.messages.toString()+'\n\n')
+                return
+            }
+            if(comando[0]==='test'){
+                log.lv('Test: ')
+                log.lv('Probando Python: '+app.pythonLocation)
+
+                //Python
+                let idName='probePython'
+                let c=getUqpCode(idName, app.pythonLocation+' --version', 'log.lv("Versión: "+logData)\n', '', '')
+                let comp=Qt.createQmlObject(c, xuqp, idName+'-qml-code')
+
+                //PySwisEph
+                idName='probePySwisEph'
+                c=getUqpCode(idName, app.pythonLocation+' -m pip show pyswisseph', 'log.lv("Pyswisseph Versión: "+logData)\n', '', '')
+                comp=Qt.createQmlObject(c, xuqp, idName+'-qml-code')
+
+                //Swe
+                log.lv('\nSwe Folder: '+app.sweFolder+'\n')
+
+                //GeoPy
+                idName='probeGeoPy'
+                c=getUqpCode(idName, app.pythonLocation+' -m pip show geopy', 'log.lv("GeoPy Versión: "+logData)\n', '', '')
+                comp=Qt.createQmlObject(c, xuqp, idName+'-qml-code')
+
+                //7z
+                log.lv('\n7-Zip: '+zipDownloader.app7ZipPath+'\n')
+                idName='probe7z'
+                c=getUqpCode(idName, zipDownloader.app7ZipPath, 'let m0=logData.split("Usage")\nlog.lv("7-Zip Versión: "+m0[0])\n', '', '')
+                comp=Qt.createQmlObject(c, xuqp, idName+'-qml-code')
+
+                //Curl
+                log.lv('\nCurl: '+zipDownloader.curlPath+'\n')
+                idName='probeCurl'
+                c=getUqpCode(idName, zipDownloader.curlPath+' --version', 'log.lv(logData)\n', '', '')
+                comp=Qt.createQmlObject(c, xuqp, idName+'-qml-code')
+
+                return
+            }
+        }
+        //<--Comandos sin argumentos
+
         if(comando.length<1)return
 
-        let com=cmd.substring(0, 2)
-        let codeCom=cmd.substring(2, cmd.length)
-        //log.ls('com:::['+com+']', 0, 500)
-        //log.ls('codeCom:::'+codeCom, 0, 500)
-        if(com==='c '){
+        let com=cmd.substring(0, comando[0].length)
+        let codeCom=cmd.substring(comando[0].length+1, cmd.length)
+        //log.lv('com:::['+com+']', 0, 500)
+        //log.lv('codeCom:['+codeCom+']', 0, 500)
+
+        //Ver un error QML
+        if(com==='ve'){
+            log.clear()
+            let num=parseInt(codeCom)
+            if(isNaN(num)){
+                log.lv('Este comando funciona con "ve" o "ve <numero de error>"\nPara buscar un error por el nombre hay que usar "fe <nombre de error>"')
+                return
+            }else{
+                log.lv('num: '+num)
+            }
+
+
+            log.lv('Errores:\nMostrando error N°'+parseInt(codeCom)+' de '+qmlErrorLogger.messages.length)
+            log.lv('\n'+qmlErrorLogger.messages[num]+'\n')
+            return
+        }
+
+        //Buscar un error QML
+        if(com==='fe'){
+            log.clear()
+            let s=''
+            let cant=0
+            for(i=0;i<qmlErrorLogger.messages.length;i++){
+                if(qmlErrorLogger.messages[i].indexOf(codeCom)>=0){
+                    s+=qmlErrorLogger.messages[i]+'\n\n'
+                    cant++
+                }
+            }
+            log.lv('Errores:\nMostrando '+cant+' error encontrados de "'+codeCom+'"\n\n'+s)
+            return
+        }
+
+        //Ejecutar código QML
+        if(com==='c'){
             runQml(codeCom)
         }
         if(parseInt(cmd.substring(0, 4))<=Object.keys(getJsonCmds().cmds).length){
@@ -301,7 +398,6 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
         let ms=d.getTime()
         let c='import QtQuick 2.0\n'
         c+='import unik.UnikQProcess 1.0\n'
-        c+='import "../../js/FuncsV2.js" as JS\n'
         c+='UnikQProcess{\n'
         c+='    id: uqp'+ms+'\n'
         c+='    onLogDataChanged:{\n'
@@ -412,7 +508,7 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
         let jsonCount=Object.keys(json.cmds).length
         for(var i=0;i<jsonCount;i++){
             if(cmd===json.cmds[i].cmd){
-                log.ls('Ya existe: '+cmd, 0, 500)
+                //log.ls('Ya existe: '+cmd, 0, 500)
                 return
             }
         }
@@ -429,4 +525,56 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
         let jsonFilePath='./modules/ZoolCmd/cmds.json'
         unik.setFile(jsonFilePath, JSON.stringify(json))
     }
+    function getLastJsonCmd(){
+        let json = getJsonCmds()
+        let jsonCount=Object.keys(json.cmds).length
+        let uCom=json.cmds[jsonCount-1].cmd
+        return uCom
+    }
+    function getUqpCode(idName, cmd, onLogDataCode, onFinishedCode, onCompleteCode){
+        let c='import QtQuick 2.0\n'
+        c+='import unik.UnikQProcess 1.0\n'
+        c+='Item{\n'
+        c+='    UnikQProcess{\n'
+        c+='        id: '+idName+'\n'
+        c+='        onFinished:{\n'
+        c+='        '+onFinishedCode
+        c+='        '+idName+'.destroy(0)\n'
+        c+='        }\n'
+        c+='        onLogDataChanged:{\n'
+        c+='        '+onLogDataCode
+        c+='        }\n'
+        c+='        Component.onCompleted:{\n'
+        c+='        '+onCompleteCode
+        c+='            let cmd=\''+cmd+'\'\n'
+        c+='            if(r.dev)console.log("cmd '+idName+': "+cmd)\n'
+        c+='            if(r.dev)log.lv(cmd)\n'
+        c+='            run(cmd)\n'
+        c+='        }\n'
+        c+='    }\n'
+        c+='}\n'
+        return c
+    }
+
+    //-->Teclado
+    function toEnter(){
+        if(tiCmd.t.text===''){
+            tiCmd.t.text=getLastJsonCmd()
+            tiCmd.t.selectAll()
+            tiCmd.t.focus=true
+            return
+        }
+        addJsonCmds(tiCmd.t.text)
+        runCmd(tiCmd.t.text)
+    }
+    function toDown(){
+        if(Object.keys(getJsonCmds().cmds).length===0)return
+        tiCmd.text=getJsonCmd(tiCmd.cmdIndex)
+        if(tiCmd.cmdIndex<Object.keys(getJsonCmd().cmds).length-1){
+            tiCmd.cmdIndex++
+        }else{
+            tiCmd.cmdIndex=0
+        }
+    }
+    //<--Teclado
 }

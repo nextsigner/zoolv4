@@ -46,7 +46,8 @@ ApplicationWindow {
                 zsm.getPanel('ZoolSabianos').view.ctrlDown()
                 return
             }
-            xBottomBar.state=xBottomBar.state==='show'?'hide':'show'
+            apps.showCmd=!apps.showCmd
+            xBottomBar.state=apps.showCmd?'hide':'show'
         }
     }
     Shortcut{
@@ -56,7 +57,7 @@ ApplicationWindow {
                 zsm.getPanel('ZoolSabianos').view.ctrlUp()
                 return
             }
-            xDataBar.state=xDataBar.state==='show'?'hide':'show'
+            //xDataBar.state=xDataBar.state==='show'?'hide':'show'
         }
     }
     Shortcut{
@@ -280,6 +281,10 @@ ApplicationWindow {
         }
     }
     function ctrlReturnEnter(ctrl, tecla){
+        if(xBottomBar.state==='show'){
+            xBottomBar.toEnter()
+            return
+        }
         if(menuBar.expanded){
             menuBar.e()
             return
@@ -290,10 +295,6 @@ ApplicationWindow {
         }
         if(apps.zFocus==='xLatIzq'){
             zsm.getPanelVisible().toEnter(ctrl)
-            return
-        }
-        if(xBottomBar.state==='show'){
-            xBottomBar.enter()
             return
         }
         if(apps.zFocus==='xLatDer'){

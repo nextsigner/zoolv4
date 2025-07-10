@@ -18,6 +18,11 @@ Settings{
     }
 
 
+    //GUI
+    property bool showCmd: false
+    property bool showQmlErrors: false
+
+
     property string zoolUser: ''
     property string zoolUserId: ''
     property string zoolKey: ''

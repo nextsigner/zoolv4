@@ -31,7 +31,7 @@ Rectangle{
                 color: 'white'
             }
             ZoolText{
-                text: '<b>Mc:</b> '+app.uMcDegree
+                text: '<b>Mc:</b> '+zm.uMcDegree
                 font.pixelSize: r.height*0.25
                 color: 'white'
             }
@@ -41,12 +41,12 @@ Rectangle{
             font.pixelSize: r.height*0.5
             color: 'white'
         }
-        ZoolText{
-            id: txtStatus
-            text: '<b>SWEG:</b> ???'//+sweg.state
-            font.pixelSize: r.height*0.5
-            color: 'white'
-        }
+//        ZoolText{
+//            id: txtStatus
+//            text: '<b>SWEG:</b> ???'//+sweg.state
+//            font.pixelSize: r.height*0.5
+//            color: 'white'
+//        }
 //        ZoolText{
 //            text: '<b>LT:</b> '+(xLayerTouch.visible?'SI':'NO')
 //            font.pixelSize: app.fs*0.5

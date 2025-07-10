@@ -418,6 +418,9 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Up'
         onActivated: {
+            if(xBottomBar.state==='show'){
+                xBottomBar.toUp()
+            }
             if(menuBar.expanded){
                 menuBar.u()
                 return
@@ -492,6 +495,9 @@ ApplicationWindow {
         sequence: 'Down'
         //enabled: !menuBar.expanded
         onActivated: {
+            if(xBottomBar.state==='show'){
+                xBottomBar.toDown()
+            }
             if(menuBar.expanded){
                 menuBar.d()
                 return

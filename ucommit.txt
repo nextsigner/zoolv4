@@ -1,1 +1,1 @@
-Se agrega qmlmesssagelogger
+Se optimiza toUp y toDown en ZoolCmd

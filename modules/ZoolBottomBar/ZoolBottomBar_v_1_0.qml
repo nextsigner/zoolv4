@@ -39,6 +39,11 @@ Rectangle {
     }
     function toEnter(){
         panelCmd.toEnter()
-        //if(panelCmd.state==='show')panelCmd.enter()
+    }
+    function toUp(){
+        panelCmd.toUp()
+    }
+    function toDown(){
+        panelCmd.toDown()
     }
 }

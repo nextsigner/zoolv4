@@ -13,41 +13,15 @@ Rectangle {
     color: 'black'
     //y:r.parent.height
     anchors.verticalCenter: parent.verticalCenter
+
+    property string jsonFilePath: unik.getPath(4)+'/cmds.json'
+
+
     property real lat
     property real lon
 
     property string uCmd: ''
 
-    /*state: 'hide'
-    states: [
-        State {
-            name: "show"
-            PropertyChanges {
-                target: r
-                y:0//r.parent.height-r.height
-                //z:1000
-            }
-        },
-        State {
-            name: "hide"
-            PropertyChanges {
-                target: r
-                y:r.height
-            }
-        }
-    ]
-    Behavior on y{enabled: apps.enableFullAnimation;NumberAnimation{duration: app.msDesDuration}}
-    onStateChanged: {
-        if(state==='show')tiCmd.t.focus=true
-        app.j.raiseItem(r)
-    }
-
-    onXChanged: {
-        if(x===0){
-            //txtDataSearch.selectAll()
-            //txtDataSearch.focus=true
-        }
-    }*/
     ZoolTextInput{
         id: tiCmd
         width: r.width
@@ -101,6 +75,10 @@ Rectangle {
 
         //-->Comandos sin argumentos
         if(comando.length===1){
+            if(comando[0]==='ee'){
+                apps.showQmlErrors=!apps.showQmlErrors
+                return
+            }
             if(comando[0]==='ve'){
                 log.clear()
                 log.lv('\n\nErrores: '+qmlErrorLogger.messages.toString()+'\n\n')
@@ -498,9 +476,8 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
     }
     function getJsonCmds(){
         let jsonString='{"cmds":[]}'
-        let jsonFilePath='./modules/ZoolCmd/cmds.json'
-        if(!unik.fileExist(jsonFilePath)) return JSON.parse(jsonString)
-        jsonString=unik.getFile(jsonFilePath)
+        if(!unik.fileExist(r.jsonFilePath)) return JSON.parse(jsonString)
+        jsonString=unik.getFile(r.jsonFilePath)
         return JSON.parse(jsonString)
     }
     function addJsonCmds(cmd){
@@ -514,16 +491,16 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
         }
         json.cmds[jsonCount]={}
         json.cmds[jsonCount].cmd=cmd
-        log.ls('New json: '+JSON.stringify(json), 0, 500)
+        //log.ls('New json: '+JSON.stringify(json), 0, 500)
         saveJsonCmds(json)
     }
     function getJsonCmd(index){
+        //log.lv('getJsonCmd('+index+')')
         let json = getJsonCmds()
         return json.cmds[index].cmd
     }
     function saveJsonCmds(json){
-        let jsonFilePath='./modules/ZoolCmd/cmds.json'
-        unik.setFile(jsonFilePath, JSON.stringify(json))
+        unik.setFile(r.jsonFilePath, JSON.stringify(json))
     }
     function getLastJsonCmd(){
         let json = getJsonCmds()
@@ -567,10 +544,19 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
         addJsonCmds(tiCmd.t.text)
         runCmd(tiCmd.t.text)
     }
-    function toDown(){
-        if(Object.keys(getJsonCmds().cmds).length===0)return
+    function toUp(){
+        //if(Object.keys(getJsonCmds(tiCmd.cmdIndex).cmds).length===0)return
         tiCmd.text=getJsonCmd(tiCmd.cmdIndex)
-        if(tiCmd.cmdIndex<Object.keys(getJsonCmd().cmds).length-1){
+        if(tiCmd.cmdIndex>0){
+            tiCmd.cmdIndex--
+        }else{
+            tiCmd.cmdIndex=Object.keys(getJsonCmds().cmds).length-1
+        }
+    }
+    function toDown(){
+        //if(Object.keys(getJsonCmds(tiCmd.cmdIndex).cmds).length===0)return
+        tiCmd.text=getJsonCmd(tiCmd.cmdIndex)
+        if(tiCmd.cmdIndex<Object.keys(getJsonCmds().cmds).length-1){
             tiCmd.cmdIndex++
         }else{
             tiCmd.cmdIndex=0

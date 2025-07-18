@@ -50,13 +50,13 @@ Rectangle {
             anchors.centerIn: parent
             visible: parent.t.focus
         }
-        Text {
-            text: 'Nombre'
-            font.pixelSize: app.fs*0.5
-            color: 'white'
-            //anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom: parent.top
-        }
+//        Text {
+//            text: 'Nombre'
+//            font.pixelSize: app.fs*0.5
+//            color: 'red'
+//            //anchors.horizontalCenter: parent.horizontalCenter
+//            anchors.bottom: parent.top
+//        }
     }
 
     Item{id: xuqp}

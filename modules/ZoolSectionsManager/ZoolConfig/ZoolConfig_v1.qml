@@ -6,6 +6,7 @@ import ZoolButton 1.0
 import ZoolText 1.1
 
 import ZoolSectionsManager.ZoolConfig.ConfigFiles 1.0
+import ZoolSectionsManager.ZoolConfig.ConfigGui 1.0
 
 Rectangle {
     id: r
@@ -48,6 +49,13 @@ Rectangle {
                         showSection('ConfigFiles')
                     }
                 }
+                ZoolButton{
+                    text:'Apariencia'
+                    colorInverted: !configGui.visible
+                    onClicked: {
+                        showSection('ConfigGui')
+                    }
+                }
             }
         }
         Item{
@@ -56,6 +64,7 @@ Rectangle {
             height: r.hp
             anchors.horizontalCenter: parent.horizontalCenter
             ConfigFiles{id: configFiles}
+            ConfigGui{id: configGui}
         }
     }
 

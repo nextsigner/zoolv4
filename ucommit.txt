@@ -1,1 +1,1 @@
-Se optimiza toUp y toDown en ZoolCmd
+Se agrega ConfigGui

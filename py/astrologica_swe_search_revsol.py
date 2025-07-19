@@ -49,7 +49,7 @@ swePath=sys.argv[13]
 horaLocal = datetime.datetime(int(anio),int(mes),int(dia),int(hora), int(min))
 horaLocal = horaLocal - datetime.timedelta(hours=float(gmt))
 
-swe.set_ephe_path(swePath+'/swe')
+swe.set_ephe_path(swePath)
 #swe.set_ephe_path('./swe')
 
 jsonMomentos='{'

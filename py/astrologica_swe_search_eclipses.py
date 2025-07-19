@@ -48,7 +48,7 @@ tipoLuminaria = sys.argv[4]
 tipoEclipse = sys.argv[5]
 swePath=sys.argv[6]
 
-swe.set_ephe_path(swePath+'/swe')
+swe.set_ephe_path(swePath)
 #swe.set_ephe_path('./swe')
 
 d = datetime.datetime(int(anio),int(mes),int(dia),int(0), int(0))

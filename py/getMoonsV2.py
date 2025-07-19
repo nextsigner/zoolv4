@@ -214,7 +214,7 @@ def iterar_meses(anio):
 
 
 swePath=sys.argv[2]
-swe.set_ephe_path(swePath+'/swe')
+swe.set_ephe_path(swePath)
 # Ejemplo de uso
 if __name__ == "__main__":
     if len(sys.argv) < 2:

@@ -198,7 +198,7 @@ min=horaLocal.strftime('%M')
 #print('Tiempo: ' + dia + '/' + mes + '/' + anio + ' ' + hora + ':' + min)
 
 
-swe.set_ephe_path(swePath+'/swe')
+swe.set_ephe_path(swePath)
 
 latitud = float(lat)
 longitud = float(lon)

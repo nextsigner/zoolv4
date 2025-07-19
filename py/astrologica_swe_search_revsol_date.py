@@ -172,7 +172,7 @@ min=horaLocal.strftime('%M')
 
 #print('Tiempo: ' + dia + '/' + mes + '/' + anio + ' ' + hora + ':' + min)
 
-swe.set_ephe_path(swePath+'/swe')
+swe.set_ephe_path(swePath)
 #swe.set_ephe_path('./swe')
 
 d = datetime.datetime(int(anio),int(mes),int(dia),int(hora), int(min))

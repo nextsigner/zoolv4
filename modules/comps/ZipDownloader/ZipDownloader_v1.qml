@@ -4,8 +4,8 @@ import QtQuick.Controls 2.0
 Item{
     id: r
     property bool dev: false
-    property string curlPath: Qt.platform.os==='windows'?unik.getPath(1)+'/curl-8.14.1_2-win64-mingw/bin/curl.exe':'curl'
-    property string app7ZipPath: Qt.platform.os==='windows'?unik.getPath(1)+'/7-Zip32/7z.exe':'7z'
+    property string curlPath: ''//Qt.platform.os==='windows'?unik.getPath(1)+'/curl-8.14.1_2-win64-mingw/bin/curl.exe':'curl'
+    property string app7ZipPath: ''//Qt.platform.os==='windows'?unik.getPath(1)+'/7-Zip32/7z.exe':'7z'
     property real cPorc: 0
     property string uStdOut: ''
 

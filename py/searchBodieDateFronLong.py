@@ -18,7 +18,7 @@ tol = float(sys.argv[10]) #Toleracia de tiempo de rastreo
 
 aBodies=[('Sol', 0), ('Luna', 1), ('Mercurio', 2), ('Venus', 3), ('Marte', 4), ('Júpiter', 5), ('Saturno', 6), ('Urano', 7), ('Neptuno', 8), ('Plutón', 9), ('Nodo Norte', 11), ('Nodo Sur', 10), ('Quirón', 15), ('Selena', 57), ('Lilith', 12), ('Pholus', 16), ('Ceres', 17), ('Pallas', 18), ('Juno', 19), ('Vesta', 20)]
 
-swe.set_ephe_path(swePath+'/swe')
+swe.set_ephe_path(swePath)
 
 def getJson(fecha_hora, g1, g2, aspIndex):
     datos = {

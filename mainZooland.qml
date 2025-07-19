@@ -81,9 +81,9 @@ ZoolMainWindow{
     //property string sweBodiesPythonFile: Qt.platform.os==='linux'?'astrologica_swe_v4.py':'astrologica_swe.py'
 
     //Python
-    property string sweFolder: Qt.platform.os==='windows'?unik.getPath(1):'/usr/share/ephe'
+    property string sweFolder: Qt.platform.os==='windows'?'"'+unik.getPath(1)+'/swe"':'/usr/share/ephe/swe'
     property string sweBodiesPythonFile: Qt.platform.os==='windows'?'astrologica_swe_v4.py':'zool_swe_portable_2.10.3.2_v1.py'
-    property string pythonLocation: Qt.platform.os==='windows'?unik.getPath(1)+"/Python/python.exe":'python3'
+    property string pythonLocation: Qt.platform.os==='windows'?'"'+unik.getPath(1).replace(/\"/g, '')+'/Python/python.exe"':'python3'
 
     property var j: JS
     property var c: CAP
@@ -661,11 +661,14 @@ ZoolMainWindow{
 
 
     Component.onCompleted: {
-        if(Qt.platform.os==='linux' && !unik.folderExist(app.sweFolder+'/swe')){
+        if(Qt.platform.os==='linux' && !unik.folderExist(app.sweFolder)){
             log.lv('Error de instalación de Zool para GNU/Linux.\nSwe no está instalado.')
             return
 
         }
+
+        zipDownloader.curlPath=Qt.platform.os==='windows'?'"'+unik.getPath(1)+'/curl-8.14.1_2-win64-mingw/bin/curl.exe"':'curl'
+        zipDownloader.app7ZipPath=Qt.platform.os==='windows'?'"'+unik.getPath(1)+'/7-Zip32/7z.exe"':'7z'
 
         let c='import ZoolDataManager 1.0\n'
         c+='ZoolDataManager{}'

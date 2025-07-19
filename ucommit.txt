@@ -1,1 +1,1 @@
-Se agrega ConfigGui
+Se modifica la ruta de sweFolder

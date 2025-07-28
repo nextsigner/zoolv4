@@ -6,7 +6,7 @@ import QtMultimedia 5.12
 import Qt.labs.folderlistmodel 2.12
 
 import unik.UnikQProcess 1.0
-import unik.Unik 1.0
+//import unik.Unik 1.0
 
 
 import "./js/Funcs_v2.js" as JS
@@ -208,7 +208,7 @@ ZoolMainWindow{
     FontLoader {name: "FontAwesome";source: "./fonts/fontawesome-webfont.ttf";}
     FontLoader {name: "ArialMdm";source: "./fonts/ArialMdm.ttf";}
     FontLoader {name: "TypeWriter";source: "./fonts/typewriter.ttf";}
-    Unik{id: unik}
+    //Unik{id: unik}
     ZoolAppSettings{id: apps}
     ZoolRemoteDataManager{id: zrdm}
     ZoolFileDataManager{id: zfdm}

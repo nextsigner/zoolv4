@@ -177,6 +177,9 @@ Rectangle{
             flk.contentY+=app.fs
         }
     }
+    function toEscape(){
+
+    }
     //-->Funciones de Control Focus y Teclado
     property bool hasUnUsedFunction: true
     function unUsed(){

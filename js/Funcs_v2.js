@@ -999,3 +999,31 @@ function loadModule(module){
     let comp=Qt.createQmlObject(c, xApp, 'loadmodule')
     //log.ls('L1104 Funcs.js Current Path: '+unik.currentFolderPath(), 0, xApp.width*0.2)
 }
+function getUqpCode(idName, cmd, onLogDataCode, onFinishedCode, onCompleteCode){
+    let c='import QtQuick 2.0\n'
+    c+='import unik.UnikQProcess 1.0\n'
+    c+='Item{\n'
+    c+='    UnikQProcess{\n'
+    c+='        id: '+idName+'\n'
+    c+='        onFinished:{\n'
+    c+='        '+onFinishedCode+'\n'
+    c+='        '+idName+'.destroy(0)\n'
+    c+='        }\n'
+    c+='        onLogDataChanged:{\n'
+    c+='        '+onLogDataCode+'\n'
+    c+='        if(r.dev)r.log(logData)\n'
+    c+='        }\n'
+    c+='        Component.onCompleted:{\n'
+    c+='        '+onCompleteCode+'\n'
+    c+='            let cmd=\''+cmd+'\'\n'
+    c+='            run(cmd)\n'
+    c+='        }\n'
+    c+='    }\n'
+    c+='}\n'
+    return c
+}
+function runUqp(item, idName, cmd, onLogDataCode, onFinishedCode, onCompleteCode){
+    let c = getUqpCode(idName, cmd, onLogDataCode, onFinishedCode, onCompleteCode)
+    //log.lv('Code runUqp()...'+c)
+    let comp=Qt.createQmlObject(c, item, 'uqp-'+idName+'-code')
+}

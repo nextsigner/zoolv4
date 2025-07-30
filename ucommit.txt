@@ -1,1 +1,1 @@
-Se retina import unik.Unik 1.0
+Se agrega turbo de consulta de coordenadas para cuando estoy en gnu/linux

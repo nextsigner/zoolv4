@@ -216,4 +216,9 @@ Item{
         j.text=t
         addNot(j, false, 1)
     }
+    function logTemp(t, ms){
+        let j={}
+        j.text=t
+        addNot(j, true, ms)
+    }
 }

@@ -21,6 +21,8 @@ Rectangle {
 
     //property alias xCfgItem: colXConfig
 
+    property bool loadingCoords: false
+
     property alias tiN: tiNombre.t
     property alias tiC: tiCiudad.t
 
@@ -40,6 +42,9 @@ Rectangle {
         //if(visible)zoolVoicePlayer.stop()
         //if(visible)zoolVoicePlayer.speak('Sección para crear archivos.', true)
     }
+    onLoadingCoordsChanged: {
+        txtLoadingCoords.text='Buscando coordenadas de '+tiCiudad.t.text
+    }
     MouseArea{
         anchors.fill: parent
         onDoubleClicked: colXConfig.visible=!xCtrlJsonsFolderTemp.visible
@@ -51,31 +56,31 @@ Rectangle {
         property bool showModuleVersion: false
         property bool inputCoords: false
     }
-//    Text{
-//        text: 'ZoolFileMaker v1.0'
-//        font.pixelSize: app.fs*0.5
-//        color: apps.fontColor
-//        anchors.left: parent.left
-//        anchors.leftMargin: app.fs*0.1
-//        anchors.top: parent.top
-//        anchors.topMargin: app.fs*0.1
-//        opacity: settings.showModuleVersion?1.0:0.0
-//        MouseArea{
-//            anchors.fill: parent
-//            onClicked: settings.showModuleVersion=!settings.showModuleVersion
-//        }
-//    }
-//    ZoolButton{
-//        text:'\uf013'
-//        anchors.right: parent.right
-//        anchors.rightMargin: app.fs*0.25
-//        anchors.top: parent.top
-//        anchors.topMargin: app.fs*0.25
-//        z: col.z+1
-//        onClicked:{
-//            zoolFileManager.s.showConfig=!zoolFileManager.s.showConfig
-//        }
-//    }
+    //    Text{
+    //        text: 'ZoolFileMaker v1.0'
+    //        font.pixelSize: app.fs*0.5
+    //        color: apps.fontColor
+    //        anchors.left: parent.left
+    //        anchors.leftMargin: app.fs*0.1
+    //        anchors.top: parent.top
+    //        anchors.topMargin: app.fs*0.1
+    //        opacity: settings.showModuleVersion?1.0:0.0
+    //        MouseArea{
+    //            anchors.fill: parent
+    //            onClicked: settings.showModuleVersion=!settings.showModuleVersion
+    //        }
+    //    }
+    //    ZoolButton{
+    //        text:'\uf013'
+    //        anchors.right: parent.right
+    //        anchors.rightMargin: app.fs*0.25
+    //        anchors.top: parent.top
+    //        anchors.topMargin: app.fs*0.25
+    //        z: col.z+1
+    //        onClicked:{
+    //            zoolFileManager.s.showConfig=!zoolFileManager.s.showConfig
+    //        }
+    //    }
     Flickable{
         id: flk
         width: r.width
@@ -101,11 +106,11 @@ Rectangle {
                     anchors.centerIn: parent
                 }
             }
-//            Item{width: 1; height: app.fs; visible: colXConfig.visible}
-//            Column{
-//                id: colXConfig
-//                anchors.horizontalCenter: parent.horizontalCenter
-//            }
+            //            Item{width: 1; height: app.fs; visible: colXConfig.visible}
+            //            Column{
+            //                id: colXConfig
+            //                anchors.horizontalCenter: parent.horizontalCenter
+            //            }
             Column{
                 spacing: app.fs*0.1
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -114,12 +119,12 @@ Rectangle {
                     font.pixelSize: app.fs*0.65
                     color: 'white'
                 }
-//                ZoolText{
-//                    text: 'Mediante este formulario usted puede crear un nuevo esquema o mapa  energético, carta natal u otros.'
-//                    w: r.width-app.fs
-//                    font.pixelSize: app.fs*0.5
-//                    color: 'white'
-//                }
+                //                ZoolText{
+                //                    text: 'Mediante este formulario usted puede crear un nuevo esquema o mapa  energético, carta natal u otros.'
+                //                    w: r.width-app.fs
+                //                    font.pixelSize: app.fs*0.5
+                //                    color: 'white'
+                //                }
             }
             Item{width: 1; height: 1;}
             ZoolTextInput{
@@ -272,7 +277,7 @@ Rectangle {
                     }
                     settings.inputCoords=false
                     tSearch.restart()
-                    t.color='white'                    
+                    t.color='white'
                 }
                 FocusSen{
                     width: parent.r.width
@@ -728,6 +733,37 @@ Rectangle {
             }
         }
     }
+    Rectangle{
+        color: apps.backgroundColor
+        anchors.fill: parent
+        visible: r.loadingCoords
+        MouseArea{
+            anchors.fill: parent
+            onClicked: r.loadingCoords=false
+        }
+        Column{
+            spacing: app.fs*0.5
+            anchors.centerIn: parent
+            Text{
+                id: txtLoadingCoords
+                color: apps.fontColor
+                font.pixelSize: app.fs*0.5
+                width: r.width-app.fs*2
+                wrapMode: Text.WordWrap
+            }
+            Button{
+                text: 'Cancelar'
+                font.pixelSize: app.fs*0.5
+                anchors.horizontalCenter: parent.horizontalCenter
+                onClicked: {
+                    r.loadingCoords=false
+                }
+            }
+        }
+    }
+    Item{
+        id: xuqp
+    }
     Timer{
         id: tSearch
         running: false
@@ -746,12 +782,15 @@ Rectangle {
     //    }
 
     function searchGeoLoc(crear){
+        r.loadingCoords=true
         const lugarABuscar = tiCiudad.t.text
         obtenerCoordenadas(lugarABuscar)
         .then(coordenadas => {
                   //console.log(`Las coordenadas de ${lugarABuscar} son:`);
                   //console.log(`Latitud: ${coordenadas.latitud}`);
                   //console.log(`Longitud: ${coordenadas.longitud}`);
+                  //r.loadingCoords=false
+                  if(!r.loadingCoords)return
                   if(coordenadas){
                       if(r.lat===-1&&r.lon===-1){
                           tiCiudad.t.color="red"
@@ -772,6 +811,7 @@ Rectangle {
                   }
               })
         .catch(error => {
+                   //r.loadingCoords=false
                    console.error('Ocurrió un error:', error);
                });
     }
@@ -915,7 +955,96 @@ Rectangle {
     //-->Teclado
     function toEnter(){
         if(tiNombre.t.text===''){
-           tiNombre.t.focus=true
+            controlTimeFecha.cFocus=-1
+            tiNombre.t.focus=true
+            flk.contentY=0
+        }else if(tiNombre.t.focus){
+            controlTimeFecha.cFocus=-1
+            cbGenero.focus=true
+        }else if(cbGenero.focus){
+            cbGenero.focus=false
+            controlTimeFecha.cFocus=0
+        }else if(controlTimeFecha.cFocus<5 && controlTimeFecha.cFocus!==-1){
+            cbGenero.focus=false
+            if(controlTimeFecha.cFocus>=0)controlTimeFecha.setEditData()
+            controlTimeFecha.cFocus++
+            //zpn.log('controlTimeFecha.cFocus: '+controlTimeFecha.cFocus)
+        }else if(controlTimeFecha.cFocus===5){
+            if(controlTimeFecha.cFocus===5)controlTimeFecha.setEditData()
+            cbGenero.focus=false
+            controlTimeFecha.cFocus=-1
+            controlTimeFecha.setEditData()
+            tiCiudad.t.focus=true
+        }else if(tiCiudad.t.focus){
+            cbGenero.focus=false
+            controlTimeFecha.cFocus=-1
+            tiCiudad.t.focus=false
+            if(tiNombre.t.text===''){
+                zpn.logTemp('Aún no se ha complatado el campo para el nombre.', 10000)
+                tiNombre.t.focus=true
+                flk.contentY=0
+                return
+
+            }
+            if(tiCiudad.t.text===''){
+                controlTimeFecha.cFocus=-1
+                tiCiudad.t.text='Ingresa un lugar aquí'
+                return
+            }else{
+                tiCiudad.t.focus=false
+            }
+            if(cbInputCoords.checked && !tiAlt.t.focus){
+                tiCiudad.t.focus=false
+                if(tiLat.t.focus){
+                    tiLon.t.focus=true
+                }else if(tiLon.t.focus){
+                    tiAlt.t.focus=true
+                    return
+                }else if(tiAlt.t.focus){
+                    cbInputCoords.focus=true
+                    return
+                }else{
+                    tiLat.t.focus=true
+                }
+                flk.contentY=flk.contentHeight-flk.height
+            }else{
+                tiCiudad.t.focus=false
+                if(tiAlt.t.focus){
+                    tiAlt.t.focus=false
+                    cbInputCoords.focus=true
+                }else{
+                    cbInputCoords.focus=false
+                    tiAlt.t.focus=true
+                }
+                flk.contentY=flk.contentHeight-flk.height
+                return
+            }
+            if(cbInputCoords.focus){
+                cbInputCoords.focus=false
+                botCrear.focus=true
+            }
+        }else{
+            //log.lv('Entrando a tiNombre...')
+            if(tiAlt.t.focus){
+                tiAlt.t.focus=false
+                cbInputCoords.focus=true
+            }else if(cbInputCoords.focus){
+                cbInputCoords.focus=false
+                taInforme.focus=true
+            }else if(taInforme.focus){
+                cbInputCoords.focus=false
+                botCrear.focus=true
+            }else if(botCrear.focus){
+                //mk()
+                setNewJsonFileData()
+            }else{
+                cbInputCoords.focus=false
+                tiNombre.t.focus=true
+                flk.contentY=0
+            }
+        }
+        /*if(tiNombre.t.text===''){
+            tiNombre.t.focus=true
         }else if(cbGenero.currentText==='No Binario'){
             cbGenero.focus=true
         }else if(cbGenero.focus){
@@ -939,7 +1068,7 @@ Rectangle {
         }else{
             tiNombre.t.focus=true
             flk.contentY=0
-        }
+        }*/
     }
     function toRight(){
         if(controlTimeFecha.focus){
@@ -989,7 +1118,7 @@ Rectangle {
             controlTimeFecha.cFocus=0
         }else if(controlTimeFecha.cFocus<5 && controlTimeFecha.cFocus!==-1){
             cbGenero.focus=false
-            if(controlTimeFecha.cFocus>=0)controlTimeFecha.setEditData()
+            //if(controlTimeFecha.cFocus>=0)controlTimeFecha.setEditData()
             controlTimeFecha.cFocus++
         }else if(controlTimeFecha.cFocus===5){
             cbGenero.focus=false
@@ -1001,7 +1130,7 @@ Rectangle {
             controlTimeFecha.cFocus=-1
             tiCiudad.t.focus=false
             if(tiNombre.t.text===''){
-                zpn.log('Aún no se ha complatado el campo para el nombre.')
+                zpn.logTemp('Aún no se ha complatado el campo para el nombre.', 10000)
                 tiNombre.t.focus=true
                 flk.contentY=0
                 return
@@ -1180,42 +1309,52 @@ Rectangle {
                                    if (xhr.status >= 200 && xhr.status < 300) {
                                        try {
                                            const respuesta = JSON.parse(xhr.responseText);
-                                           if (respuesta && respuesta.length > 0) {
-                                           //if (false) {
+                                           if(respuesta && respuesta.length > 0) {
+                                           //if(false) {
                                                const latitud = parseFloat(respuesta[0].lat);
                                                const longitud = parseFloat(respuesta[0].lon);
-                                               resolve({ latitud, longitud });
-                                           } else {
+                                               //zpn.logTemp('Latitud: '+latitud, 10000)
+                                               //zpn.logTemp('Longitud: '+longitud, 10000)
+                                               if(!r.loadingCoords)return
+                                               r.lat=parseFloat(latitud)
+                                               r.ulat=r.lat
+                                               r.lon=parseFloat(longitud)
+                                               r.ulon=r.lon
+                                               r.loadingCoords=false
+                                           }else{
                                                reject('No se encontraron coordenadas para el lugar
  especificado.');
-                                               log.clear()
-                                               log.lv('No se encontraron las coordenadas de geolocalización de '+tiCiudad.text)
-                                               //if(Qt.platform.os==='linux' && unik.folderExist('/home/ns')){
-                                               if(Qt.platform.os==='linux'){
-
-                                                   let cmd='python3 /home/ns/gd/scripts/ds/ds.py /home/ns/gd/scripts/ds "Dime las coordenadas de geolocalización y altitud de \"'+tiCiudad.text+'\". Respondeme y muertrame como resultado de esta consulta solo los datos en formato json, no quiero que me saludes ni me brindes dato extras más allá de los requeridos que son latitud, longitud y altitud, tampoco me brindes información alguna información antes o despues del dato en texto plano en formato json que te solicito con el siguiente formato: {"coords":{"lat": <latitud>, "long": <longitud>, "alt": <altitud>}}"\n'
-                                                   let onLogDataCode='log.lv(logData)\nprocResCoords(logData)'
-                                                   let onFinishedCode='//Nada\n'
-                                                   let onCompleteCode='//Nada\n'
-                                                   app.j.runUqp(r, 'searchCoordsDS', cmd, onLogDataCode, onFinishedCode, onCompleteCode)
+                                               //log.clear()
+                                               zpn.logTemp('No se encontraron las coordenadas de geolocalización de '+tiCiudad.text, 10000)
+                                               if(Qt.platform.os==='linux' && unik.folderExist('/home/ns')){
+                                               //if(Qt.platform.os==='linux'){
+                                                   searchCoordsTurbo()
                                                }
                                            }
                                        } catch (error) {
                                            reject('Error al parsear la respuesta JSON.');
-                                           log.clear()
-                                           log.lv('Hay un error de red en estos momentos. Error al solicitar las coordenadas de geolocalización de '+tiCiudad.text)
+                                           //log.clear()
+                                           zpn.logTemp('Hay un error de red en estos momentos. Error al solicitar las coordenadas de geolocalización de '+tiCiudad.text, 10000)
+                                           if(Qt.platform.os==='linux' && unik.folderExist('/home/ns')){
+                                           //if(Qt.platform.os==='linux'){
+                                               searchCoordsTurbo()
+                                           }
                                        }
-                                   } else {
+                                   }else{
                                        reject(`Error en la petición: Código de estado ${xhr.status}`);
-                                       log.clear()
-                                       log.lv('Hay un error de red en estos momentos. Error al solicitar las coordenadas de geolocalización de '+tiCiudad.text)
+                                       //log.clear()
+                                       zpn.logTemp('Hay un error de red en estos momentos. Error al solicitar las coordenadas de geolocalización de '+tiCiudad.text, 10000)
+                                       if(Qt.platform.os==='linux' && unik.folderExist('/home/ns')){
+                                       //if(Qt.platform.os==='linux'){
+                                           searchCoordsTurbo()
+                                       }
                                    }
                                };
 
                                xhr.onerror = function() {
                                    reject('Error de red al realizar la petición.');
-                                   log.clear()
-                                   log.lv('Hay un error de red en estos momentos. Error al solicitar las coordenadas de geolocalización de '+tiCiudad.text)
+                                   //log.clear()
+                                   zpn.logTemp('Hay un error de red en estos momentos. Error al solicitar las coordenadas de geolocalización de '+tiCiudad.text, 10000)
                                };
 
                                xhr.send();
@@ -1231,6 +1370,7 @@ Rectangle {
     //-->Funciones de Control Focus y Teclado
 
     function procResCoords(text){
+        if(!r.loadingCoords)return
         const resp = JSON.parse(text.replace('```json', '').replace('```', ''));
         r.lat=resp.coords['lat']
         r.ulat=r.lat
@@ -1238,6 +1378,33 @@ Rectangle {
         r.ulon=r.lon
         r.alt=resp.coords['alt']
         r.ualt=r.alt
+        tiAlt.t.text=resp.coords['alt']
+        r.loadingCoords=false
+    }
+
+    function getIAConsCoords(lugar){
+        let ret=''
+        ret+='Genera un archivo JSON con las coordenadas geográficas de '+lugar+' en el siguiente formato exacto, sin añadir comentarios antes o después del JSON:\n'
+
+        ret+='{\n'
+        ret+='  "coords": {\n'
+        ret+='    "lat": <latirud en con 4 decimales>,\n'
+        ret+='    "lon": <longitud en con 4 decimales>,\n'
+        ret+='    "alt": <altitud>\n'
+        ret+='  }\n'
+        ret+='}\n'
+        return "\""+ret+"\"" //.replace(/\n/g,'\\n')
+        //return "\""+ret.replace(/\n/g,'\\n')+"\""
+    }
+
+    function searchCoordsTurbo(){
+        if(!r.loadingCoords)return
+        txtLoadingCoords.text='Buscando coordenadas de '+tiCiudad.t.text+' en modo TURBO...'
+        let cmd='python3 /home/ns/gd/scripts/ds/ds.py /home/ns/gd/scripts/ds '+getIAConsCoords(tiCiudad.text)+'"\n'
+        let onLogDataCode='zsm.getPanel(\'ZoolFileManager\').getSection(\'ZoolFileMaker\').procResCoords(logData)'
+        let onFinishedCode='//Nada\n'
+        let onCompleteCode='//Nada\n'
+        app.j.runUqp(xuqp, 'searchCoordsDS', cmd, onLogDataCode, onFinishedCode, onCompleteCode)
     }
 
     // Ejemplo de uso:

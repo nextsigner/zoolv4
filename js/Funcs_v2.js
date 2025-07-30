@@ -1011,7 +1011,6 @@ function getUqpCode(idName, cmd, onLogDataCode, onFinishedCode, onCompleteCode){
     c+='        }\n'
     c+='        onLogDataChanged:{\n'
     c+='        '+onLogDataCode+'\n'
-    c+='        if(r.dev)r.log(logData)\n'
     c+='        }\n'
     c+='        Component.onCompleted:{\n'
     c+='        '+onCompleteCode+'\n'
@@ -1025,5 +1024,6 @@ function getUqpCode(idName, cmd, onLogDataCode, onFinishedCode, onCompleteCode){
 function runUqp(item, idName, cmd, onLogDataCode, onFinishedCode, onCompleteCode){
     let c = getUqpCode(idName, cmd, onLogDataCode, onFinishedCode, onCompleteCode)
     //log.lv('Code runUqp()...'+c)
+    //zpn.logTemp('Buscando coordenadas...', 10000))
     let comp=Qt.createQmlObject(c, item, 'uqp-'+idName+'-code')
 }

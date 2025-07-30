@@ -1,0 +1,1 @@
+Se agrega turbo de consulta de coordenadas para cuando estoy en gnu/linux

@@ -7,9 +7,11 @@ Settings{
     //fileName:'zool_'+Qt.platform.os+'.cfg'
     fileName: unik.getPath(4)+'/zool.cfg'
 
+    property string mainFolder: unik.getPath(4)
     property string lastVersion: '3.14.0'
 
     property bool dev: false
+    property bool dep: false
 
     property string appId: ''
     onAppIdChanged: {

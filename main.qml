@@ -28,7 +28,7 @@ import ZoolLogView 1.0
 import ZoolFileDataManager 1.0
 import ZoolDataSheet 1.0
 import web.ZoolServerFileDataManager 1.0
-import comps.ZipDownloader 1.0
+
 //import ZoolBodies 1.10
 import ZoolMap 5.0
 import ZoolBodiesGuiTools 1.0
@@ -63,6 +63,8 @@ import NodeIOQml 1.1
 import ZoolRemoteDataManager 1.0
 
 import comps.PushOver 1.0
+
+import comps.ZoolMultiOSUpdate 1.0
 
 
 ZoolMainWindow{
@@ -214,16 +216,6 @@ ZoolMainWindow{
     ZoolFileDataManager{id: zfdm}
     ZoolDataSheet{id: zds}
     ZoolServerFileDataManager{id: zsfdm}
-    ZipDownloader{
-        id: zipDownloader
-        dev: true
-        //version:'0.0.0.0'
-
-        Component.onCompleted: {
-            //let url = 'https://github.com/nextsigner/zool-release'
-            //download(url)
-        }
-    }
     Rectangle{
         id: xVisibleItems
         color: apps.backgroundColor
@@ -659,7 +651,7 @@ ZoolMainWindow{
     //        onTriggered: JS.loadModules()
     //    }
 
-
+    ZoolMultiOSUpdate{id: zmu}
     Component.onCompleted: {
         if(Qt.platform.os==='linux' && !unik.folderExist(app.sweFolder)){
             log.lv('Error de instalación de Zool para GNU/Linux.\nSwe no está instalado.')
@@ -667,8 +659,12 @@ ZoolMainWindow{
 
         }
 
-        zipDownloader.curlPath=Qt.platform.os==='windows'?'"'+unik.getPath(1)+'/curl-8.14.1_2-win64-mingw/bin/curl.exe"':'curl'
-        zipDownloader.app7ZipPath=Qt.platform.os==='windows'?'"'+unik.getPath(1)+'/7-Zip32/7z.exe"':'7z'
+        /*zipManager.curlPath = Qt.platform.os==='windows'?'"'+unik.getPath(1).replace(/\"/g, '')+'/curl-8.14.1_2-win64-mingw/bin/curl.exe"':'curl'
+        unik.log('Curl Path: '+zipManager.curlPath)
+        zipManager.app7ZipPath = Qt.platform.os==='windows'?'"'+unik.getPath(1).replace(/\"/g, '')+'/7-Zip32/7z.exe"':'7z'
+        unik.log('7z Path: '+zipManager.app7ZipPath)
+        zipManager.uFolder = '"'+unik.getPath(3)+'"'*/
+
 
         let c='import ZoolDataManager 1.0\n'
         c+='ZoolDataManager{}'
@@ -704,7 +700,7 @@ ZoolMainWindow{
             obj.z=log.z+1
         }*/
         //if(Qt.platform.os==='linux'){
-        if(Qt.platform.os==='windows'){
+        /*if(Qt.platform.os==='windows'){
             let c='import QtQuick 2.0\n'
             c+='import comps.ZoolWinUpdate 1.0\n'
             c+='ZoolWinUpdate{}\n'
@@ -712,11 +708,11 @@ ZoolMainWindow{
             obj.z=log.z+1
         }else{
             let c='import QtQuick 2.0\n'
-            c+='import comps.ZoolLinuxUpdate 1.0\n'
-            c+='ZoolLinuxUpdate{}\n'
+            c+='import comps.ZoolMultiOSUpdate 1.0\n'
+            c+='ZoolMultiOSUpdate{}\n'
             let obj=Qt.createQmlObject(c, xLatIzq, 'zoolwinupdatecode')
-            obj.z=log.z+1
-        }
+            obj.z=log.z-1
+        }*/
 
 
         //Argumentos

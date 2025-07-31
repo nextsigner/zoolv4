@@ -75,6 +75,10 @@ Rectangle {
 
         //-->Comandos sin argumentos
         if(comando.length===1){
+            if(comando[0]==='update'){
+                zmu.checkRemoteVersion()
+                return
+            }
             if(comando[0]==='ee'){
                 apps.showQmlErrors=!apps.showQmlErrors
                 return
@@ -107,15 +111,15 @@ Rectangle {
                 comp=Qt.createQmlObject(c, xuqp, idName+'-qml-code')
 
                 //7z
-                log.lv('\n7-Zip: '+zipDownloader.app7ZipPath+'\n')
+                log.lv('\n7-Zip: '+zmu.zm.app7ZipPath+'\n')
                 idName='probe7z'
-                c=getUqpCode(idName, zipDownloader.app7ZipPath, 'let m0=logData.split("Usage")\nlog.lv("7-Zip Versión: "+m0[0])\n', '', '')
+                c=getUqpCode(idName, zmu.zm.app7ZipPath, 'let m0=logData.split("Usage")\nlog.lv("7-Zip Versión: "+m0[0])\n', '', '')
                 comp=Qt.createQmlObject(c, xuqp, idName+'-qml-code')
 
                 //Curl
-                log.lv('\nCurl: '+zipDownloader.curlPath+'\n')
+                log.lv('\nCurl: '+zmu.zm.curlPath+'\n')
                 idName='probeCurl'
-                c=getUqpCode(idName, zipDownloader.curlPath+' --version', 'log.lv(logData)\n', '', '')
+                c=getUqpCode(idName, zmu.zm.curlPath+' --version', 'log.lv(logData)\n', '', '')
                 comp=Qt.createQmlObject(c, xuqp, idName+'-qml-code')
 
                 return

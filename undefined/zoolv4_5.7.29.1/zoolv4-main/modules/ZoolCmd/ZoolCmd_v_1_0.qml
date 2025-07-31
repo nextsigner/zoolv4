@@ -75,6 +75,10 @@ Rectangle {
 
         //-->Comandos sin argumentos
         if(comando.length===1){
+            if(comando[0]==='update'){
+                zmu.checkRemoteVersion()
+                return
+            }
             if(comando[0]==='ee'){
                 apps.showQmlErrors=!apps.showQmlErrors
                 return

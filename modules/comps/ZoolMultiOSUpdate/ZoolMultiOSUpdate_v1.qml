@@ -49,7 +49,7 @@ Rectangle{
                 //unik.log('zipFileName: '+zipFileName)
                 //unik.log('zipFileName url: '+url)
                 //unik.log('zipFileName folderPath: '+folderPath)
-                let mainPath=d2+'/zoolv4-main'
+                let mainPath='"'+d2.replace(/\"/g, '')+'/'+d3.replace('.zip', '-main').replace(/\"/g, '')+'"'
                 let aname=(''+presetAppName).toLowerCase()
                 let unikeyCfgPath=''+unik.getPath(4)+'/'+aname+'.cfg'
                 let j={}
@@ -57,15 +57,19 @@ Rectangle{
                 j.args['folder']=mainPath
                 j.args['dev']=false
                 j.args['dep']=false
-                unik.log('Seteando '+unikeyCfgPath)
-                unik.log('Seteando JSON: '+JSON.stringify(j, null, 2))
+                //unik.log('Seteando '+unikeyCfgPath)
+                //unik.log('Seteando JSON: '+JSON.stringify(j, null, 2))
                 unik.setFile(unikeyCfgPath, JSON.stringify(j, null, 2))
-                //unik.run(unik.getPath(0)+' -folder='+mainPath)
-                unik.restart(['-folder='+mainPath], unik.getPath(4))
+                //app.close()
+                unik.clearComponentCache()
+                //unik.runOut('"'+unik.getPath(0)+'" -folder=/home/nsp/qml-pacman')
                 //unik.addImportPath(mainPath.replace(/\"/g, '')+'/modules')
                 //unik.cd(""+mainPath.replace(/\"/g, ''))
-                //unik.log('Cargando desde ZipManager en contexto '+app.ctx+': "'+mainPath.replace(/\"/g, '')+'/ain.qml"')
                 //engine.load('file:///'+mainPath.replace(/\"/g, '')+'/main.qml')
+                let args=[]
+                args.push('-folder='+""+mainPath.replace(/\"/g, ''))
+                unik.restart(args, ""+mainPath.replace(/\"/g, ''))
+                app.close()
             }
             onResponseRepExist:{
                 if(res.indexOf('404')>=0){
@@ -88,6 +92,14 @@ Rectangle{
         //let ms=new Date(Date.now()).getTime()
         //app.j.getRD('https://github.com/nextsigner/zoolv4/releases/latest?r='+ms, setZoolLastVersion)
         r.visible=false
+        checkRemoteVersion()
+    }
+    function checkRemoteVersion(){
+        let jsonNot={}
+        jsonNot.id='winuptate'
+        jsonNot.text='Buscando actualización...'
+        zpn.addNot(jsonNot, true, 20000)
+
         let url='https://github.com/nextsigner/zoolv4'
         let c=''
         let nUrl=url.replace('https://github.com', 'https://raw.githubusercontent.com')

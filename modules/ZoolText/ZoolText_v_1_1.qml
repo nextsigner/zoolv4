@@ -40,9 +40,9 @@ Item {
         id: txt
         font.pixelSize: root.fs
         color: 'white'
-        width: !root.w?txt.contentWidth:root.w
+        width: txt.contentWidth//!root.w?txt.contentWidth:root.w
         textFormat: Text.RichText
-        wrapMode: !root.w?Text.NoWrap:Text.WordWrap
+        wrapMode: root.w?Text.NoWrap:Text.WordWrap
         //horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         anchors.centerIn: xText

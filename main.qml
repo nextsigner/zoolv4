@@ -659,11 +659,7 @@ ZoolMainWindow{
 
         }
 
-        /*zipManager.curlPath = Qt.platform.os==='windows'?'"'+unik.getPath(1).replace(/\"/g, '')+'/curl-8.14.1_2-win64-mingw/bin/curl.exe"':'curl'
-        unik.log('Curl Path: '+zipManager.curlPath)
-        zipManager.app7ZipPath = Qt.platform.os==='windows'?'"'+unik.getPath(1).replace(/\"/g, '')+'/7-Zip32/7z.exe"':'7z'
-        unik.log('7z Path: '+zipManager.app7ZipPath)
-        zipManager.uFolder = '"'+unik.getPath(3)+'"'*/
+
 
 
         let c='import ZoolDataManager 1.0\n'

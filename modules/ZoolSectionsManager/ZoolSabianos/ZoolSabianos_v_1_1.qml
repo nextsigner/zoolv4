@@ -761,6 +761,9 @@ Rectangle {
         return fn
     }
     //-->Funciones de Control Focus y Teclado
+    function toEscape(){
+
+    }
     property bool hasUnUsedFunction: true
     function unUsed(){
         //log.lv(app.j.qmltypeof(r)+'.unUsed()...')

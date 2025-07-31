@@ -10,12 +10,13 @@ Item{
     height: col.height
     anchors.right: parent.right
     anchors.bottom: parent.bottom
+    //anchors.bottomMargin: !apps.showCmd?0:0-xBottomBar.height
     property int count: col.children.length
     onCountChanged: updateHeight()
-    Rectangle{
+    /*Rectangle{
         anchors.fill: parent
-        color: 'redΩ'
-    }
+        color: 'red'
+    }*/
     Flickable{
         id: flk
         width: parent.width
@@ -24,6 +25,7 @@ Item{
         contentWidth: r.width
         contentHeight: col.height+app.fs
         anchors.bottom: parent.bottom
+        //anchors.bottomMargin: !apps.showCmd?0:xBottomBar.height
         //rotation: 180
         Column{
             id: col

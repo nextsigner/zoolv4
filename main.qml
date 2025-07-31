@@ -554,7 +554,7 @@ ZoolMainWindow{
                     ZoolPanelNotifications{
                         id: zpn
                         anchors.right: parent.right
-                        anchors.rightMargin: apps.zFocus==='xLatDer'?xLatDer.width:0
+                        anchors.rightMargin: apps.zFocus==='xLatDer'?xLatDer.width:0                        
                     }
                 }
             }

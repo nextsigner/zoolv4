@@ -41,7 +41,7 @@ Rectangle{
             property string d3: ''
             onUnzipFinished: {
                 if(url)d1=url
-                if(folderPath)d2=folderPath
+                if(folderPath && folderPath!=='')d2=folderPath
                 if(zipFileName)d3=zipFileName
                 //Retorna: unzipFinished(string url, string folderPath, string zipFileName)
                 //unik.log('Se ha descomprimido: '+zipFileName)
@@ -49,9 +49,9 @@ Rectangle{
                 //unik.log('zipFileName: '+zipFileName)
                 //unik.log('zipFileName url: '+url)
                 //unik.log('zipFileName folderPath: '+folderPath)
-                let mainPath=d3+'/zoolv4-main'
+                let mainPath=d2+'/zoolv4-main'
                 let aname=(''+presetAppName).toLowerCase()
-                let unikeyCfgPath='"'+unik.getPath(4)+'/'+aname+'.cfg"'
+                let unikeyCfgPath=''+unik.getPath(4)+'/'+aname+'.cfg'
                 let j={}
                 j.args={}
                 j.args['folder']=mainPath
@@ -60,7 +60,8 @@ Rectangle{
                 unik.log('Seteando '+unikeyCfgPath)
                 unik.log('Seteando JSON: '+JSON.stringify(j, null, 2))
                 unik.setFile(unikeyCfgPath, JSON.stringify(j, null, 2))
-                //unik.restart([], unik.getPath(4))
+                //unik.run(unik.getPath(0)+' -folder='+mainPath)
+                unik.restart(['-folder='+mainPath], unik.getPath(4))
                 //unik.addImportPath(mainPath.replace(/\"/g, '')+'/modules')
                 //unik.cd(""+mainPath.replace(/\"/g, ''))
                 //unik.log('Cargando desde ZipManager en contexto '+app.ctx+': "'+mainPath.replace(/\"/g, '')+'/ain.qml"')

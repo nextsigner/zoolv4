@@ -1,1 +1,1 @@
-Se agregan toEscape() a todas las secciones
+Falta agregar la funcion toEscape() a algunos módulos 4

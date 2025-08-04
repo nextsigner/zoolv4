@@ -1,1 +1,1 @@
-Falta agregar la funcion toEscape() a algunos módulos 4
+Se crea versión 5.8.3.0

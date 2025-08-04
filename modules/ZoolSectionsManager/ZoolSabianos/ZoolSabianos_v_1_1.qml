@@ -6,7 +6,7 @@ import "../../../comps" as Comps
 
 import ZoolSectionsManager.ZoolSabianos.ZoolSabianosView 1.1
 import ZoolButton 1.1
-import ZoolText 1.1
+import ZoolText 1.2
 
 //TODO Reparar Sabianos 29/1/24
 

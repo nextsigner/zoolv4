@@ -3,7 +3,7 @@ import QtQuick.Controls 2.0
 import Qt.labs.settings 1.1
 
 import ZoolButton 1.0
-import ZoolText 1.1
+import ZoolText 1.2
 
 //import mods.ModulesManager.ModulesLoader 1.0
 

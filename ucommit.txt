@@ -1,1 +1,1 @@
-Se elimina carpeta undefined
+Se agregan toEscape() a todas las secciones

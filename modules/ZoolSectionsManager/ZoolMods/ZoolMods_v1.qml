@@ -7,7 +7,7 @@ import ZoolSectionsManager.ZoolMods.ZoolFileTransLoader 1.6
 import ZoolSectionsManager.ZoolMods.ZoolFileDirPrimLoader 1.7
 import ZoolSectionsManager.ZoolMods.ZoolFileProgSecLoader 1.0
 import ZoolButton 1.0
-import ZoolText 1.1
+import ZoolText 1.2
 
 Rectangle {
     id: r
@@ -115,8 +115,8 @@ Rectangle {
         }
     }
     //    Component.onCompleted: {
-//        r.showSection(s.currentQmlTypeShowed)
-//    }
+    //        r.showSection(s.currentQmlTypeShowed)
+    //    }
 
     function timer() {
         return Qt.createQmlObject("import QtQuick 2.0; Timer {}", r);
@@ -185,6 +185,7 @@ Rectangle {
 
         return ci
     }
+
     function enter(){
         panelActive.enter()
     }
@@ -203,6 +204,9 @@ Rectangle {
     function toDown(){
         panelActive.toDown()
     }
+    function toEscape(){
+
+    }
     property bool hasUnUsedFunction: true
     function unUsed(){
         for(var i=0;i<xSections.children.length;i++){
@@ -215,4 +219,5 @@ Rectangle {
             }
         }
     }
+    //-->Funciones de Control Focus y Teclado
 }

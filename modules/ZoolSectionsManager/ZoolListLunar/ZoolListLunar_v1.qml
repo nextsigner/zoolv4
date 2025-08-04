@@ -4,7 +4,7 @@ import Qt.labs.settings 1.1
 import "../../../comps" as Comps
 
 import ZoolButton 1.2
-import ZoolText 1.1
+import ZoolText 1.2
 import ZoolTextInput 1.0
 
 Rectangle {
@@ -626,6 +626,9 @@ Rectangle {
         tiAnio.focus=false
     }
     //-->Funciones de Control Focus y Teclado
+   function toEscape(){
+
+   }
     property bool hasUnUsedFunction: true
     function unUsed(){
         //log.lv(app.j.qmltypeof(r)+'.unUsed()...')

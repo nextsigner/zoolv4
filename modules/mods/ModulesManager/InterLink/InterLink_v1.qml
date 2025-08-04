@@ -5,7 +5,7 @@ import QtGraphicalEffects 1.0
 
 import comps.FocusSen 1.0
 import ZoolButton 1.2
-import ZoolText 1.1
+import ZoolText 1.2
 import ZoolTextInput 1.0
 
 Item{

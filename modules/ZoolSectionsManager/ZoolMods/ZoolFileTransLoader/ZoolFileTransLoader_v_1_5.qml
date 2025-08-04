@@ -4,7 +4,7 @@ import Qt.labs.settings 1.1
 import "../../../../comps" as Comps
 
 import comps.FocusSen 1.0
-import ZoolText 1.1
+import ZoolText 1.2
 import ZoolTextInput 1.0
 import ZoolButton 1.2
 import ZoolControlsTime 1.0

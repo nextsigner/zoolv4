@@ -447,7 +447,7 @@ Item{
             //zpn.log('r.aPanelsIds:'+r.aPanelsIds)
             //zpn.log('sn:'+sn)
             if(aTypes.indexOf(sn)>=0){
-                console.log('toEscaped() in '+aTypes[i])
+                //console.log('toEscaped() in '+aTypes[i])
                 if(o)o.toEscape()
             }
         }

@@ -10,7 +10,7 @@ import ZoolFileTransLoader 1.5
 import ZoolFileDirPrimLoader 1.7
 import ZoolFileProgSecLoader 1.0
 import ZoolButton 1.0
-import ZoolText 1.1
+import ZoolText 1.2
 
 Rectangle {
     id: r

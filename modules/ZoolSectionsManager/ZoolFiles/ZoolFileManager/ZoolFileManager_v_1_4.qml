@@ -7,7 +7,7 @@ import ZoolSectionsManager.ZoolFiles.ZoolFileMaker 1.8
 import ZoolSectionsManager.ZoolFiles.ZoolFileLoader 1.4
 
 import ZoolButton 1.0
-import ZoolText 1.1
+import ZoolText 1.2
 
 Rectangle {
     id: r
@@ -230,7 +230,7 @@ Rectangle {
         getSectionVisible().toTab()
     }
     function toEscape(){
-        getSectionVisible().toEscape()
+        if(getSectionVisible())getSectionVisible().toEscape()
     }
     function isFocus(){
         return getSectionVisible().isFocus()

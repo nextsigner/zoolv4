@@ -1,1 +1,1 @@
-Se crea versión 5.8.3.0
+Se corrige busqueda de tránsitos para bodies superiores a 9 2

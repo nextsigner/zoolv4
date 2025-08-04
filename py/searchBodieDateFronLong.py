@@ -63,7 +63,8 @@ def encontrar_fecha_longitud(longitud_deseada):
     jd_fin = swe.julday(af, mf, df, 0.0)
     tjd = jd_inicio
     while tjd <= jd_fin:
-        pl_pos, _ = swe.calc_ut(tjd, planeta_num, swe.FLG_SPEED)
+        #pl_pos, _ = swe.calc_ut(tjd, planeta_num, swe.FLG_SPEED)
+        pl_pos, _ = swe.calc_ut(tjd, int(aBodies[planeta_num][1]    ), swe.FLG_SPEED)
         longitud_actual = pl_pos[0]
 
         # Cálculos de las longitudes para los aspectos
@@ -118,4 +119,6 @@ def encontrar_fecha_longitud(longitud_deseada):
 
 if __name__ == "__main__":
     fecha_encontrada = encontrar_fecha_longitud(longitud_objetivo)
+    #print(aBodies[planeta_num][1])
+    #exit()
     print(fecha_encontrada)

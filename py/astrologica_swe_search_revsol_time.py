@@ -48,6 +48,8 @@ rsl=int(sys.argv[12])
 
 swePath=sys.argv[13]
 
+swe.set_ephe_path(swePath)
+
 #print('Fecha: '+dia+'/'+mes+'/'+anio+' Hora: '+hora+':'+min)
 
 enDia1=False

@@ -1026,6 +1026,7 @@ Rectangle{
 
         //if(apps.dev)log.lv('Json fallado: loadBack(...) json: '+js)
 
+        //log.lv('1029 js: '+js)
         let json=JSON.parse(js)
 
         /*let extIdExist=zfdm.isExtId(extId)

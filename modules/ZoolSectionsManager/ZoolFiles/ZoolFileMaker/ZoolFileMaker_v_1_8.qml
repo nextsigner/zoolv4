@@ -734,6 +734,7 @@ Rectangle {
         }
     }
     Rectangle{
+        id: rLoading
         color: apps.backgroundColor
         anchors.fill: parent
         visible: r.loadingCoords

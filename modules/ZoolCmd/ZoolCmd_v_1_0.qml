@@ -239,29 +239,22 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
         }
         if(comando[0]==='rs'){
             if(comando.length<1)return
-            let cd=app.currentDate
-            cd = cd.setFullYear(parseInt(comando[1]))
+            let cd=zm.currentDate
+            cd = cd.setFullYear(zm.currentDate.getFullYear()+parseInt(comando[1]), 1, 1)
             let cd2=new Date(cd)
-            cd2 = cd2.setDate(cd2.getDate() - 1)
-            let cd3=new Date(cd2)
+            //cd2 = cd2.setDate(cd2.getDate() - 1)
+            //let cd3=new Date(cd2)
             let hsys=apps.currentHsys
+            //Funciona 9/7/2025
+            //python3 "/home/ns/nsp/zoolv4/py/getRs2.py" 89 6 38 2025 -3 -35.48 -69.59 0 "/usr/share/ephe/swe"
             finalCmd=''
-                    +app.pythonLocation+' "'+unik.currentFolderPath()+'/py/astrologica_swe_search_revsol.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+hsys+' "'+unik.currentFolderPath()+'"'
-            //console.log('finalCmd: '+finalCmd)
+                    +app.pythonLocation+' "'+unik.currentFolderPath()+'/py/getRs.py" '+zm.currentGradoSolar+' '+zm.currentMinutoSolar+' '+zm.currentSegundoSolar+' '+cd2.getFullYear()+' '+zm.currentGmt+' '+zm.currentLat+' '+zm.currentLon+' '+zm.currentAlt+' "'+app.sweFolder+'"'
+            console.log('ZoolCmd::runCmd:finalCmd: '+finalCmd)
             c=''
             c+=''
-                    +'  let s=""+logData\n'
-                    +'  //console.log("RS: "+s)\n'
-                    +'  r.state="hide"\n'
-                    +'  app.t="rs"\n'
-                    +'  sweg.loadSweJson(s)\n'
-                    +'  //swegz.sweg.loadSweJson(s)\n'
-                    +'  let j=JSON.parse(s)\n'
-                    +'  let o=j.params\n'
-                    +'  let m0=o.sdgmt.split(" ")\n'
-                    +'  let m1=m0[0].split("/")\n'
-                    +'  let m2=m0[1].split(":")\n'
-                    +'  app.j.setTitleData("Revolución Solar '+comando[1]+' de '+app.currentNom+'",  m1[0],m1[1], m1[2], m2[0], m2[1], '+app.currentGmt+', "'+app.currentLugar+'", '+app.currentLat+','+app.currentLon+', 1)\n'
+                    //+'  let s=""+logData\n'
+                    +'  zsm.getPanel(\'ZoolRevolutionList\').loadRsExt(logData, zm.currentGmt, zm.currentLat, zm.currentLon, 0)\n'
+
         }
         if(comando[0]==='rsl'){
             if(cmd===r.uCmd){

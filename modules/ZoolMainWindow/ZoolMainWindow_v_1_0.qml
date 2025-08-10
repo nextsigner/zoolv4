@@ -47,7 +47,7 @@ ApplicationWindow {
                 return
             }
             apps.showCmd=!apps.showCmd
-            xBottomBar.state=apps.showCmd?'hide':'show'
+            xBottomBar.state=!apps.showCmd?'hide':'show'
         }
     }
     Shortcut{
@@ -281,7 +281,7 @@ ApplicationWindow {
         }
     }
     function ctrlReturnEnter(ctrl, tecla){
-        if(xBottomBar.state==='show'){
+        if(apps.showCmd){
             xBottomBar.toEnter()
             return
         }
@@ -294,6 +294,7 @@ ApplicationWindow {
             return
         }
         if(apps.zFocus==='xLatIzq'){
+
             zsm.getPanelVisible().toEnter(ctrl)
             return
         }

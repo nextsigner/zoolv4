@@ -1,1 +1,1 @@
-MiniMac Se edita version a 5.8.8.1
+i7: Se crea ./py/getRs.py

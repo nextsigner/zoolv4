@@ -37,6 +37,7 @@ Rectangle {
     property string uFileNameLoaded: ''
 
     property alias cbp: cbPreview
+    property bool modoTurbo: false
 
     onVisibleChanged: {
         //if(visible)zoolVoicePlayer.stop()
@@ -271,6 +272,7 @@ Rectangle {
                 padding: app.fs*0.25
                 horizontalAlignment: TextInput.AlignLeft
                 onTextChanged: {
+                    r.modoTurbo=false
                     if(text==='Ingresa un lugar aquí'){
                         selectAll()
                         return
@@ -943,13 +945,16 @@ Rectangle {
         cbPreview.checked=false
         botCrear.focus=false
         botClear.focus=false
-        if(!cbInputCoords.checked){
+        if(!cbInputCoords.checked && !r.modoTurbo){
+            //log.lv('1 Creando....')
             searchGeoLoc(true)
         }else{
+            //log.lv('2 Creando....')
             r.lat=parseFloat(tiLat.t.text)
             r.lon=parseFloat(tiLon.t.text)
             r.ulat=r.lat
             r.ulon=r.lon
+
             setNewJsonFileData()
         }
     }
@@ -1401,6 +1406,7 @@ Rectangle {
     function searchCoordsTurbo(){
         if(!r.loadingCoords)return
         txtLoadingCoords.text='Buscando coordenadas de '+tiCiudad.t.text+' en modo TURBO...'
+        r.modoTurbo=true
         let cmd='python3 /home/ns/gd/scripts/ds/ds.py /home/ns/gd/scripts/ds '+getIAConsCoords(tiCiudad.text)+'"\n'
         let onLogDataCode='zsm.getPanel(\'ZoolFileManager\').getSection(\'ZoolFileMaker\').procResCoords(logData)'
         let onFinishedCode='//Nada\n'

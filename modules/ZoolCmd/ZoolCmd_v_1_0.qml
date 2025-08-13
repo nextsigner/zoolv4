@@ -242,11 +242,7 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
             let cd=zm.currentDate
             cd = cd.setFullYear(zm.currentDate.getFullYear()+parseInt(comando[1]), 1, 1)
             let cd2=new Date(cd)
-            //cd2 = cd2.setDate(cd2.getDate() - 1)
-            //let cd3=new Date(cd2)
             let hsys=apps.currentHsys
-            //Funciona 9/7/2025
-            //python3 "/home/ns/nsp/zoolv4/py/getRs2.py" 89 6 38 2025 -3 -35.48 -69.59 0 "/usr/share/ephe/swe"
             finalCmd=''
                     +app.pythonLocation+' "'+unik.currentFolderPath()+'/py/getRs.py" '+zm.currentGradoSolar+' '+zm.currentMinutoSolar+' '+zm.currentSegundoSolar+' '+cd2.getFullYear()+' '+zm.currentGmt+' '+zm.currentLat+' '+zm.currentLon+' '+zm.currentAlt+' "'+app.sweFolder+'"'
             console.log('ZoolCmd::runCmd:finalCmd: '+finalCmd)

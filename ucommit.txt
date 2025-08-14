@@ -1,1 +1,1 @@
-i7: Se agrega bool modoTurbo a ZoolFileMaker
+i7: Se agrega Unik{}

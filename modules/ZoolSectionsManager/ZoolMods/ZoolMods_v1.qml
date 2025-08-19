@@ -185,12 +185,14 @@ Rectangle {
 
         return ci
     }
-
-    function enter(){
-        panelActive.enter()
-    }
     function clear(){
         panelActive.clear()
+    }
+
+
+    //-->Teclado
+    function toEnter(){
+        panelActive.toEnter()
     }
     function toLeft(){
         panelActive.toLeft()
@@ -204,8 +206,11 @@ Rectangle {
     function toDown(){
         panelActive.toDown()
     }
+    function isFocus(){
+        return panelActive.isFocus()
+    }
     function toEscape(){
-
+        panelActive.toEscape()
     }
     property bool hasUnUsedFunction: true
     function unUsed(){
@@ -219,5 +224,5 @@ Rectangle {
             }
         }
     }
-    //-->Funciones de Control Focus y Teclado
+    //-->Teclado
 }

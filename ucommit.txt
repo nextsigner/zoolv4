@@ -1,1 +1,1 @@
-i7: Se creo instalador para Windows 5.8.19.0
+i7: Se buscan errores 1

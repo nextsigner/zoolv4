@@ -1098,12 +1098,6 @@ Rectangle {
         }
         return Math.round(numero * factor) / factor;
     }
-
-    function enter(){
-        if(botCrear.focus&&tiNombre.text!==''&&tiFecha1.text!==''&&tiFecha2.text!==''&&tiFecha3.text!==''&&tiHora1.text!==''&&tiHora2.text!==''&&tiGMT.text!==''&&tiCiudad.text!==''){
-            searchGeoLoc(true)
-        }
-    }
     function clear(){
         r.ulat=-100
         r.ulon=-100
@@ -1115,6 +1109,21 @@ Rectangle {
         tiHora2.t.text=''
         tiCiudad.t.text=''
         tiGMT.t.text=''
+    }
+    function setInitFocus(){
+        tiNombre.t.selectAll()
+        tiNombre.t.focus=true
+    }
+    function setFromExt(date){
+        controlTimeFecha.currentDate=date
+        loadTrans()
+    }
+
+    //-->Teclado
+    function enter(){
+        if(botCrear.focus&&tiNombre.text!==''&&tiFecha1.text!==''&&tiFecha2.text!==''&&tiFecha3.text!==''&&tiHora1.text!==''&&tiHora2.text!==''&&tiGMT.text!==''&&tiCiudad.text!==''){
+            searchGeoLoc(true)
+        }
     }
     function toRight(){
         if(controlTimeFecha.focus){
@@ -1136,18 +1145,12 @@ Rectangle {
             controlTimeFecha.toDown()
         }
     }
-    function setInitFocus(){
-        tiNombre.t.selectAll()
-        tiNombre.t.focus=true
+    function isFocus(){
+        return false
     }
-    function setFromExt(date){
-        controlTimeFecha.currentDate=date
-        loadTrans()
-    }
-    //-->Funciones de Control Focus y Teclado
     property bool hasUnUsedFunction: true
     function unUsed(){
         //log.lv(app.j.qmltypeof(r)+'.unUsed()...')
     }
-    //-->Funciones de Control Focus y Teclado
+    //-->Teclado
 }

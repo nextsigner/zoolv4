@@ -5,7 +5,7 @@ import comps.MouseAreaView 1.0
 import ZoolMap.ZoolMapSignCircle 1.1
 import ZoolMap.ZoolMapHousesCircle 1.2
 import ZoolMap.ZoolMapPlanetsCircle 1.1
-import ZoolMap.ZoolMapAspsCircle 1.1
+import ZoolMap.ZoolMapAspsCircle 1.2
 import ZoolMap.ZoolMapAspsView 1.0
 import ZoolMap.ZoolMapAspsViewBack 1.0
 import ZoolMap.ZoolMapAsInfoView 1.0

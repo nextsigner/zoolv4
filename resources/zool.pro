@@ -25,7 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         row.cpp \
-        unik.cpp \
+        u.cpp \
         unikqprocess.cpp
 
 RESOURCES += qml.qrc
@@ -43,7 +43,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     row.h \
-    unik.h \
+    u.h \
     unikqprocess.h
 
 

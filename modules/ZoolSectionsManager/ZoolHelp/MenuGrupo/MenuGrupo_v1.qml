@@ -107,19 +107,19 @@ Rectangle{
     }
     function getData(index){
         if(!r.visible || r.grupo==='')return
-        let folder=unik.getPath(5)+'/modules/ZoolSectionsManager/ZoolHelp/'+r.grupo
-        if(!unik.folderExist(folder)){
-            unik.mkdir(folder)
+        let folder=u.getPath(5)+'/modules/ZoolSectionsManager/ZoolHelp/'+r.grupo
+        if(!u.folderExist(folder)){
+            u.mkdir(folder)
         }
-        let fn=unik.getPath(5)+'/modules/ZoolSectionsManager/ZoolHelp/'+r.grupo+'/'+(r.aAsuntos[index]).replace(/ /g, '_')+'.md'
+        let fn=u.getPath(5)+'/modules/ZoolSectionsManager/ZoolHelp/'+r.grupo+'/'+(r.aAsuntos[index]).replace(/ /g, '_')+'.md'
         //log.lv('Cargando: '+fn)
-        if(!unik.fileExist(fn)){
+        if(!u.fileExist(fn)){
             let data='## '+r.aAsuntos[index]
-            unik.setFile(fn, data)
+            u.setFile(fn, data)
             txtData.text='Archivo creado: '+fn
             return
         }
-        let fd=unik.getFile(fn)
+        let fd=u.getFile(fn)
         txtData.text=fd
         //log.lv('txtData.text: '+txtData.text)
     }

@@ -205,7 +205,7 @@ Rectangle{
     function save(){
         /*let json=JSON.parse(app.fileData)
         json.params.data=editor.text
-        if(unik.fileExist(apps.url.replace('file://', ''))){
+        if(u.fileExist(apps.url.replace('file://', ''))){
             let dataModNow=new Date(Date.now())
             json.params.msmod=dataModNow.getTime()
         }*/
@@ -213,7 +213,7 @@ Rectangle{
         //let njson=JSON.stringify(json)
         //app.fileData=njson
         //app.currentData=app.fileData
-        //unik.setFile(apps.url.replace('file://', ''), app.fileData)
+        //u.setFile(apps.url.replace('file://', ''), app.fileData)
         r.editing=!r.editing
     }
     function close(){

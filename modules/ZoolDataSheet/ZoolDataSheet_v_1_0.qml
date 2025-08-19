@@ -5,13 +5,13 @@ Item{
     property string folderRoot: 'modules/ZoolDataSheet'
     function getDataFromFile(file){
         let fn=r.folderRoot+'/'+file
-        return unik.getFile(fn)
+        return u.getFile(fn)
     }
     function getKeyWordsBodiesListData(numAstro){
         let a = []
         let fn=r.folderRoot+'/bodies_list_data/astro_naipe_'+zm.aBodiesFiles[numAstro]+'.txt'
         //console.log('0::: '+fn)
-        let data=unik.getFile(fn)
+        let data=u.getFile(fn)
         //console.log('1::: '+data)
         let lines=data.split('\n')
         for(var i=0;i<lines.length;i++){
@@ -26,7 +26,7 @@ Item{
     function getKeyWordsSignsListData(is){
         let a = []
         let fn=r.folderRoot+'/bodies_list_data/'+zm.aSignsLowerStyle[is]+'.txt'
-        let data=unik.getFile(fn)
+        let data=u.getFile(fn)
         //console.log(data)
         let lines=data.split('\n')
         for(var i=0;i<lines.length;i++){
@@ -41,7 +41,7 @@ Item{
     function getKeyWordsHousesListData(h){
         let a = []
         let fn=r.folderRoot+'/bodies_list_data/casa_'+h+'.txt'
-        let data=unik.getFile(fn)
+        let data=u.getFile(fn)
         let lines=data.split('\n')
         for(var i=0;i<lines.length;i++){
             if(lines[i].indexOf(':')>0){

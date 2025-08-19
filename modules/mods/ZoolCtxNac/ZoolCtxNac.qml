@@ -496,8 +496,8 @@ Item {
                         subfolder+='landscape'
                     }
                     let finalPath=r.folder+'/'+subfolder
-                    if(!unik.folderExist(finalPath)){
-                        unik.mkdir(finalPath)
+                    if(!u.folderExist(finalPath)){
+                        u.mkdir(finalPath)
                     }
                     let ip=finalPath+"/casa_"+ih+".png"
                     result.saveToFile(ip);
@@ -681,38 +681,38 @@ Item {
             xFakeSol.solTipo=3
             if(ih===7){
                 r.img1="ocaso.jpg"
-                txt+=unik.getFile(r.folder+'/casa_7')
+                txt+=u.getFile(r.folder+'/casa_7')
             }
             if(ih===12){
                 r.img1="amanecer.jpg"
-                txt+=unik.getFile(r.folder+'/casa_12')
+                txt+=u.getFile(r.folder+'/casa_12')
             }
         }else if(ih===1||ih===2||ih===3||ih===4||ih===5||ih===6){
             setBg(3)
             xFakeSol.solTipo=0
             //txt+='En casa 1, 2, 3, 4, 5, 6 o 7'
             if(ih===1){
-                txt+=unik.getFile(r.folder+'/casa_1')
+                txt+=u.getFile(r.folder+'/casa_1')
                 r.img1="crepusculo.jpg"
             }
             if(ih===2){
-                txt+=unik.getFile(r.folder+'/casa_2')
+                txt+=u.getFile(r.folder+'/casa_2')
                 r.img1="noche.jpg"
             }
             if(ih===3){
-                txt+=unik.getFile(r.folder+'/casa_3')
+                txt+=u.getFile(r.folder+'/casa_3')
                 r.img1="noche.jpg"
             }
             if(ih===4){
-                txt+=unik.getFile(r.folder+'/casa_4')
+                txt+=u.getFile(r.folder+'/casa_4')
                 r.img1="noche.jpg"
             }
             if(ih===5){
-                txt+=unik.getFile(r.folder+'/casa_5')
+                txt+=u.getFile(r.folder+'/casa_5')
                 r.img1="noche.jpg"
             }
             if(ih===6){
-                txt+=unik.getFile(r.folder+'/casa_6')
+                txt+=u.getFile(r.folder+'/casa_6')
                 r.img1="crepusculo.jpg"
             }
             //horizonteBg.opacity-=0.05
@@ -721,19 +721,19 @@ Item {
             xFakeSol.solTipo=5
             r.img1="siesta.jpg"
             if(ih===8){
-                txt+=unik.getFile(r.folder+'/casa_8')
+                txt+=u.getFile(r.folder+'/casa_8')
             }
             if(ih===9){
-                txt+=unik.getFile(r.folder+'/casa_9')
+                txt+=u.getFile(r.folder+'/casa_9')
             }
             if(ih===11){
-                txt+=unik.getFile(r.folder+'/casa_11')
+                txt+=u.getFile(r.folder+'/casa_11')
             }
         }else{
             setBg(1)
             xFakeSol.solTipo=1
             if(ih===10){
-                txt+=unik.getFile(r.folder+'/casa_10')
+                txt+=u.getFile(r.folder+'/casa_10')
             }
         }
         txt=txt.replace('<!--t1-->', '<h3>¿Haz nacido en esta hora o momento del día?</h3><h5>Si es así, la siguiente información te puede resultar muy útil y esclarecedora.</h5>')

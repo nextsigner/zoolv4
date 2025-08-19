@@ -30,7 +30,7 @@ Item{
             app.currentPlanetIndex=-1
             app.currentHouseIndex=-1
         }
-        //unik.speak(''+app.planetas[o.numAstro]+' en '+app.signos[o.objData.ns]+' en el grado '+o.objData.g+' en la casa '+o.objData.h)
+        //u.speak(''+app.planetas[o.numAstro]+' en '+app.signos[o.objData.ns]+' en el grado '+o.objData.g+' en la casa '+o.objData.h)
     }
     function doublePressed(o){
 

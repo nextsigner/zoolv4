@@ -72,7 +72,7 @@ Rectangle {
 
     Settings{
         id: settings
-        fileName: unik.getPath(4)+'/zoolFileTransLoader.cfg'
+        fileName: u.getPath(4)+'/zoolFileTransLoader.cfg'
         property bool showModuleVersion: false
         property bool inputCoords: false
     }
@@ -842,8 +842,8 @@ Rectangle {
         c+='        uqp'+ms+'.destroy(0)\n'
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
-        c+='        console.log(\''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/geoloc.py" "'+tiCiudad.t.text+'" "'+unik.currentFolderPath()+'"\')\n'
-        c+='        run(\''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/geoloc.py" "'+tiCiudad.t.text+'" "'+unik.currentFolderPath()+'"\')\n'
+        c+='        console.log(\''+app.pythonLocation+' "'+u.currentFolderPath()+'/py/geoloc.py" "'+tiCiudad.t.text+'" "'+u.currentFolderPath()+'"\')\n'
+        c+='        run(\''+app.pythonLocation+' "'+u.currentFolderPath()+'/py/geoloc.py" "'+tiCiudad.t.text+'" "'+u.currentFolderPath()+'"\')\n'
         c+='    }\n'
         c+='}\n'
         if(apps.dev)log.lv('\n\n'+c+'\n\n')
@@ -978,7 +978,7 @@ Rectangle {
         c+='        uqp'+ms+'.destroy(0)\n'
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
-        c+='        let cmd=\''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/searchBodieDateFronLong.py" "'+app.sweFolder+'" '+numAstro+' '+g+' '+ai+' '+mi+' '+di+' '+af+' '+mf+' '+df+' '+tol+'\'\n'
+        c+='        let cmd=\''+app.pythonLocation+' "'+u.currentFolderPath()+'/py/searchBodieDateFronLong.py" "'+app.sweFolder+'" '+numAstro+' '+g+' '+ai+' '+mi+' '+di+' '+af+' '+mf+' '+df+' '+tol+'\'\n'
         c+='        console.log(cmd)\n'
         c+='        run(cmd)\n'
         c+='    }\n'

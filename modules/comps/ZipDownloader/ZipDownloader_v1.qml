@@ -4,8 +4,8 @@ import QtQuick.Controls 2.0
 Item{
     id: r
     property bool dev: false
-    property string curlPath: ''//Qt.platform.os==='windows'?unik.getPath(1)+'/curl-8.14.1_2-win64-mingw/bin/curl.exe':'curl'
-    property string app7ZipPath: ''//Qt.platform.os==='windows'?unik.getPath(1)+'/7-Zip32/7z.exe':'7z'
+    property string curlPath: ''//Qt.platform.os==='windows'?u.getPath(1)+'/curl-8.14.1_2-win64-mingw/bin/curl.exe':'curl'
+    property string app7ZipPath: ''//Qt.platform.os==='windows'?u.getPath(1)+'/7-Zip32/7z.exe':'7z'
     property real cPorc: 0
     property string uStdOut: ''
 
@@ -15,7 +15,7 @@ Item{
 
     property string uZipFilePath: ''
     property string uUrl: ''
-    property string uFolder: unik.getPath(3)
+    property string uFolder: u.getPath(3)
 
     Item{
         id: xuqpCurl
@@ -138,9 +138,9 @@ Item{
     }
     Component.onCompleted: {
         if(r.version===''){
-            r.folderRoot=unik.getPath(4)+'/0.0.0.0'
+            r.folderRoot=u.getPath(4)+'/0.0.0.0'
         }else{
-            r.folderRoot=unik.getPath(4)+'/'+r.version
+            r.folderRoot=u.getPath(4)+'/'+r.version
         }
         //let url = 'https://github.com/nextsigner/zool-release'
         //downloadGitHub(url)
@@ -196,10 +196,10 @@ Item{
         }else{
             //Formato: https://github.com/nextsigner/zoolv4/archive/refs/heads/main.zip
             let repName=m0[m0.length-5]
-            if(!unik.folderExist(folder)){
-                unik.mkdir(folder)
+            if(!u.folderExist(folder)){
+                u.mkdir(folder)
             }
-            if(!unik.folderExist(folder)){
+            if(!u.folderExist(folder)){
                 zpn.log('Error en la descarga de repositorio GitHub: La carpeta '+folder+' no existe.')
                 //btnIniciarReintentar.visible=true
                 return
@@ -207,10 +207,10 @@ Item{
             //btnIniciarReintentar.visible=false
             r.uZipFilePath=folder+'/'+repName+'.zip'
             log.lv('r.uZipFilePath: '+r.uZipFilePath)
-            if(unik.fileExist(uZipFilePath)){
-                //unik.deleteFile(r.uZipFilePath.replace('-main', ''))
-                //unik.deleteFile(r.uZipFilePath)
-                //unik.deleteFile(r.uZipFilePath+'-main')
+            if(u.fileExist(uZipFilePath)){
+                //u.deleteFile(r.uZipFilePath.replace('-main', ''))
+                //u.deleteFile(r.uZipFilePath)
+                //u.deleteFile(r.uZipFilePath+'-main')
             }
             mkUqpCurl(u, folder, repName+'.zip')
 
@@ -370,7 +370,7 @@ Item{
         if(r.folderDestination!==''){
             fileNameOfFolder2=r.folderDestination
         }
-        //unik.deleteFile(fileNameOfFolder2)
+        //u.deleteFile(fileNameOfFolder2)
         let c='import QtQuick 2.0\n'
         c+='import unik.UnikQProcess 1.0\n'
         c+='Item{\n'
@@ -452,28 +452,28 @@ Item{
             txtLog.text='Cargando aplicación...'
             let mainPath=r.uZipFilePath
             mainPath=mainPath.replace('.zip', '-main')
-            unik.deleteFile(r.uZipFilePath)
+            u.deleteFile(r.uZipFilePath)
 
-            let unikeyCfgPath=unik.getPath(4)+'/unikey.cfg'
-            unik.deleteFile(unikeyCfgPath)
+            let unikeyCfgPath=u.getPath(4)+'/unikey.cfg'
+            u.deleteFile(unikeyCfgPath)
             let j={}
             j.args={}
             j.args.folder=mainPath
-            unik.setFile(unikeyCfgPath, JSON.stringify(j, null, 2))
+            u.setFile(unikeyCfgPath, JSON.stringify(j, null, 2))
             if(r.dev)log.lv('unikeyCfgPath: '+unikeyCfgPath)
             if(r.dev)log.lv('unikey.cfg: '+JSON.stringify(j, null, 2))
-            unik.restartApp()
-            //unik.restartApp("-folder="+mainPath)
+            u.restartApp()
+            //u.restartApp("-folder="+mainPath)
 //            Qt.application.arguments=[]
-//            unik.clearComponentCache()
+//            u.clearComponentCache()
 //            engine.load("qrc:/main.qml")
 
-            //if(r.dev)log.lv('unik.addImportPath(...): '+mainPath)
-            //unik.addImportPath(mainPath+'/modules')
+            //if(r.dev)log.lv('u.addImportPath(...): '+mainPath)
+            //u.addImportPath(mainPath+'/modules')
             //if(r.dev)log.lv('Cargando main.qml en '+mainPath)
             //mainPath=mainPath+'/main.qml'
 
-            //unik.clearComponentCache()
+            //u.clearComponentCache()
             //engine.load(mainPath)
             //app.close()
         }

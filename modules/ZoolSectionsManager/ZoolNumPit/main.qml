@@ -13,7 +13,7 @@ ApplicationWindow {
     property int fs: width*0.02
     Settings{
         id: apps
-        fileName: unik.getPath(4)+'/zool_numpit_'+Qt.platform.os+'.cfg'
+        fileName: u.getPath(4)+'/zool_numpit_'+Qt.platform.os+'.cfg'
         property string host: 'http://localhost'
         property bool newClosed: false
 
@@ -100,11 +100,11 @@ ApplicationWindow {
             //backgroundColor='yellow'
             /*if(!jsonsFolder){
                 console.log('Seteando jsonsFolder...')
-                let docFolder=unik.getPath(3)
+                let docFolder=u.getPath(3)
                 let jsonsFolderString=docFolder+'/Zool/jsons'
-                if(!unik.folderExist(jsonsFolderString)){
+                if(!u.folderExist(jsonsFolderString)){
                     console.log('Creando carpeta '+jsonsFolderString)
-                    unik.mkdir(jsonsFolderString)
+                    u.mkdir(jsonsFolderString)
                 }else{
                     console.log('Definiendo carpeta '+jsonsFolderString)
                 }

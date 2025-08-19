@@ -43,5 +43,5 @@ Rectangle{
         anchors.topMargin: app.fs*0.25
         onClicked: r.destroy(1)
     }
-    Component.onCompleted: txt.text=unik.getFile('./updates.md').replace('versión:X.XX.XX', 'versión '+app.version)
+    Component.onCompleted: txt.text=u.getFile('./updates.md').replace('versión:X.XX.XX', 'versión '+app.version)
 }

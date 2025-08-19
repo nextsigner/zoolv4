@@ -415,7 +415,7 @@ Rectangle {
         }
         //log.lv('Creando nuevo json de '+anio+'.')
         let finalCmd=''
-        finalCmd+=''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/getMoonsV2.py" '+anio+' '+unik.getPath(5)
+        finalCmd+=''+app.pythonLocation+' "'+u.currentFolderPath()+'/py/getMoonsV2.py" '+anio+' '+u.getPath(5)
         //console.log('finalCmd: '+finalCmd)
         let c=''
         //+'  if(logData.length<=3||logData==="")return\n'

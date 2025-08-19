@@ -22,7 +22,7 @@ ApplicationWindow {
             }
         }
         Component.onCompleted: {
-            if(unik.objectName!=='unikpy'){
+            if(u.objectName!=='unikpy'){
                 showSS()
 
             }
@@ -1010,7 +1010,7 @@ ApplicationWindow {
             //zm.capturing=true
 
             //log.lv('Descargando...')
-            //unik.downloadZipFile('https://sitsa.dl.sourceforge.net/project/zool/zool_v5.1.11.1.zip?viasf=1', 'C:/sss')
+            //u.downloadZipFile('https://sitsa.dl.sourceforge.net/project/zool/zool_v5.1.11.1.zip?viasf=1', 'C:/sss')
             //log.lv('Termino!')
             //zm.centrarZooMap()
 
@@ -1023,7 +1023,7 @@ ApplicationWindow {
             //zm.unloadExt()
             //zoolDataBodies.objZbsv.selBodie(0)
             //zm.capturing=!zm.capturing
-           // let d = unik.downloadZipFile('https://github.com/nextsigner/zoolv4/releases/download/zool-release/zoolv4_5.6.11.0.zip', '/home/ns/', false)
+           // let d = u.downloadZipFile('https://github.com/nextsigner/zoolv4/releases/download/zool-release/zoolv4_5.6.11.0.zip', '/home/ns/', false)
             //log.lv('d: '+d)
         }
     }

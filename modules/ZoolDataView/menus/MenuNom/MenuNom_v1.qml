@@ -58,7 +58,7 @@ ZoolMenus{
         if(!remoto){
             host='localhost:8100'
         }
-        let folderCaps=unik.getPath(3)+'/Zool/caps/'+zm.currentNom.replace(/ /g, '_')
+        let folderCaps=u.getPath(3)+'/Zool/caps/'+zm.currentNom.replace(/ /g, '_')
         let url='http://'+host+'/getZoolDataMapFull?n='+n+'&d='+d+'&m='+m+'&a='+a+'&h='+h+'&min='+min+'&gmt='+gmt+'&lugarNacimiento='+ciudad+'&lat='+lat+'&lon='+lon+'&alt='+alt+'&ciudad='+ciudad+'&ms=0&msReq=0&adminId=zoolrelease&sexo='+sexo+'&onlyBodyData=FALSE&host='+host+'&printStd=FALSE&folderCaps='+folderCaps
         Qt.openUrlExternally(url)
     }

@@ -243,7 +243,7 @@ Column{
                         if(index<=21){
                             //app.j.showIW()
                             //log.lv()
-                            unik.sendToTcpServer(nioqml.host, nioqml.port, nioqml.user, 'zool', 'zi|'+index+'|'+is+'')
+                            u.sendToTcpServer(nioqml.host, nioqml.port, nioqml.user, 'zool', 'zi|'+index+'|'+is+'')
                         }
                     }else{
                         if(index>50){

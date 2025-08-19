@@ -1,6 +1,6 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
-import unik.Unik 1.0
+import u.Unik 1.0
 import unik.UnikQProcess 1.0
 ApplicationWindow{
     id: app
@@ -148,7 +148,7 @@ ApplicationWindow{
         if(cb2.currentIndex===2){
             sGen='masc'
         }
-        let fd=unik.getFile('./luna_'+cb1.currentText+'_nativo_'+sGen+'.txt').replace(/\[Nativo1\]/g, n1)
+        let fd=u.getFile('./luna_'+cb1.currentText+'_nativo_'+sGen+'.txt').replace(/\[Nativo1\]/g, n1)
         fd=fd.replace(/\[Nativo2\]/g, n2)
         fd=fd.replace(/\[Nativo3\]/g, n3)
         //console.log('fd: '+fd)
@@ -160,7 +160,7 @@ ApplicationWindow{
         let d=new Date(Date.now())
         let ms=d.getTime()
         let fp='/tmp/file_luna_'+ms+'.txt'
-        unik.setFile(fp, fd)
+        u.setFile(fp, fd)
         let wavFileName='/home/ns/luna_'+cb1.currentText+'_'+n1+'.wav'
         let cmd='sh archivoToVoicePic2Wave.sh '+fp+' '+wavFileName
         app.uUrl='file://'+wavFileName

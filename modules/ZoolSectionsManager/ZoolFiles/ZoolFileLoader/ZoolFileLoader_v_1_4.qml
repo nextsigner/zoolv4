@@ -28,7 +28,7 @@ Rectangle {
     }
     Settings{
         id: s
-        fileName: unik.getPath(4)+'/favorites.cfg'
+        fileName: u.getPath(4)+'/favorites.cfg'
         property bool showToolItem: false
         property var favorites: []
     }
@@ -529,7 +529,7 @@ Rectangle {
     function loadAsSin(fileName){
         zm.loadFromFile(fileName, 'sin', true)
 
-        let jsonFileData=unik.getFile(fileName)
+        let jsonFileData=u.getFile(fileName)
         let j=JSON.parse(jsonFileData).params
         let t='sin'
         let hsys=j.hsys?j.hsys:apps.currentHsys
@@ -553,10 +553,10 @@ Rectangle {
         zoolDataView.setDataView(sep, aL, aR)
     }
     function deleteVnData(fileName){
-        unik.deleteFile(fileName)
+        u.deleteFile(fileName)
         let fn=fileName.replace('cap_', '').replace('.png', '')
         let jsonFileName=fn+'.json'
-        unik.deleteFile(jsonFileName)
+        u.deleteFile(jsonFileName)
         updateList()
     }
     function getEdad(dateString) {
@@ -584,8 +584,8 @@ Rectangle {
             //console.log('FileName: '+jsonFileName)
 
             let jsonFileData
-            if(unik.fileExist(jsonFileName)){
-                jsonFileData=unik.getFile(jsonFileName)
+            if(u.fileExist(jsonFileName)){
+                jsonFileData=u.getFile(jsonFileName)
             }else{
                 continue
             }
@@ -699,8 +699,8 @@ Rectangle {
             //console.log('FileName: '+jsonFileName)
 
             let jsonFileData
-            if(unik.fileExist(jsonFileName)){
-                jsonFileData=unik.getFile(jsonFileName)
+            if(u.fileExist(jsonFileName)){
+                jsonFileData=u.getFile(jsonFileName)
             }else{
                 continue
             }
@@ -814,8 +814,8 @@ Rectangle {
 //            //console.log('FileName: '+jsonFileName)
 
 //            let jsonFileData
-//            if(unik.fileExist(jsonFileName)){
-//                jsonFileData=unik.getFile(jsonFileName)
+//            if(u.fileExist(jsonFileName)){
+//                jsonFileData=u.getFile(jsonFileName)
 //            }else{
 //                continue
 //            }

@@ -509,9 +509,9 @@ Rectangle {
                     //                    onTriggered: {
                     //                        let nom=tiNombre.t.text.replace(/ /g, '_')
                     //                        let fileName=apps.workSpace+'/'+nom+'.json'
-                    //                        if(unik.fileExist(fileName)){
+                    //                        if(u.fileExist(fileName)){
                     //                            r.uFileNameLoaded=tiNombre.text
-                    //                            let jsonFileData=unik.getFile(fileName)
+                    //                            let jsonFileData=u.getFile(fileName)
                     //                            let j=JSON.parse(jsonFileData)
                     //                            let dia=''+j.params.d
                     //                            if(parseInt(dia)<=9){
@@ -612,8 +612,8 @@ Rectangle {
         c+='        uqp'+ms+'.destroy(0)\n'
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
-        c+='        console.log(\''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/geoloc.py" "'+tiCiudad.t.text+'" "'+unik.currentFolderPath()+'"\')\n'
-        c+='        run(\''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/geoloc.py" "'+tiCiudad.t.text+'" "'+unik.currentFolderPath()+'"\')\n'
+        c+='        console.log(\''+app.pythonLocation+' "'+u.currentFolderPath()+'/py/geoloc.py" "'+tiCiudad.t.text+'" "'+u.currentFolderPath()+'"\')\n'
+        c+='        run(\''+app.pythonLocation+' "'+u.currentFolderPath()+'/py/geoloc.py" "'+tiCiudad.t.text+'" "'+u.currentFolderPath()+'"\')\n'
         c+='    }\n'
         c+='}\n'
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcodenewtrans')
@@ -624,8 +624,8 @@ Rectangle {
     //        let unom=r.uFileNameLoaded.replace(/ /g, '_')
     //        let fileName=apps.workSpace+'/'+unom+'.json'
     //        console.log('setNewJsonFileData() fileName: '+fileName)
-    //        if(unik.fileExist(fileName)){
-    //            //unik.deleteFile(fileName)
+    //        if(u.fileExist(fileName)){
+    //            //u.deleteFile(fileName)
     //        }
     //        let d = new Date(Date.now())
     //        let ms=d.getTime()
@@ -669,7 +669,7 @@ Rectangle {
     //        j+='}'
     //        app.currentData=j
     //        nom=tiNombre.t.text.replace(/ /g, '_')
-    //        unik.setFile(apps.workSpace+'/'+nom+'.json', app.currentData)
+    //        u.setFile(apps.workSpace+'/'+nom+'.json', app.currentData)
     //        //apps.url=app.mainLocation+'/jsons/'+nom+'.json'
     //        JS.loadJson(apps.workSpace+'/'+nom+'.json')
     //        //runJsonTemp()

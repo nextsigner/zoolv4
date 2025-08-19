@@ -47,9 +47,9 @@ Item{
                 c+='Item{\n'
                 c+='    Component.onCompleted:{\n'
                 c+='        log.lv("Descargando actualización...")\n'
-                //c+='        var gitDownloaded=unik.downloadGit(\'https://github.com/nextsigner/zoolv4.git\', \'C:\\pd1\')\n'
+                //c+='        var gitDownloaded=u.downloadGit(\'https://github.com/nextsigner/zoolv4.git\', \'C:\\pd1\')\n'
                 //https://github.com/nextsigner/zoolv4/archive/refs/heads/main.zip
-                c+='       var gitDownloaded=unik.downloadZipFile(\'https://downloads.sourceforge.net/project/zool/Zool_v4.11.18.2.zip.zip?use_mirror=sitsa\', \'C:/pd1\')\n'
+                c+='       var gitDownloaded=u.downloadZipFile(\'https://downloads.sourceforge.net/project/zool/Zool_v4.11.18.2.zip.zip?use_mirror=sitsa\', \'C:/pd1\')\n'
                 c+='        log.lv("Descargado: "+gitDownloaded)\n'
                 c+='    }\n'
                 c+='}\n'

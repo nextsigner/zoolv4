@@ -25,7 +25,7 @@ Rectangle {
 
     Settings{
         id: settings
-        fileName: unik.getPath(4)+'/ZoolConfig.cfg'
+        fileName: u.getPath(4)+'/ZoolConfig.cfg'
         property string currentQmlTypeShowed: 'ConfigFiles'
     }
     Column{

@@ -114,7 +114,7 @@ ApplicationWindow {
                         anchors.fill: parent
                         onClicked: {
                             app.aInsert=[]
-                            let jd=unik.getFile(app.fr+'/pantalla_'+app.nivel+'.json')
+                            let jd=u.getFile(app.fr+'/pantalla_'+app.nivel+'.json')
                             let j=JSON.parse(jd)
                             let obj= j.paredes[index]
                             if(obj.c==='blue'){
@@ -158,7 +158,7 @@ ApplicationWindow {
                     MouseArea{
                         anchors.fill: parent
                         onClicked: {
-                            let jd=unik.getFile(app.fr+'/pantalla_'+app.nivel+'.json')
+                            let jd=u.getFile(app.fr+'/pantalla_'+app.nivel+'.json')
                             let j=JSON.parse(jd)
                             let obj= j.paredes[index]
                             if (mouse.modifiers & Qt.ControlModifier) {
@@ -184,7 +184,7 @@ ApplicationWindow {
                     MouseArea{
                         anchors.fill: parent
                         onClicked: {
-                            let jd=unik.getFile(app.fr+'/pantalla_'+app.nivel+'.json')
+                            let jd=u.getFile(app.fr+'/pantalla_'+app.nivel+'.json')
                             let j=JSON.parse(jd)
                             let obj= j.paredes[index]
                             if (mouse.modifiers & Qt.ControlModifier) {
@@ -209,7 +209,7 @@ ApplicationWindow {
                     MouseArea{
                         anchors.fill: parent
                         onClicked: {
-                            let jd=unik.getFile(app.fr+'/pantalla_'+app.nivel+'.json')
+                            let jd=u.getFile(app.fr+'/pantalla_'+app.nivel+'.json')
                             let j=JSON.parse(jd)
                             let obj= j.paredes[index]
                             if (mouse.modifiers & Qt.ControlModifier) {
@@ -234,7 +234,7 @@ ApplicationWindow {
                     MouseArea{
                         anchors.fill: parent
                         onClicked: {
-                            let jd=unik.getFile(app.fr+'/pantalla_'+app.nivel+'.json')
+                            let jd=u.getFile(app.fr+'/pantalla_'+app.nivel+'.json')
                             let j=JSON.parse(jd)
                             let obj= j.paredes[index]
                             if (mouse.modifiers & Qt.ControlModifier) {
@@ -248,7 +248,7 @@ ApplicationWindow {
                     }
                 }
                 function updatePared(j){
-                    unik.setFile(app.fr+'/pantalla_'+app.nivel+'.json', JSON.stringify(j, null, 2))
+                    u.setFile(app.fr+'/pantalla_'+app.nivel+'.json', JSON.stringify(j, null, 2))
                     app.dev=false
                     pacman.vivo=false
                     reiniciar()
@@ -716,7 +716,7 @@ ApplicationWindow {
         }
     }
     Component.onCompleted: {
-        app.fr= Qt.platform.os==='android'?unik.getPath(4):unik.getPath(5)
+        app.fr= Qt.platform.os==='android'?u.getPath(4):u.getPath(5)
         app.requestActivate()
     }
     function reiniciar(){
@@ -741,8 +741,8 @@ ApplicationWindow {
         }
     }
     function loadPantalla(nivel){
-        let jd=unik.getFile(app.fr+'/pantalla_'+nivel+'.json')//.replace(/\n/g, '')
-        //let jd=unik.getFile('/home/ns/nsp/qml-pacman/pantalla_'+2+'.json')//.replace(/\n/g, '')
+        let jd=u.getFile(app.fr+'/pantalla_'+nivel+'.json')//.replace(/\n/g, '')
+        //let jd=u.getFile('/home/ns/nsp/qml-pacman/pantalla_'+2+'.json')//.replace(/\n/g, '')
         //console.log(jd)
         let j=!app.dev?JSON.parse(jd):app.tempJson
         app.tempJson=j
@@ -792,7 +792,7 @@ ApplicationWindow {
 
     function addPared(x, y, w, h){
         if(x<0 || y<1 || w<1 || h<1)return
-        let jd=unik.getFile(app.fr+'/pantalla_'+app.nivel+'.json')
+        let jd=u.getFile(app.fr+'/pantalla_'+app.nivel+'.json')
         let j=JSON.parse(jd)
         let obj= {}
         obj.c= "pink"
@@ -801,7 +801,7 @@ ApplicationWindow {
         obj.width= w+1
         obj.height= h+1
         j.paredes.push(obj)
-        unik.setFile(app.fr+'/pantalla_'+app.nivel+'.json', JSON.stringify(j, null, 2))
+        u.setFile(app.fr+'/pantalla_'+app.nivel+'.json', JSON.stringify(j, null, 2))
         app.dev=true
         reiniciar()
         app.dev=true
@@ -809,7 +809,7 @@ ApplicationWindow {
         app.dev=true
     }
     function contarPuntajeMax(){
-        let jd=unik.getFile(app.fr+'/pantalla_'+app.nivel+'.json')
+        let jd=u.getFile(app.fr+'/pantalla_'+app.nivel+'.json')
         let j=JSON.parse(jd)
         let sup=0
         for(var i=0;i<j.paredes.length;i++){

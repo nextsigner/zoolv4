@@ -101,7 +101,7 @@ Rectangle {
                     let url=apps.host
                     url+='/zool/nuevoZoolUser'
                     url+='?n='+tiNombre.text
-                    url+='&c='+unik.encData(tiClave.text, tiNombre.text, tiClave.text)
+                    url+='&c='+u.encData(tiClave.text, tiNombre.text, tiClave.text)
                     app.j.getRD(url, getUser)
                     tWaitingResponse.restart()
                     zlc.visible=true
@@ -152,7 +152,7 @@ Rectangle {
                     if(apps.dev){
                         log.lv('New user, id: '+j.user._id)
                         log.lv('New user, n: '+j.user.n)
-                        log.lv('New user, c: '+unik.decData(j.user.c, tiNombre.text, tiClave.text))
+                        log.lv('New user, c: '+u.decData(j.user.c, tiNombre.text, tiClave.text))
                     }
                     apps.zoolUser=j.user.n
                     apps.zoolUserId=j.user._id

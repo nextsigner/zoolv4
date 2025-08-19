@@ -6,7 +6,7 @@ import QtMultimedia 5.12
 import Qt.labs.folderlistmodel 2.12
 
 import unik.UnikQProcess 1.0
-import unik.Unik 1.0
+import u.Unik 1.0
 
 
 import "./js/Funcs_v2.js" as JS
@@ -81,15 +81,15 @@ ZoolMainWindow{
     //property string sweBodiesPythonFile: Qt.platform.os==='linux'?'astrologica_swe_v4.py':'astrologica_swe.py'
 
     //Python
-    property string sweFolder: Qt.platform.os==='windows'?'"'+unik.getPath(1)+'/swe"':'/usr/share/ephe/swe'
+    property string sweFolder: Qt.platform.os==='windows'?'"'+u.getPath(1)+'/swe"':'/usr/share/ephe/swe'
     property string sweBodiesPythonFile: Qt.platform.os==='windows'?'astrologica_swe_v4.py':'zool_swe_portable_2.10.3.2_v1.py'
-    property string pythonLocation: Qt.platform.os==='windows'?'"'+unik.getPath(1).replace(/\"/g, '')+'/Python/python.exe"':'python3'
+    property string pythonLocation: Qt.platform.os==='windows'?'"'+u.getPath(1).replace(/\"/g, '')+'/Python/python.exe"':'python3'
 
     property var j: JS
     property var c: CAP
 
     property string mainLocation: ''
-    //property string pythonLocation: Qt.platform.os==='linux'?'python3':pythonLocationSeted?'"'+pythonLocationSeted+'"':'"'+unik.getPath(4)+'/Python/python.exe'+'"'
+    //property string pythonLocation: Qt.platform.os==='linux'?'python3':pythonLocationSeted?'"'+pythonLocationSeted+'"':'"'+u.getPath(4)+'/Python/python.exe'+'"'
 
     //property string pythonLocation: Qt.platform.os==='linux'?'python3':'python'
 
@@ -194,7 +194,7 @@ ZoolMainWindow{
     }
     onDevChanged: {
         if(dev){
-            let c=unik.getFile('./dev.qml')
+            let c=u.getFile('./dev.qml')
             let comp=Qt.createQmlObject(c, xApp, 'devqmlcode')
         }
     }
@@ -661,14 +661,14 @@ ZoolMainWindow{
 
 
     Component.onCompleted: {
-        if(Qt.platform.os==='linux' && !unik.folderExist(app.sweFolder)){
+        if(Qt.platform.os==='linux' && !u.folderExist(app.sweFolder)){
             log.lv('Error de instalación de Zool para GNU/Linux.\nSwe no está instalado.')
             return
 
         }
 
-        zipDownloader.curlPath=Qt.platform.os==='windows'?'"'+unik.getPath(1)+'/curl-8.14.1_2-win64-mingw/bin/curl.exe"':'curl'
-        zipDownloader.app7ZipPath=Qt.platform.os==='windows'?'"'+unik.getPath(1)+'/7-Zip32/7z.exe"':'7z'
+        zipDownloader.curlPath=Qt.platform.os==='windows'?'"'+u.getPath(1)+'/curl-8.14.1_2-win64-mingw/bin/curl.exe"':'curl'
+        zipDownloader.app7ZipPath=Qt.platform.os==='windows'?'"'+u.getPath(1)+'/7-Zip32/7z.exe"':'7z'
 
         let c='import ZoolDataManager 1.0\n'
         c+='ZoolDataManager{}'
@@ -676,9 +676,9 @@ ZoolMainWindow{
         menuBar.aMenuItems.push(menuRuedaZodiacal)
 
 
-        if(apps.workSpace==='')apps.workSpace=unik.getPath(3)+'/Zool'
-        if(!unik.folderExist(unik.getPath(3)+'/Zool')){
-            unik.mkdir(unik.getPath(3)+'/Zool')
+        if(apps.workSpace==='')apps.workSpace=u.getPath(3)+'/Zool'
+        if(!u.folderExist(u.getPath(3)+'/Zool')){
+            u.mkdir(u.getPath(3)+'/Zool')
         }
         if(apps.dev)log.lv('Ultimo archivo cargado con anterioridad: '+apps.url)
         let args=Qt.application.arguments
@@ -693,7 +693,7 @@ ZoolMainWindow{
 
 
 
-        let v=unik.getFile('./version')
+        let v=u.getFile('./version')
         app.version=v.replace(/\n/g, '')
         /*if(app.version!==apps.lastVersion || apps.dev){
             apps.lastVersion=app.version
@@ -731,8 +731,8 @@ ZoolMainWindow{
 
         //Check apps.workSpaceTemp
         if(apps.workSpace===''){
-            let jft=unik.getPath(3)+'/Zool/Temp'
-            unik.mkdir(jft)
+            let jft=u.getPath(3)+'/Zool/Temp'
+            u.mkdir(jft)
             apps.workSpaceTemp=jft
         }
         if(apps.isJsonsFolderTemp){
@@ -745,13 +745,13 @@ ZoolMainWindow{
         if(apps.dev){
             log.ls('\nRunning as Dev', 0, xLatIzq.width)
             //log.ls('\nVersion:\n'+version, log.x,
-            log.ls('\nunik.currentFolderPath():\n'+unik.currentFolderPath(), log.x, log.width)
-            log.ls('\nunik.getPath(4):\n'+unik.getPath(4), log.x, log.width)
+            log.ls('\nu.currentFolderPath():\n'+u.currentFolderPath(), log.x, log.width)
+            log.ls('\nu.getPath(4):\n'+u.getPath(4), log.x, log.width)
             log.ls('\napps.workSpace:\n'+apps.workSpace, log.x, log.width)
             log.ls('\nDocumentPath:\n'+documentsPath, log.x, log.width)
         }
 
-        app.mainLocation=unik.getPath(5)
+        app.mainLocation=u.getPath(5)
         if(Qt.platform.os==='windows'){
             app.mainLocation="\""+app.mainLocation+"\""
         }
@@ -776,7 +776,7 @@ ZoolMainWindow{
         }
         if(!fileLoaded){
             //let fp=
-            if(apps.url!==''&&unik.fileExist(apps.url)&&apps.workSpace!==''){
+            if(apps.url!==''&&u.fileExist(apps.url)&&apps.workSpace!==''){
                 console.log('Cargando al iniciar: '+apps.url)
                 //Detalles Técnicos extras
                 if(apps.dev){
@@ -789,7 +789,7 @@ ZoolMainWindow{
                 if(apps.url===''){
                     zdm.firstRunTime()
                 }else{
-                    if(!unik.fileExist(apps.url)){
+                    if(!u.fileExist(apps.url)){
                         log.lv('El archivo '+apps.url+' que se intenta cargar, no existe o ha sido eliminado. Se procede a cargar los tránsitos actuales.')
                         zm.loadNow(false)
                         /*let sep='Sinastría'
@@ -803,7 +803,7 @@ ZoolMainWindow{
                         log.l('\nEl módulo Python SwissEph se encuentra instalado en '+app.pythonLocation)
                         log.l('\nEl módulo MinymaClient se conecta mediante el host: '+minymaClient.host)
                         log.l('\napp.url: '+app.url)
-                        log.l('\napp.url exist: '+unik.fileExist(apps.url))
+                        log.l('\napp.url exist: '+u.fileExist(apps.url))
                     }
                 }
 

@@ -231,7 +231,7 @@ Rectangle {
                 //if(apps.dev)log.lv('Sabianos gAsc: '+gAsc)
                 fileNameOutPut+='Sabianos_Ascendente_en_'+r.signos[zm.currentJson.ph.h1.is]+'_Grado_'+gAsc+'.txt'
                 //if(apps.dev)log.lv('Sabianos Asc: '+d)
-                //unik.setFile(fileNameOutPut, d)
+                //u.setFile(fileNameOutPut, d)
                 //if(apps.dev)log.lv('Sabianos OutPut fileName: sale por console.log()')
                 console.log('Sabianos Asc fileNameOutPut: '+fileNameOutPut)
 
@@ -251,7 +251,7 @@ Rectangle {
                 //if(apps.dev)log.lv('Sabianos gMc: '+gMc)
                 fileNameOutPut+='Sabianos_Medio_Cielo_en_'+r.signos[zm.currentJson.ph.h10.is]+'_Grado_'+gMc+'.txt'
                 //if(apps.dev)log.lv('Sabianos Medio Cielo: '+d)
-                //unik.setFile(fileNameOutPut, d)
+                //u.setFile(fileNameOutPut, d)
                 //if(apps.dev)log.lv('Sabianos OutPut fileName: sale por console.log()')
                 console.log('Sabianos Mc fileNameOutPut: '+fileNameOutPut)
 
@@ -271,7 +271,7 @@ Rectangle {
                 //if(apps.dev)log.lv('Sabianos gSol: '+gSol)
                 fileNameOutPut+='Sabianos_Sol_en_'+r.signos[zm.currentJson.pc.c0.is]+'_Grado_'+gSol+'.txt'
                 //if(apps.dev)log.lv('Sabianos Sol: '+d)
-                //unik.setFile(fileNameOutPut, d)
+                //u.setFile(fileNameOutPut, d)
                 //if(apps.dev)log.lv('Sabianos OutPut fileName: sale por console.log()')
                 console.log('Sabianos Sol fileNameOutPut: '+fileNameOutPut)
 
@@ -354,7 +354,7 @@ Rectangle {
                 //if(apps.dev)log.lv('Sabianos OutPut fileName: sale por console.log()')
                 console.log('Sabianos Sol fileNameOutPut: '+fileNameOutPut)
 
-                unik.setFile(fileNameOutPut, sf)
+                u.setFile(fileNameOutPut, sf)
 
                 tHideRowBtns.restart()
             }
@@ -514,10 +514,10 @@ Rectangle {
                 r.numSign=11
             }
         }
-        //let fileUrl='"'+unik.currentFolderPath()+'/resources/sab'+r.numSign+'.json'+'"'
+        //let fileUrl='"'+u.currentFolderPath()+'/resources/sab'+r.numSign+'.json'+'"'
         let fileUrl=r.folderData+'/sab'+r.numSign+'.json'
         fileUrl=fileUrl.replace(/\"/g, '')
-        let fileData=''+unik.getFile(fileUrl)
+        let fileData=''+u.getFile(fileUrl)
         let json=JSON.parse(fileData.replace(/\n/g, ''))
         //console.log('df:'+df)
         //console.log('sf:'+sf)
@@ -560,10 +560,10 @@ Rectangle {
                 r.numSign=11
             }
         }
-        //let fileUrl='"'+unik.currentFolderPath()+'/resources/sab'+r.numSign+'.json'+'"'
-        let fileUrl='"'+unik.currentFolderPath()+'/modules/ZoolSabianos/data/sab'+r.numSign+'.json'+'"'
+        //let fileUrl='"'+u.currentFolderPath()+'/resources/sab'+r.numSign+'.json'+'"'
+        let fileUrl='"'+u.currentFolderPath()+'/modules/ZoolSabianos/data/sab'+r.numSign+'.json'+'"'
         fileUrl=fileUrl.replace(/\"/g, '')
-        let fileData=''+unik.getFile(fileUrl)
+        let fileData=''+u.getFile(fileUrl)
         let json=JSON.parse(fileData.replace(/\n/g, ''))
         let rd=json['g'+df]['p1'].text
         rd+=json['g'+df]['p2'].text
@@ -583,10 +583,10 @@ Rectangle {
                 r.numSign=11
             }
         }*/
-        //let fileUrl='"'+unik.currentFolderPath()+'/resources/sab'+r.numSign+'.json'+'"'
-        let fileUrl='"'+unik.currentFolderPath()+'/modules/ZoolSabianos/data/sab'+r.numSign+'.json'+'"'
+        //let fileUrl='"'+u.currentFolderPath()+'/resources/sab'+r.numSign+'.json'+'"'
+        let fileUrl='"'+u.currentFolderPath()+'/modules/ZoolSabianos/data/sab'+r.numSign+'.json'+'"'
         fileUrl=fileUrl.replace(/\"/g, '')
-        let fileData=''+unik.getFile(fileUrl)
+        let fileData=''+u.getFile(fileUrl)
         let json=JSON.parse(fileData.replace(/\n/g, ''))
         let rd='Videncia 1: '+json['g'+df]['p1'].text
         rd+='\n'
@@ -596,7 +596,7 @@ Rectangle {
         return rd
     }
     function getHtmlData(s, g, item){
-        let fileData=''+unik.getFile('360.html')
+        let fileData=''+u.getFile('360.html')
         let dataSign=fileData.split('---')
         let stringSplit=''
         if(g<=8){
@@ -655,15 +655,15 @@ Rectangle {
          <br />
     </body>
 </html>'
-        unik.setFile('/home/ns/nsp/uda/nextsigner.github.io/sabianos/'+nom+'.html', htmlFinal)
+        u.setFile('/home/ns/nsp/uda/nextsigner.github.io/sabianos/'+nom+'.html', htmlFinal)
     }
     function setJsonZoom(numSign, numDegree, numItem, zoom){
         let jsonFile='../../modules/ZoolSabianos/sabianosJsonZoom.json'
-        let existe=unik.fileExist(jsonFile)
+        let existe=u.fileExist(jsonFile)
         let jsonString=''
         let newJsonString=''
         if(existe){
-            jsonString=unik.getFile(jsonFile)
+            jsonString=u.getFile(jsonFile)
         }
         let arrayLines=jsonString.split('\n')
         let nomItem='pos_'+numSign+'_'+numDegree+'_'+numItem
@@ -676,14 +676,14 @@ Rectangle {
         //if(!e){
         newJsonString+=nomItem+'='+zoom+'\n'
         //}
-        unik.setFile(jsonFile, newJsonString)
+        u.setFile(jsonFile, newJsonString)
     }
     function getJsonZoom(numSign, numDegree, numItem){
         let jsonFile='./sabianosJsonZoom.json'
-        let existe=unik.fileExist(jsonFile)
+        let existe=u.fileExist(jsonFile)
         let jsonString=''
         if(existe){
-            jsonString=unik.getFile(jsonFile)
+            jsonString=u.getFile(jsonFile)
         }
         let arrayLines=jsonString.split('\n')
         let nomItem='pos_'+numSign+'_'+numDegree+'_'+numItem
@@ -710,7 +710,7 @@ Rectangle {
             apps.panelSabianosFz=0.01
         }
         zoom=parseFloat(apps.panelSabianosFz).toFixed(1)
-        //unik.speak('Sube '+zoom)
+        //u.speak('Sube '+zoom)
 
 
         //data.font.pixelSize=r.fs*2*apps.panelSabianosFz
@@ -729,7 +729,7 @@ Rectangle {
         }
         apps.panelSabianosFz+=0.1
         zoom=parseFloat(apps.panelSabianosFz).toFixed(1)
-        //unik.speak('Baja '+zoom)
+        //u.speak('Baja '+zoom)
         /*if(zoom<1.0){
                 zoom=parseFloat(1).toFixed(1)
             }*/

@@ -148,17 +148,17 @@ Rectangle{
         if(r.aAsuntos[index].indexOf('Menú')===0){
             folder=r.aAsuntos[index].replace(/ /g, '').replace(/ú/g, 'u')+'/'
         }
-        if(!unik.folderExist(unik.getPath(5)+'/modules/ZoolSectionsManager/ZoolHelp/'+folder)){
-            unik.mkdir(unik.getPath(5)+'/modules/ZoolSectionsManager/ZoolHelp/'+folder)
+        if(!u.folderExist(u.getPath(5)+'/modules/ZoolSectionsManager/ZoolHelp/'+folder)){
+            u.mkdir(u.getPath(5)+'/modules/ZoolSectionsManager/ZoolHelp/'+folder)
         }
-        let fn=unik.getPath(5)+'/modules/ZoolSectionsManager/ZoolHelp/'+folder+(r.aAsuntos[index]).replace(/ /g, '_')+'.md'
-        if(!unik.fileExist(fn)){
+        let fn=u.getPath(5)+'/modules/ZoolSectionsManager/ZoolHelp/'+folder+(r.aAsuntos[index]).replace(/ /g, '_')+'.md'
+        if(!u.fileExist(fn)){
             let data='## '+r.aAsuntos[index]
-            unik.setFile(fn, data)
+            u.setFile(fn, data)
             txtData.text='Archivo creado: '+fn
             return
         }
-        let fd=unik.getFile(fn)
+        let fd=u.getFile(fn)
         txtData.text=fd
     }
     function mkTwichChat(){

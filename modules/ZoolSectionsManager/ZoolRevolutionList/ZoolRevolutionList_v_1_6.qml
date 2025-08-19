@@ -50,7 +50,7 @@ Rectangle {
     Item{id:xuqp}
     Settings{
         id: settings
-        fileName: unik.getPath(4)+'/zoolRevolutionList.cfg'
+        fileName: u.getPath(4)+'/zoolRevolutionList.cfg'
         //property bool showModuleVersion: false
         property bool inputCoords: false
     }
@@ -369,9 +369,9 @@ Rectangle {
                                 //                                onTriggered: {
                                 //                                    let nom=tiNombre.t.text.replace(/ /g, '_')
                                 //                                    let fileName=apps.workSpace+'/'+nom+'.json'
-                                //                                    if(unik.fileExist(fileName)){
+                                //                                    if(u.fileExist(fileName)){
                                 //                                        r.uFileNameLoaded=tiNombre.text
-                                //                                        let jsonFileData=unik.getFile(fileName)
+                                //                                        let jsonFileData=u.getFile(fileName)
                                 //                                        let j=JSON.parse(jsonFileData)
                                 //                                        let dia=''+j.params.d
                                 //                                        if(parseInt(dia)<=9){
@@ -884,11 +884,11 @@ Rectangle {
         let cd3= new Date(zm.currentDate)
         //let hsys=apps.currentHsys
         let finalCmd=''
-        //finalCmd+=''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/astrologica_swe_search_revsol_time.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+edad+' "'+unik.currentFolderPath()+'"'//+' '+hsys
+        //finalCmd+=''+app.pythonLocation+' "'+u.currentFolderPath()+'/py/astrologica_swe_search_revsol_time.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+edad+' "'+u.currentFolderPath()+'"'//+' '+hsys
         if(!checkBoxRetSolar.checked){
-            finalCmd+=''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/astrologica_swe_search_revsol_time.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+zm.currentGmt+' '+zm.currentLat+' '+zm.currentLon+' '+zm.currentGradoSolar+' '+zm.currentMinutoSolar+' '+zm.currentSegundoSolar+' '+edad+' "'+app.sweFolder+'"'//+' '+hsys
+            finalCmd+=''+app.pythonLocation+' "'+u.currentFolderPath()+'/py/astrologica_swe_search_revsol_time.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+zm.currentGmt+' '+zm.currentLat+' '+zm.currentLon+' '+zm.currentGradoSolar+' '+zm.currentMinutoSolar+' '+zm.currentSegundoSolar+' '+edad+' "'+app.sweFolder+'"'//+' '+hsys
         }else{
-            finalCmd+=''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/astrologica_swe_search_revsol_time.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+0+' '+r.ulat+' '+r.ulon+' '+zm.currentGradoSolar+' '+zm.currentMinutoSolar+' '+zm.currentSegundoSolar+' '+edad+' "'+app.sweFolder+'"'//+' '+hsys
+            finalCmd+=''+app.pythonLocation+' "'+u.currentFolderPath()+'/py/astrologica_swe_search_revsol_time.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+0+' '+r.ulat+' '+r.ulon+' '+zm.currentGradoSolar+' '+zm.currentMinutoSolar+' '+zm.currentSegundoSolar+' '+edad+' "'+app.sweFolder+'"'//+' '+hsys
         }
         console.log('setRsList('+edad+')::finalCmd: '+finalCmd)
         let c=''
@@ -900,7 +900,7 @@ Rectangle {
             +'  logData=""\n'
             +'} catch(e) {\n'
             +'  console.log(e+" "+logData);\n'
-            +'  //unik.speak("error");\n'
+            +'  //u.speak("error");\n'
             +'}\n'
         mkCmd(finalCmd, c, xuqp)
     }
@@ -1042,7 +1042,7 @@ Rectangle {
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
         //c+='        console.log(\''+app.pythonLocation+' '+app.mainLocation+'/py/astrologica_swe.py '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+'\')\n'
-        c+='        run(\''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/geoloc.py" "'+tiCiudad.t.text+'" "'+unik.currentFolderPath()+'"\')\n'
+        c+='        run(\''+app.pythonLocation+' "'+u.currentFolderPath()+'/py/geoloc.py" "'+tiCiudad.t.text+'" "'+u.currentFolderPath()+'"\')\n'
         c+='    }\n'
         c+='}\n'
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcodenewvn')

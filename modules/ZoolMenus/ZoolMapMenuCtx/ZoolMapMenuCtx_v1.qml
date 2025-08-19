@@ -136,7 +136,7 @@ ZoolMenus{
         Action {
             text: !apps.dev?"Habilitar Modo Desarrollador":"Deshabilitar Modo Desarrollador"
             onTriggered: {
-                if(unik.folderExist('/home/ns')){
+                if(u.folderExist('/home/ns')){
                     apps.dev=!apps.dev
                 }
             }

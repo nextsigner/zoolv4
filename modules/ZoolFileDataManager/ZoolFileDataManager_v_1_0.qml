@@ -10,7 +10,7 @@ Item{
     //Retorna string con el contenido del archivo actual
     function getData(){
         //if(apps.dev)log.lv('zfdm.getData( '+r.currentUrl+' )')
-        return unik.getFile(r.currentUrl)
+        return u.getFile(r.currentUrl)
     }
     //Retorna json con el contenido del archivo actual
     function getJson(){
@@ -99,11 +99,11 @@ Item{
         fn=fn.replace(/:/g, '_')
         let f=apps.workSpace+'/'+fn+'.json'
         if(isTemp){
-            f=unik.getPath(2)+'/temp.json'
+            f=u.getPath(2)+'/temp.json'
         }
 
-        unik.setFile(f, s)
-        if(unik.fileExist(f)){
+        u.setFile(f, s)
+        if(u.fileExist(f)){
             r=true
             if(apps.enableShareInServer && j.params.shared){
                 zsfdm.save(j)
@@ -119,7 +119,7 @@ Item{
     //    }
     function saveJson(json){
         r.ja=json
-        let saved = unik.setFile(apps.url, JSON.stringify(r.ja, null, 2))
+        let saved = u.setFile(apps.url, JSON.stringify(r.ja, null, 2))
         if(saved){
             let njson=JSON.stringify(json)
             zm.fileData=njson
@@ -132,17 +132,17 @@ Item{
         return false
     }
     function setFavoriteDataJson(url, f){
-        let jsonData=unik.getFile(url)
+        let jsonData=u.getFile(url)
         let json=JSON.parse(jsonData)
         json.params.f=f
-        let saved = unik.setFile(url, JSON.stringify(json, null, 2))
+        let saved = u.setFile(url, JSON.stringify(json, null, 2))
         if(saved){
             return true
         }
         return false
     }
     function deleteCurrentJson(){
-        let deleted = unik.deleteFile(apps.url)
+        let deleted = u.deleteFile(apps.url)
         zm.loadNow(false)
         if(apps.enableShareInServer){
             //zsfdm.save(json)
@@ -154,14 +154,14 @@ Item{
     function updateParams(params, save){
         let json=zfdm.getJson()
         json.params=params
-        if(unik.fileExist(apps.url.replace('file://', ''))){
+        if(u.fileExist(apps.url.replace('file://', ''))){
             let dataModNow=new Date(Date.now())
             json.params.msmod=dataModNow.getTime()
         }
         return saveJson(json)
     }
     function getExts(){
-        let sd=unik.getFile(apps.url)
+        let sd=u.getFile(apps.url)
         let json=JSON.parse(sd)
         return json.exts
         //let exts=[]
@@ -182,10 +182,10 @@ Item{
         return ret
     }
     function addExtDataAndSave(p){
-        let sd=unik.getFile(apps.url)
+        let sd=u.getFile(apps.url)
         let json=JSON.parse(sd)
         json.exts.push(p)
-        unik.setFile(apps.url, JSON.stringify(json, null, 2))
+        u.setFile(apps.url, JSON.stringify(json, null, 2))
         //log.lv('json: '+JSON.stringify(json, null, 2))
     }
     //    function addExtData(json){
@@ -234,7 +234,7 @@ Item{
             }
         }
         if(apps.dev)log.lv('saveExtToJsonFile( '+extId+'): Nuevo Json: '+JSON.stringify(njson, null, 2))
-        let isSaved=unik.setFile(apps.url, JSON.stringify(njson))
+        let isSaved=u.setFile(apps.url, JSON.stringify(njson))
         if(isSaved)zsm.getPanel('ZoolFileExtDataManager').updateList()
         return isSaved
     }
@@ -260,7 +260,7 @@ Item{
 //        }
 //        njson.exts=njson.exts.filter(Boolean)
 //        if(apps.dev)log.lv('deleteExtToJsonFile( '+extId+'): Nuevo Json: '+JSON.stringify(njson, null, 2))
-//        let seted=unik.setFile(apps.url, JSON.stringify(njson))
+//        let seted=u.setFile(apps.url, JSON.stringify(njson))
 //        if(seted)r.ja=njson
 //        let forReload=extId===zoolDataView.uExtIdLoaded
 //        if(apps.dev)log.lv('deleteExtToJsonFile( '+extId+' )\nzoolDataView.uExtIdLoaded: '+zoolDataView.uExtIdLoaded+'\nforReload: '+forReload)
@@ -272,7 +272,7 @@ Item{
 //    }
 
     function deleteExt(ms){
-        let jsonData=unik.getFile(apps.url)
+        let jsonData=u.getFile(apps.url)
         let json=JSON.parse(jsonData)
         let data={}
         data.exts=json.exts
@@ -280,15 +280,15 @@ Item{
           return ext.params.ms !== ms;
         });
         json.exts=data.exts
-        unik.setFile(apps.url, JSON.stringify(json, null, 2))
+        u.setFile(apps.url, JSON.stringify(json, null, 2))
     }
     function setExt(ext, index){
-        let jsonData=unik.getFile(apps.url)
+        let jsonData=u.getFile(apps.url)
         let json=JSON.parse(jsonData)
         let exts=json.exts
         exts[index]=ext
         //log.lv('exts: '+JSON.stringify(exts, null, 2))
-        unik.setFile(apps.url, JSON.stringify(json, null, 2))
+        u.setFile(apps.url, JSON.stringify(json, null, 2))
     }
     function saveChanges(){
         let date=new Date(Date.now())

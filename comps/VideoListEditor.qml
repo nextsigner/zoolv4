@@ -341,48 +341,48 @@ Rectangle {
     function setIndexPlanet(index, indexPlanet, sube){
         let jsonData=''
         let jsonFile=(''+apps.repLectCurrentFolder).replace('file://', '')+'/list.json'
-        if(!unik.fileExist(jsonFile)){
+        if(!u.fileExist(jsonFile)){
             return
         }
-        jsonData=unik.getFile(jsonFile)
+        jsonData=u.getFile(jsonFile)
         let json=JSON.parse(jsonData)
         json.items['item'+index].indexPlanet=sube?indexPlanet+1:indexPlanet-1
         panelVideLectura.uJson=json
-        unik.setFile(jsonFile,JSON.stringify(json))
+        u.setFile(jsonFile,JSON.stringify(json))
     }
     function setMirror(index, isMirror){
         let jsonData=''
         let jsonFile=(''+apps.repLectCurrentFolder).replace('file://', '')+'/list.json'
-        if(!unik.fileExist(jsonFile)){
+        if(!u.fileExist(jsonFile)){
             return
         }
-        jsonData=unik.getFile(jsonFile)
+        jsonData=u.getFile(jsonFile)
         let json=JSON.parse(jsonData)
         json.items['item'+index].isMirror=!isMirror
         panelVideLectura.uJson=json
-        unik.setFile(jsonFile,JSON.stringify(json))
+        u.setFile(jsonFile,JSON.stringify(json))
     }
     function setMaximized(index, isMaximized){
         let jsonData=''
         let jsonFile=(''+apps.repLectCurrentFolder).replace('file://', '')+'/list.json'
-        if(!unik.fileExist(jsonFile)){
+        if(!u.fileExist(jsonFile)){
             return
         }
-        jsonData=unik.getFile(jsonFile)
+        jsonData=u.getFile(jsonFile)
         let json=JSON.parse(jsonData)
         json.items['item'+index].isMaximized=!isMaximized
         panelVideLectura.uJson=json
-        unik.setFile(jsonFile,JSON.stringify(json))
+        u.setFile(jsonFile,JSON.stringify(json))
     }
     function addFileList(file){
         //log.ls('Cargando archivo de video '+file+'...', 0, 500)
         let jsonData=''
         let jsonFile=(''+apps.repLectCurrentFolder).replace('file://', '')+'/list.json'
-        if(!unik.fileExist(jsonFile)){
+        if(!u.fileExist(jsonFile)){
             log.ls('Error! El archivo '+jsonFile+' no existe.', 0, 500)
             return
         }
-        jsonData=unik.getFile(jsonFile)
+        jsonData=u.getFile(jsonFile)
         let json=JSON.parse(jsonData)
         let e=false
 //        for(var i=0;i<Object.keys(json.items).length;i++){
@@ -404,17 +404,17 @@ Rectangle {
             obj.isMaximized=false
             json.items['item'+parseInt(Object.keys(json.items).length)]=obj
             //log.ls('jsonFile add item: '+JSON.stringify(json), 300, 500)
-            unik.setFile(jsonFile,JSON.stringify(json))
+            u.setFile(jsonFile,JSON.stringify(json))
             panelVideLectura.updateVideoList()
         }
     }
     function deleteItem(index){
         let jsonData=''
         let jsonFile=(''+apps.repLectCurrentFolder).replace('file://', '')+'/list.json'
-        if(!unik.fileExist(jsonFile)){
+        if(!u.fileExist(jsonFile)){
             return
         }
-        jsonData=unik.getFile(jsonFile)
+        jsonData=u.getFile(jsonFile)
         let json=JSON.parse(jsonData)
         delete json.items['item'+index]
         let nJson={}
@@ -425,7 +425,7 @@ Rectangle {
             nJson.items["item"+i]=obj
         }
         panelVideLectura.uJson=nJson
-        unik.setFile(jsonFile,JSON.stringify(nJson))
+        u.setFile(jsonFile,JSON.stringify(nJson))
         updateList()
         //panelVideLectura.updateVideoList()
     }
@@ -435,12 +435,12 @@ Rectangle {
         let jsonData=''
         let jsonFile=(''+apps.repLectCurrentFolder).replace('file://', '')+'/list.json'
         //log.ls('jsonFile: '+jsonFile, 300, 500)
-        if(!unik.fileExist(jsonFile)){
+        if(!u.fileExist(jsonFile)){
             jsonData='{"items": {"item0":{"fileName":"/home/ns/Documentos/gd/zool_videos/intro_vn.mkv", "indexPlanet": -1, "isMirror": false, "isMaximized": true},"item1":{"fileName":"/home/ns/Documentos/gd/zool_videos/close_vn.mkv", "indexPlanet": -1, "isMirror": false, "isMaximized": true}}, "itemData":{"file":""}}'
-            unik.setFile(jsonFile,jsonData)
+            u.setFile(jsonFile,jsonData)
 
         }else{
-            jsonData=unik.getFile(jsonFile)
+            jsonData=u.getFile(jsonFile)
         }
         //log.ls('\n\n\nUpdate json list: '+jsonData.replace(/,"/g, ', "'), 0, 500)
         let json=JSON.parse(jsonData)
@@ -472,7 +472,7 @@ Rectangle {
         }
         panelVideLectura.uJson=json
         let jsonFile=(''+apps.repLectCurrentFolder).replace('file://', '')+'/list.json'
-        unik.setFile(jsonFile,JSON.stringify(json))
+        u.setFile(jsonFile,JSON.stringify(json))
         panelVideLectura.uJson=json
         panelVideLectura.updateVideoList()
     }

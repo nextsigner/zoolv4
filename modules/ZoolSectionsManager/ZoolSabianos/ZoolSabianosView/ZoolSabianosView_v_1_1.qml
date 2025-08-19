@@ -297,7 +297,7 @@ Rectangle {
             }
         }
         let filePath=r.folderData+'/sab'+r.numSign+'.json'
-        let fileData=''+unik.getFile(filePath)
+        let fileData=''+u.getFile(filePath)
         //log.ls('filePath: '+filePath, 0, 500)
         //log.ls('fileData: '+fileData, 0, 500)
         let json=JSON.parse(fileData.replace(/\n/g, ''))
@@ -325,7 +325,7 @@ Rectangle {
         //log.lv('data: '+res)
     }
     function getHtmlData(s, g, item){
-        let fileData=''+unik.getFile('360.html')
+        let fileData=''+u.getFile('360.html')
         let dataSign=fileData.split('---')
         let stringSplit=''
         if(g<=8){
@@ -384,18 +384,18 @@ Rectangle {
          <br />
     </body>
 </html>'
-        unik.setFile('/home/ns/nsp/uda/nextsigner.github.io/sabianos/'+nom+'.html', htmlFinal)
+        u.setFile('/home/ns/nsp/uda/nextsigner.github.io/sabianos/'+nom+'.html', htmlFinal)
     }
     function setJsonZoom(numSign, numDegree, numItem, zoom){
         //let jsonFile='../../../modules/ZoolSabianos/sabianosJsonZoom.json'
         let jsonFile='./modules/ZoolSabianos/sabianosJsonZoom.json'
         //let jsonFile='/home/ns/nsp/zool-release/modules/ZoolSabianos/sabianosJsonZoom.json'
-        let existe=unik.fileExist(jsonFile)
+        let existe=u.fileExist(jsonFile)
         let jsonString=''
         let newJsonString=''
         //console.log('Existe sabianosJsonZoom.json: '+existe)
         if(existe){
-            jsonString=unik.getFile(jsonFile)
+            jsonString=u.getFile(jsonFile)
         }
         let arrayLines=jsonString.split('\n')
         let nomItem='pos_'+numSign+'_'+numDegree+'_'+numItem
@@ -408,16 +408,16 @@ Rectangle {
         //if(!e){
         newJsonString+=nomItem+'='+zoom+'\n'
         //}
-        unik.setFile(jsonFile, newJsonString)
+        u.setFile(jsonFile, newJsonString)
     }
     function getJsonZoom(numSign, numDegree, numItem){
         //let jsonFile='./sabianosJsonZoom.json'
         let jsonFile='./modules/ZoolSabianos/sabianosJsonZoom.json'
-        let existe=unik.fileExist(jsonFile)
+        let existe=u.fileExist(jsonFile)
         let jsonString=''
         if(existe){
-            jsonString=unik.getFile(jsonFile)
-            //            log.l('El archivo Sabianos Json Zoom exite en '+unik.getPath(1))
+            jsonString=u.getFile(jsonFile)
+            //            log.l('El archivo Sabianos Json Zoom exite en '+u.getPath(1))
             //            log.l('Datos: '+jsonString)
             //            log.visible=true
         }else{
@@ -449,7 +449,7 @@ Rectangle {
             r.fz=0.01
         }
         zoom=parseFloat(r.fz).toFixed(1)
-        //unik.speak('Sube '+zoom)
+        //u.speak('Sube '+zoom)
 
 
         data.font.pixelSize=r.fs*2*r.fz
@@ -468,7 +468,7 @@ Rectangle {
         }
         r.fz+=0.1
         zoom=parseFloat(r.fz).toFixed(1)
-        //unik.speak('Baja '+zoom)
+        //u.speak('Baja '+zoom)
         /*if(zoom<1.0){
                 zoom=parseFloat(1).toFixed(1)
             }*/

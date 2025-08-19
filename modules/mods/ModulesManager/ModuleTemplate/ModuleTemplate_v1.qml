@@ -15,7 +15,7 @@ Item{
     property var aParents: [xMed, xLatIzq, xLatDer, capa101]
     Settings{
         id: s
-        fileName: unik.getPath(4)+'/module_'+r.moduleName+'.cfg'
+        fileName: u.getPath(4)+'/module_'+r.moduleName+'.cfg'
         property int typeShow: 0
         onTypeShowChanged: {
             r.parent=rMod.aParents[s.typeShow]

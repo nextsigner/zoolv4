@@ -5,9 +5,9 @@ Item{
     property var aMsgs: []
 
     Component.onCompleted: {
-        if(unik.folderExist('/home/ns'))return
+        if(u.folderExist('/home/ns'))return
         let s='Zool Iniciado!\n'
-        s+='Versión: '+unik.getFile('version')
+        s+='Versión: '+u.getFile('version')
         sendMessage(s)
     }
     function sendMessage(msg){

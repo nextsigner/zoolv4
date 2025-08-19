@@ -61,8 +61,8 @@ Rectangle{
     function getJsonZP(){
         let zp=[]
         let jsonPath='./modules/ZoolAutoPanZoom/'+app.stringRes+'_zp.json'
-        if(unik.fileExist(jsonPath)){
-            let jsonData=unik.getFile(jsonPath)
+        if(u.fileExist(jsonPath)){
+            let jsonData=u.getFile(jsonPath)
             let json=JSON.parse(jsonData)
             zp=json['c'+r.c]
         }else{
@@ -72,7 +72,7 @@ Rectangle{
             jsonCode+=' "c3":[0,0,0,0,0,0,0,0],\n'
             jsonCode+=' "c4":[0,0,0,0,0,0,0,0]\n'
             jsonCode+='}\n'
-            unik.setFile(jsonPath, jsonCode)
+            u.setFile(jsonPath, jsonCode)
             zp=[0,0,0,0,0,0,0,0]
         }
         return zp
@@ -80,9 +80,9 @@ Rectangle{
     function setJsonZP(){
         let zp=sweg.getZoomAndPos()
         let jsonPath='./modules/ZoolAutoPanZoom/'+app.stringRes+'_zp.json'
-        let jsonData=unik.getFile(jsonPath)
+        let jsonData=u.getFile(jsonPath)
         let json=JSON.parse(jsonData)
         json['c'+r.c]=zp
-        unik.setFile(jsonPath, JSON.stringify(json))
+        u.setFile(jsonPath, JSON.stringify(json))
     }
 }

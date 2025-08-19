@@ -46,7 +46,7 @@ Rectangle {
 
     Settings{
         id: settings
-        fileName: unik.getPath(4)+'/zoolFileTransLoader.cfg'
+        fileName: u.getPath(4)+'/zoolFileTransLoader.cfg'
         property bool showModuleVersion: false
         property bool inputCoords: false
     }
@@ -555,8 +555,8 @@ Rectangle {
         c+='        uqp'+ms+'.destroy(0)\n'
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
-        c+='        console.log(\''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/geoloc.py" "'+tiCiudad.t.text+'" "'+unik.currentFolderPath()+'"\')\n'
-        c+='        run(\''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/geoloc.py" "'+tiCiudad.t.text+'" "'+unik.currentFolderPath()+'"\')\n'
+        c+='        console.log(\''+app.pythonLocation+' "'+u.currentFolderPath()+'/py/geoloc.py" "'+tiCiudad.t.text+'" "'+u.currentFolderPath()+'"\')\n'
+        c+='        run(\''+app.pythonLocation+' "'+u.currentFolderPath()+'/py/geoloc.py" "'+tiCiudad.t.text+'" "'+u.currentFolderPath()+'"\')\n'
         c+='    }\n'
         c+='}\n'
         if(apps.dev)log.lv('\n\n'+c+'\n\n')
@@ -568,8 +568,8 @@ Rectangle {
     //        let unom=r.uFileNameLoaded.replace(/ /g, '_')
     //        let fileName=apps.workSpace+'/'+unom+'.json'
     //        console.log('setNewJsonFileData() fileName: '+fileName)
-    //        if(unik.fileExist(fileName)){
-    //            //unik.deleteFile(fileName)
+    //        if(u.fileExist(fileName)){
+    //            //u.deleteFile(fileName)
     //        }
     //        let d = new Date(Date.now())
     //        let ms=d.getTime()
@@ -613,7 +613,7 @@ Rectangle {
     //        j+='}'
     //        app.currentData=j
     //        nom=tiNombre.t.text.replace(/ /g, '_')
-    //        unik.setFile(apps.workSpace+'/'+nom+'.json', app.currentData)
+    //        u.setFile(apps.workSpace+'/'+nom+'.json', app.currentData)
     //        //apps.url=app.mainLocation+'/jsons/'+nom+'.json'
     //        zm.loadJsonFromFilePath(apps.workSpace+'/'+nom+'.json')
     //        //runJsonTemp()

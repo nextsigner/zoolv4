@@ -5,9 +5,9 @@ import Qt.labs.settings 1.1
 Settings{
     id: r
     //fileName:'zool_'+Qt.platform.os+'.cfg'
-    fileName: unik.getPath(4)+'/zool.cfg'
+    fileName: u.getPath(4)+'/zool.cfg'
 
-    property string mainFolder: unik.getPath(4)
+    property string mainFolder: u.getPath(4)
     property string lastVersion: '3.14.0'
 
     property bool dev: false
@@ -15,8 +15,8 @@ Settings{
 
     property string appId: ''
     onAppIdChanged: {
-        unik.setFile('appid', appId)
-        unik.setFile(unik.getPath(4)+'/appid', appId)
+        u.setFile('appid', appId)
+        u.setFile(u.getPath(4)+'/appid', appId)
     }
 
 
@@ -169,7 +169,7 @@ Settings{
     property bool isJsonsFolderTemp: false
 
     //Num
-    property string numCurrentFolder: unik.getPath(3)
+    property string numCurrentFolder: u.getPath(3)
     property string numUFecha
     property string numUNom
     property string numUFirma
@@ -206,13 +206,13 @@ Settings{
         }
     }
     Component.onCompleted: {
-        let fe1=unik.fileExist('appid')
-        let fe2=unik.fileExist(unik.getPath(4)+'/appid')
+        let fe1=u.fileExist('appid')
+        let fe2=u.fileExist(u.getPath(4)+'/appid')
         if(appId==='' && (fe1 || fe2)){
             if(fe1){
-                appId=unik.getFile('appid').replace(/\n/g, '')
+                appId=u.getFile('appid').replace(/\n/g, '')
             }else{
-                appId=unik.getFile(unik.getPath(4)+'/appid').replace(/\n/g, '')
+                appId=u.getFile(u.getPath(4)+'/appid').replace(/\n/g, '')
             }
         }
     }

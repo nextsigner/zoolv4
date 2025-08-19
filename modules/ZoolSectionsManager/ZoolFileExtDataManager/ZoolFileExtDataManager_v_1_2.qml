@@ -550,10 +550,10 @@ Rectangle {
         app.objZoolFileExtDataManager=r
     }
     function deleteVnData(fileName){
-        unik.deleteFile(fileName)
+        u.deleteFile(fileName)
         let fn=fileName.replace('cap_', '').replace('.png', '')
         let jsonFileName=fn+'.json'
-        unik.deleteFile(jsonFileName)
+        u.deleteFile(jsonFileName)
         updateList()
     }
     function getEdad(dateString) {

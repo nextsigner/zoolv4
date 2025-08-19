@@ -86,7 +86,7 @@ Rectangle{
 
     property int planetsAreaWidth: 100
     property int planetsAreaWidthBack: 100
-    property string folderImg: unik.getPath(5)+'/modules/ZoolBodies/ZoolAs/imgs_v1'
+    property string folderImg: u.getPath(5)+'/modules/ZoolBodies/ZoolAs/imgs_v1'
 
     property color backgroundColor: enableBackgroundColor?apps.backgroundColor:'transparent'
     property bool enableBackgroundColor: apps.enableBackgroundColor
@@ -853,7 +853,7 @@ Rectangle{
         setTheme(apps.zmCurrenThemeIndex)
     }
     function nextTheme(){
-        let jd=unik.getFile('./modules/ZoolMap/themes.json')
+        let jd=u.getFile('./modules/ZoolMap/themes.json')
         let lt=JSON.parse(jd).themes.length
         if(apps.currentThemeIndex>0){
             apps.currentThemeIndex--
@@ -863,7 +863,7 @@ Rectangle{
     }
     function setTheme(i){
         //Set ZoolMap Theme
-        let jd=unik.getFile('./modules/ZoolMap/themes.json')
+        let jd=u.getFile('./modules/ZoolMap/themes.json')
         let t=JSON.parse(jd).themes[i]
         //log.lv('Themes: '+JSON.stringify(j.themes[0], null, 2))
         r.bodieColor=t.bodieColor
@@ -931,7 +931,7 @@ Rectangle{
         c+='        uqp'+ms+'.destroy(3000)\n'
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
-        c+='    let cmd=\''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/'+app.sweBodiesPythonFile+'" '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+' '+hsys+' "'+app.sweFolder.replace(/\"/g, '')+'" '+valt+'\'\n'
+        c+='    let cmd=\''+app.pythonLocation+' "'+u.currentFolderPath()+'/py/'+app.sweBodiesPythonFile+'" '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+' '+hsys+' "'+app.sweFolder.replace(/\"/g, '')+'" '+valt+'\'\n'
         c+='        console.log(\'zm.load()\'+cmd)\n'
         c+='        run(cmd)\n'
         //c+='        Qt.quit()\n'
@@ -984,7 +984,7 @@ Rectangle{
         c+='        uqp'+ms+'.destroy(3000)\n'
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
-        c+='        let cmd=\''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/'+app.sweBodiesPythonFile+'" '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+' '+hsys+' "'+app.sweFolder.replace(/\"/g, '')+'" '+valt+'\'\n'
+        c+='        let cmd=\''+app.pythonLocation+' "'+u.currentFolderPath()+'/py/'+app.sweBodiesPythonFile+'" '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+' '+hsys+' "'+app.sweFolder.replace(/\"/g, '')+'" '+valt+'\'\n'
         c+='          console.log("zm.loadBack() "+cmd)\n'
         c+='          run(cmd)\n'
         c+='    }\n'
@@ -1240,7 +1240,7 @@ Rectangle{
     function loadFromFile(filePath, tipo, isBack){
         tapa.visible=true
         tapa.opacity=1.0
-        let jsonFileData=unik.getFile(filePath)
+        let jsonFileData=u.getFile(filePath)
         let j=JSON.parse(jsonFileData).params
         let t=tipo
         let hsys=j.hsys?j.hsys:apps.currentHsys
@@ -1347,10 +1347,10 @@ Rectangle{
         zm.centerZoomAndPos()
     }
     function loadIntOrExt(fileName, isExt){
-        let existe=unik.fileExist(fileName)
+        let existe=u.fileExist(fileName)
         if(!existe)return
         r.lockEv=true
-        let jsonData=unik.getFile(fileName)
+        let jsonData=u.getFile(fileName)
         let p=JSON.parse(jsonData).params
 
         if(!isExt){
@@ -1614,7 +1614,7 @@ Rectangle{
         return j
     }
     function getData(file, bodie, sign, house){
-        let jd=unik.getFile(file)
+        let jd=u.getFile(file)
         let j=JSON.parse(jd)
         let item=(''+bodie+'_en_'+sign).toLowerCase()
         let s=''
@@ -1679,9 +1679,9 @@ Rectangle{
         let obj=Qt.createQmlObject(c, xuqps, 'nioqmlcode')
     }
     function getZiDataNum(num, gen, show){
-        let bashScriptPath=unik.getPath(5)+'/modules/ZoolMap/ZoolMapData/getDataNum.sh'
-        let jsonFilePath=unik.getPath(5)+'/modules/ZoolMap/ZoolMapData/numerologia_segunda_persona_masc.json'
-        if(gen==='fem')jsonFilePath=unik.getPath(5)+'/modules/ZoolMap/ZoolMapData/numerologia_segunda_persona_fem.json'
+        let bashScriptPath=u.getPath(5)+'/modules/ZoolMap/ZoolMapData/getDataNum.sh'
+        let jsonFilePath=u.getPath(5)+'/modules/ZoolMap/ZoolMapData/numerologia_segunda_persona_masc.json'
+        if(gen==='fem')jsonFilePath=u.getPath(5)+'/modules/ZoolMap/ZoolMapData/numerologia_segunda_persona_fem.json'
         let c=''
         c+='import QtQuick 2.0\n'
         c+='import unik.UnikQProcess 1.0\n'
@@ -2010,7 +2010,7 @@ Rectangle{
         let sNomItem=''+app.stringRes+'zoompos'
         if(isExt)sNomItem+='Back'
         json[sNomItem]['h'+house]=r.getZoomAndPos()
-        if(unik.fileExist(apps.url.replace('file://', ''))){
+        if(u.fileExist(apps.url.replace('file://', ''))){
             let dataModNow=new Date(Date.now())
             json.params.msmod=dataModNow.getTime()
         }
@@ -2018,7 +2018,7 @@ Rectangle{
         log.lv('json: '+njson)
         //zm.fileData=njson
         //zm.currentData=njson
-        unik.setFile(apps.url.replace('file://', ''), njson)
+        u.setFile(apps.url.replace('file://', ''), njson)
     }
     //Función para el desarrollo de el posicionamiento automático.
     function mr(x, y) {

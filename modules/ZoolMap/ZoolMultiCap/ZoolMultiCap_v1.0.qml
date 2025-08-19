@@ -95,7 +95,7 @@ Item{
         id: tMultiCap2Houses
         interval: 100
         onTriggered: {
-            let fn=unik.getPath(3)+'/Zool/caps/'+zm.currentNom.replace(/ /g, '_')+'/casa_'+zm.currentHouseIndex+'.png'//zm.objPlanetsCircle.getAs(zm.currentPlanetIndex).getAsFileNameForCap()
+            let fn=u.getPath(3)+'/Zool/caps/'+zm.currentNom.replace(/ /g, '_')+'/casa_'+zm.currentHouseIndex+'.png'//zm.objPlanetsCircle.getAs(zm.currentPlanetIndex).getAsFileNameForCap()
             //zpn.addNot('fn: '+fn, false, 0)
             //log.lv('fn: '+fn)
             //fn=fn.toLowerCase()
@@ -150,7 +150,7 @@ Item{
             let vmin=d.getMinutes()
             let vsec=d.getSeconds()
             let sn='zool_captura_D'+vd+'M'+vm+'A'+va+'_H'+vh+'M'+vmin+'S'+vsec//+'.png'
-            let fn=unik.getPath(3)+'/'+sn+'.png'
+            let fn=u.getPath(3)+'/'+sn+'.png'
             //fn=fn.toLowerCase()
             //fn=app.j.quitarAcentos(fn)
             if(zsm.getPanel('ZoolSabianos').view.visible){
@@ -186,7 +186,7 @@ Item{
             //c+='        width: 800\n'
             //c+='        height: 500\n'
             c+='        modality: Qt.Window\n'
-            c+='        folder: "'+unik.getPath(3)+'"\n'
+            c+='        folder: "'+u.getPath(3)+'"\n'
             c+='        title: "Escribir el nombre del archivo de imagen."\n'
             c+='        selectExisting: false\n'
             c+='        nameFilters: ["Imagen PNG (*.png)"]\n'

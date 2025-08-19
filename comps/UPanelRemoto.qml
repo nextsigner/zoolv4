@@ -21,7 +21,7 @@ Rectangle{
     //    }
     Settings{
         id: prs
-        fileName: unik.getPath(4)+'/panleRemoto.cfg'
+        fileName: u.getPath(4)+'/panleRemoto.cfg'
         property string state: 'show'
         property int currentViewIndex: 0
         onStateChanged: panelRemoto.state=state
@@ -409,7 +409,7 @@ Rectangle{
                             width: r.width-app.fs*0.25
                             anchors.horizontalCenter: parent.horizontalCenter
                             onTextChanged: {
-                                if(text!==apps.workSpace&&unik.folderExist(text)){
+                                if(text!==apps.workSpace&&u.folderExist(text)){
                                     botSetJsonsFolder.enabled=true
                                 }else{
                                     botSetJsonsFolder.enabled=false
@@ -810,7 +810,7 @@ Rectangle{
     }
 
     Component.onCompleted: {
-        //console.log('PanelRemoto Cfg path: '+unik.getPath(4))
+        //console.log('PanelRemoto Cfg path: '+u.getPath(4))
         panelRemoto.z=panelSabianos.z-1
         panelRemoto.state=prs.state
 

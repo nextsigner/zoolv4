@@ -136,7 +136,7 @@ Rectangle{
     function mkHtml(){
         let dateAhora=new Date(Date.now())
         let p=zfdm.getJsonAbs().params
-        let fileNamePath=unik.getPath(3)+'/Direcciones_Primarias_Fechas_Importantes_de_'+(p.n.replace(/ /g, '_'))+'.html'
+        let fileNamePath=u.getPath(3)+'/Direcciones_Primarias_Fechas_Importantes_de_'+(p.n.replace(/ /g, '_'))+'.html'
         let title='Fechas claves en la vida de '+p.n
         let html='<!DOCTYPE html>
 <html lang="es-ES">
@@ -173,7 +173,7 @@ Rectangle{
             if(lv.itemAtIndex(i))s+=lv.itemAtIndex(i).getText()+'<br><br>'
         }
         html=html.replace('*****', s)
-        unik.setFile(fileNamePath, html)
+        u.setFile(fileNamePath, html)
        //log.lv('html: '+html)
         Qt.openUrlExternally(fileNamePath)
     }

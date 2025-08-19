@@ -12,7 +12,7 @@ function captureToPng(fileUrl, item, openInExternal){
         //c+='        width: 800\n'
         //c+='        height: 500\n'
         c+='        modality: Qt.Window\n'
-        c+='        folder: "'+unik.getPath(3)+'"\n'
+        c+='        folder: "'+u.getPath(3)+'"\n'
         c+='        title: "Escribir el nombre del archivo de imagen."\n'
         c+='        selectExisting: false\n'
         c+='        nameFilters: ["Imagen PNG (*.png)"]\n'
@@ -58,8 +58,8 @@ function captureSweg(){
     let m0=apps.url.split('/')
     let folderName=m0[m0.length-1].replace('.json', '')
     let folder=apps.workSpace+'/caps/'+folderName
-    if(!unik.folderExist(folder)){
-        unik.mkdir(folder)
+    if(!u.folderExist(folder)){
+        u.mkdir(folder)
     }
     let imgFileName='cap_'
     if(app.currentPlanetIndex>=0&&app.currentPlanetIndex<20){
@@ -93,8 +93,8 @@ function captureSwegBack(){
     let m0=apps.url.split('/')
     let folderName=m0[m0.length-1].replace('.json', '')
     let folder=apps.workSpace+'/caps/'+folderName
-    if(!unik.folderExist(folder)){
-        unik.mkdir(folder)
+    if(!u.folderExist(folder)){
+        u.mkdir(folder)
     }
     let imgFileName='cap_'+app.t+'_'
     if(app.currentPlanetIndexBack>=0&&app.currentPlanetIndexBack<20){
@@ -136,7 +136,7 @@ function capturePlanet(){
     let params=zfdm.getJsonAbs().params
     let m0=apps.url.split('/')
     let folderName=m0[m0.length-1].replace('.json', '')
-    let folder=unik.getPath(3)//apps.workSpace+'/caps/'+folderName
+    let folder=u.getPath(3)//apps.workSpace+'/caps/'+folderName
 
     let json=zm.currentJson
 

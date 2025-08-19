@@ -700,7 +700,7 @@ Item{
             json.rots={}
         }
         json.rots['rc'+r.numAstro]=rot
-        if(unik.fileExist(apps.url.replace('file://', ''))){
+        if(u.fileExist(apps.url.replace('file://', ''))){
             let dataModNow=new Date(Date.now())
             json.params.msmod=dataModNow.getTime()
         }
@@ -738,7 +738,7 @@ Item{
             log.lv('xAs'+r.numAstro+': saveZoomAndPos()'+JSON.stringify(json, null, 2))
             log.lv('json['+itemName+'][zpc'+r.numAstro+']=sweg.getZoomAndPos()'+JSON.stringify(json[itemName+'']['zpc'+r.numAstro], null, 2))
         }
-        if(unik.fileExist(apps.url.replace('file://', ''))){
+        if(u.fileExist(apps.url.replace('file://', ''))){
             let dataModNow=new Date(Date.now())
             json.params.msmod=dataModNow.getTime()
         }
@@ -781,11 +781,11 @@ Item{
         sn=app.j.quitarAcentos(sn)
         sn+='_en_casa_'+r.ih
         sn+='.png'
-        let fn=unik.getPath(3)+'/Zool/caps'
+        let fn=u.getPath(3)+'/Zool/caps'
         let folder=zm.currentNom.replace(/ /g, '_')
         let folderPath=fn+'/'+folder
-        if(!unik.folderExist(folderPath)){
-            unik.mkdir(folderPath)
+        if(!u.folderExist(folderPath)){
+            u.mkdir(folderPath)
         }
         let ffn=folderPath+'/'+sn
         return ffn

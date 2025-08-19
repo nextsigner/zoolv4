@@ -25,7 +25,7 @@ Rectangle {
 
     Settings{
         id: settings
-        fileName: unik.getPath(4)+'/ModulesManager.cfg'
+        fileName: u.getPath(4)+'/ModulesManager.cfg'
         property string currentQmlTypeShowed: 'ModulesLoader'//'Intelink'
     }
 
@@ -169,7 +169,7 @@ Rectangle {
         for(var i=0;i<xSections.children.length; i++){
             xSections.children[0].destroy(0)
         }
-        //let extrasModsPath=unik.getPath(5)+'/modules/mods/ModulesManager'
+        //let extrasModsPath=u.getPath(5)+'/modules/mods/ModulesManager'
         let c='import mods.ModulesManager.'+s.currentQmlTypeShowed+' 1.0\n'
         c+=''+s.currentQmlTypeShowed+'{}\n'
         let comp=Qt.createQmlObject(c, xSections, 'loadcurrentmodules-code')
@@ -179,7 +179,7 @@ Rectangle {
         for(var i=0;i<xSections.children.length; i++){
             xSections.children[0].destroy(0)
         }
-        //let extrasModsPath=unik.getPath(5)+'/modules/mods/ModulesManager'
+        //let extrasModsPath=u.getPath(5)+'/modules/mods/ModulesManager'
         let c='import mods.ModulesManager.'+moduleName+' '+version+'\n'
         c+=''+moduleName+'{}\n'
         let comp=Qt.createQmlObject(c, xSections, 'loadcurrentmodules-code')

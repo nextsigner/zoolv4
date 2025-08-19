@@ -2,7 +2,7 @@ import QtQuick 2.0
 import unik.UnikQProcess 1.0
 
 /*
-Ejemplo de uso: unik.sendToTcpServer(r.host, r.port, r.user, r.to, text)
+Ejemplo de uso: u.sendToTcpServer(r.host, r.port, r.user, r.to, text)
 */
 
 Item{
@@ -66,8 +66,8 @@ Item{
             let localhost=false
             let args=Qt.application.arguments
             if(args.indexOf('-localhost')>=0)localhost=true
-            if(unik.fileExist('./tcpclient.conf')){
-                let data=unik.getFile('./tcpclient.conf')
+            if(u.fileExist('./tcpclient.conf')){
+                let data=u.getFile('./tcpclient.conf')
                 //console.log(data)
                 //if()console.log(data)
                 let lines=data.split('\n')
@@ -100,7 +100,7 @@ Item{
         }
     }
     function send(to, data){
-        unik.sendToTcpServer(r.host, r.port, r.user, to, data)
+        u.sendToTcpServer(r.host, r.port, r.user, to, data)
     }
     function init(){
         uqp.init()

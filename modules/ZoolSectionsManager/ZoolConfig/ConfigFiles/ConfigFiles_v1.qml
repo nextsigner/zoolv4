@@ -63,16 +63,16 @@ Rectangle{
             horizontalAlignment: TextInput.AlignLeft
             onTextChanged: {
                 //if(cbPreview.checked)loadTemp()
-                if(!unik.folderExist(t.text)){
+                if(!u.folderExist(t.text)){
                     t.color='red'
                 }else{
                     t.color=apps.fontColor
                 }
             }
             onEnterPressed: {
-                if(!unik.folderExist(t.text)){
-                    unik.mkdir(t.text)
-                    if(!unik.folderExist(t.text)){
+                if(!u.folderExist(t.text)){
+                    u.mkdir(t.text)
+                    if(!u.folderExist(t.text)){
                         t.color='red'
                     }else{
                         t.color=apps.fontColor
@@ -116,9 +116,9 @@ Rectangle{
     //-->Teclado
     function toEnter(ctrl){
         //log.lv('ConfigFiles.toEnter('+ctrl+')')
-        if(!unik.folderExist(tiJsonsFolder.text)){
-            unik.mkdir(tiJsonsFolder.text)
-            if(!unik.folderExist(tiJsonsFolder.text)){
+        if(!u.folderExist(tiJsonsFolder.text)){
+            u.mkdir(tiJsonsFolder.text)
+            if(!u.folderExist(tiJsonsFolder.text)){
                 tiJsonsFolder.t.color='red'
             }else{
                 tiJsonsFolder.t.color=apps.fontColor

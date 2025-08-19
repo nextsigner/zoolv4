@@ -14,7 +14,7 @@ Rectangle {
     //y:r.parent.height
     anchors.verticalCenter: parent.verticalCenter
 
-    property string jsonFilePath: unik.getPath(4)+'/cmds.json'
+    property string jsonFilePath: u.getPath(4)+'/cmds.json'
 
 
     property real lat
@@ -189,14 +189,14 @@ Rectangle {
         if(comando[0]==='logFileData'){
             log.visible=true
             log.l('Datos del archivo '+apps.url+':')
-            let fd=unik.getFile(apps.url)
+            let fd=u.getFile(apps.url)
             log.l(fd)
             return
         }
         if(comando[0]==='logFileDataBack'){
             log.visible=true
             log.l('Datos del archivo '+apps.urlBack+':')
-            let fd=unik.getFile(apps.urlBack)
+            let fd=u.getFile(apps.urlBack)
             log.l(fd)
             return
         }
@@ -235,7 +235,7 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
             //sweg.objHousesCircle.currentHouse=-1
 
             finalCmd=''
-                    +app.pythonLocation+' "'+unik.currentFolderPath()+'/py/astrologica_swe_search_eclipses.py" '+comando[1]+' '+comando[2]+' '+comando[3]+' '+comando[4]+' '+comando[5]+' "'+unik.currentFolderPath()+'"'
+                    +app.pythonLocation+' "'+u.currentFolderPath()+'/py/astrologica_swe_search_eclipses.py" '+comando[1]+' '+comando[2]+' '+comando[3]+' '+comando[4]+' '+comando[5]+' "'+u.currentFolderPath()+'"'
         }
         if(comando[0]==='rs'){
             if(comando.length<1)return
@@ -244,7 +244,7 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
             let cd2=new Date(cd)
             let hsys=apps.currentHsys
             finalCmd=''
-                    +app.pythonLocation+' "'+unik.currentFolderPath()+'/py/getRs.py" '+zm.currentGradoSolar+' '+zm.currentMinutoSolar+' '+zm.currentSegundoSolar+' '+cd2.getFullYear()+' '+zm.currentGmt+' '+zm.currentLat+' '+zm.currentLon+' '+zm.currentAlt+' "'+app.sweFolder+'"'
+                    +app.pythonLocation+' "'+u.currentFolderPath()+'/py/getRs.py" '+zm.currentGradoSolar+' '+zm.currentMinutoSolar+' '+zm.currentSegundoSolar+' '+cd2.getFullYear()+' '+zm.currentGmt+' '+zm.currentLat+' '+zm.currentLon+' '+zm.currentAlt+' "'+app.sweFolder+'"'
             console.log('ZoolCmd::runCmd:finalCmd: '+finalCmd)
             c=''
             c+=''
@@ -295,8 +295,8 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
             let j=JSON.parse(app.currentData)
             let hsys=apps.defaultHsys
             if(j.params.hsys)hsys=j.params.hsys
-            let sh='python3 "'+unik.currentFolderPath()+'/py/astrologica_swe.py" '+j.params.d+' '+j.params.m+' '+j.params.a+' '+j.params.h+' '+j.params.min+' '+j.params.gmt+' '+j.params.lat+' '+j.params.lon+' '+hsys+' "'+unik.currentFolderPath()+'"'
-            //unik.clipboard
+            let sh='python3 "'+u.currentFolderPath()+'/py/astrologica_swe.py" '+j.params.d+' '+j.params.m+' '+j.params.a+' '+j.params.h+' '+j.params.min+' '+j.params.gmt+' '+j.params.lat+' '+j.params.lon+' '+hsys+' "'+u.currentFolderPath()+'"'
+            //u.clipboard
             console.log('sh: '+sh)
             tiCmd.text=sh
             return
@@ -392,7 +392,7 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
         let cd3=new Date(cd2)
         let hsys=apps.currentHsys
         let finalCmd=''
-            +app.pythonLocation+' "'+unik.currentFolderPath()+'/py/astrologica_swe_search_revsol.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+hsys+' "'+unik.currentFolderPath()+'"'
+            +app.pythonLocation+' "'+u.currentFolderPath()+'/py/astrologica_swe_search_revsol.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+hsys+' "'+u.currentFolderPath()+'"'
         //console.log('finalCmd: '+finalCmd)
         let c=''
         c+=''
@@ -414,7 +414,7 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
                 +'      logData=""\n'
                 +'} catch(e) {\n'
                 +'  console.log("Error makeRS Code: "+e+" "+logData);\n'
-                +'  //unik.speak("error");\n'
+                +'  //u.speak("error");\n'
                 +'}\n'
 
         mkCmd(finalCmd, c)
@@ -439,7 +439,7 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
         let j='{"paramsBack":{"t":"rs","ms":'+nDateNow.getTime()+',"n":"Revolución Solar '+anio+' de '+app.currentNom+'","d":'+dia+',"m":'+mes+',"a":'+anio+',"h":'+hora+',"min":'+minuto+',"gmt":'+app.currentGmt+',"lat":'+app.currentLat+',"lon":'+app.currentLon+',"alt":0,"c":"'+app.currentLugar+'"}}'
         app.currentDataBack=j
         let finalCmd=''
-            +app.pythonLocation+' "'+unik.currentFolderPath()+'/py/astrologica_swe_search_revsol.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+hsys+' "'+unik.currentFolderPath()+'"'
+            +app.pythonLocation+' "'+u.currentFolderPath()+'/py/astrologica_swe_search_revsol.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+hsys+' "'+u.currentFolderPath()+'"'
         console.log('finalCmd: '+finalCmd)
         let c=''
         c+=''
@@ -462,15 +462,15 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
                 +'      logData=""\n'
                 +'} catch(e) {\n'
                 +'  console.log("Error makeRS Code: "+e+" "+logData);\n'
-                +'  //unik.speak("error");\n'
+                +'  //u.speak("error");\n'
                 +'}\n'
 
         mkCmd(finalCmd, c)
     }
     function getJsonCmds(){
         let jsonString='{"cmds":[]}'
-        if(!unik.fileExist(r.jsonFilePath)) return JSON.parse(jsonString)
-        jsonString=unik.getFile(r.jsonFilePath)
+        if(!u.fileExist(r.jsonFilePath)) return JSON.parse(jsonString)
+        jsonString=u.getFile(r.jsonFilePath)
         return JSON.parse(jsonString)
     }
     function addJsonCmds(cmd){
@@ -493,7 +493,7 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
         return json.cmds[index].cmd
     }
     function saveJsonCmds(json){
-        unik.setFile(r.jsonFilePath, JSON.stringify(json))
+        u.setFile(r.jsonFilePath, JSON.stringify(json))
     }
     function getLastJsonCmd(){
         let json = getJsonCmds()

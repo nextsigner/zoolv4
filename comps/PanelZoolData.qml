@@ -58,7 +58,7 @@ Rectangle{
         onFinished: {
             //log.ls('Finalizado!', 0, 500)
             //audioPlayer.source='file://'+uAudioFile
-            if(unik.getFileSize(uAudioFile)>1024){
+            if(u.getFileSize(uAudioFile)>1024){
                 audioPlayer.playlist.addItem('file://'+uAudioFile)
                 r.currentCmdCompleted++
             }
@@ -519,11 +519,11 @@ Rectangle{
         zsm.aPanelsIds.push(app.j.qmltypeof(r))
         zsm.aPanelesTits.push('Datos')
         let f=(''+apps.repAudioTAVCurrentFolder).replace('file://', '')
-        if(!unik.folderExist(documentsPath)){
-            unik.mkdir(documentsPath)
+        if(!u.folderExist(documentsPath)){
+            u.mkdir(documentsPath)
         }
-        if(!unik.folderExist(f)){
-            unik.mkdir(f)
+        if(!u.folderExist(f)){
+            u.mkdir(f)
         }
     }
     function loadData(p, s, h){
@@ -541,8 +541,8 @@ Rectangle{
         //Cargando datos de signos
         let fileDataPath=apps.workSpace+'/../zool_docs/zool_data/'+app.planetasArchivos[p]+'_s'+parseInt(s + 1)+'.txt'
         //log.ls('FilePath: '+fileDataPath, 0, 500)
-        if(!unik.fileExist(fileDataPath))return
-        let fileData=unik.getFile(fileDataPath)
+        if(!u.fileExist(fileDataPath))return
+        let fileData=u.getFile(fileDataPath)
         //log.ls('Data: '+fileData, 0, 500)
         let fileDataClasific=fileData.split('|INFORMACIÓN DESCLASIFICADA:')[0]
         let dataLines=fileDataClasific.split('|')
@@ -569,8 +569,8 @@ Rectangle{
         //Cargando datos de casas
         fileDataPath=apps.workSpace+'/../zool_docs/zool_data/'+app.planetasArchivos[p]+'_h'+parseInt(h + 1)+'.txt'
         //log.ls('FilePath House: '+fileDataPath, 0, 500)
-        if(!unik.fileExist(fileDataPath))return
-        fileData=unik.getFile(fileDataPath)
+        if(!u.fileExist(fileDataPath))return
+        fileData=u.getFile(fileDataPath)
         //log.ls('Data House: '+fileData, 0, 500)
         fileDataClasific=fileData.split('|INFORMACIÓN DESCLASIFICADA:')[0]
         dataLines=fileDataClasific.split('|')
@@ -605,8 +605,8 @@ Rectangle{
         }
         //log.ls('Leyendo archivo: '+fileDataPath, 400, 400)
 
-        if(!unik.fileExist(fileDataPath))return
-        let fileData=unik.getFile(fileDataPath)
+        if(!u.fileExist(fileDataPath))return
+        let fileData=u.getFile(fileDataPath)
         let dataLines=fileData.split('|')
         let dataList=[]
         return (''+dataLines[index]).replace(/\n/g, '')
@@ -616,13 +616,13 @@ Rectangle{
         let url=lmCmd.get(r.currentCmdCompleted).url
         //log.ls('Check fileName: '+fileName, 0,500)
         let fileSize=0
-        if(unik.fileExist(fileName)){
-            fileSize=unik.getFileSize(fileName)
+        if(u.fileExist(fileName)){
+            fileSize=u.getFileSize(fileName)
         }
         //log.ls('Check fileName: '+fileName+' fileSize: '+fileSize, 0,500)
-        if(!unik.fileExist(fileName) || fileSize===73){
+        if(!u.fileExist(fileName) || fileSize===73){
             //log.ls('Check fileName: '+fileName+' fileSize: '+fileSize, 0,500)
-            unik.deleteFile(fileName)
+            u.deleteFile(fileName)
             let cl='curl --output '+fileName+' "'+url+'"'
             uqp.uAudioFile=fileName
             uqp.run(cl)

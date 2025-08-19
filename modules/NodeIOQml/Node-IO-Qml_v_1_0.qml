@@ -2,7 +2,7 @@ import QtQuick 2.0
 import unik.UnikQProcess 1.0
 
 /*
-Ejemplo de uso: unik.sendToTcpServer(r.host, r.port, r.user, r.to, text)
+Ejemplo de uso: u.sendToTcpServer(r.host, r.port, r.user, r.to, text)
 */
 
 Item{
@@ -50,6 +50,6 @@ Item{
         }
     }
     function send(to, data){
-        unik.sendToTcpServer(r.host, r.port, r.user, to, data)
+        u.sendToTcpServer(r.host, r.port, r.user, to, data)
     }
 }

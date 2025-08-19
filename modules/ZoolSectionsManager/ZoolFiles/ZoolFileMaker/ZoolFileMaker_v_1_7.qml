@@ -47,7 +47,7 @@ Rectangle {
 
     Settings{
         id: settings
-        fileName: unik.getPath(4)+'/zoolFileMaker.cfg'
+        fileName: u.getPath(4)+'/zoolFileMaker.cfg'
         property bool showModuleVersion: false
         property bool inputCoords: false
     }
@@ -670,9 +670,9 @@ Rectangle {
                     //                        onTriggered: {
                     //                            let nom=tiNombre.t.text.replace(/ /g, '_')
                     //                            let fileName=apps.workSpace+'/'+nom+'.json'
-                    //                            if(unik.fileExist(fileName)){
+                    //                            if(u.fileExist(fileName)){
                     //                                r.uFileNameLoaded=tiNombre.text
-                    //                                let jsonFileData=unik.getFile(fileName)
+                    //                                let jsonFileData=u.getFile(fileName)
                     //                                let j=JSON.parse(jsonFileData)
                     //                                let dia=''+j.params.d
                     //                                if(parseInt(dia)<=9){

@@ -74,7 +74,7 @@ Rectangle{
     }
 
     Component.onCompleted: {
-        txtVersion.text='<b>Versión: </b>'+unik.getFile('version')
-        r.visible=!unik.folderExist('/home/ns')
+        txtVersion.text='<b>Versión: </b>'+u.getFile('version')
+        r.visible=!u.folderExist('/home/ns')
     }
 }

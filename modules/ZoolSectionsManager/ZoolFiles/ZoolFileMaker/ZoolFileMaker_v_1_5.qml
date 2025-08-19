@@ -496,9 +496,9 @@ Rectangle {
                         onTriggered: {
                             let nom=tiNombre.t.text.replace(/ /g, '_')
                             let fileName=apps.workSpace+'/'+nom+'.json'
-                            if(unik.fileExist(fileName)){
+                            if(u.fileExist(fileName)){
                                 r.uFileNameLoaded=tiNombre.text
-                                let jsonFileData=unik.getFile(fileName)
+                                let jsonFileData=u.getFile(fileName)
                                 let j=JSON.parse(jsonFileData)
                                 let dia=''+j.params.d
                                 if(parseInt(dia)<=9){
@@ -609,7 +609,7 @@ Rectangle {
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
         //c+='        console.log(\''+app.pythonLocation+' '+app.mainLocation+'/py/astrologica_swe.py '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+'\')\n'
-        c+='        run(\''+app.pythonLocation+' "'+unik.currentFolderPath()+'/py/geoloc.py" "'+tiCiudad.t.text+'" "'+unik.currentFolderPath()+'"\')\n'
+        c+='        run(\''+app.pythonLocation+' "'+u.currentFolderPath()+'/py/geoloc.py" "'+tiCiudad.t.text+'" "'+u.currentFolderPath()+'"\')\n'
         c+='    }\n'
         c+='}\n'
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcodenewvn')

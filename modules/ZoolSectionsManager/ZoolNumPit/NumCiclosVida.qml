@@ -842,7 +842,7 @@ Rectangle {
         let ret='?'
         let jsonString
         if(r.jsonNum===''){
-            r.jsonNum=unik.getFile('./resources/num.json')
+            r.jsonNum=u.getFile('./resources/num.json')
         }
         jsonString=r.jsonNum.replace(/\n/g, ' ')
         let json=JSON.parse(jsonString)
@@ -854,7 +854,7 @@ Rectangle {
         let ret='?'
         let jsonString
         if(r.jsonNum===''){
-            r.jsonNum=unik.getFile('./resources/num.json')
+            r.jsonNum=u.getFile('./resources/num.json')
         }
         jsonString=r.jsonNum.replace(/\n/g, ' ')
         let json=JSON.parse(jsonString)
@@ -866,7 +866,7 @@ Rectangle {
         let ret='?'
         let jsonString
         if(r.jsonNum===''){
-            r.jsonNum=unik.getFile('./resources/num.json')
+            r.jsonNum=u.getFile('./resources/num.json')
         }
         jsonString=r.jsonNum.replace(/\n/g, ' ')
         let json=JSON.parse(jsonString)

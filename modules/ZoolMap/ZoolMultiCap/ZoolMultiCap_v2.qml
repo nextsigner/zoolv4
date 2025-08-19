@@ -106,7 +106,7 @@ Item{
         interval: 100
         onTriggered: {
             //log.lv('tTimerCapHouses....')
-            let fnFolder=unik.getPath(3)+'/Zool/caps/'+zm.currentNom.replace(/ /g, '_')
+            let fnFolder=u.getPath(3)+'/Zool/caps/'+zm.currentNom.replace(/ /g, '_')
             let fn=fnFolder+'/casa_'+zm.currentHouseIndex+'.png'//zm.objPlanetsCircle.getAs(zm.currentPlanetIndex).getAsFileNameForCap()
             let jsonNot={}
             jsonNot.id='captura'
@@ -175,13 +175,13 @@ Item{
             let vmin=d.getMinutes()
             let vsec=d.getSeconds()
             let sn='zool_captura_D'+vd+'M'+vm+'A'+va+'_H'+vh+'M'+vmin+'S'+vsec//+'.png'
-            let fn=unik.getPath(3)+'/'+sn+'.png'
+            let fn=u.getPath(3)+'/'+sn+'.png'
             //fn=fn.toLowerCase()
             //fn=app.j.quitarAcentos(fn)
             if(zsm.getPanel('ZoolSabianos').view.visible){
-                fnp=unik.getPath(3)+'/Zool/caps/sabianos'
-                if(!unik.folderExist(fnp)){
-                    unik.mkdir(fnp)
+                fnp=u.getPath(3)+'/Zool/caps/sabianos'
+                if(!u.folderExist(fnp)){
+                    u.mkdir(fnp)
                 }
                 fn=fnp
                 fn+='/'+zsm.getPanel('ZoolSabianos').getCurrentFileName()
@@ -192,9 +192,9 @@ Item{
                     Qt.openUrlExternally("file://" + fnp)
                 }
             }else if(r.itemForCap){
-                fnp=unik.getPath(3)+'/Zool/caps'
-                if(!unik.folderExist(fnp)){
-                    unik.mkdir(fnp)
+                fnp=u.getPath(3)+'/Zool/caps'
+                if(!u.folderExist(fnp)){
+                    u.mkdir(fnp)
                 }
                 let date = new Date(Date.now())
                 let dia=date.getDate()
@@ -259,7 +259,7 @@ Item{
             //c+='        width: 800\n'
             //c+='        height: 500\n'
             c+='        modality: Qt.Window\n'
-            c+='        folder: "'+unik.getPath(3)+'"\n'
+            c+='        folder: "'+u.getPath(3)+'"\n'
             c+='        title: "Escribir el nombre del archivo de imagen."\n'
             c+='        selectExisting: false\n'
             c+='        nameFilters: ["Imagen PNG (*.png)"]\n'

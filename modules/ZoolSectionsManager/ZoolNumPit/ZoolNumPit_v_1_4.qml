@@ -1379,15 +1379,15 @@ Rectangle {
                                 r.currentIndexAG=aGetNums[2]
                                 r.numKarmico=aGetNums[3]
                                 let folder=apps.numCurrentFolder.replace('file://', '')
-                                if(!unik.folderExist(folder)){
+                                if(!u.folderExist(folder)){
                                     log.ls('La carpeta para guardar el archivo no existe: '+folder, 0, xApp.width*0.2)
                                     return
                                 }
                                 let fn=folder+'/'+(txtDataSearchNom.text).replace(/ /g,'_')+'_con_formulas.txt'
                                 let fn2=folder+'/'+(txtDataSearchNom.text).replace(/ /g,'_')+'_sin_formulas.txt'
 
-                                unik.setFile(fn2, getTodo(false))
-                                unik.setFile(fn, getTodo(true))
+                                u.setFile(fn2, getTodo(false))
+                                u.setFile(fn, getTodo(true))
                                 r.logView.clear()
                                 r.logView.l('El archivo se ha guardado en '+fn)
                                 r.logView.l('El archivo se ha guardado en '+fn2)
@@ -1798,7 +1798,7 @@ Rectangle {
         let ret='?'
         let jsonString
         if(r.jsonNum===''){
-            r.jsonNum=unik.getFile(r.jsonPath)
+            r.jsonNum=u.getFile(r.jsonPath)
         }
         jsonString=r.jsonNum.replace(/\n/g, ' ')
         let json=JSON.parse(jsonString)
@@ -1810,7 +1810,7 @@ Rectangle {
         let ret='?'
         let jsonString
         if(r.jsonNum===''){
-            r.jsonNum=unik.getFile(r.jsonPath)
+            r.jsonNum=u.getFile(r.jsonPath)
         }
         jsonString=r.jsonNum.replace(/\n/g, ' ')
         let json=JSON.parse(jsonString)
@@ -1822,7 +1822,7 @@ Rectangle {
         let ret='?'
         let jsonString
         if(r.jsonNum===''){
-            r.jsonNum=unik.getFile(r.jsonPath)
+            r.jsonNum=u.getFile(r.jsonPath)
         }
         jsonString=r.jsonNum.replace(/\n/g, ' ')
         let json=JSON.parse(jsonString)
@@ -1833,7 +1833,7 @@ Rectangle {
     function getDataJsonArGen(){
         let ret='?'
         let jsonString
-        jsonString=unik.getFile(r.jsonPath)
+        jsonString=u.getFile(r.jsonPath)
         jsonString=jsonString.replace(/\n/g, ' ')
         let json=JSON.parse(jsonString)
 
@@ -2497,7 +2497,7 @@ Rectangle {
         if(aa<realAA){
             tt='pasado'
         }
-        let jd=unik.getFile('modules/ZoolSectionsManager/ZoolNumPit/num_prognosis.json').replace(/\n/g, '')
+        let jd=u.getFile('modules/ZoolSectionsManager/ZoolNumPit/num_prognosis.json').replace(/\n/g, '')
         let j=JSON.parse(jd)
         let prognosis=j.prognosis
         let dataPrognosis=prognosis[ctx]

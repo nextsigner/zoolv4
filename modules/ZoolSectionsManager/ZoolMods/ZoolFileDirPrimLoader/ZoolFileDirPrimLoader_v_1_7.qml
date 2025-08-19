@@ -72,7 +72,7 @@ Rectangle {
 
     Settings{
         id: settings
-        fileName: unik.getPath(4)+'/zoolFileDirPrimLoader.cfg'
+        fileName: u.getPath(4)+'/zoolFileDirPrimLoader.cfg'
 
         property bool showModuleVersion: false
         property bool inputCoords: false

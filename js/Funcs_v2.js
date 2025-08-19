@@ -77,7 +77,7 @@ function setFs() {
 //    if(save){
 //        let fn=apps.workSpace+'/'+nom.replace(/ /g, '_')+'.json'
 //        //if(apps.dev)log.lv('loadFromArgs('+d+', '+m+', '+a+', '+h+', '+min+', '+gmt+', '+lat+', '+lon+', '+alt+', '+nom+', '+ciudad+', '+save+'): '+fn)
-//        unik.setFile(fn, j)
+//        u.setFile(fn, j)
 //        loadJsonBack(fn)
 //        return
 //    }
@@ -126,7 +126,7 @@ function showIW(){
     let nomCuerpo=m0[0]!=='asc'?app.planetas[app.planetasRes.indexOf(m0[0])]:'Ascendente'
     let jsonFileName=m0[0]!=='asc'?quitarAcentos(nomCuerpo.toLowerCase())+'.json':'asc.json'
     let jsonFileLocation='./quiron/data/'+jsonFileName
-    //    if(!unik.fileExist(jsonFileLocation)){
+    //    if(!u.fileExist(jsonFileLocation)){
     //        let obj=comp.createObject(app, {textData:'No hay datos disponibles.', width: sweg.width, height: sweg.height, x:0, y:0, fs: app.fs*0.5, title:'Sin datos'})
     //    }else{
     let numHome=m0[0]!=='asc'?-1:1
@@ -146,7 +146,7 @@ function showIWFromCtxMenuBar(){
     let nomCuerpo=m0[0]!=='asc'?app.planetas[app.planetasRes.indexOf(m0[0])]:'Ascendente'
     let jsonFileName=m0[0]!=='asc'?quitarAcentos(nomCuerpo.toLowerCase())+'.json':'asc.json'
     let jsonFileLocation='./quiron/data/'+jsonFileName
-    //    if(!unik.fileExist(jsonFileLocation)){
+    //    if(!u.fileExist(jsonFileLocation)){
     //        let obj=comp.createObject(app, {textData:'No hay datos disponibles.', width: sweg.width, height: sweg.height, x:0, y:0, fs: app.fs*0.5, title:'Sin datos'})
     //    }else{
     let numHome=m0[0]!=='asc'?-1:1
@@ -391,7 +391,7 @@ function qmltypeof(obj) {
 function mkSinFile(file){
     let jsonFileDataInterior=zm.fileData
     let json=JSON.parse(jsonFileDataInterior)
-    let jsonFileDataExt=unik.getFile(file).replace(/\n/g, '')
+    let jsonFileDataExt=u.getFile(file).replace(/\n/g, '')
     let jsonExt=JSON.parse(jsonFileDataExt)
     json.params.t='sin'
     json.paramsBack=jsonExt.params
@@ -400,13 +400,13 @@ function mkSinFile(file){
 
     let cNom=json.paramsBack.n
     let nFileName=(apps.workSpace+'/'+cNom+'.json').replace(/ /g,'_')
-    let e=unik.fileExist(nFileName)
+    let e=u.fileExist(nFileName)
     if(e){
         //log.l('Existe')
         loadJson(nFileName)
     }else{
         //log.l('No Existe')
-        unik.setFile(nFileName, JSON.stringify(json))
+        u.setFile(nFileName, JSON.stringify(json))
         xEditor.visible=true
         loadJson(nFileName)
     }
@@ -414,7 +414,7 @@ function mkSinFile(file){
 function mkRsFile(file){
     let jsonFileDataInterior=zm.fileData
     let json=JSON.parse(jsonFileDataInterior)
-    let jsonFileDataExt=JSON.stringify(JSON.parse(app.currentDataBack))//unik.getFile(file).replace(/\n/g, '')
+    let jsonFileDataExt=JSON.stringify(JSON.parse(app.currentDataBack))//u.getFile(file).replace(/\n/g, '')
     let jsonExt=JSON.parse(jsonFileDataExt)
     log.ls('jsonExt: '+jsonFileDataExt, 0, log.width)
     json.params.n='Rev. Solar de '+json.params.n+' - Año '+jsonExt.paramsBack.a
@@ -427,13 +427,13 @@ function mkRsFile(file){
     let cNom=json.params.n
     let nFileName=(apps.workSpace+'/'+cNom+'.json').replace(/ /g,'_')
     log.ls('nFileName: '+nFileName, 0, log.width)
-    let e=unik.fileExist(nFileName)
+    let e=u.fileExist(nFileName)
     if(e){
         log.l('Existe')
         loadJson(nFileName)
     }else{
         log.l('No Existe')
-        unik.setFile(nFileName, JSON.stringify(json))
+        u.setFile(nFileName, JSON.stringify(json))
         xEditor.visible=true
         loadJson(nFileName)
     }
@@ -441,7 +441,7 @@ function mkRsFile(file){
 function mkTransFile(){
     let jsonFileDataInterior=zm.fileData
     let json=JSON.parse(jsonFileDataInterior)
-    let jsonFileDataExt=JSON.stringify(JSON.parse(app.currentDataBack))//unik.getFile(file).replace(/\n/g, '')
+    let jsonFileDataExt=JSON.stringify(JSON.parse(app.currentDataBack))//u.getFile(file).replace(/\n/g, '')
     let jsonExt=JSON.parse(jsonFileDataExt)
     //if(apps.dev)log.lv('jsonExt: '+JSON.stringify(jsonExt))
     json.params.n=json.params.n+' - '+jsonExt.params.n
@@ -458,13 +458,13 @@ function mkTransFile(){
     let cNom=json.params.n
     let nFileName=(apps.workSpace+'/'+cNom+'.json').replace(/ /g,'_')
     log.lv('nFileName: '+nFileName)
-    let e=unik.fileExist(nFileName)
+    let e=u.fileExist(nFileName)
     if(e){
         log.l('Existe')
         loadJson(nFileName)
     }else{
         log.l('No Existe')
-        unik.setFile(nFileName, JSON.stringify(json))
+        u.setFile(nFileName, JSON.stringify(json))
         xEditor.visible=true
         loadJson(nFileName)
     }
@@ -500,7 +500,7 @@ function runJsonTemp(){
         log.lv('Ha fallado la carga del archivo '+apps.url)
         log.lv('Error de Json.parse(): '+e)
         //log.ls(JSON.stringify(JSON.parse(app.currentData), null, 2), 0, xApp.width)
-        //unik.speak('Error in Json file')
+        //u.speak('Error in Json file')
         return
     }
 
@@ -536,7 +536,7 @@ function runJsonTempBack(){
             log.lv(zm.currentDataBack)
             //log.lv(JSON.stringify(JSON.parse(app.currentDataBack), null, 2))
         }
-        //unik.speak('Error in Json file')
+        //u.speak('Error in Json file')
         return
     }
 
@@ -682,11 +682,11 @@ function saveJson(){
     zm.fileData=zm.currentData
     let jsonFileName=apps.url
     let json=JSON.parse(zm.fileData)
-    if(unik.fileExist(apps.url.replace('file://', ''))){
+    if(u.fileExist(apps.url.replace('file://', ''))){
         let dataModNow=new Date(Date.now())
         json.params.msmod=dataModNow.getTime()
     }
-    unik.setFile(jsonFileName, JSON.stringify(json))
+    u.setFile(jsonFileName, JSON.stringify(json))
     loadJson(apps.url)
 }
 function saveJsonBack(){
@@ -697,7 +697,7 @@ function saveJsonBack(){
     //json['paramsBack']={}
     let pb=JSON.parse(zm.currentDataBack)
     json['paramsBack']={}=pb.paramsBack
-    if(unik.fileExist(apps.url.replace('file://', ''))){
+    if(u.fileExist(apps.url.replace('file://', ''))){
         let dataModNow=new Date(Date.now())
         json.params.msmod=dataModNow.getTime()
     }
@@ -706,14 +706,14 @@ function saveJsonBack(){
     let jsonFileName=apps.workSpace+'/'+(''+pb.paramsBack.n).replace(/ /g, '_')+'.json'
     apps.url=jsonFileName
     log.ls('apps.url: '+apps.url, 0, 500)
-    unik.setFile(jsonFileName, JSON.stringify(json))
+    u.setFile(jsonFileName, JSON.stringify(json))
     //loadJson(apps.url)
 }
 
 function loadJsonNow(file){
     let fn=file
     let jsonFileName=fn
-    let jsonFileData=unik.getFile(jsonFileName).replace(/\n/g, '')
+    let jsonFileData=u.getFile(jsonFileName).replace(/\n/g, '')
     //console.log('main.loadJson('+file+'):'+jsonFileData)
 
     let json=JSON.parse(jsonFileData)
@@ -962,18 +962,18 @@ function loadModules(){
             //log.ls('Modules: '+json.modules[i].name, 0, 500)
             let url=json.modules[i].url
             let f=(''+url.split('/')[url.split('/').length - 1]).replace('.git', '')
-            //let folder=unik.getPath(5)+'/modules'//+f
-            let folder=unik.getPath(4)+'/modules'//+f
+            //let folder=u.getPath(5)+'/modules'//+f
+            let folder=u.getPath(4)+'/modules'//+f
             //log.ls('Modules Folder: '+folder, 0, 500)
-            if(!unik.folderExist(folder)){
-                unik.mkdir(folder)
-                //let download=unik.downloadGit(url, folder)
+            if(!u.folderExist(folder)){
+                u.mkdir(folder)
+                //let download=u.downloadGit(url, folder)
                 //log.ls('Modules Folder not exist making: '+folder, 0, 500)
             }else{
                 //log.ls('Modules Folder exist: '+folder, 0, 500)
             }
             //loadModule(f)
-            //            let download=unik.downloadGit(url, folder)
+            //            let download=u.downloadGit(url, folder)
             //            if(download){
             //                loadModule(f)
             //            }
@@ -985,19 +985,19 @@ function loadModules(){
 }
 function loadModule(module){
     //log.ls('loadModule('+folder+')...', 0, xLatIzq.width)
-    //engine.addImportPath(unik.getPath(4)+'/modules/'+folder);
+    //engine.addImportPath(u.getPath(4)+'/modules/'+folder);
     let c='import QtQuick 2.0\n'
-    //c+='import "'+unik.currentFolderPath()+'/zool-modules/'+folder+'" as Module\n'
-    //c+='import "'+unik.getPath(4)+'/modules/'+folder+'" as Module\n'
-    //c+='import "'+unik.getPath(4)+'/modules/'+folder+'" as Module\n'
-    //c+='import "'+unik.getPath(4)+'/modules/'+folder+'" as Module\n'
+    //c+='import "'+u.currentFolderPath()+'/zool-modules/'+folder+'" as Module\n'
+    //c+='import "'+u.getPath(4)+'/modules/'+folder+'" as Module\n'
+    //c+='import "'+u.getPath(4)+'/modules/'+folder+'" as Module\n'
+    //c+='import "'+u.getPath(4)+'/modules/'+folder+'" as Module\n'
     c+='import mods.'+module+' 1.0\n'
     c+='Item{\n'
     c+='    '+module+'{}\n'
     c+='}\n'
     //log.ls('code: '+c, 0, xLatIzq.width)
     let comp=Qt.createQmlObject(c, xApp, 'loadmodule')
-    //log.ls('L1104 Funcs.js Current Path: '+unik.currentFolderPath(), 0, xApp.width*0.2)
+    //log.ls('L1104 Funcs.js Current Path: '+u.currentFolderPath(), 0, xApp.width*0.2)
 }
 function getUqpCode(idName, cmd, onLogDataCode, onFinishedCode, onCompleteCode){
     let c='import QtQuick 2.0\n'

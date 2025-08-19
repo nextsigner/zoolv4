@@ -35,7 +35,7 @@ Rectangle {
     function loadData(file){
         //log.l('XInfoData file: '+file)
         //log.visible=true
-        let fileData=''+unik.getFile(file)
+        let fileData=''+u.getFile(file)
         if(r.markDown){
             let nfd=''
             let m0=fileData.split('\n')

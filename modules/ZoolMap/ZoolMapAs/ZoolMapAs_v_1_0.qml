@@ -344,7 +344,7 @@ Item{
             json.rots={}
         }
         json.rots['rc'+r.numAstro]=rot
-        if(unik.fileExist(apps.url.replace('file://', ''))){
+        if(u.fileExist(apps.url.replace('file://', ''))){
             let dataModNow=new Date(Date.now())
             json.params.msmod=dataModNow.getTime()
         }
@@ -378,7 +378,7 @@ Item{
             //log.ls('xAs'+r.numAstro+': saveZoomAndPos()'+JSON.stringify(json, null, 2), 0, log.width)
             //log.ls('json['+app.stringRes+'zoompos][zpc'+r.numAstro+']=sweg.getZoomAndPos()'+JSON.stringify(json[app.stringRes+'zoompos']['zpc'+r.numAstro], null, 2), 0, log.width)
         }
-        if(unik.fileExist(apps.url.replace('file://', ''))){
+        if(u.fileExist(apps.url.replace('file://', ''))){
             let dataModNow=new Date(Date.now())
             json.params.msmod=dataModNow.getTime()
         }

@@ -128,7 +128,7 @@ Rectangle {
                 width: apps.botSize
                 height: width
                 onClicked: {
-                    let jd=unik.getFile('./modules/ZoolMap/themes.json')
+                    let jd=u.getFile('./modules/ZoolMap/themes.json')
                     let t=JSON.parse(jd)
                     let cant=Object.keys(t).length
                     if(apps.zmCurrenThemeIndex<cant){
@@ -234,8 +234,8 @@ Rectangle {
                     let m0=apps.url.split('/')
                     let folderName=m0[m0.length-1].replace('.json', '')
                     let folder=apps.workSpace+'/caps/'+folderName
-                    if(!unik.folderExist(folder)){
-                        unik.mkdir(folder)
+                    if(!u.folderExist(folder)){
+                        u.mkdir(folder)
                     }
                     let imgFileName='cap_'
                     imgFileName+='elementos'

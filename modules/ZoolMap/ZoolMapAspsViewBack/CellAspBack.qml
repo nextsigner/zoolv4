@@ -84,7 +84,8 @@ Rectangle {
                 zm.uAspShow='ext_'+arrColors[indexAsp]+'_bodie_'+r.bodie+'_'+r.objectName
                 let aspName=zm.objAspsCircle.getAspName(indexAsp)
                 let aspDeg=zm.objAspsCircle.getAspDeg(aspName)
-                zm.objZoolAspectsView.uAspShowed=aspName+' °'+aspDeg
+                zm.objZoolAspectsViewBack.uAspShowed=aspName+' °'+aspDeg
+                //zpn.log('zm .objZoolAspectsViewBack .uAspShowed:'+zm.objZoolAspectsViewBack.uAspShowed)
             }else{
                 zm.objAspsCircleBack.currentAspSelected=-1
                 //swegz.sweg.objAspsCircle.currentAspSelected=-1

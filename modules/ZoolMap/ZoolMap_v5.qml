@@ -632,7 +632,7 @@ Rectangle{
                             id: ca
                             d: signCircle.width-(signCircle.w*2)-parent.w
                             color: 'transparent'//apps.backgroundColor
-                            onWidthChanged: aspsCircle.hideAndShow()
+                            //onWidthChanged: aspsCircle.hideAndShow()
                         }
                     }
                 }

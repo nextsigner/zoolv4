@@ -303,7 +303,10 @@ Item{
                 onVisibleChanged: {
                     let difExtRot=0
                     if(r.isBack){
-                        if(!zm.currentJson || zm.currentJsonBack)return
+
+                        //zpn.log(zm.currentJsonBack?'SI zm.currentJsonBack':'No zm.currentJsonBack')
+                        if(!zm.currentJson || !zm.currentJsonBack)return
+                        //zpn.log('2 Definiendo..')
                         let jInt=zm.currentJson
                         let jExt=zm.currentJsonBack
                         let gAscInt=jInt.ph.h1.gdec
@@ -317,7 +320,9 @@ Item{
                         //log.lv('difExtRot: '+difExtRot)
                     }
 
-                    labelAspName.text=zm.objZoolAspectsView.uAspShowed
+
+                    //zpn.log('zm .objZoolAspectsViewBack .uAspShowed:'+zm.objZoolAspectsViewBack.uAspShowed)
+                    labelAspName.text=!r.isBack?zm.objZoolAspectsView.uAspShowed:zm.objZoolAspectsViewBack.uAspShowed
                     let rot=0
                     if(r.ih===1){
                         rot=-90

@@ -10,7 +10,7 @@ import ZoolMap.ZoolMapAspsView 1.0
 import ZoolMap.ZoolMapAspsViewBack 1.0
 import ZoolMap.ZoolMapAsInfoView 1.0
 import ZoolElementsView 1.0
-import ZoolMap.NumberLines 1.0
+import ZoolMap.NumberLines 2.0
 
 import ZoolMap.ZoolMapNakshatraView 1.0
 
@@ -638,8 +638,21 @@ Rectangle{
                 }
 
                 //ZoolMapHousesCircle{id: housesCircle; width: ai.width; z:ai.z+1}
+
                 ZoolMapHousesCircle{id: housesCircleBack; width: ai.width; isExt: true}
                 ZoolMapSignCircle{id: signCircle; width: ai.width-r.housesNumWidth*2-r.housesNumMargin*2;}
+                //Container Grados
+                Item{
+                    id: xNL1
+                    width: zm.objSignsCircle.width-(zm.zodiacBandWidth*2)
+                    height: width
+                    anchors.centerIn: parent
+                    NumberLines{
+                        parent: apps.numberLinesMode===0?xNL1:xNL2
+                        visible: apps.showNumberLines
+
+                    }
+                }
                 Rectangle{
                     id:bgPCB
                     width: planetsCircleBack.width
@@ -660,9 +673,11 @@ Rectangle{
                     ZoolMapPlanetsCircle{id: planetsCircle; width: signCircle.width-signCircle.w*2; z: ai.z+4;}
                 }
 
-                NumberLines{
-                    visible: apps.showNumberLines
-
+                Item{
+                    id: xNL2
+                    width: zm.objSignsCircle.width-(zm.zodiacBandWidth*2)
+                    height: width
+                    anchors.centerIn: parent
                 }
                 ZoolMapNakshatraView{id: nakshatraView; width: ca.width; z: aspsCircle.z+1}
                 Rectangle{

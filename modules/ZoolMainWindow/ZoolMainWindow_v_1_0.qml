@@ -920,6 +920,12 @@ ApplicationWindow {
         }
     }
     Shortcut{
+        sequence: 'Ctrl+Shift+N'
+        onActivated: {
+            apps.numberLinesMode=apps.numberLinesMode===0?1:0
+        }
+    }
+    Shortcut{
         sequence: 'Ctrl+s'
         onActivated: {
             if(xEditor.visible){

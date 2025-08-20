@@ -66,6 +66,11 @@ ZoolMenus{
         onTriggered: {apps.showNumberLines=!apps.showNumberLines}
     }
     Action {
+        enabled: apps.showNumberLines
+        text: qsTr("Cambiar Pos. de grados")
+        onTriggered: {apps.numberLinesMode=apps.numberLinesMode===0?1:0}
+    }
+    Action {
         text: qsTr("Cargar Ejemplo")
         onTriggered: {
             zm.loadJsonFromFilePath('/home/ns/gd/Zool/Ricardo.json')

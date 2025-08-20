@@ -26,6 +26,8 @@ Para que las órdenes del teclado respondan correctamente, debe activar el área
 #
 ### Más funciones del Teclado
 #
+* ***Ver u Ocultar Grados en la Rueda Zodiacal:*** Presionar la teclas "Ctrl+n".
+* ***Cambiar posición de Grados en la Rueda Zodiacal:*** Presionar la teclas "Ctrl+Shift+n".
 * ***Ver Elementos:*** Presionar la tecla "e".
 * ***Capturar Imagen:*** Presionar las teclas "Ctrl+Shift+c".
 * ***Ver Imagenes de Planetas o Símbolos:*** Presionar el espacio.

@@ -704,7 +704,7 @@ Item{
             if(!running && numAstro===zm.aBodies.length-1){
                 //zm.resizeAspsCircle(r.isBack)
                 zm.objTRAC.restart()
-                zm.objTapa=1.0
+                zm.objTapa.opacity=1.0
                 zm.hideTapa()
             }
         }

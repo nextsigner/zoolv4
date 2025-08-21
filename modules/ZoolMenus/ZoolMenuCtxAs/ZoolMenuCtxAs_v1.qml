@@ -23,10 +23,7 @@ ZoolMenus {
             let s=r.currentIndexSign
             let h=r.currentIndexHouse
             let j=!r.isBack?zm.currentJson:zm.currentJsonBack
-            //log.lv('b: '+b+' s: '+s+' h: '+h)
             let is=zm.getIndexSign(j.pc['c'+b].gdec)
-            //log.lv('j: '+JSON.stringify(j.pc['c'+b], null, 2))
-            //log.lv('is: '+is)
             zsm.getPanel('ZoolSabianos').numSign=is
             zsm.getPanel('ZoolSabianos').numDegree=j.pc['c'+b].rsgdeg
             zsm.getPanel('ZoolSabianos').view.numSign=zsm.getPanel('ZoolSabianos').numSign

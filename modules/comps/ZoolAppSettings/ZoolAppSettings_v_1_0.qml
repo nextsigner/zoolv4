@@ -193,6 +193,7 @@ Settings{
     }
     onZFocusChanged: {
         if(zFocus==='xMed'||zFocus==='xLatDer'){
+            zsm.allToEscape()
             //zoolFileManager.ti.focus=false
             //panelRsList.desactivar()
         }else{

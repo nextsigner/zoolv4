@@ -79,6 +79,7 @@ Item{
             Audio{
                 source: 'beep.wav'
                 autoPlay: true
+                volume: 0.3
             }
             Text{
                 //Invisible solo para calcular el ancho del texto

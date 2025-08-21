@@ -66,7 +66,9 @@ Rectangle {
     function loadJsonBack(json){
         xBodiesExt.loadJson(json)
     }
-    function toUp(){
+
+    //--Teclado
+    function toUp(ctrl){
         if(zoolDataBodies.latFocus===0){
             if(currentIndex>-1){
                 currentIndex--
@@ -85,7 +87,7 @@ Rectangle {
         //            zm.centerZoomAndPos()
         //        }
     }
-    function toDown(){
+    function toDown(ctrl){
         if(zoolDataBodies.latFocus===0){
             if(currentIndex<23){
                 currentIndex++
@@ -101,6 +103,12 @@ Rectangle {
             }
         }
 
+    }
+    function toLeft(ctrl){
+        zoolDataBodies.latFocus=0
+    }
+    function toRight(ctrl){
+        zoolDataBodies.latFocus=1
     }
     property int uIhEntered: -1
     function toEnter(){
@@ -173,4 +181,5 @@ Rectangle {
 
 
     }
+    //<--Teclado
 }

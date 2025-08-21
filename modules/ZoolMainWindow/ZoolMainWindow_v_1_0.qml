@@ -614,6 +614,10 @@ ApplicationWindow {
                 zm.toLeft(false)
                 return
             }
+            if(apps.zFocus==='xLatDer'){
+                zoolDataBodies.toLeft(ctrl)
+                return
+            }
         }else{
             if(apps.zFocus==='xLatIzq' || zsm.getPanel('ZoolSabianos').view.visible){
                 if(zsm.getPanel('ZoolSabianos').view.visible){
@@ -637,9 +641,13 @@ ApplicationWindow {
                 }
             }
             if(apps.zFocus==='xLatDer'){
-                zoolDataBodies.latFocus=zoolDataBodies.latFocus===0?1:0
+                zoolDataBodies.toLeft(ctrl)
                 return
             }
+            //            if(apps.zFocus==='xLatDer'){
+//                zoolDataBodies.latFocus=zoolDataBodies.latFocus===0?1:0
+//                return
+//            }
             if(menuBar.expanded&&!zsm.getPanel('ZoolSabianos').view.visible){
                 menuBar.left()
                 return
@@ -677,11 +685,12 @@ ApplicationWindow {
                 zm.toRight(false)
                 return
             }
-        }else{
             if(apps.zFocus==='xLatDer'){
-                zoolDataBodies.latFocus=zoolDataBodies.latFocus===0?1:0
+                //zpn.log('111')
+                zoolDataBodies.toRight(ctrl)
                 return
             }
+        }else{
             if(apps.zFocus==='xLatIzq' || zsm.getPanel('ZoolSabianos').view.visible){
                 if(zsm.currentIndex===2){
                     zsm.getPanel('ZoolFileManager').toRight()
@@ -701,6 +710,10 @@ ApplicationWindow {
                     app.currentXAsBack.rot(true)
                     return
                 }
+            }
+            if(apps.zFocus==='xLatDer'){
+                zoolDataBodies.toRight(ctrl)
+                return
             }
             if(menuBar.expanded&&!zsm.getPanel('ZoolSabianos').view.visible){
                 menuBar.right()

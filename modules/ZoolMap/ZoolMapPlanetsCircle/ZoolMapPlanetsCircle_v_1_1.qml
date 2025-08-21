@@ -171,6 +171,7 @@ Item{
         for(i=0;i<20;i++){
             objAs=r.children[i]
             mDegs.push(parseInt(objAs.objData.gdec))
+            objAs.revPos()
         }
         //log.lv('mDegs: '+mDegs)
         //let numAsRev=1
@@ -398,5 +399,16 @@ Item{
             }
         }
         return minObjAsWidth
+    }
+    function getMaxAsAbsPos(){
+        let absPos=1
+        for(let i=0;i<zm.aBodies.length;i++){
+            let oa=r.children[i]
+            zpn.log('oa.absPos: '+oa.absPos)
+            if(oa.absPos>absPos){
+                absPos=oa.absPos
+            }
+        }
+        return absPos
     }
 }

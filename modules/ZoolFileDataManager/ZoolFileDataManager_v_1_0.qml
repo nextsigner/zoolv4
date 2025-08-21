@@ -27,6 +27,7 @@ Item{
     }*/
     //Carga archivo
     function loadFile(url){
+        //zpn.log('loadFile ('+url+')')
         let ret=false
         r.currentUrl=url
         if(getData()==='error'){

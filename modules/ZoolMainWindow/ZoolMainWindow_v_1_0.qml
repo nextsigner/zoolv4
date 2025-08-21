@@ -1031,6 +1031,9 @@ ApplicationWindow {
             //zm.capturing=!zm.capturing
            // let d = u.downloadZipFile('https://github.com/nextsigner/zoolv4/releases/download/zool-release/zoolv4_5.6.11.0.zip', '/home/ns/', false)
             //log.lv('d: '+d)
+
+            //zpn.log('zm.objPlanetsCircle.getMaxAsAbsPos(): '+zm.objPlanetsCircle.getMaxAsAbsPos())
+            zpn.log('zm.maxAbsPosInt: '+zm.maxAbsPosInt)
         }
     }
 }

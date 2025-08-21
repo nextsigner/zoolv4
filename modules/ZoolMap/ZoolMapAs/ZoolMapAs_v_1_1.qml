@@ -20,6 +20,8 @@ Item{
     anchors.centerIn: parent
     z: !selected?numAstro:20
 
+
+
     property alias b: bodie
 
     property string folderImg: '../../../modules/ZoolMap/imgs/imgs_v1'
@@ -34,6 +36,7 @@ Item{
     property string astro
     property int fs
     property var objData: ({g:0, m:0,s:0,ih:0,is:0, rsgdeg:0,rsg:0, gdec:0.000})
+    property int absPos: 1
     property int pos: 1
     property int g: -1
     property int m: -1
@@ -59,7 +62,14 @@ Item{
     onWidthChanged: {
         h()
         if(app.t!=='trans' && app.t!=='dirprim')return
-        zm.resizeAspCircle()
+        if(!r.isBack){
+            zm.objAspsCircle.visible=false
+        }else{
+            zm.objAspsCircleBack.visible=false
+        }
+        zm.objTRAC.restart()
+        zm.objTapa.opacity=1.0
+        //zm.resizeAspCircle()
     }
     onRotationChanged: h()
     onGChanged: h()
@@ -98,6 +108,12 @@ Item{
             const n=objAs.objData.gdec
             if((n > l && n < h)  && i!==numAstro  && i<numAstro){
                 r.pos=objAs.pos+1
+                r.absPos=r.pos
+
+                if(r.pos>zm.maxAbsPosInt){
+                    zm.maxAbsPosInt=r.pos
+                    //zpn.log('i'+i+': '+r.pos+' zm.maxAbsPosInt: '+zm.maxAbsPosInt)
+                }
                 break
             }
         }
@@ -686,7 +702,9 @@ Item{
         }
         onRunningChanged: {
             if(!running && numAstro===zm.aBodies.length-1){
-                zm.resizeAspsCircle(r.isBack)
+                //zm.resizeAspsCircle(r.isBack)
+                zm.objTRAC.restart()
+                zm.objTapa=1.0
                 zm.hideTapa()
             }
         }

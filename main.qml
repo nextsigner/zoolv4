@@ -777,6 +777,7 @@ ZoolMainWindow{
                 }
                 if(apps.dev)log.lv('Cargando en modo desarrollo: '+apps.url)
                 zm.loadJsonFromFilePath(apps.url)
+                return
             }else{
                 if(apps.url===''){
                     zdm.firstRunTime()

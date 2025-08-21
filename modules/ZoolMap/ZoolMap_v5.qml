@@ -49,6 +49,7 @@ Rectangle{
     //property alias anv: aspNameView
     property alias oc: centro
     property alias objTapa: tapa
+    property alias objTRAC: tResizeAspCircle
     property alias objSignsCircle: signCircle
     property alias objHousesCircle: housesCircle
     property alias objHousesCircleBack: housesCircleBack
@@ -104,6 +105,8 @@ Rectangle{
     property int uAscDegree: -1
     property int uMcDegree: -1
 
+    property bool loadingJsonInt: false
+    property bool loadingJsonExt: false
     property string fileData: ''
     property string fileDataBack: ''
     property string currentData: ''
@@ -166,6 +169,8 @@ Rectangle{
     property bool enableLoad: true
     property bool enableLoadBack: true
 
+    property int maxAbsPosInt: 1
+    property int maxAbsPosExt: 1
     property real dirPrimRot: 0.00
 
     property int ejeTipoCurrentIndex: -2
@@ -641,17 +646,14 @@ Rectangle{
 
                 ZoolMapHousesCircle{id: housesCircleBack; width: ai.width; isExt: true}
                 ZoolMapSignCircle{id: signCircle; width: ai.width-r.housesNumWidth*2-r.housesNumMargin*2;}
+
                 //Container Grados
                 Item{
                     id: xNL1
                     width: zm.objSignsCircle.width-(zm.zodiacBandWidth*2)
                     height: width
                     anchors.centerIn: parent
-                    NumberLines{
-                        parent: apps.numberLinesMode===0?xNL1:xNL2
-                        visible: apps.showNumberLines
-
-                    }
+                    NumberLines{parent: apps.numberLinesMode===0?xNL1:xNL2; visible: apps.showNumberLines}
                 }
                 Rectangle{
                     id:bgPCB
@@ -856,11 +858,12 @@ Rectangle{
     }
 
     Timer {
+        id: tResizeAspCircle
         interval: 3000
-        running: true
-        repeat: true
+        running: false
+        repeat: false
         onTriggered: {
-            //panTo(100, 100)
+            resizeAspCircle()
         }
     }
     Component.onCompleted: {
@@ -911,6 +914,7 @@ Rectangle{
 
     //-->Load Data
     function load(j){
+        if(r.loadingJsonInt)return
         //console.log('Ejecutando SweGraphic.load()...')
         r.dirPrimRot=0
 
@@ -937,13 +941,16 @@ Rectangle{
         c+='import unik.UnikQProcess 1.0\n'
         c+='UnikQProcess{\n'
         c+='    id: uqp'+ms+'\n'
+        c+='    onFinished:{\n'
+        c+='        r.loadingJsonInt=false\n'
+        c+='        loadSweJson(logData)\n'
+        c+='        uqp'+ms+'.destroy(3000)\n'
+        c+='    }\n'
         c+='    onLogDataChanged:{\n'
         c+='        //log.lv(logData)\n'
         c+='        if(!r.enableLoad)return\n'
-        c+='        let json=(\'\'+logData)\n'
+        //c+='        let json=(\'\'+logData)\n'
         c+='        //log.lv(\'JSON: \'+json)\n'
-        c+='        loadSweJson(json)\n'
-        c+='        uqp'+ms+'.destroy(3000)\n'
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
         c+='    let cmd=\''+app.pythonLocation+' "'+u.currentFolderPath()+'/py/'+app.sweBodiesPythonFile+'" '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+' '+hsys+' "'+app.sweFolder.replace(/\"/g, '')+'" '+valt+'\'\n'
@@ -953,6 +960,7 @@ Rectangle{
         c+='    }\n'
         c+='}\n'
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcode')
+        r.loadingJsonInt=true
         app.t=j.params.t
         r.fileData=JSON.stringify(j)
         //zev.load(j)
@@ -988,15 +996,15 @@ Rectangle{
         c+='import unik.UnikQProcess 1.0\n'
         c+='UnikQProcess{\n'
         c+='    id: uqp'+ms+'\n'
-        c+='    onLogDataChanged:{\n'
-        //c+='        if(!r.enableLoadBack)return\n'
-        c+='        let json=(\'\'+logData)\n'
-        //c+='        log.lv(\'JSON Back: \'+json)\n'
-        //c+='        console.log(\'JSON Back: \'+json)\n'
-        c+='        loadSweJsonBack(json)\n'
+        c+='    onFinished:{\n'
+        c+='        r.loadingJsonExt=false\n'
+        c+='        loadSweJsonBack(logData)\n'
         c+='        r.ev=true\n'
         c+='        app.objZoolFileExtDataManager.updateList()\n'
         c+='        uqp'+ms+'.destroy(3000)\n'
+        c+='    }\n'
+        c+='    onLogDataChanged:{\n'
+        //c+='        if(!r.enableLoadBack)return\n'
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
         c+='        let cmd=\''+app.pythonLocation+' "'+u.currentFolderPath()+'/py/'+app.sweBodiesPythonFile+'" '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+' '+hsys+' "'+app.sweFolder.replace(/\"/g, '')+'" '+valt+'\'\n'
@@ -1004,6 +1012,7 @@ Rectangle{
         c+='          run(cmd)\n'
         c+='    }\n'
         c+='}\n'
+        r.loadingJsonExt=true
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcode')
         if(j.params.t){
             app.t=j.params.t
@@ -1138,6 +1147,9 @@ Rectangle{
         signCircle.rot=parseFloat(j.ph.h1.gdec).toFixed(2)
         housesCircle.loadHouses(j)
         planetsCircle.loadJson(j)
+        //zpn.log('zm.maxAbsPosInt: '+zm.maxAbsPosInt)
+        //r.maxAbsPosInt=planetsCircle.getMaxAsAbsPos()
+        //zpn.log('r.maxAbsPosInt: '+r.maxAbsPosInt)
         aspsCircle.load(j)
         //ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
         ai.width=r.width
@@ -1218,6 +1230,8 @@ Rectangle{
         //-->ZoolMap
         housesCircleBack.loadHouses(j)
         planetsCircleBack.loadJson(j)
+        //r.maxAbsPosExt=planetsCircleBack.getMaxAsAbsPos()
+        //zpn.log('r.maxAbsPosExt: '+r.maxAbsPosExt)
         aspsCircleBack.load(j)
         housesCircleBack.width=ae.width
         //ai.width=planetsCircleBack.getMinAsWidth()-r.planetSize*2
@@ -1253,6 +1267,7 @@ Rectangle{
         if(app.t!=='dirprim'&&app.t!=='progsec'&&app.t!=='trans')centerZoomAndPos()
     }
     function loadFromFile(filePath, tipo, isBack){
+        //zpn.log('loadFromFile()...')
         tapa.visible=true
         tapa.opacity=1.0
         let jsonFileData=u.getFile(filePath)
@@ -1295,6 +1310,7 @@ Rectangle{
         //r.loadBackFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys, -1, aR)
     }
     function loadJsonFromFilePath(filePath){
+        //zpn.log('loadJsonFromFilePath()...')
         let fileLoaded=zfdm.loadFile(filePath)
         let fileNameMat0=filePath.split('/')
         let fileName=fileNameMat0[fileNameMat0.length-1].replace(/_/g, ' ').replace('.json', '')
@@ -1528,6 +1544,7 @@ Rectangle{
         zfdm.mkFileAndLoad(json, true)
     }
     function loadFromArgs(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, data, tipo, isExt){
+        //zpn.log('loadFromArgs()...')
         let dataMs=new Date(Date.now())
         let j='{"params":{"n":"Tránsitos", "t":"'+tipo+'","ms":'+dataMs.getTime()+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"alt":'+alt+',"c":"'+ciudad+'", "data": "'+data+'"}}'
         //log.lv('loadFromArgs(...): '+JSON.stringify(JSON.parse(j), null, 2))
@@ -1574,6 +1591,7 @@ Rectangle{
         //zm.ev=isExt
     }
     function loadFromJson(j, isExt, save){
+        //zpn.log('loadFromJson()...')
         if(save){
             let mf=zfdm.mkFileAndLoad(JSON.parse(j))
             return
@@ -1823,7 +1841,7 @@ Rectangle{
     }
     //<--Make Dinamically
 
-    function resizeAspsCircle(isBack){
+    /*function resizeAspsCircle(isBack){
         if(!isBack){
             if(apps.showDec){
                 //log.lv('1 resizeAspsCircle('+isBack+') apps.showDec: '+apps.showDec)
@@ -1837,14 +1855,17 @@ Rectangle{
             ai.width=planetsCircleBack.getMinAsWidth()-r.planetSize*2
             ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
         }
-    }
+    }*/
     function resizeAspCircle(){
         if(r.ev){
             ai.width=planetsCircleBack.getMinAsWidth()-r.planetSize*2
             ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
+            //aspsCircle.width=300
         }else{
             ai.width=r.width
+            ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
         }
+        hideTapa()
     }
     function hideTapa(){
         tapa.opacity=0.0

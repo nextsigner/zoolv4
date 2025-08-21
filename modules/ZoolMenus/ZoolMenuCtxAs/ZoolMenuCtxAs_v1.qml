@@ -18,6 +18,24 @@ ZoolMenus {
             zm.showInfoData(b, s, h)
         }
     }
+    Action {text: qsTr("Sabianos"); onTriggered: {
+            let b=r.currentIndexPlanet
+            let s=r.currentIndexSign
+            let h=r.currentIndexHouse
+            let j=!r.isBack?zm.currentJson:zm.currentJsonBack
+            //log.lv('b: '+b+' s: '+s+' h: '+h)
+            let is=zm.getIndexSign(j.pc['c'+b].gdec)
+            //log.lv('j: '+JSON.stringify(j.pc['c'+b], null, 2))
+            //log.lv('is: '+is)
+            zsm.getPanel('ZoolSabianos').numSign=is
+            zsm.getPanel('ZoolSabianos').numDegree=j.pc['c'+b].rsgdeg
+            zsm.getPanel('ZoolSabianos').view.numSign=zsm.getPanel('ZoolSabianos').numSign
+            zsm.getPanel('ZoolSabianos').view.numDegree=zsm.getPanel('ZoolSabianos').numDegree
+            zsm.getPanel('ZoolSabianos').view.loadData()
+            zsm.getPanel('ZoolSabianos').view.visible=!zsm.getPanel('ZoolSabianos').view.visible
+            //zm.showInfoData(b, s, h)
+        }
+    }
 //    Action {text: qsTr(apps.anColorXAs?"No Centellar":"Centellar"); onTriggered: {
 //            apps.anColorXAs=!apps.anColorXAs
 //        }

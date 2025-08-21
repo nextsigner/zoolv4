@@ -489,6 +489,7 @@ function loadSin(date, gmt, lat, lon, alt, nom, ciudad){
     loadFromArgsBack(ad[0], ad[1], ad[2], ad[3], ad[4], gmt, lat, lon, alt, nom, ciudad, 'sin', false)
 }
 function runJsonTemp(){
+    //zpn.log('runJsonTemp()...')
     var jsonData
     try
     {

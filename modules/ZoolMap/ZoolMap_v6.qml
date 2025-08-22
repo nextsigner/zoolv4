@@ -631,7 +631,7 @@ Rectangle{
                     Circle{
                         id: ai
                         //d: !r.ev?r.width:ae.width-ae.w*2
-                        d: !r.ev?r.width:r.width-(zm.planetSize*(r.maxAbsPosExt+1)*2)
+                        d: !r.ev?r.width:r.width-(zm.planetSize*(r.maxAbsPosExt+1)*2)-zm.planetSize*2
                         c: 'transparent'
                         //opacity: 0.5
                         property int w: 10

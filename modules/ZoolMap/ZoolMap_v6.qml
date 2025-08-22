@@ -441,8 +441,14 @@ Rectangle{
                 interval: 1000
                 onTriggered: {
                     revIsDataDiff()
-                    housesCircle.wbgc=planetsCircle.getMinAsWidth()*0.5//-r.planetSize*2
-                    housesCircleBack.wbgc=signCircle.width//ai.width
+                    if(zm.ev){
+                        r.maxAbsPosExt=planetsCircleBack.getMaxAsAbsPos()
+                        //ai.width=r.width-(zm.planetSize*(r.maxAbsPosExt+1)*2)
+                    }else{
+                        //ai.d=r.width//-(zm.planetSize*(r.maxAbsPosExt+1)*2)
+                    }
+                    //housesCircle.wbgc=planetsCircle.getMinAsWidth()*0.5//-r.planetSize*2
+                    //housesCircleBack.wbgc=signCircle.width//ai.width
                     //zm.objPlanetsCircle.vw=zm.objAspsCircle.width
                     if(app.t==='dirprim')housesCircleBack.width=ae.width
                     //log.lv('R:'+JSON.stringify(currentJson.pc.c0.gdec, null, 2))
@@ -624,7 +630,8 @@ Rectangle{
                     }
                     Circle{
                         id: ai
-                        d: !r.ev?r.width:ae.width-ae.w*2
+                        //d: !r.ev?r.width:ae.width-ae.w*2
+                        d: !r.ev?r.width:r.width-(zm.planetSize*(r.maxAbsPosExt+1)*2)
                         c: 'transparent'
                         //opacity: 0.5
                         property int w: 10
@@ -640,6 +647,7 @@ Rectangle{
                             //onWidthChanged: aspsCircle.hideAndShow()
                         }
                     }
+
                     /*
                     Circle{
                         id: c100
@@ -660,6 +668,40 @@ Rectangle{
                             }
                             ScriptAction{
                                 script: c100.visible=false
+                            }
+                            PauseAnimation {
+                                duration: 500
+                            }
+                        }
+                        Text{
+                            text: ''+r.maxAbsPosInt
+                            color: 'white'
+                            font.pixelSize: app.fs*4
+                            anchors.centerIn: parent
+                        }
+                    }
+                    */
+
+                    /*
+                    Circle{
+                        id: c101
+                        d: r.width//signCircle.width-(signCircle.w*2)-(zm.planetSize*(r.maxAbsPosInt+1)*2)
+                        c: 'red'
+                        bc: 'yellow'
+                        bw: 10
+                        parent: signCircle
+                        z: signCircle.z+1
+                        SequentialAnimation on opacity{
+                            running: true
+                            loops: Animation.Infinite
+                            ScriptAction{
+                                script: c101.visible=true
+                            }
+                            PauseAnimation {
+                                duration: 500
+                            }
+                            ScriptAction{
+                                script: c101.visible=false
                             }
                             PauseAnimation {
                                 duration: 500
@@ -1207,7 +1249,7 @@ Rectangle{
         //zpn.log('r.maxAbsPosInt: '+r.maxAbsPosInt)
         aspsCircle.load(j)
         //ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
-        ai.width=r.width
+        //ai.width=r.width
         zoolDataBodies.loadJson(j)
         zoolElementsView.load(j, false)
         let jsonAsps=aspsCircle.getAsps(j)
@@ -1258,7 +1300,11 @@ Rectangle{
             tapa.opacity=1.0
         }
 
+        //zpn.log('loadSweJsonBack()...')
+
         zm.currentJsonBack=JSON.parse(json)
+
+
         //log.lv('zm.currentJsonBack='+JSON.stringify(zm.currentJsonBack, null, 2))
         //        if(apps.dev)
         //            log.lv('ZoolBodies.loadSweJsonBack(json): '+json)
@@ -1289,10 +1335,16 @@ Rectangle{
         //zpn.log('r.maxAbsPosExt: '+r.maxAbsPosExt)
         aspsCircleBack.load(j)
         housesCircleBack.width=ae.width
+        //housesCircleBack.wbgc=app.fs*6
+        //c101.width=r.width-app.fs
+        //ai.width=r.width-(zm.planetSize*r.maxAbsPosExt*2)
+        //ai.width=app.fs*10
+        //c101.d=ai.width
         //ai.width=planetsCircleBack.getMinAsWidth()-r.planetSize*2
         //signCircle.width=ai.width
         //planetsCircle.width=ai.width
-        ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
+        //ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
+        //ai.width=app.fs*r.width-(r.width-zm.planetSize*r.maxAbsPosExt*2)
         zoolDataBodies.loadJsonBack(j)
         zoolElementsView.load(j, true)
         let jsonAsps=aspsCircleBack.getAsps(j)
@@ -1322,7 +1374,8 @@ Rectangle{
         if(app.t!=='dirprim'&&app.t!=='progsec'&&app.t!=='trans')centerZoomAndPos()
     }
     function loadFromFile(filePath, tipo, isBack){
-        //zpn.log('loadFromFile()...')
+        //zpn.log('loadFromFile( '+filePath+' )...')
+        //if(isBack)zm.ev=true
         tapa.visible=true
         tapa.opacity=1.0
         let jsonFileData=u.getFile(filePath)
@@ -1355,11 +1408,12 @@ Rectangle{
         }else{
             msmod=j.msmod
         }
-
         let p=zm.getParamsFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, c, t, hsys, ms, msmod)
         if(!isBack){
             r.load(p)
         }else{
+            //zpn.log('r.loadBack()...')
+            //zpn.log('r.loadBack()->p= '+JSON.stringify(p, null, 2))
             r.loadBack(p)
         }
         //r.loadBackFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys, -1, aR)

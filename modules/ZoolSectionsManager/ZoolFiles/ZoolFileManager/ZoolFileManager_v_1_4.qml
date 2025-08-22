@@ -180,13 +180,12 @@ Rectangle {
         }
         return obj
     }
-
+    function clear(){
+        getSectionVisible().clear()
+    }
     //-->Teclado
     function toEnter(ctrl){
         getSectionVisible().toEnter(ctrl)
-    }
-    function clear(){
-        getSectionVisible().clear()
     }
     function toLeft(ctrl){
         if(!ctrl){
@@ -230,7 +229,8 @@ Rectangle {
         getSectionVisible().toTab()
     }
     function toEscape(){
-        if(getSectionVisible())getSectionVisible().toEscape()
+        getSectionVisible().toEscape()
+        //if(getSectionVisible())getSectionVisible().toEscape()
     }
     function isFocus(){
         return getSectionVisible().isFocus()

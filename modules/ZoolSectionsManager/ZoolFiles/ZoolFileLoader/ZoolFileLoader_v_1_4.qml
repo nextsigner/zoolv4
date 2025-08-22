@@ -527,6 +527,7 @@ Rectangle {
         parent: visible?xMed:r
     }
     function loadAsSin(fileName){
+        //zpn.log('loadAsSin( '+fileName+' )...')
         zm.loadFromFile(fileName, 'sin', true)
 
         let jsonFileData=u.getFile(fileName)

@@ -110,9 +110,16 @@ Item{
                 r.pos=objAs.pos+1
                 r.absPos=r.pos
 
-                /*if(r.pos>zm.maxAbsPosInt){
-                    //zm.maxAbsPosInt=r.pos
-                    //zpn.log('i'+i+': '+r.pos+' zm.maxAbsPosInt: '+zm.maxAbsPosInt)
+                /*if(!r.isBack){
+                    if(r.pos>zm.maxAbsPosInt){
+                        zm.maxAbsPosInt=r.pos
+                        //zpn.log('i'+i+': '+r.pos+' zm.maxAbsPosInt: '+zm.maxAbsPosInt)
+                    }
+                }else{
+                    if(r.pos>zm.maxAbsPosExt){
+                        zm.maxAbsPosExt=r.pos
+                        //zpn.log('i'+i+': '+r.pos+' zm.maxAbsPosInt: '+zm.maxAbsPosInt)
+                    }
                 }*/
                 break
             }

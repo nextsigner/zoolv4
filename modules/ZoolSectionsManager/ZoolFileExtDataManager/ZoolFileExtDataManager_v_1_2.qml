@@ -466,7 +466,7 @@ Rectangle {
                             if(tipo==='vn'){
                                 //xDataBar.stringMiddleSeparator='Sinastría'
                                 app.t='sin'
-                                JSON.parse(app.currentData).params.t='sin'
+                                JSON.parse(zm.currentData).params.t='sin'
                             }
                             app.j.loadJsonBack(fileName, 'sin')
                             //r.state='hide'

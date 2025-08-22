@@ -1,1 +1,1 @@
-i7: Se agrega Timer tSetAspsCircleWidth a onWidthChanged de signCircle
+i7: Se prueba ZoolMap_v6

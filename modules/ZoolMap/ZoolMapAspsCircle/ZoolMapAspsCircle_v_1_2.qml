@@ -18,7 +18,7 @@ Rectangle {
     property var aAspStr2: []
     property var aAspsColors: ['red','#ff8833',  'green', '#124cb1', '#90EE90', '#FFC0CB', '#EE82EE']
     onWidthChanged: {
-        r.visible=false
+        //r.visible=false
         if(xAsps.children.length>0)clearSL(xAsps)
         //xAsps.visible=false
         tLoadJson.restart()
@@ -127,8 +127,8 @@ Rectangle {
                     }
                 }
             }
-            r.visible=true
-            r.opacity=1.0
+            //r.visible=true
+            //r.opacity=1.0
         }
     }
 

@@ -1046,7 +1046,9 @@ ApplicationWindow {
             //log.lv('d: '+d)
 
             //zpn.log('zm.objPlanetsCircle.getMaxAsAbsPos(): '+zm.objPlanetsCircle.getMaxAsAbsPos())
-            zpn.log('zm.maxAbsPosInt: '+zm.maxAbsPosInt)
+            //zpn.log('zm.maxAbsPosInt: '+zm.maxAbsPosInt)
+            zpn.log('zm.objAspsCircle.visible: '+zm.objAspsCircle.visible)
+            zpn.log('zm.objAspsCircle.opacity: '+zm.objAspsCircle.opacity)
         }
     }
 }

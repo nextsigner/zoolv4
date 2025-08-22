@@ -30,7 +30,7 @@ import ZoolDataSheet 1.0
 import web.ZoolServerFileDataManager 1.0
 
 //import ZoolBodies 1.10
-import ZoolMap 5.0
+import ZoolMap 6.0
 import ZoolBodiesGuiTools 1.0
 
 //-->Menus

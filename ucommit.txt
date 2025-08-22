@@ -1,1 +1,1 @@
-i7: Se activan las teclas Left y Right en zoolDataBodies
+i7: Se agrega Timer tSetAspsCircleWidth a onWidthChanged de signCircle

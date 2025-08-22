@@ -4,6 +4,8 @@ Rectangle{
     id: r
     property int d: 100
     property alias c: r.color
+    property alias bc: r.border.color
+    property alias bw: r.border.width
     width: d
     height: d
     radius: width*0.5

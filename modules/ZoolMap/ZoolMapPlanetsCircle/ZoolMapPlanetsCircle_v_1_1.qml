@@ -404,7 +404,7 @@ Item{
         let absPos=1
         for(let i=0;i<zm.aBodies.length;i++){
             let oa=r.children[i]
-            zpn.log('oa.absPos: '+oa.absPos)
+            //zpn.log('oa.absPos: '+oa.absPos)
             if(oa.absPos>absPos){
                 absPos=oa.absPos
             }

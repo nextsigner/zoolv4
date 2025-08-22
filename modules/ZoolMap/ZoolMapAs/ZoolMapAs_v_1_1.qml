@@ -63,9 +63,9 @@ Item{
         h()
         if(app.t!=='trans' && app.t!=='dirprim')return
         if(!r.isBack){
-            zm.objAspsCircle.visible=false
+            //zm.objAspsCircle.visible=false
         }else{
-            zm.objAspsCircleBack.visible=false
+            //zm.objAspsCircleBack.visible=false
         }
         zm.objTRAC.restart()
         zm.objTapa.opacity=1.0
@@ -110,16 +110,16 @@ Item{
                 r.pos=objAs.pos+1
                 r.absPos=r.pos
 
-                if(r.pos>zm.maxAbsPosInt){
-                    zm.maxAbsPosInt=r.pos
+                /*if(r.pos>zm.maxAbsPosInt){
+                    //zm.maxAbsPosInt=r.pos
                     //zpn.log('i'+i+': '+r.pos+' zm.maxAbsPosInt: '+zm.maxAbsPosInt)
-                }
+                }*/
                 break
             }
         }
         r.vr++
     }
-    Timer {
+    Timer{
         interval: 1000
         //running: r.numAstro===1 || r.numAstro===2
         repeat: true
@@ -703,9 +703,9 @@ Item{
         onRunningChanged: {
             if(!running && numAstro===zm.aBodies.length-1){
                 //zm.resizeAspsCircle(r.isBack)
-                zm.objTRAC.restart()
-                zm.objTapa.opacity=1.0
-                zm.hideTapa()
+                //zm.objTRAC.restart()
+                //zm.objTapa.opacity=1.0
+                //zm.hideTapa()
             }
         }
     }

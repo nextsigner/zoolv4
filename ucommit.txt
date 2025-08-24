@@ -1,1 +1,1 @@
-i7: Se eliminan verione obsoletas de ZoolMap_vx.qml
+i7: Se agrega zm.objCA

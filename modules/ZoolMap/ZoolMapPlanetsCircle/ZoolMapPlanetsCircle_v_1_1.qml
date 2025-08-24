@@ -53,7 +53,7 @@ Item{
         let o
         var houseSun=-1
         //for(var i=0;i<15;i++){
-        for(var i=0;i<20;i++){
+        for(var i=0;i<zm.aBodies.length;i++){
             var objAs=r.children[i]
             jo=json.pc['c'+i]
             let degRed=0.0
@@ -72,6 +72,7 @@ Item{
             if(jo.mdeg>=50){
                 degRed=1.0
             }
+            objAs.pos=1
             objAs.rotation=signCircle.rot-jo.gdeg-(jo.mdeg/60)//+degRed
             if(r.isBack && app.t==='dirprim'){
                 //objAs.rotation-=zm.dirPrimRot
@@ -168,9 +169,15 @@ Item{
         }
 
         let mDegs=[]
-        for(i=0;i<20;i++){
+        /*for(i=0;i<20;i++){
+            objAs=r.children[i]
+
+        }*/
+        for(i=0;i<zm.aBodies.length;i++){
             objAs=r.children[i]
             mDegs.push(parseInt(objAs.objData.gdec))
+            objAs.vr=0
+            objAs.widhCAChecked=false
             objAs.revPos()
         }
         //log.lv('mDegs: '+mDegs)

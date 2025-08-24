@@ -55,6 +55,7 @@ Rectangle{
     property alias objHousesCircleBack: housesCircleBack
     property alias objPlanetsCircle: planetsCircle
     property alias objPlanetsCircleBack: planetsCircleBack
+    property alias objCA: ca
     property alias objAspsCircle: aspsCircle
     property alias objAspsCircleBack: aspsCircleBack
     property alias objZoolAspectsView: panelAspects

@@ -22,6 +22,8 @@ Item{
 
 
 
+    property bool widhCAChecked: false
+
     property alias b: bodie
 
     property string folderImg: '../../../modules/ZoolMap/imgs/imgs_v1'
@@ -127,6 +129,17 @@ Item{
         r.vr++
     }
     Timer{
+        id: tRevIsAspZone
+        running: (!r.isBack && r.width<=zm.objAspsCircle.width) || r.width>zm.objCA.d-(zm.planetSize*2)
+        repeat: true
+        interval: 250
+        onTriggered: {
+            zm.maxAbsPosInt=zm.objPlanetsCircle.getMaxAsAbsPos()
+            //zpn.log('-->'+zm.aBodies[r.numAstro]+' pos: '+pos+' zm.maxAbsPosInt: '+zm.maxAbsPosInt)
+            zm.objCA.d=zm.objSignsCircle.width-(zm.objSignsCircle.w*2)-(zm.planetSize*(zm.maxAbsPosInt+1)*2)
+        }
+    }
+    Timer{
         interval: 1000
         //running: r.numAstro===1 || r.numAstro===2
         repeat: true
@@ -163,6 +176,55 @@ Item{
             //log.lv("Absolute Position of child rectangle: x ="+absolutePosition.x+", y ="+absolutePosition.y);
         }
     }
+
+    //-->Para visualizar alcance de ancho
+    Rectangle{
+        id: cw1
+        width: r.width
+        height: app.fs*0.5
+        color: 'transparent'
+        border.width: 2
+        border.color: 'yellow'
+        anchors.centerIn: parent
+        visible: false
+        Rectangle{
+            id: cw2
+            width: zm.objCA.d+(zm.planetSize*2)
+            height: app.fs*0.25
+            color: 'transparent'
+            border.width: 2
+            border.color: 'blue'
+            anchors.centerIn: parent
+            /*onWidthChanged: {
+                if(!r.isBack && r.pos===zm.maxAbsPosInt && parent.width>=width){
+                    zpn.log('2-->'+zm.aBodies[r.numAstro]+' pos: '+pos+' zm.maxAbsPosInt: '+zm.maxAbsPosInt)
+                }
+            }*/
+
+//            Timer{
+//                id: tRevIsAspZoneDistante
+//                //running: false//!r.isBack && r.pos===zm.maxAbsPosInt && parent.parent.width-2>parent.width//r.pos===zm.maxAbsPosInt && (r.width-(zm.planetSize*2))>=ca.width
+//                running: !r.widhCAChecked && r.pos > 1 && r.pos===zm.maxAbsPosInt
+//                repeat: true
+//                interval: 3000
+//                onTriggered: {
+//                    if(!running)return
+//                    if(cw1.width>=cw2.width){
+//                        zpn.log('Offside-->'+zm.aBodies[r.numAstro]+' pos: '+pos+' zm.maxAbsPosInt: '+zm.maxAbsPosInt)
+//                    }else{
+//                        zpn.log('Inside-->'+zm.aBodies[r.numAstro]+' pos: '+pos+' zm.maxAbsPosInt: '+zm.maxAbsPosInt)
+//                    }
+//                    //zm.maxAbsPosInt=zm.objPlanetsCircle.getMaxAsAbsPos()
+
+//                    //ca.d=zm.objSignsCircle.width-(zm.objSignsCircle.w*2)-(zm.planetSize*(zm.maxAbsPosInt+1)*2)
+//                }
+//            }
+
+        }
+    }
+
+    //<--Para visualizar alcance de ancho
+
     Rectangle{
         id: centroBodie
         width: 2

@@ -81,6 +81,7 @@ Rectangle{
     property var aBodiesFiles: ['sol', 'luna', 'mercurio', 'venus', 'marte', 'jupiter', 'saturno', 'urano', 'neptuno', 'pluton', 'nodo_norte', 'nodo_sur', 'quiron', 'selena', 'lilith', 'pholus', 'ceres', 'pallas', 'juno', 'vesta']
     property var objSignsNames: ['ari', 'tau', 'gem', 'cnc', 'leo', 'vir', 'lib', 'sco', 'sgr', 'cap', 'aqr', 'psc']
     property int planetSize: !r.ev?app.fs*1.5:app.fs
+    property real planetsSep: 1.25
     property int planetsPadding: app.fs*8
     property int planetsMargin: app.fs*0.15
     property int aspsCircleWidth: 100

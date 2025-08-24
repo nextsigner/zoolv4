@@ -649,7 +649,8 @@ Rectangle {
                         if(focus)flk.contentY=flk.contentHeight-flk.height
                     }
                     onClicked: {
-                        mk()
+                        toEnter()
+                        //mk()
                     }
                     //
                     Timer{
@@ -805,6 +806,7 @@ Rectangle {
                               setNewJsonFileData()
                               r.state='hide'
                           }else{
+                              //r.modoTurbo=true
                               r.ulat=coordenadas.latitud
                               r.ulon=coordenadas.longitud
                           }

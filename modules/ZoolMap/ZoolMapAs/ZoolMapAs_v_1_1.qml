@@ -21,6 +21,7 @@ Item{
     z: !selected?numAstro:20
 
 
+    property real mCaThis: zm.planetSize*pos*2 // Margin From SignsCircle To This Bodie
 
     property bool widhCAChecked: false
 

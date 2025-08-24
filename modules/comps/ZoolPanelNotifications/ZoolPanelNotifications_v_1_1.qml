@@ -78,7 +78,7 @@ Item{
             }
             Audio{
                 source: 'beep.wav'
-                autoPlay: true
+                autoPlay: false//true
                 volume: 0.3
             }
             Text{

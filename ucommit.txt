@@ -1,1 +1,1 @@
-i7: Se llama toEnter() desde botCrear en ZoolFileMaker
+i7: Se agrega XIndic

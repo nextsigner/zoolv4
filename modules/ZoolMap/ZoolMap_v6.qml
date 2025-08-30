@@ -731,8 +731,8 @@ Rectangle{
                     id: signCircle
                     width: ai.width-r.housesNumWidth*2-r.housesNumMargin*2
                     onWidthChanged:{
-                            aspsCircle.visible=false
-                            tSetAspsCircleWidth.restart()
+                        aspsCircle.visible=false
+                        tSetAspsCircleWidth.restart()
                     }
                     Timer{
                         id: tSetAspsCircleWidth
@@ -942,6 +942,60 @@ Rectangle{
             }
         }
         Behavior on opacity{NumberAnimation{duration: 1000}}
+        MouseArea{
+            anchors.fill: parent
+            onClicked: tapa.visible=false
+        }
+        Row{
+            anchors.centerIn: parent
+            Text{
+                text: '<b>Cargando</b>'
+                font.pixelSize: app.fs
+                color: apps.fontColor
+
+            }
+            Item{
+                width: app.fs*2
+                height: txtTapa.contentHeight
+                anchors.bottom: parent.bottom
+                Text{
+                    id: txtTapa
+                    text: '<b>.</b>'
+                    font.pixelSize: app.fs
+                    color: apps.fontColor
+                    anchors.bottom: parent.bottom
+                    SequentialAnimation{
+                        running: tapa.visible
+                        loops: Animation.Infinite
+                        ScriptAction{
+                            script: txtTapa.text='<b>.</b>'
+                        }
+                        PauseAnimation {
+                            duration: 500
+                        }
+                        ScriptAction{
+                            script: txtTapa.text='<b>..</b>'
+                        }
+                        PauseAnimation {
+                            duration: 500
+                        }
+                        ScriptAction{
+                            script: txtTapa.text='<b>...</b>'
+                        }
+                        PauseAnimation {
+                            duration: 500
+                        }
+                        ScriptAction{
+                            script: txtTapa.text='<b></b>'
+                        }
+                        PauseAnimation {
+                            duration: 500
+                        }
+                    }
+                }
+
+            }
+        }
     }
     Timer{
         id: tAutoMaticPlanets

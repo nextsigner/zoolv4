@@ -60,18 +60,18 @@ Item{
     //property alias img: bodie.objImg
     //property alias img0: bodie.objImg0
     Behavior on rotation{enabled:(app.t==='dirprim' || app.t==='trans');NumberAnimation{duration: 2000}}
-    Behavior on width{enabled:(app.t==='dirprim' || app.t==='trans');NumberAnimation{duration: 500}}
+    //Behavior on width{enabled:(app.t==='dirprim' || app.t==='trans');NumberAnimation{duration: 500}}
     Behavior on opacity{id:anOp;NumberAnimation{duration: 500}}
     onWidthChanged: {
-        h()
+        //h()
         if(app.t!=='trans' && app.t!=='dirprim')return
         if(!r.isBack){
             //zm.objAspsCircle.visible=false
         }else{
             //zm.objAspsCircleBack.visible=false
         }
-        zm.objTRAC.restart()
-        zm.objTapa.opacity=1.0
+        //zm.objTRAC.restart()
+        //zm.objTapa.opacity=1.0
         //zm.resizeAspCircle()
 
         if(selected){

@@ -1,1 +1,1 @@
-i7: Se crea tzr.sh
+i7: Se agrega texto a tapa de ZoolMap

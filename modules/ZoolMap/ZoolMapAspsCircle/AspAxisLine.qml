@@ -22,19 +22,33 @@ Rectangle{
         repeat: true
         interval: 400
         onRunningChanged: {
-            rectSel.opacity=0.0
-            r.z=0
-            zm.aspShowSelected=false
+            if(!running){
+                rectSel.opacity=0.0
+                r.z=0
+                if(!r.isExt){
+                    zm.aspShowSelectedInt=false
+                }else{
+                    zm.aspShowSelectedExt=false
+                }
+            }
         }
         onTriggered: {
             if(rectSel.opacity===1.0){
                 rectSel.opacity=0.0
                 r.z=0
-                zm.aspShowSelected=false
+                if(!r.isExt){
+                    zm.aspShowSelectedInt=false
+                }else{
+                    zm.aspShowSelectedExt=false
+                }
                 //zm.anv.n=''
             }else{
                 rectSel.opacity=1.0
-                zm.aspShowSelected=true
+                if(!r.isExt){
+                    zm.aspShowSelectedInt=true
+                }else{
+                    zm.aspShowSelectedExt=true
+                }
                 r.z=r.parent.children.length+1
             }
         }

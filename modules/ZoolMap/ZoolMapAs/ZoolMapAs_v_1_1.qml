@@ -390,18 +390,18 @@ Item{
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.right
             visible: !r.isBack?(
-                                    zm.uAspShow.indexOf('int_')===0 && (zm.uAspShow.indexOf('_'+r.numAstro+'_')>=0  || zm.uAspShow.indexOf('cellAsp_'+r.numAstro)>=0)
+                                    zm.uAspShow.indexOf('int_')===0 && (zm.uAspShow.indexOf('_'+r.numAstro+'_')>=0  || zm.uAspShow.indexOf('cellAsp_'+r.numAstro+'_')>=0)
                                     )
                               :
                                 (
-                                    zm.uAspShow.indexOf('ext_')===0 && (zm.uAspShow.indexOf('_'+r.numAstro+'_')>=0  || zm.uAspShow.indexOf('cellAsp_'+r.numAstro)>=0)
+                                    zm.uAspShow.indexOf('ext_')===0 && (zm.uAspShow.indexOf('_'+r.numAstro+'_')>=0  || zm.uAspShow.indexOf('cellAsp_'+r.numAstro+'_')>=0)
                                     )
             Rectangle{
                 width: parent.width+2
                 height: parent.height+2
                 anchors.centerIn: parent
                 z: parent.z-1
-                visible: zm.aspShowSelected
+                visible: !r.isBack?zm.aspShowSelectedInt:zm.aspShowSelectedExt
                 onVisibleChanged: {
                     let difExtRot=0
                     if(r.isBack){

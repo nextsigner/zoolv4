@@ -157,7 +157,8 @@ Rectangle{
     property string currentHsys: apps.currentHsys
 
     property string uAspShow: 'int_red'
-    property bool aspShowSelected: false
+    property bool aspShowSelectedInt: false
+    property bool aspShowSelectedExt: false
 
     property string uSon: ''
     property string uSonFCMB: ''

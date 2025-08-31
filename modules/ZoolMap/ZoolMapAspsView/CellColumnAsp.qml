@@ -31,7 +31,7 @@ Item {
             //model:15
             model:20
             CellAsp{
-                objectName: 'cellAsp_'+index
+                objectName: 'cellAsp_'+index+'_'
                 width: r.cellWidth
                 opacity: index>planet&&r.planet!==index?1.0:0.0
                 enabled: opacity===1.0

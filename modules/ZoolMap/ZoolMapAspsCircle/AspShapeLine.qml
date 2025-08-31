@@ -23,17 +23,29 @@ Rectangle{
         onRunningChanged: {
             shapeBg.opacity=0.0
             r.z=0
-            zm.aspShowSelected=false
+            if(!r.isExt){
+                zm.aspShowSelectedInt=false
+            }else{
+                zm.aspShowSelectedExt=false
+            }
         }
         onTriggered: {
             if(shapeBg.opacity===1.0){
                 shapeBg.opacity=0.0
                 r.z=0
-                zm.aspShowSelected=false
+                if(!r.isExt){
+                    zm.aspShowSelectedInt=false
+                }else{
+                    zm.aspShowSelectedExt=false
+                }
                 //zm.anv.n=''
             }else{
                 shapeBg.opacity=1.0
-                zm.aspShowSelected=true
+                if(!r.isExt){
+                    zm.aspShowSelectedInt=true
+                }else{
+                    zm.aspShowSelectedExt=true
+                }
                 r.z=r.parent.children.length+1
                 //zm.anv.n=zm.objZoolAspectsView.uAspShowed
                 //zm.anv.z=zm.anv.z+1000

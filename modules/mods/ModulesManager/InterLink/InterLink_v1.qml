@@ -19,6 +19,16 @@ Item{
     property var aParents: [capa101]
     property bool enableChangeArea: false
 
+    property int cBSH: 1
+    property string cKWS1: ''
+    property string cKWS2: ''
+    property string cKWS3: ''
+    property int cKW1: 0
+    property int cKW2: 0
+    property int cKW3: 0
+    onCKW1Changed: updateKwSelecteds()
+    onCKW2Changed: updateKwSelecteds()
+    onCKW3Changed: updateKwSelecteds()
     Settings{
         id: s
         fileName: u.getPath(4)+'/module_'+r.moduleName+'.cfg'
@@ -140,7 +150,7 @@ Item{
                 }
                 ListView{
                     id: lv
-                    width: xItem.width/3
+                    width: xItem.width*0.2
                     height: xItem.height
                     //anchors.fill: parent
                     model: lm
@@ -149,10 +159,96 @@ Item{
                     //verticalScrollBar.interactive: false
                     ListModel{
                         id: lm
-                        function addItem(kw){
+                        function addItem(kw, tipo){
                             return {
-                                keyWord: kw
+                                keyWord: kw,
+                                t: tipo
                             }
+                        }
+                    }
+                }
+                Rectangle{
+                    width: xItem.width*0.6
+                    height: xItem.height
+                    color: apps.backgroundColor
+                    border.width: 2
+                    border.color: apps.fontColor
+                    radius: app.fs*0.5
+                    Text{
+                        text: xItem.t===0?'¿Qué expresa?':(xItem.t===1?'¿Cómo expresa?':'¿En dónde expresa?')
+                        color: apps.fontColor
+                        font.pixelSize: app.fs*3
+                        //anchors.centerIn: parent
+                        //anchors.horizontalCenter: parent.horizontalCenter
+                    }
+                    Text{
+                        text: xItem.t===0?rMod.cKWS1:(xItem.t===1?rMod.cKWS2:rMod.cKWS3)
+                        color: apps.fontColor
+                        font.pixelSize: app.fs*3
+                        anchors.centerIn: parent
+                        //anchors.horizontalCenter: parent.horizontalCenter
+                    }
+                    /*Column{
+                        spacing: app.fs*0.5
+                        anchors.centerIn: parent
+                        Text{
+                            text: rMod.cKWS1
+                            color: apps.fontColor
+                            font.pixelSize: app.fs
+                            anchors.horizontalCenter: parent.horizontalCenter
+                        }
+                        Text{
+                            text: rMod.cKWS2
+                            color: apps.fontColor
+                            font.pixelSize: app.fs
+                            anchors.horizontalCenter: parent.horizontalCenter
+                        }
+                        Text{
+                            text: rMod.cKWS3
+                            color: apps.fontColor
+                            font.pixelSize: app.fs
+                            anchors.horizontalCenter: parent.horizontalCenter
+                        }
+                    }*/
+                }
+            }
+            FocusSen{
+                width: parent.width*0.4
+                height: parent.height
+                //radius: parent.r.radius
+                border.width: 6
+                //anchors.centerIn: parent
+                visible: xItem.t+1===rMod.cBSH
+            }
+            function setKwSelected(index){
+                var item
+                if(xItem.t===0){
+                    for(var i=0;i<lm.count;i++){
+                        item=lv.itemAtIndex(i)
+                        if(rMod.cKW1 === i){
+                            item.selected=true
+                        }else{
+                            item.selected=false
+                        }
+                    }
+                }
+                if(xItem.t===1){
+                    for(i=0;i<lm.count;i++){
+                        item=lv.itemAtIndex(i)
+                        if(rMod.cKW2 === i){
+                            item.selected=true
+                        }else{
+                            item.selected=false
+                        }
+                    }
+                }
+                if(xItem.t===2){
+                    for(i=0;i<lm.count;i++){
+                        item=lv.itemAtIndex(i)
+                        if(rMod.cKW3 === i){
+                            item.selected=true
+                        }else{
+                            item.selected=false
                         }
                     }
                 }
@@ -170,7 +266,7 @@ Item{
                     m0=zds.getKeyWordsHousesListData(h)
                 }
                 for(var i=0;i<m0.length;i++){
-                    lm.append(lm.addItem(m0[i]))
+                    lm.append(lm.addItem(m0[i], t))
                 }
                 if(t===0){
                     tit.text=zm.aBodies[xItem.numAstro]
@@ -196,13 +292,37 @@ Item{
             height: (xItem.parent.parent.height/10)
             border.width: 3
             color: 'transparent'//apps.backgroundColor
+            //property int t: -1
+            property bool selected: false
+            onSelectedChanged: {
+                if(selected){
+                    if(t===0){
+                        rMod.cKWS1=txtKW.text
+                    }
+                    if(t===1){
+                        rMod.cKWS2=txtKW.text
+                    }
+                    if(t===2){
+                        rMod.cKWS3=txtKW.text
+                    }
+                }
+            }
             Text{
+                id: txtKW
                 text:  keyWord
                 width: contentWidth//parent.width-app.fs
                 font.pixelSize: app.fs*0.5
                 color: apps.fontColor
                 wrapMode: Text.WordWrap
                 anchors.centerIn: parent
+                Rectangle{
+                    width: xItem.width*0.5-parent.width*0.5//-xItem.width
+                    height: 3//app.fs*0.5
+                    color: 'red'
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.right: parent.left
+                    visible: xItem.selected
+                }
                 Rectangle{
                     width: parent.width+4
                     height: parent.height+4
@@ -216,11 +336,28 @@ Item{
             }
         }
     }
+    Timer{
+        running: false//true
+        repeat: true
+        interval: 1000
+        onTriggered: {
+            if(rMod.cKW1<9){
+                rMod.cKW1++
+            }else{
+                rMod.cKW1=0
+            }
+        }
+    }
     Component.onCompleted: {
         //app.ci=rMod
         //zsm.getPanel('ModulesManager').cm=rMod
         app.ci=rMod
         updateBSH()
+    }
+    function updateKwSelecteds(){
+        for(var i=0;i<colBSH.children.length;i++){
+            colBSH.children[i].setKwSelected(0)
+        }
     }
 
     //-->Teclado
@@ -231,24 +368,73 @@ Item{
 
     }
     function toLeft(ctrl){
+        r.opacity=0.5
         if(!ctrl){
-
+            if(rMod.cBSH>1){
+                rMod.cBSH--
+            }else{
+                rMod.cBSH=3
+            }
         }else{
 
         }
     }
     function toRight(ctrl){
         if(!ctrl){
-
+            if(rMod.cBSH<3){
+                rMod.cBSH++
+            }else{
+                rMod.cBSH=1
+            }
         }else{
 
         }
     }
     function toUp(){
-
+        if(rMod.cBSH===1){
+            if(rMod.cKW1>0){
+                rMod.cKW1--
+            }else{
+                rMod.cKW1=9
+            }
+        }
+        if(rMod.cBSH===2){
+            if(rMod.cKW2>0){
+                rMod.cKW2--
+            }else{
+                rMod.cKW2=9
+            }
+            if(rMod.cBSH===3){
+                if(rMod.cKW3>0){
+                    rMod.cKW3--
+                }else{
+                    rMod.cKW3=9
+                }
+            }
+        }
     }
     function toDown(){
-
+        if(rMod.cBSH===1){
+            if(rMod.cKW1<9){
+                rMod.cKW1++
+            }else{
+                rMod.cKW1=0
+            }
+        }
+        if(rMod.cBSH===2){
+            if(rMod.cKW2<9){
+                rMod.cKW2++
+            }else{
+                rMod.cKW2=0
+            }
+        }
+        if(rMod.cBSH===3){
+            if(rMod.cKW3<9){
+                rMod.cKW3++
+            }else{
+                rMod.cKW3=0
+            }
+        }
     }
     function toTab(){
 

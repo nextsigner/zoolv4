@@ -1,1 +1,1 @@
-i7: Se crea ZoolHelp Comandos y se agrega función crear en ZoolCmd
+i7: Se corrije Guardar Tránsito como en MenuSep_v1

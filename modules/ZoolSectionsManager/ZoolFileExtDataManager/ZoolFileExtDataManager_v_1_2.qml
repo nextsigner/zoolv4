@@ -604,6 +604,9 @@ Rectangle {
     }
 
     //-->Funciones de Control Focus y Teclado
+    function isFocus(){
+        return false
+    }
     function toEscape(){
 
     }

@@ -146,13 +146,19 @@ ZoolMenus{
             }
             function setNom(){
 
-                let panel=zsm.getPanel('ZoolMods')
-                let section=panel.getSection('ZoolFileDirPrimLoader')
-                let currentDate=section.getCurrentDate()
+//                let panel=zsm.getPanel('ZoolMods')
+//                let section=panel.getSection('ZoolFileDirPrimLoader')
+//                if(app.t==='trans'){
+//                    panel.getSection('ZoolFileTransLoader')
+//                }
+                let cjb=zm.currentJsonBack.params
+                let currentDate=new Date(cjb.a, cjb.m-1, cjb.d, cjb.h, cjb.min)
+                //zpn.log(''+app.t+': '+currentDate.toString())
 
                 let sp=zm.fileDataBack
                 let p=JSON.parse(sp)
                 let nd=new Date(Date.now())
+                p.params.t=app.t
                 p.params.ms=nd.getTime()
                 p.params.n=tiNombre.t.text
                 p.params.d=currentDate.getDate()

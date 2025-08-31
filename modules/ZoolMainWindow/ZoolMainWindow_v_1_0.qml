@@ -152,24 +152,28 @@ ApplicationWindow {
     Shortcut{
         sequence: '0'
         onActivated: {
+            apps.zFocusPrev=apps.zFocus
             apps.zFocus='cmd'
         }
     }
     Shortcut{
         sequence: '1'
         onActivated: {
+            apps.zFocusPrev=apps.zFocus
             apps.zFocus='xLatIzq'
         }
     }
     Shortcut{
         sequence: '2'
         onActivated: {
+            apps.zFocusPrev=apps.zFocus
             apps.zFocus='xMed'
         }
     }
     Shortcut{
         sequence: '3'
         onActivated: {
+            apps.zFocusPrev=apps.zFocus
             apps.zFocus='xLatDer'
         }
     }
@@ -320,9 +324,9 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+Tab'
         onActivated: {
-            if(apps.zFocus==='xLatIzq'){apps.zFocus='xMed';return;}
-            if(apps.zFocus==='xMed'){apps.zFocus='xLatDer';return;}
-            if(apps.zFocus==='xLatDer'){apps.zFocus='xLatIzq';return;}
+            if(apps.zFocus==='xLatIzq'){apps.zFocusPrev=apps.zFocus;apps.zFocus='xMed';return;}
+            if(apps.zFocus==='xMed'){apps.zFocusPrev=apps.zFocus;apps.zFocus='xLatDer';return;}
+            if(apps.zFocus==='xLatDer'){apps.zFocusPrev=apps.zFocus;apps.zFocus='xLatIzq';return;}
             apps.zFocus='xLatIzq'
         }
     }
@@ -335,6 +339,10 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Esc'
         onActivated: {
+            if(apps.zFocus==='cmd'){
+                apps.zFocus=apps.zFocusPrev
+                return
+            }
             if(apps.zFocus==='xLatIzq'){
                 if(zsm.getPanel('ZoolNumPit').isFocus()){
                     zsm.getPanel('ZoolNumPit').toEscape()
@@ -1051,8 +1059,11 @@ ApplicationWindow {
 
             //zpn.log('zm.objPlanetsCircle.getMaxAsAbsPos(): '+zm.objPlanetsCircle.getMaxAsAbsPos())
             //zpn.log('zm.maxAbsPosInt: '+zm.maxAbsPosInt)
-            zpn.log('zm.objAspsCircle.visible: '+zm.objAspsCircle.visible)
-            zpn.log('zm.objAspsCircle.opacity: '+zm.objAspsCircle.opacity)
+            //zpn.log('zm.objAspsCircle.visible: '+zm.objAspsCircle.visible)
+            //zpn.log('zm.objAspsCircle.opacity: '+zm.objAspsCircle.opacity)
+
+            //let p=zm.currentJsonBack.params
+            //zpn.log('Current Date Ext: '+JSON.stringify(p, null, 2))
         }
     }
 }

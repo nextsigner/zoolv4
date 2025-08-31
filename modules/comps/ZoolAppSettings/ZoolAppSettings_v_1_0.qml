@@ -103,6 +103,7 @@ Settings{
 
     //GUI
     property string zFocus: 'xLatIzq'
+    property string zFocusPrev: 'xLatIzq'
     property bool speakEnabled: false
 
     //property bool showLog: false

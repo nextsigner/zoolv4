@@ -1118,6 +1118,9 @@ Rectangle {
         controlTimeFecha.currentDate=date
         loadTrans()
     }
+    function getCurrentDate(){
+        return controlTimeFecha.currentDate
+    }
 
     //-->Teclado
     function enter(){

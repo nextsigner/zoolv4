@@ -339,6 +339,12 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Esc'
         onActivated: {
+            //zpn.log('app.ci.objectName: '+app.ci.objectName+' Escape!')
+            if(app.ci && app.ci.objectName.indexOf('mm_ModulesLoader')<0){
+                //zpn.log('app.ci.objectName: '+app.ci.objectName+' Escape!')
+                app.ci.toEscape()
+                return
+            }
             if(apps.zFocus==='cmd'){
                 apps.zFocus=apps.zFocusPrev
                 return

@@ -343,6 +343,7 @@ Item{
             let o=xPanels.children[i].children[0]
             if(o.visible){
                 obj=o
+                //zpn.log('o.type: '+app.j.qmltypeof(o))
                 break
             }
         }

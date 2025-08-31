@@ -83,6 +83,7 @@ Rectangle{
     }
     Component.onCompleted: {
         loadModulesList()
+        app.ci=r
     }
 
     //-->Teclado

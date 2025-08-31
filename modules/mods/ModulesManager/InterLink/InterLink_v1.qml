@@ -12,6 +12,7 @@ Item{
     id: rMod
     width: 1
     height: 1
+    objectName: 'InterLink'
     property string moduleName: 'InterLink'
     property string folderImg: '../../../../modules/ZoolMap/imgs/imgs_v1'
     property string folderImgSigns: '../../../../imgs/signos'
@@ -29,7 +30,7 @@ Item{
     Rectangle{
         id: r
         width: parent.width
-        height: parent.height
+        height: parent.parent.height
         border.width: 1
         border.color: apps.fontColor
         radius: app.fs*0.25
@@ -46,15 +47,15 @@ Item{
         Column{
             id: col
             anchors.centerIn: parent
-            spacing: app.fs*0.5
-            Item{width: 1; height: app.fs*0.5}
+            spacing: app.fs*0.25
+            Item{width: 1; height: app.fs*0.25}
             Text{
                 id: txtTit
                 text:'<b>InterLink</b>'
                 font.pixelSize: app.fs*0.5
                 color: apps.fontColor
                 anchors.horizontalCenter: parent.horizontalCenter
-                visible: false
+                //visible: false
             }
             Column{
                 id: colBSH
@@ -84,7 +85,7 @@ Item{
         Rectangle{
             id: xItem
             width: r.width
-            height: r.height/3
+            height: ((r.height-txtTit.contentHeight-app.fs*0.75)/3)//-app.fs*0.5
             border.width: 3
             color: r.aColors[t]
             property int numAstro: -1
@@ -144,6 +145,8 @@ Item{
                     //anchors.fill: parent
                     model: lm
                     delegate: compItemList
+                    boundsBehavior: ListView.StopAtBounds
+                    //verticalScrollBar.interactive: false
                     ListModel{
                         id: lm
                         function addItem(kw){
@@ -190,7 +193,7 @@ Item{
         Rectangle{
             id: xItem
             width: parent.width
-            height: (r.height/3)/10
+            height: (xItem.parent.parent.height/10)
             border.width: 3
             color: 'transparent'//apps.backgroundColor
             Text{
@@ -214,6 +217,9 @@ Item{
         }
     }
     Component.onCompleted: {
+        //app.ci=rMod
+        //zsm.getPanel('ModulesManager').cm=rMod
+        app.ci=rMod
         updateBSH()
     }
 
@@ -248,7 +254,7 @@ Item{
 
     }
     function toEscape(){
-
+        zsm.getPanel('ModulesManager').loadModule('ModulesLoader', '1.0')
     }
     function isFocus(){
         return false
@@ -276,7 +282,7 @@ Item{
         }else{
             s.typeShow=0
         }
-        zpn.log('s.fileName: '+s.fileName)
+        //zpn.log('s.fileName: '+s.fileName)
     }
     //<--Funciones ModulesTemplate
 

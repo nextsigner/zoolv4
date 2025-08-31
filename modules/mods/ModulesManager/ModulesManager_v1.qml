@@ -15,6 +15,8 @@ Rectangle {
     border.width: 2
     border.color: apps.fontColor
 
+    property var cm
+
     property int hp: r.parent.height//-app.fs
 
     property var panelActive
@@ -22,6 +24,7 @@ Rectangle {
     property int currentIndex: -1
 
     visible: zsm.aPanelsIds.indexOf(app.j.qmltypeof(r))===zsm.currentIndex
+    //onCmChanged: zpn.log('cm.objectName: '+cm.objectName)
 
     Settings{
         id: settings
@@ -77,11 +80,35 @@ Rectangle {
         return obj
     }
     function getSectionVisible(){
-        let obj=xSections.children[0]
-        for(var i=0;i<xSections.children.length;i++){
-            let o=xSections.children[i]//.children[0]
-            //if(apps.dev)log.lv('getPanel( '+typeOfSection+' ): ' +app.j.qmltypeof(o))
+        if(r.cm)return r.cm
+        //zpn.log('xSections .children .length: '+xSections.children.length)
+        let obj
+        let o
+        for(var i=0;i<r.children.length;i++){
+            o=r.children[i]
+            //zpn.log('getSectionVisible() o.objectName: '+o.objectName)
+            if(o.objectName.indexOf('mm_')===0){
+                //zpn.log('getSectionVisible() o.visible: '+o.visible)
+                obj=o
+                break
+            }
+        }
+        if(obj)return obj
+        for(i=0;i<capa101.children.length;i++){
+            o=capa101.children[i]
+            //zpn.log('getSectionVisible() o.objectName: '+o.objectName)
+            if(o.objectName.indexOf('mm_')===0){
+                //zpn.log('getSectionVisible() o.visible: '+o.visible)
+                obj=o
+                break
+            }
+        }
+        if(obj)return obj
+        for(i=0;i<xSections.children.length;i++){
+            o=xSections.children[i]//.children[0]
+            //zpn.log('getSectionVisible() objName: '+o.objectName)
             if(o.visible){
+                //zpn.log('getSectionVisible() o.visible: '+o.visible)
                 obj=o
                 break
             }
@@ -138,12 +165,21 @@ Rectangle {
         getSectionVisible().toTab()
     }
     function toEscape(){
+        //console.log('r.cm.objectName: '+r.cm.objectName)
+        //zpn.log('r.cm.objectName: '+r.cm.objectName)
+        if(r.cm){
+            r.cm.toEscape()
+            return
+        }
         let i=getSectionVisible()
+        //zpn.log('toEscape() i.objectName: '+i.objectName)
         if(i)getSectionVisible().toEscape()
     }
     function isFocus(){
-        let i=getSectionVisible()
-        return i?i.isFocus():false
+        if(app.ci && app.ci.objectName.indexOf('mm_ModulesLoader')<0){
+            return app.ci.isFocus()
+        }
+        return false
     }
     function toHelp(){
         getSectionVisible().toHelp()
@@ -181,8 +217,9 @@ Rectangle {
         }
         //let extrasModsPath=u.getPath(5)+'/modules/mods/ModulesManager'
         let c='import mods.ModulesManager.'+moduleName+' '+version+'\n'
-        c+=''+moduleName+'{}\n'
+        c+=''+moduleName+'{objectName:"mm_'+moduleName+'"}\n'
         let comp=Qt.createQmlObject(c, xSections, 'loadcurrentmodules-code')
+        r.cm=comp
     }
     //<--Funciones de Panel de Herramientas Extras
 }

@@ -909,6 +909,61 @@ Rectangle {
             if(apps.dev)log.lv('Archivo NO creado: '+json.params.n)
         }
     }
+    function setNewJsonFileDataFromArgs(vtipo, nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, vhsys, gen, vdata, vpreview){
+        let d = new Date(Date.now())
+        let ms=d.getTime()
+
+        let json={}
+        json.params={}
+        json.params.t=vtipo
+        json.params.ms=ms
+        json.params.n=nom
+        json.params.g='n'
+        if(gen==='f' || gen==='m'){
+            json.params.g=gen
+        }
+        json.params.f=false
+        json.params.data=vdata
+
+        if(vpreview){
+            if(nom==='')nom='Sin Nombre'
+            json.params.n='Vista Previa - '+nom
+        }
+        json.params.d=vd
+        json.params.m=vm
+        json.params.a=va
+        json.params.h=vh
+        json.params.min=vmin
+        json.params.gmt=vgmt
+        json.params.lat=vlat
+        json.params.lon=vlon
+        json.params.alt=valt
+        json.params.c=vCiudad
+        json.params.hsys=vhsys
+        if(apps.enableShareInServer && cbShared.checked){
+            json.params.shared=true
+        }else{
+            json.params.shared=false
+        }
+        //json.params.extId=extId
+
+        let currentExts=zfdm.getJsonAbs().exts
+        if(currentExts){
+            json.exts=currentExts
+        }else{
+            json.exts=[]
+        }
+        //let json=JSON.parse(j)
+        let asTemp=true
+        if(!cbPreview.checked || botCrear.text==='Modificar'){
+            asTemp=false
+        }
+        if(zfdm.mkFileAndLoad(json, asTemp)){
+            if(apps.dev)log.lv('Archivo creado: '+json.params.n)
+        }else{
+            if(apps.dev)log.lv('Archivo NO creado: '+json.params.n)
+        }
+    }
     function enter(){
         if(botCrear.focus&&tiNombre.text!==''&&tiFecha1.text!==''&&tiFecha2.text!==''&&tiFecha3.text!==''&&tiHora1.text!==''&&tiHora2.text!==''&&tiGMT.text!==''&&tiCiudad.text!==''){
             searchGeoLoc(true)

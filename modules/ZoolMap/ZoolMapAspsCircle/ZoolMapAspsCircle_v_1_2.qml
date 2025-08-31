@@ -127,6 +127,7 @@ Rectangle {
                     }
                 }
             }
+            zm.hideTapa()
             //r.visible=true
             //r.opacity=1.0
         }

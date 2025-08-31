@@ -5,13 +5,14 @@ Rectangle {
     id: r
     width: parent.width
     height: app.fs
-    color: 'black'
+    color: apps.backgroundColor
     border.width: 1
-    border.color: 'white'
+    border.color: apps.fontColor
+    clip: true
     //anchors.bottom: parent.bottom
     property alias objPanelCmd: panelCmd
     property alias objXState: xStatus
-    state: apps.showCmd?"show":"hide"
+    state: apps.zFocus==='cmd'?"show":"hide"
     states: [
         State {
             name: "show"
@@ -28,8 +29,18 @@ Rectangle {
             }
         }
     ]
+    onStateChanged:{
+        if(state==="show"){
+            panelCmd.ti.focus=true
+        }else{
+            panelCmd.ti.focus=false
+        }
+    }
     Behavior on y {enabled: apps.enableFullAnimation;NumberAnimation{duration: app.msDesDuration;easing.type: Easing.InOutQuad}}
-    XStatus{id: xStatus;}
+    XStatus{
+        id: xStatus;
+
+    }
     ZoolCmd{
         id: panelCmd
         width: parent.width-xStatus.width

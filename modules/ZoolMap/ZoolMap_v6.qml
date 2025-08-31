@@ -28,7 +28,7 @@ Rectangle{
     border.width: xZoolMap.showDevLines?50:0
     border.color: xZoolMap.showDevLines?'#8833ff':'transparent'
     color: xZoolMap.showDevLines?'#8f8faa':'transparent'
-    opacity: tapa.opacity
+    //opacity: tapa.opacity
     //anchors.horizontalCenterOffset: 0-r.width*0.5
     //anchors.verticalCenterOffset: 0-r.width*0.5
     //clip: true
@@ -52,7 +52,7 @@ Rectangle{
     //property alias anv: aspNameView
     property alias oc: centro
     property alias objTapa: tapa
-    property alias objTRAC: tResizeAspCircle
+    //property alias objTRAC: tResizeAspCircle
     property alias objSignsCircle: signCircle
     property alias objHousesCircle: housesCircle
     property alias objHousesCircleBack: housesCircleBack
@@ -240,14 +240,14 @@ Rectangle{
             zm.currentPlanetIndexBack=-1
             zm.currentHouseIndexBack=-1
         }
-        if(sspEnabled){
+        /*if(sspEnabled){
             if(currentPlanetIndex>=-1&&currentPlanetIndex<10){
                 app.ip.opacity=1.0
                 app.ip.children[0].ssp.setPlanet(currentPlanetIndex)
             }else{
                 app.ip.opacity=0.0
             }
-        }
+        }*/
         //zoolDataBodies.currentIndex=currentPlanetIndex
         if(currentPlanetIndex>14){
             /*if(currentPlanetIndex===20){
@@ -938,10 +938,21 @@ Rectangle{
         onOpacityChanged:{
             if(opacity===0.0){
                 visible=false
-                opacity=1.0
+                //opacity=1.0
             }
         }
         Behavior on opacity{NumberAnimation{duration: 1000}}
+        Timer{
+            running: (tapa.visible && tapa.opacity>0.0) || tapa.opacity>0.0
+            repeat: true
+            interval: 5000
+            onTriggered: {
+                //log.lv('Ocultando tapa: opacity: '+tapa.opacity+' visible: '+tapa.visible)
+                tapa.opacity=0.0
+                tapa.visible=false
+                r.opacity=1.0
+            }
+        }
         MouseArea{
             anchors.fill: parent
             onClicked: tapa.visible=false
@@ -1016,8 +1027,7 @@ Rectangle{
             }
         }
     }
-
-    Timer {
+    /*Timer {
         id: tResizeAspCircle
         interval: 3000
         running: false
@@ -1025,7 +1035,7 @@ Rectangle{
         onTriggered: {
             resizeAspCircle()
         }
-    }
+    }*/
     Component.onCompleted: {
         if(!apps)return
         setTheme(apps.zmCurrenThemeIndex)

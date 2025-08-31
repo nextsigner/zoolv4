@@ -45,9 +45,7 @@ ApplicationWindow {
             if(zsm.getPanel('ZoolSabianos').view.visible){
                 zsm.getPanel('ZoolSabianos').view.ctrlDown()
                 return
-            }
-            apps.showCmd=!apps.showCmd
-            xBottomBar.state=!apps.showCmd?'hide':'show'
+            }            
         }
     }
     Shortcut{
@@ -151,6 +149,12 @@ ApplicationWindow {
     }
 
     //Seleccionar Area
+    Shortcut{
+        sequence: '0'
+        onActivated: {
+            apps.zFocus='cmd'
+        }
+    }
     Shortcut{
         sequence: '1'
         onActivated: {
@@ -281,7 +285,7 @@ ApplicationWindow {
         }
     }
     function ctrlReturnEnter(ctrl, tecla){
-        if(apps.showCmd){
+        if(apps.zFocus==='cmd'){
             xBottomBar.toEnter()
             return
         }

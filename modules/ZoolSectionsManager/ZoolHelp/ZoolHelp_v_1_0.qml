@@ -15,7 +15,7 @@ Rectangle{
     property int svIndex: zsm.currentIndex
     property int itemIndex: -1
     property int fs: app.fs*0.75
-    property var aAsuntos: ['Inicio', 'Video Tutoriales', 'Cómo Usarlo', 'Teclado', 'Mouse', 'Mapa Astrológico', 'Aspectos', 'Panel Métodos', 'Panel Cuerpos', 'Panel Secciones', 'Sabianos', 'Evolutiva', 'Editar Archivo', 'Menú Archivo', 'Menú Ver', 'Advertencias', 'Agradecimientos', 'Contacto', 'Sobre Qt']
+    property var aAsuntos: ['Inicio', 'Video Tutoriales', 'Cómo Usarlo', 'Teclado', 'Mouse', 'Mapa Astrológico', 'Aspectos', 'Panel Métodos', 'Panel Cuerpos', 'Panel Secciones', 'Sabianos', 'Evolutiva', 'Editar Archivo', 'Menú Archivo', 'Menú Ver', 'Comandos', 'Advertencias', 'Agradecimientos', 'Contacto', 'Sobre Qt']
     property string uAsunto: 'Inicio'
     Column{
         id: col0
@@ -176,6 +176,9 @@ Rectangle{
         if(flk.contentY<(flk.contentHeight-(flk.height-app.fs*3))){
             flk.contentY+=app.fs
         }
+    }
+    function isFocus(){
+        return false
     }
     function toEscape(){
 

@@ -8,13 +8,15 @@ Rectangle {
     id: r
     width: parent.width
     height: app.fs
-    border.width: 2
+    border.width: 0
     border.color: 'white'
     color: 'black'
     //y:r.parent.height
     anchors.verticalCenter: parent.verticalCenter
 
+    property alias ti: tiCmd.t
     property string jsonFilePath: u.getPath(4)+'/cmds.json'
+
 
 
     property real lat
@@ -24,17 +26,17 @@ Rectangle {
 
     ZoolTextInput{
         id: tiCmd
-        width: r.width
-        height: r.height
+        width: r.width-padding*0.5
+        height: r.height-padding*0.5
         t.font.pixelSize: app.fs*0.65
         t.parent.width: r.width//-app.fs*0.5
-        t.focus: apps.showCmd
+        //t.focus: r.visible//apps.showCmd
         anchors.horizontalCenter: parent.horizontalCenter
         //KeyNavigation.tab: cbGenero//controlTimeFecha
         t.maximumLength: 300
         borderColor:apps.fontColor
         borderRadius: app.fs*0.25
-        padding: app.fs*0.25
+        //padding: app.fs*0.25
         horizontalAlignment: TextInput.AlignLeft
         anchors.verticalCenter: parent.verticalCenter
         property int cmdIndex: 0
@@ -43,20 +45,13 @@ Rectangle {
             toEnter()
         }
         FocusSen{
-            width: parent.r.width
-            height: parent.r.height
+            width: parent.width
+            height: parent.height
             radius: parent.r.radius
-            border.width:2
+            border.width: 2
             anchors.centerIn: parent
             visible: parent.t.focus
         }
-//        Text {
-//            text: 'Nombre'
-//            font.pixelSize: app.fs*0.5
-//            color: 'red'
-//            //anchors.horizontalCenter: parent.horizontalCenter
-//            anchors.bottom: parent.top
-//        }
     }
 
     Item{id: xuqp}
@@ -89,8 +84,10 @@ Rectangle {
                 return
             }
             if(comando[0]==='test'){
-                log.lv('Test: ')
-                log.lv('Probando Python: '+app.pythonLocation)
+                log.lv('Test: \n')
+                log.lv('Archivo Python SWE Principal: '+u.currentFolderPath()+'/py/'+app.sweBodiesPythonFile+'\n')
+                log.lv('Probando Python: '+app.pythonLocation+'\n')
+
 
                 //Python
                 let idName='probePython'
@@ -133,6 +130,71 @@ Rectangle {
         let codeCom=cmd.substring(comando[0].length+1, cmd.length)
         //log.lv('com:::['+com+']', 0, 500)
         //log.lv('codeCom:['+codeCom+']', 0, 500)
+
+        //Crear Mapa
+        if(com==='crear'){
+            log.clear()
+            let codeComCorr1=codeCom.replace(/, /g, ',')
+            let mParams=codeComCorr1.split(',')
+            if(mParams.length<10){
+                log.lv('Faltan parámetros.\n')
+                log.lv('Parámetros requeridos: 12')
+                log.lv('Hay '+mParams.length+' parámetros.\n')
+                log.lv('Se requiere: Nombre, día, mes, año, hora, minuto, gmt, latitud, longitud, altitud, lugar de nacimiento, Género f o m)')
+                return
+            }
+            //log.lv('mParams: '+mParams)
+            let vd=parseInt(mParams[1])
+            if(isNaN(vd)){
+                log.lv('Error! El número del día no es válido.')
+                return
+            }
+            let vm=parseInt(mParams[2])
+            if(isNaN(vm)){
+                log.lv('Error! El número del mes no es válido.')
+                return
+            }
+            let va=parseInt(mParams[3])
+            if(isNaN(va)){
+                log.lv('Error! El número del año no es válido.')
+                return
+            }
+            let vh=parseInt(mParams[4])
+            if(isNaN(vh)){
+                log.lv('Error! El número de la hora no es válido.')
+                return
+            }
+            let vmin=parseInt(mParams[5])
+            if(isNaN(vmin)){
+                log.lv('Error! El número del minuto no es válido.')
+                return
+            }
+            let vgmt=parseInt(mParams[6])
+            if(isNaN(vgmt)){
+                log.lv('Error! El número del GMT no es válido.')
+                return
+            }
+            let vlat=parseInt(mParams[7])
+            if(isNaN(vlat)){
+                log.lv('Error! El número de la latitud no es válido.')
+                return
+            }
+            let vlon=parseInt(mParams[8])
+            if(isNaN(vlon)){
+                log.lv('Error! El número de la longitud no es válido.')
+                return
+            }
+            let valt=parseInt(mParams[9])
+            if(isNaN(valt)){
+                log.lv('Error! El número de la altura sobre el nivel del mar no es válido.')
+                return
+            }
+            log.visible=false
+            let panel=zsm.getPanel('ZoolFileManager')
+            let section=panel.getSection('ZoolFileMaker')
+            section.setNewJsonFileDataFromArgs('vn', mParams[0], vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, mParams[10], 'T', mParams[11], '', true)
+            return
+        }
 
         //Ver un error QML
         if(com==='ve'){

@@ -229,8 +229,8 @@ Rectangle {
         getSectionVisible().toTab()
     }
     function toEscape(){
-        getSectionVisible().toEscape()
-        //if(getSectionVisible())getSectionVisible().toEscape()
+        let s = getSectionVisible()
+        if(s)getSectionVisible().toEscape()
     }
     function isFocus(){
         return getSectionVisible().isFocus()

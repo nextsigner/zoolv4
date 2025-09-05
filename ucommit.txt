@@ -1,1 +1,1 @@
-i7: Se agrega pointer a xAsIcon
+i7: Se corrige Shorcut Esc para app.ci

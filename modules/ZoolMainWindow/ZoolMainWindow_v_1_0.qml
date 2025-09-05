@@ -340,7 +340,9 @@ ApplicationWindow {
         sequence: 'Esc'
         onActivated: {
             //zpn.log('app.ci.objectName: '+app.ci.objectName+' Escape!')
-            if(app.ci && app.ci.objectName.indexOf('mm_ModulesLoader')<0){
+            //zpn.log('app.ci.type: '+app.j.qmltypeof(app.ci))
+            //if(app.ci && app.ci.objectName.indexOf('mm_ModulesLoader')<0){
+            if(app.j.qmltypeof(app.ci)!=='ModulesLoader'){
                 //zpn.log('app.ci.objectName: '+app.ci.objectName+' Escape!')
                 app.ci.toEscape()
                 return

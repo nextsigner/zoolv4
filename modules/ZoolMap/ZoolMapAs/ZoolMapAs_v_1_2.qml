@@ -118,14 +118,17 @@ Item{
     }
     property int vr: 0
     //Behavior on width{NumberAnimation{duration:1500}}
+    property bool posIncByZero: false
     function revPos(){
-        for(var i=r.vr;i<zm.aBodies.length;i++){
+        posIncByZero=false
+        r.vr=0//r.numAstro//-1
+        for(var i=r.vr;i<zm.aBodies.length-r.numAstro;i++){
             const objAs=!r.isBack?zm.objPlanetsCircle.getAs(i):zm.objPlanetsCircleBack.getAs(i)
             const l=parseInt(r.objData.gdec)-10
             const h=parseInt(r.objData.gdec)+10
             if(!objAs || !objAs.objData || !objAs.objData.gdec)continue
             const n=objAs.objData.gdec
-            if((n > l && n < h)  && i!==numAstro  && i<numAstro){
+            if((n > l && n < h)  && i!==numAstro  && i<numAstro && objAs.pos===r.pos){
                 r.pos=objAs.pos+1
                 r.absPos=r.pos
 
@@ -140,7 +143,13 @@ Item{
                         //zpn.log('i'+i+': '+r.pos+' zm.maxAbsPosInt: '+zm.maxAbsPosInt)
                     }
                 }*/
-                break
+                //break
+            }else{
+                if((0 > l && 10 < h)  && i!==numAstro  && i<numAstro && objAs.pos===r.pos && !r.posIncByZero){
+                    r.pos=objAs.pos+1
+                    r.absPos=r.pos
+                    r.posIncByZero=true
+                }
             }
         }
         r.vr++

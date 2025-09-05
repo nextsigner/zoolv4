@@ -1,1 +1,1 @@
-i7: Se corrige Shorcut Esc para app.ci
+i7: Se depura revPos() en ZoolAs v1.2

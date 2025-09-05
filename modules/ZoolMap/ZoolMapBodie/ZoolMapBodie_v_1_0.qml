@@ -5,6 +5,7 @@ Item{
     id: r
     property bool isBack: false
     property bool selected: false
+    property int pos: -1
     property int numAstro: -1
     property int is: -1
     property var objData
@@ -28,7 +29,10 @@ Item{
     anchors.verticalCenter: parent.verticalCenter
     Rectangle{
         id: bg
-        anchors.fill: parent
+        //anchors.fill: parent
+        width: parent.width*0.5
+        height: width
+        anchors.centerIn: parent
         radius: width*0.5
         color: !apps.xAsShowIcon?
                     r.bgColor
@@ -40,12 +44,47 @@ Item{
         antialiasing: true
         opacity: 0.65
     }
+    Rectangle{
+        id: nodoCenPointer
+        width: r.width*0.5
+        height: width
+        radius: width*0.5
+        color: 'transparent'
+        rotation: 180
+        visible: apps.xAsShowIcon && !r.selected
+        anchors.centerIn: parent
+        Rectangle{
+            width: zm.planetSize
+            height: 1
+            color: apps.fontColor
+            anchors.left: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            Rectangle{
+                width: txtBodieName.contentWidth+app.fs*0.25
+                height: txtBodieName.contentHeight+app.fs*0.25
+                color: apps.backgroundColor
+                border.width: 1
+                border.color: apps.fontColor
+                radius: app.fs*0.15
+                anchors.horizontalCenter: parent.right
+                anchors.verticalCenter: parent.verticalCenter
+                rotation: img0.rotation-nodoCenPointer.rotation
+                Text{
+                    id: txtBodieName
+                    text: zm.aBodies[r.numAstro]//+' '+r.pos
+                    font.pixelSize: app.fs*0.35
+                    color: apps.fontColor
+                    anchors.centerIn: parent
+                }
+            }
+        }
+    }
     Image{
         id: img0
         //source: app.planetasRes[r.numAstro]?"./resources/imgs/planetas/"+app.planetasRes[r.numAstro]+".svg":""
         source: app.planetasRes[r.numAstro]||r.numAstro!==10?r.folderImg+"/"+app.planetasRes[r.numAstro]+(apps.xAsShowIcon&&r.aIcons.indexOf(r.numAstro)>=0?"_i.png":".svg"):""
         //source: '/home/nsp/zool-release/modules/ZoolBodies/ZoolAs/imgs_v1/'+app.planetasRes[0]+'.png'
-        width: r.width*0.75
+        width: !apps.xAsShowIcon||r.numAstro<10?r.width*0.75:r.width*0.35
         height: width
         anchors.centerIn: parent
         /*rotation: !r.isBack?
@@ -162,5 +201,13 @@ Item{
 //        antialiasing: true
 //        visible: false//!apps.xAsShowIcon||r.aIcons.indexOf(r.numAstro)<0
 //    }
+    onPosChanged: setPointerRot()
+    function setPointerRot(){
+        if(r.pos===0)nodoCenPointer.rotation=45
+        if(r.pos===1)nodoCenPointer.rotation=-45
+        if(r.pos===2)nodoCenPointer.rotation=70
+        if(r.pos===3)nodoCenPointer.rotation=90
+        if(r.pos>3)nodoCenPointer.rotation=180
+    }
 
 }

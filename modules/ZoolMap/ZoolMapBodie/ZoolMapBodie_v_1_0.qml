@@ -54,11 +54,13 @@ Item{
         visible: apps.xAsShowIcon && !r.selected
         anchors.centerIn: parent
         Rectangle{
-            width: zm.planetSize
+            id: ejePointer
+            width: zm.planetSize*f
             height: 1
             color: apps.fontColor
             anchors.left: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
+            property real f: 1.0
             Rectangle{
                 width: txtBodieName.contentWidth+app.fs*0.25
                 height: txtBodieName.contentHeight+app.fs*0.25
@@ -69,6 +71,25 @@ Item{
                 anchors.horizontalCenter: parent.right
                 anchors.verticalCenter: parent.verticalCenter
                 rotation: img0.rotation-nodoCenPointer.rotation
+                MouseArea{
+                    acceptedButtons: Qt.AllButtons;
+                    anchors.fill: parent
+                    onClicked: {
+                        if (mouse.button === Qt.RightButton) {
+                            nodoCenPointer.rotation-=10
+                        }else{
+                            nodoCenPointer.rotation+=10
+                        }
+                    }
+                    onWheel: {
+                        if(wheel.angleDelta.y>=0){
+                            if(ejePointer.f<4.0)ejePointer.f+=0.1
+                        }else{
+                            if(ejePointer.f>1.0)ejePointer.f-=0.1
+                        }
+                    }
+
+                }
                 Text{
                     id: txtBodieName
                     text: zm.aBodies[r.numAstro]//+' '+r.pos

@@ -61,7 +61,7 @@ Item{
     //property alias img0: bodie.objImg0
     Behavior on rotation{enabled:(app.t==='dirprim' || app.t==='trans');NumberAnimation{duration: 2000}}
     //Behavior on width{enabled:(app.t==='dirprim' || app.t==='trans');NumberAnimation{duration: 500}}
-    Behavior on opacity{id:anOp;NumberAnimation{duration: 500}}
+    //Behavior on opacity{id:anOp;NumberAnimation{duration: 500}}
     onWidthChanged: {
         //h()
         if(app.t!=='trans' && app.t!=='dirprim')return
@@ -124,8 +124,9 @@ Item{
         r.vr=0//r.numAstro//-1
         for(var i=r.vr;i<zm.aBodies.length-r.numAstro;i++){
             const objAs=!r.isBack?zm.objPlanetsCircle.getAs(i):zm.objPlanetsCircleBack.getAs(i)
-            const l=parseInt(r.objData.gdec)-10
-            const h=parseInt(r.objData.gdec)+10
+            const gdec=parseInt(r.objData.gdec)
+            const l=gdec-10
+            const h=gdec+10
             if(!objAs || !objAs.objData || !objAs.objData.gdec)continue
             const n=objAs.objData.gdec
             if((n > l && n < h)  && i!==numAstro  && i<numAstro && objAs.pos===r.pos){
@@ -258,6 +259,7 @@ Item{
         radius: width*0.5
         color: 'red'
         anchors.centerIn: bodie
+        visible: false
     }
     Rectangle{
         id: ejePos
@@ -760,6 +762,7 @@ Item{
             visible: r.selected
         }
     }
+
     /*Comps.XCircleSignal{
         id: xCircleSignal
         width: app.fs*16

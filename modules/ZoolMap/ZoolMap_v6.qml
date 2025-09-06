@@ -86,6 +86,8 @@ Rectangle{
     property var aBodiesFiles: ['sol', 'luna', 'mercurio', 'venus', 'marte', 'jupiter', 'saturno', 'urano', 'neptuno', 'pluton', 'nodo_norte', 'nodo_sur', 'quiron', 'selena', 'lilith', 'pholus', 'ceres', 'pallas', 'juno', 'vesta']
     property var objSignsNames: ['ari', 'tau', 'gem', 'cnc', 'leo', 'vir', 'lib', 'sco', 'sgr', 'cap', 'aqr', 'psc']
     property int planetSize: !r.ev?app.fs*1.5:app.fs
+    property int posMaxInt: 1
+    property int posMaxExt: 1
     property real planetsSep: 1.25
     property int planetsPadding: app.fs*8
     property int planetsMargin: app.fs*0.15
@@ -227,6 +229,15 @@ Rectangle{
             let filePath='/home/ns/gd/Zool/Natalia_S._Pintos.json'
             loadFromFile(filePath, 'sin', true)
         }
+    }
+    onPosMaxIntChanged: {
+        //zpn.log('posMaxInt: '+posMaxInt)
+        ca.d=signCircle.width-(signCircle.w*2)-(zm.planetSize*(posMaxInt)*2)
+    }
+    onPosMaxExtChanged: {
+        //ca.d=signCircle.width-(signCircle.w*2)-(zm.planetSize*(posMaxInt)*2)
+        ai.d=ae.d-(zm.planetSize*(posMaxExt)*2)-(zm.planetSize*2)
+        ca.d=signCircle.width-(signCircle.w*2)-(zm.planetSize*(posMaxInt)*2)//-(zm.planetSize*(posMaxExt)*2)//-((ae.d-ai.d)*0.25)
     }
     onAutomaticChanged: {
         if(automatic){
@@ -732,8 +743,8 @@ Rectangle{
                     id: signCircle
                     width: ai.width-r.housesNumWidth*2-r.housesNumMargin*2
                     onWidthChanged:{
-                        aspsCircle.visible=false
-                        tSetAspsCircleWidth.restart()
+                        //aspsCircle.visible=false
+                        //tSetAspsCircleWidth.restart()
                     }
                     Timer{
                         id: tSetAspsCircleWidth
@@ -743,11 +754,12 @@ Rectangle{
                         onTriggered: {
                             //zm.resizeAspsCircle(r.isBack)
                             //zm.objTRAC.restart()
-                            r.maxAbsPosInt=planetsCircle.getMaxAsAbsPos()
+
+                            /*r.maxAbsPosInt=planetsCircle.getMaxAsAbsPos()
                             aspsCircle.visible=true
                             ca.d=signCircle.width-(signCircle.w*2)-(zm.planetSize*(r.maxAbsPosInt+1)*2)
                             zm.objTapa.opacity=1.0
-                            zm.hideTapa()
+                            zm.hideTapa()*/
                         }
                     }
                 }
@@ -2040,7 +2052,7 @@ Rectangle{
         }
     }*/
     function resizeAspCircle(){
-        if(r.ev){
+        /*if(r.ev){
             ai.width=planetsCircleBack.getMinAsWidth()-r.planetSize*2
             ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
             //aspsCircle.width=300
@@ -2048,7 +2060,7 @@ Rectangle{
             ai.width=r.width
             ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
         }
-        hideTapa()
+        hideTapa()*/
     }
     function hideTapa(){
         tapa.opacity=0.0

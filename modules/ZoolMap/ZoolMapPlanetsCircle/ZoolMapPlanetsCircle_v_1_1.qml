@@ -372,6 +372,8 @@ Item{
         o.rsg=rsDegSign
         objAs.objData=o
         objSigns[o.is]++*/
+        //zpn.log('posMaxInt: '+posMaxInt)
+        setMaxPos()
     }
     function getAs(i){
         let objAs=r.children[i]
@@ -417,5 +419,63 @@ Item{
             }
         }
         return absPos
+    }
+    function setMaxPos(){
+        var objAs
+        let maxPos=1
+        let aGdecs=[]
+        for(var i=0;i<zm.aBodies.length;i++){
+            objAs=getAs(i)
+            aGdecs.push({ grados: objAs.objData.gdec, pos: 1 })
+        }
+        const rangoDeGrados = 10;
+
+        const objetosActualizados = actualizarPosicionCircular(aGdecs, rangoDeGrados);
+        //zpn.log('objetosActualizados: '+JSON.stringify(objetosActualizados, null, 2))
+        for(i=0;i<zm.aBodies.length;i++){
+            let p = aGdecs[i].pos
+            if(p>maxPos){
+                maxPos=p
+            }
+        }
+        if(!r.isBack){
+            zm.posMaxInt=maxPos
+        }else{
+            zm.posMaxExt=maxPos
+        }
+        //zpn.log('setMaxPos() zm.posMaxInt: '+zm.posMaxInt)
+    }
+    function actualizarPosicionCircular(aObjects, rango) {
+      // Asegurarse de que el rango sea un número positivo
+      const rangoAbsoluto = Math.abs(rango);
+
+      // Iterar sobre cada objeto para compararlo con todos los demás
+      for (let i = 0; i < aObjects.length; i++) {
+        const objetoActual = aObjects[i];
+
+        // Iterar sobre cada objeto para la comparación
+        for (let j = 0; j < aObjects.length; j++) {
+          // Evitar comparar un objeto consigo mismo
+          if (i === j) {
+            continue;
+          }
+
+          const objetoComparado = aObjects[j];
+          const gradosActual = objetoActual.grados;
+          const gradosComparado = objetoComparado.grados;
+
+          // Calcular la diferencia de grados. Esto es lo que resuelve el problema del círculo
+          let diferencia = Math.abs(gradosActual - gradosComparado);
+
+          // Usar el módulo para manejar la "vuelta" del círculo (ej. 355° y 5°)
+          diferencia = Math.min(diferencia, 360 - diferencia);
+
+          // Si la diferencia está dentro del rango, incrementamos la posición
+          if (diferencia <= rangoAbsoluto) {
+            objetoComparado.pos++;
+          }
+        }
+      }
+      return aObjects;
     }
 }

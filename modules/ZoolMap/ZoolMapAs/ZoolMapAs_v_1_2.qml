@@ -161,9 +161,9 @@ Item{
         repeat: true
         interval: 250
         onTriggered: {
-            zm.maxAbsPosInt=zm.objPlanetsCircle.getMaxAsAbsPos()
+            //zm.maxAbsPosInt=zm.objPlanetsCircle.getMaxAsAbsPos()
             //zpn.log('-->'+zm.aBodies[r.numAstro]+' pos: '+pos+' zm.maxAbsPosInt: '+zm.maxAbsPosInt)
-            zm.objCA.d=zm.objSignsCircle.width-(zm.objSignsCircle.w*2)-(zm.planetSize*(zm.maxAbsPosInt+1)*2)
+            //zm.objCA.d=zm.objSignsCircle.width-(zm.objSignsCircle.w*2)-(zm.planetSize*(zm.maxAbsPosInt+1)*2)
         }
     }
     Timer{

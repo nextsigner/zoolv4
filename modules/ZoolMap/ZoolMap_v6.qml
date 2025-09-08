@@ -88,6 +88,8 @@ Rectangle{
     property int planetSize: !r.ev?app.fs*1.5:app.fs
     property int posMaxInt: 1
     property int posMaxExt: 1
+    property var aGdecsPosInt: ({})
+    property var aGdecsPosExt: ({})
     property real planetsSep: 1.25
     property int planetsPadding: app.fs*8
     property int planetsMargin: app.fs*0.15

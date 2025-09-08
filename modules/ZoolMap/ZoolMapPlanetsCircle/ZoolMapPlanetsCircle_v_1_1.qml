@@ -431,6 +431,11 @@ Item{
         const rangoDeGrados = 10;
 
         const objetosActualizados = actualizarPosicionCircular(aGdecs, rangoDeGrados);
+        if(!r.isBack){
+            zm.aGdecsPosInt=objetosActualizados
+        }else{
+            zm.aGdecsPosExt=objetosActualizados
+        }
         //zpn.log('objetosActualizados: '+JSON.stringify(objetosActualizados, null, 2))
         for(i=0;i<zm.aBodies.length;i++){
             let p = aGdecs[i].pos
@@ -444,6 +449,11 @@ Item{
             zm.posMaxExt=maxPos
         }
         //zpn.log('setMaxPos() zm.posMaxInt: '+zm.posMaxInt)
+        /*for(i=zm.aBodies.length-1;i>0;i--){
+            objAs=getAs(i)
+            objAs.pos=objetosActualizados[i].pos
+        }*/
+        //zpn.log('objetosActualizados: '+JSON.stringify(objetosActualizados, null, 2))
     }
     function actualizarPosicionCircular(aObjects, rango) {
       // Asegurarse de que el rango sea un número positivo

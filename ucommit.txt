@@ -1,1 +1,1 @@
-i7: Se agrega aGdecsPos a zm pero no aplica.
+i7: Se crea función ordenarPosiciones() en zm

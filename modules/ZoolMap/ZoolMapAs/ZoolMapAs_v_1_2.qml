@@ -157,16 +157,17 @@ Item{
     }
     Timer{
         id: tRevIsAspZone
-        running: (!r.isBack && r.width<=zm.objAspsCircle.width) || r.width>zm.objCA.d-(zm.planetSize*2)
+        running: false//zm.aBodies[r.numAstro]==='Juno'//(!r.isBack && ca.width<=zm.objAspsCircle.width) || r.width>zm.objCA.d-(zm.planetSize*2)
         repeat: true
-        interval: 250
+        interval: 5000
         onTriggered: {
             //zm.maxAbsPosInt=zm.objPlanetsCircle.getMaxAsAbsPos()
             //zpn.log('-->'+zm.aBodies[r.numAstro]+' pos: '+pos+' zm.maxAbsPosInt: '+zm.maxAbsPosInt)
             //zm.objCA.d=zm.objSignsCircle.width-(zm.objSignsCircle.w*2)-(zm.planetSize*(zm.maxAbsPosInt+1)*2)
+            //zm.objPlanetsCircle.ordenarPosiciones()
         }
     }
-    Timer{
+    /*Timer{
         interval: 1000
         //running: r.numAstro===1 || r.numAstro===2
         repeat: true
@@ -202,7 +203,7 @@ Item{
             let obj=Qt.createQmlObject(c, zm.xzm, 'rectPosCode')
             //log.lv("Absolute Position of child rectangle: x ="+absolutePosition.x+", y ="+absolutePosition.y);
         }
-    }
+    }*/
 
     //-->Para visualizar alcance de ancho
     Rectangle{
@@ -564,16 +565,16 @@ Item{
                         }else{
                             if(zm.planetSize<app.fs*2){
                                 zm.planetSize+=app.fs*0.1
-                                zm.resizeAspsCircle(r.isBack)
+                                zm.setAreasWidth(!r.isBack)
                             }
                         }
                     }else{
                         if(pointerPlanet.opacity===1.0){
                             pointerPlanet.pointerRot-=5
                         }else{
-                            if(zm.planetSize>app.fs){
+                            if(zm.planetSize>app.fs*0.25){
                                 zm.planetSize-=app.fs*0.1
-                                zm.resizeAspsCircle(r.isBack)
+                                zm.setAreasWidth(!r.isBack)
                             }
                         }
                     }
@@ -791,7 +792,7 @@ Item{
         repeat: true
         interval: 1000
         onTriggered: {
-            anOp.enabled=true
+            //anOp.enabled=true
             r.opacity=1.0
         }
     }
@@ -802,7 +803,7 @@ Item{
         interval: 100
         onTriggered: {
             if(numAstro>=1){
-                revPos()
+                //revPos()
             }
         }
         onRunningChanged: {
@@ -892,7 +893,7 @@ Item{
         }
     }
     function h(){
-        anOp.enabled=false
+        //anOp.enabled=false
         r.opacity=0.0
         tOpacity.restart()
     }

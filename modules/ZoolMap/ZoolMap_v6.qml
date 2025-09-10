@@ -88,8 +88,10 @@ Rectangle{
     property int planetSize: !r.ev?app.fs*1.5:app.fs
     property int posMaxInt: 1
     property int posMaxExt: 1
-    property var aGdecsPosInt: ({})
-    property var aGdecsPosExt: ({})
+    property var aGdecsInt: []
+    property var aGdecsExt: []
+    //property var aGdecsPosInt: ({})
+    //property var aGdecsPosExt: ({})
     property real planetsSep: 1.25
     property int planetsPadding: app.fs*8
     property int planetsMargin: app.fs*0.15
@@ -233,13 +235,19 @@ Rectangle{
         }
     }
     onPosMaxIntChanged: {
-        //zpn.log('posMaxInt: '+posMaxInt)
-        ca.d=signCircle.width-(signCircle.w*2)-(zm.planetSize*(posMaxInt)*2)
+        setAreasWidth(true)
     }
     onPosMaxExtChanged: {
-        //ca.d=signCircle.width-(signCircle.w*2)-(zm.planetSize*(posMaxInt)*2)
-        ai.d=ae.d-(zm.planetSize*(posMaxExt)*2)-(zm.planetSize*2)
-        ca.d=signCircle.width-(signCircle.w*2)-(zm.planetSize*(posMaxInt)*2)//-(zm.planetSize*(posMaxExt)*2)//-((ae.d-ai.d)*0.25)
+        setAreasWidth(false)
+    }
+    function setAreasWidth(forInt){
+        if(forInt){
+            ca.d=signCircle.width-(signCircle.w*2)-(zm.planetSize*(posMaxInt)*2)
+        }else{
+            ai.d=ae.d-(zm.planetSize*(posMaxExt)*2)-(zm.planetSize*2)
+            ca.d=signCircle.width-(signCircle.w*2)-(zm.planetSize*(posMaxInt)*2)//-(zm.planetSize*(posMaxExt)*2)//-((ae.d-ai.d)*0.25)
+            r.objHousesCircleBack.width+=ae.width*0.25
+        }
     }
     onAutomaticChanged: {
         if(automatic){

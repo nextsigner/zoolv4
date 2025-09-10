@@ -72,7 +72,7 @@ Item{
             if(jo.mdeg>=50){
                 degRed=1.0
             }
-            objAs.pos=1
+            //objAs.pos=1
             objAs.rotation=signCircle.rot-jo.gdeg-(jo.mdeg/60)//+degRed
             if(r.isBack && app.t==='dirprim'){
                 //objAs.rotation-=zm.dirPrimRot
@@ -186,13 +186,13 @@ Item{
         let div=360/anchoLongArc
         let cn=0
         let mPos=[]
-        for(i=0;i<20;i++){
+        /*for(i=0;i<20;i++){
             mPos.push(0)
             objAs=r.children[i]
-            objAs.pos=0
+            //objAs.pos=0
             //objAs.width=zm.width
-            objAs.vr=0
-        }
+            //objAs.vr=0
+        }*/
 
         //        for(i=1;i<20;i++){
         //            objAs=r.children[i]
@@ -426,15 +426,42 @@ Item{
         let aGdecs=[]
         for(var i=0;i<zm.aBodies.length;i++){
             objAs=getAs(i)
-            aGdecs.push({ grados: objAs.objData.gdec, pos: 1 })
+            //aGdecs.push({ grados: objAs.objData.gdec, pos: 1 })
+            aGdecs.push(objAs.objData.gdec)
         }
-        const rangoDeGrados = 10;
-
-        const objetosActualizados = actualizarPosicionCircular(aGdecs, rangoDeGrados);
         if(!r.isBack){
-            zm.aGdecsPosInt=objetosActualizados
+            zm.aGdecsInt=aGdecs
         }else{
-            zm.aGdecsPosExt=objetosActualizados
+            zm.aGdecsExt=aGdecs
+        }
+        ordenarPosiciones()
+        //const rangoDeGrados = 10;
+
+        //let misObjetos = [];
+        //const objetosActualizados = actualizarPosicionCircular(aGdecs, rangoDeGrados);
+        //const objetosFinales = organizarObjetosCirculares(aGdecs, rangoDeGrados);
+        //zpn.log('zm.aGdecsPosInt: '+JSON.stringify(zm.aGdecsPosInt, null, 2))
+        //zpn.log('objetosFinales: '+JSON.stringify(objetosFinales, null, 2))
+        if(!r.isBack){
+            //zm.aGdecsPosInt=objetosActualizados
+            //zm.aGdecsPosInt=objetosFinales
+            //zpn.log('zm.aGdecsPosInt: '+JSON.stringify(zm.aGdecsPosInt, null, 2))
+            //zpn.log('zm.aGdecsPosInt: '+JSON.stringify(zm.aGdecsPosInt, null, 2))
+            /*for(var i3=0;i3<zm.aBodies.length;i3++){
+                //zpn.log(' '+zm.aBodies[i3]+': '+zm.aGdecsPosInt[i3].grados)
+                //zpn.log(' '+zm.aBodies[i3]+': '+objetosFinales[i3].posicion)
+                zpn.log(' '+zm.aBodies[i3]+': '+JSON.stringify(objetosFinales[i3], null, 2))
+                zpn.log(' '+zm.aBodies[i3]+'.grado.pos: '+objetosFinales[i3].grado.pos)
+                //getAs(i3).pos=objetosFinales[i3].grado.pos
+                //misObjetos.push({ "grado": zm.aGdecsPosInt[i3].grados, "posicion": 1 })
+            }*/
+            //zpn.log(' misObjetos: '+misObjetos.join('\n'))
+
+
+
+        }else{
+            //zm.aGdecsPosExt=objetosActualizados
+            //zpn.log('zm.aGdecsPosExt: '+JSON.stringify(zm.aGdecsPosExt, null, 2))
         }
         //zpn.log('objetosActualizados: '+JSON.stringify(objetosActualizados, null, 2))
         for(i=0;i<zm.aBodies.length;i++){
@@ -444,9 +471,9 @@ Item{
             }
         }
         if(!r.isBack){
-            zm.posMaxInt=maxPos
+            //zm.posMaxInt=maxPos
         }else{
-            zm.posMaxExt=maxPos
+            //zm.posMaxExt=maxPos
         }
         //zpn.log('setMaxPos() zm.posMaxInt: '+zm.posMaxInt)
         /*for(i=zm.aBodies.length-1;i>0;i--){
@@ -488,4 +515,143 @@ Item{
       }
       return aObjects;
     }
+    function organizarObjetosCirculares(aGrados, margen) {
+      let objetos = [];
+
+      // Función para normalizar grados entre 0 y 360
+      const normalizarGrado = (grado) => {
+        return (grado % 360 + 360) % 360;
+      };
+
+      // Iterar sobre cada grado para crear y posicionar un objeto
+      aGrados.forEach((gradoActual, index) => {
+        let posicion = 1;
+        let gradoNormalizadoActual = normalizarGrado(gradoActual);
+
+        // Encontrar objetos existentes que colisionan con el grado actual
+        const objetosEnRango = objetos.filter(obj => {
+          const gradoExistenteNormalizado = normalizarGrado(obj.grado);
+          const rangoInferior = normalizarGrado(gradoNormalizadoActual - margen);
+          const rangoSuperior = normalizarGrado(gradoNormalizadoActual + margen);
+
+          if (rangoInferior > rangoSuperior) {
+            // Manejar el cruce de 360°/0°
+            return (gradoExistenteNormalizado >= rangoInferior || gradoExistenteNormalizado <= rangoSuperior);
+          } else {
+            return (gradoExistenteNormalizado >= rangoInferior && gradoExistenteNormalizado <= rangoSuperior);
+          }
+        }).sort((a, b) => a.posicion - b.posicion); // Ordenar por posición para asignar la siguiente disponible
+
+        // Si hay colisiones, asignar la siguiente posición
+        if (objetosEnRango.length > 0) {
+          posicion = objetosEnRango[objetosEnRango.length - 1].posicion + 1;
+          // Asegurarse de que no se salte ninguna posición
+          while (objetosEnRango.some(obj => obj.posicion === posicion)) {
+            posicion++;
+          }
+        }
+
+        // Agregar el nuevo objeto al array
+        objetos.push({
+          id: index + 1, // Puedes usar el índice como un ID
+          grado: gradoActual,
+          posicion: posicion
+        });
+      });
+
+      return objetos;
+    }
+
+
+    function hayAlgoAhi(startDegree, secondStartDegree){
+      const margen=10.00
+        // Normalize degrees to be within the 0-360 range
+      const normalize = (deg) => ((deg % 360) + 360) % 360;
+
+      const normalizedStart = normalize(startDegree);
+      const normalizedSecondStart = normalize(secondStartDegree);
+
+      // Define the arcs
+      const endDegree = normalize(normalizedStart + margen);
+      const secondEndDegree = normalize(normalizedSecondStart + margen);
+
+      // Check for overlap, handling the wrap-around case (end < start)
+      const isOverlapping = (start1, end1, start2, end2) => {
+        // Standard overlap check
+        if (end1 >= start1 && end2 >= start2) {
+          return (
+            (start1 >= start2 && start1 <= end2) ||
+            (end1 >= start2 && end1 <= end2) ||
+            (start2 >= start1 && start2 <= end1) ||
+            (end2 >= start1 && end2 <= end1)
+          );
+        }
+
+        // Overlap where the first arc wraps around (end1 < start1)
+        if (end1 < start1) {
+          return (
+            (start2 >= start1 || end2 <= end1) || // Second arc spans the wrap-around
+            (start2 >= start1 && start2 <= 360) || // Second arc starts in the first part
+            (end2 >= 0 && end2 <= end1) // Second arc ends in the second part
+          );
+        }
+
+        // Overlap where the second arc wraps around (end2 < start2)
+        if (end2 < start2) {
+            return (
+                (start1 >= start2 || end1 <= end2) || // First arc spans the wrap-around
+                (start1 >= start2 && start1 <= 360) || // First arc starts in the first part
+                (end1 >= 0 && end1 <= end2) // First arc ends in the second part
+              );
+        }
+      };
+
+      return isOverlapping(normalizedStart, endDegree, normalizedSecondStart, secondEndDegree);
+    }
+    function ordenarPosiciones(){
+        let aGdecs
+        if(!r.isBack){
+            aGdecs=zm.aGdecsInt
+        }else{
+            aGdecs=zm.aGdecsExt
+        }
+        let maxPos=0
+        let aBodiesPos=[]
+        for(var i=0;i<aGdecs.length;i++){
+            aBodiesPos.push(1)
+            let objAs=getAs(i)
+            objAs.pos=0
+        }
+        for(i=0;i<aGdecs.length;i++){
+            for(var i2=i;i2<aGdecs.length;i2++){
+                let haa=hayAlgoAhi(aGdecs[i], aGdecs[i2])
+                if(haa && i!==i2){
+                    //zpn.log('ordenando: '+aGdecs[i])
+                    //zpn.log('haa '+zm.aBodies[i]+' '+zm.aBodies[i2])
+                    aBodiesPos[i2]++
+                    if(aBodiesPos[i2]>maxPos){
+                        maxPos++
+                    }
+                }
+            }
+        }
+        //zpn.log('aBodiesPos: '+aBodiesPos.join('\n'))
+        for(i=0;i<aGdecs.length;i++){
+            let objAs=getAs(i)
+            objAs.pos=aBodiesPos[i]-1
+        }
+        zpn.log('maxPos: '+maxPos)
+        if(!r.isBack){
+            zm.posMaxInt=maxPos
+        }else{
+            zm.posMaxExt=maxPos
+        }
+    }
+
+    // Examples
+    //console.log(isOverlappingArc(10, 11.5)); // true
+    //console.log(isOverlappingArc(10, 12.5)); // false
+    //console.log(isOverlappingArc(359.5, 0.5)); // true (wrapping around 360)
+    //console.log(isOverlappingArc(359.5, 1.6)); // false (the overlap ends at 1.5)
+
 }

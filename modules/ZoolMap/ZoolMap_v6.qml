@@ -242,11 +242,13 @@ Rectangle{
     }
     function setAreasWidth(forInt){
         if(forInt){
+            //ai.d=ae.d-(zm.planetSize*(posMaxInt)*2)-(zm.planetSize*2)
             ca.d=signCircle.width-(signCircle.w*2)-(zm.planetSize*(posMaxInt)*2)
+            r.objHousesCircleBack.width=ae.width//*0.25
         }else{
             ai.d=ae.d-(zm.planetSize*(posMaxExt)*2)-(zm.planetSize*2)
             ca.d=signCircle.width-(signCircle.w*2)-(zm.planetSize*(posMaxInt)*2)//-(zm.planetSize*(posMaxExt)*2)//-((ae.d-ai.d)*0.25)
-            r.objHousesCircleBack.width+=ae.width*0.25
+            r.objHousesCircleBack.width=ae.width//*0.25
         }
     }
     onAutomaticChanged: {
@@ -1108,8 +1110,9 @@ Rectangle{
     //-->Load Data
     function load(j){
         if(r.loadingJsonInt)return
-        //console.log('Ejecutando SweGraphic.load()...')
+        //console.log('Ejecutando ZoolMap.load()...')
         r.dirPrimRot=0
+        r.planetSize=!r.ev?app.fs*1.5:app.fs
 
         for(var i=0;i<xuqp.children.length;i++){
             xuqp.children[i].destroy(0)

@@ -563,7 +563,7 @@ Item{
                         if(pointerPlanet.opacity===1.0){
                             pointerPlanet.pointerRot+=5
                         }else{
-                            if(zm.planetSize<app.fs*2){
+                            if(zm.planetSize<app.fs*2 && zm.objCA.width>app.fs*4){
                                 zm.planetSize+=app.fs*0.1
                                 zm.setAreasWidth(!r.isBack)
                             }
@@ -572,7 +572,7 @@ Item{
                         if(pointerPlanet.opacity===1.0){
                             pointerPlanet.pointerRot-=5
                         }else{
-                            if(zm.planetSize>app.fs*0.25){
+                            if(zm.planetSize>app.fs*0.25 && zm.objCA.width<app.fs*15){
                                 zm.planetSize-=app.fs*0.1
                                 zm.setAreasWidth(!r.isBack)
                             }

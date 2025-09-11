@@ -1,1 +1,1 @@
-i7: Se agrega setAreasWidth(forInt) a zm
+i7: Se agregan limites a ZoolMapAs.onWheel para inc. o dec. de zm.planetSize

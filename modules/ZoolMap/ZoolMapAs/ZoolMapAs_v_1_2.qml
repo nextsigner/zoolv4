@@ -376,7 +376,7 @@ Item{
     Image {
         id: imgEarth
         source: r.folderImg+"/earth.png"
-        width: zm.width*0.05
+        width: zm.objCA.width*0.25<app.fs?zm.objCA.width*0.25:app.fs
         height: width
         rotation: -45
         antialiasing: true

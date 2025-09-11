@@ -1,1 +1,1 @@
-i7: Se crea función ordenarPosiciones() en zm
+i7: Se agrega setAreasWidth(forInt) a zm

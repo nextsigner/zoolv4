@@ -505,7 +505,7 @@ Item {
                         onClicked: {
                             //log.lv('Click en '+item.ih)
                             if(mouse.button === Qt.LeftButton && mouse.modifiers & Qt.ControlModifier) {
-                                log.lv('item.ih: '+item.ih)
+                                //log.lv('item.ih: '+item.ih)
                                 zm.setHousesPointerShow(item.ih, false)
                                 item.selected=!item.selected
                                 setCurrentHouseIndex(item)

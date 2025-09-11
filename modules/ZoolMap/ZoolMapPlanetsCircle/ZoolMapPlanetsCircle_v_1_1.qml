@@ -640,7 +640,7 @@ Item{
             let objAs=getAs(i)
             objAs.pos=aBodiesPos[i]-1
         }
-        zpn.log('maxPos: '+maxPos)
+        //zpn.log('maxPos: '+maxPos)
         if(!r.isBack){
             zm.posMaxInt=maxPos
         }else{

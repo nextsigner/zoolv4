@@ -85,7 +85,8 @@ Rectangle{
     property var aBodies: ['Sol', 'Luna', 'Mercurio', 'Venus', 'Marte', 'Júpiter', 'Saturno', 'Urano', 'Neptuno', 'Plutón', 'N.Norte', 'N.Sur', 'Quirón', 'Selena', 'Lilith', 'Pholus', 'Ceres', 'Pallas', 'Juno', 'Vesta']
     property var aBodiesFiles: ['sol', 'luna', 'mercurio', 'venus', 'marte', 'jupiter', 'saturno', 'urano', 'neptuno', 'pluton', 'nodo_norte', 'nodo_sur', 'quiron', 'selena', 'lilith', 'pholus', 'ceres', 'pallas', 'juno', 'vesta']
     property var objSignsNames: ['ari', 'tau', 'gem', 'cnc', 'leo', 'vir', 'lib', 'sco', 'sgr', 'cap', 'aqr', 'psc']
-    property int planetSize: !r.ev?app.fs*1.5:app.fs
+    property int planetSizeInt: !r.ev?app.fs*1.5:app.fs
+    property int planetSizeExt: app.fs
     property int posMaxInt: 1
     property int posMaxExt: 1
     property var aGdecsInt: []
@@ -242,12 +243,12 @@ Rectangle{
     }
     function setAreasWidth(forInt){
         if(forInt){
-            //ai.d=ae.d-(zm.planetSize*(posMaxInt)*2)-(zm.planetSize*2)
-            ca.d=signCircle.width-(signCircle.w*2)-(zm.planetSize*(posMaxInt)*2)
+            //ai.d=ae.d-(zm.planetSizeInt*(posMaxInt)*2)-(zm.planetSizeInt*2)
+            ca.d=signCircle.width-(signCircle.w*2)-(zm.planetSizeInt*(posMaxInt)*2)
             r.objHousesCircleBack.width=ae.width//*0.25
         }else{
-            ai.d=ae.d-(zm.planetSize*(posMaxExt)*2)-(zm.planetSize*2)
-            ca.d=signCircle.width-(signCircle.w*2)-(zm.planetSize*(posMaxInt)*2)//-(zm.planetSize*(posMaxExt)*2)//-((ae.d-ai.d)*0.25)
+            ai.d=ae.d-(zm.planetSizeExt*(posMaxExt)*2)-(zm.planetSizeExt*2)
+            ca.d=signCircle.width-(signCircle.w*2)-(zm.planetSizeInt*(posMaxInt)*2)//-(zm.planetSizeInt*(posMaxExt)*2)//-((ae.d-ai.d)*0.25)
             r.objHousesCircleBack.width=ae.width//*0.25
         }
     }
@@ -474,11 +475,11 @@ Rectangle{
                     revIsDataDiff()
                     if(zm.ev){
                         r.maxAbsPosExt=planetsCircleBack.getMaxAsAbsPos()
-                        //ai.width=r.width-(zm.planetSize*(r.maxAbsPosExt+1)*2)
+                        //ai.width=r.width-(zm.planetSizeInt*(r.maxAbsPosExt+1)*2)
                     }else{
-                        //ai.d=r.width//-(zm.planetSize*(r.maxAbsPosExt+1)*2)
+                        //ai.d=r.width//-(zm.planetSizeInt*(r.maxAbsPosExt+1)*2)
                     }
-                    //housesCircle.wbgc=planetsCircle.getMinAsWidth()*0.5//-r.planetSize*2
+                    //housesCircle.wbgc=planetsCircle.getMinAsWidth()*0.5//-r.planetSizeInt*2
                     //housesCircleBack.wbgc=signCircle.width//ai.width
                     //zm.objPlanetsCircle.vw=zm.objAspsCircle.width
                     if(app.t==='dirprim')housesCircleBack.width=ae.width
@@ -662,7 +663,7 @@ Rectangle{
                     Circle{
                         id: ai
                         //d: !r.ev?r.width:ae.width-ae.w*2
-                        d: !r.ev?r.width:r.width-(zm.planetSize*(r.maxAbsPosExt+1)*2)-zm.planetSize*2
+                        d: !r.ev?r.width:r.width-(zm.planetSizeInt*(r.maxAbsPosExt+1)*2)-zm.planetSizeInt*2
                         c: 'transparent'
                         //opacity: 0.5
                         property int w: 10
@@ -673,7 +674,7 @@ Rectangle{
                         }
                         Circle{
                             id: ca
-                            d: 0//signCircle.width-(signCircle.w*2)-(zm.planetSize*(r.maxAbsPosInt+1)*2)//signCircle.width-(signCircle.w*2)-parent.w
+                            d: 0//signCircle.width-(signCircle.w*2)-(zm.planetSizeInt*(r.maxAbsPosInt+1)*2)//signCircle.width-(signCircle.w*2)-parent.w
                             color: 'transparent'//apps.backgroundColor
                             //onWidthChanged: aspsCircle.hideAndShow()
                         }
@@ -682,7 +683,7 @@ Rectangle{
                     /*
                     Circle{
                         id: c100
-                        d: signCircle.width-(signCircle.w*2)-(zm.planetSize*(r.maxAbsPosInt+1)*2)
+                        d: signCircle.width-(signCircle.w*2)-(zm.planetSizeInt*(r.maxAbsPosInt+1)*2)
                         c: 'red'
                         bc: 'yellow'
                         bw: 10
@@ -716,7 +717,7 @@ Rectangle{
                     /*
                     Circle{
                         id: c101
-                        d: r.width//signCircle.width-(signCircle.w*2)-(zm.planetSize*(r.maxAbsPosInt+1)*2)
+                        d: r.width//signCircle.width-(signCircle.w*2)-(zm.planetSizeInt*(r.maxAbsPosInt+1)*2)
                         c: 'red'
                         bc: 'yellow'
                         bw: 10
@@ -769,7 +770,7 @@ Rectangle{
 
                             /*r.maxAbsPosInt=planetsCircle.getMaxAsAbsPos()
                             aspsCircle.visible=true
-                            ca.d=signCircle.width-(signCircle.w*2)-(zm.planetSize*(r.maxAbsPosInt+1)*2)
+                            ca.d=signCircle.width-(signCircle.w*2)-(zm.planetSizeInt*(r.maxAbsPosInt+1)*2)
                             zm.objTapa.opacity=1.0
                             zm.hideTapa()*/
                         }
@@ -826,7 +827,7 @@ Rectangle{
                         anchors.centerIn: parent
                         rotation: -30
                         Rectangle{
-                            width: r.planetSize
+                            width: r.planetSizeInt
                             height: width
                             radius: width*0.5
                             color: 'blue'
@@ -1112,7 +1113,7 @@ Rectangle{
         if(r.loadingJsonInt)return
         //console.log('Ejecutando ZoolMap.load()...')
         r.dirPrimRot=0
-        r.planetSize=!r.ev?app.fs*1.5:app.fs
+        r.planetSizeInt=!r.ev?app.fs*1.5:app.fs
 
         for(var i=0;i<xuqp.children.length;i++){
             xuqp.children[i].destroy(0)
@@ -1165,6 +1166,7 @@ Rectangle{
         //console.log('Ejecutando SweGraphic.load()...')
         zm.ev=true
         r.dirPrimRot=0
+        r.planetSizeExt=app.fs
         for(var i=0;i<xuqp.children.length;i++){
             xuqp.children[i].destroy(0)
         }
@@ -1347,7 +1349,7 @@ Rectangle{
         //r.maxAbsPosInt=planetsCircle.getMaxAsAbsPos()
         //zpn.log('r.maxAbsPosInt: '+r.maxAbsPosInt)
         aspsCircle.load(j)
-        //ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
+        //ca.d=planetsCircle.getMinAsWidth()-r.planetSizeInt*2
         //ai.width=r.width
         zoolDataBodies.loadJson(j)
         zoolElementsView.load(j, false)
@@ -1436,14 +1438,14 @@ Rectangle{
         housesCircleBack.width=ae.width
         //housesCircleBack.wbgc=app.fs*6
         //c101.width=r.width-app.fs
-        //ai.width=r.width-(zm.planetSize*r.maxAbsPosExt*2)
+        //ai.width=r.width-(zm.planetSizeInt*r.maxAbsPosExt*2)
         //ai.width=app.fs*10
         //c101.d=ai.width
-        //ai.width=planetsCircleBack.getMinAsWidth()-r.planetSize*2
+        //ai.width=planetsCircleBack.getMinAsWidth()-r.planetSizeInt*2
         //signCircle.width=ai.width
         //planetsCircle.width=ai.width
-        //ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
-        //ai.width=app.fs*r.width-(r.width-zm.planetSize*r.maxAbsPosExt*2)
+        //ca.d=planetsCircle.getMinAsWidth()-r.planetSizeInt*2
+        //ai.width=app.fs*r.width-(r.width-zm.planetSizeInt*r.maxAbsPosExt*2)
         zoolDataBodies.loadJsonBack(j)
         zoolElementsView.load(j, true)
         let jsonAsps=aspsCircleBack.getAsps(j)
@@ -2053,25 +2055,25 @@ Rectangle{
         if(!isBack){
             if(apps.showDec){
                 //log.lv('1 resizeAspsCircle('+isBack+') apps.showDec: '+apps.showDec)
-                ca.d=planetsCircle.getMinAsWidth()-r.planetSize//*2
+                ca.d=planetsCircle.getMinAsWidth()-r.planetSizeInt//*2
             }else{
                 //log.lv('2 resizeAspsCircle('+isBack+') apps.showDec: '+apps.showDec)
-                ca.d=planetsCircle.getMinAsWidth()-r.planetSize-r.objSignsCircle.w*2
+                ca.d=planetsCircle.getMinAsWidth()-r.planetSizeInt-r.objSignsCircle.w*2
             }
         }
         if(isBack && r.ev){
-            ai.width=planetsCircleBack.getMinAsWidth()-r.planetSize*2
-            ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
+            ai.width=planetsCircleBack.getMinAsWidth()-r.planetSizeInt*2
+            ca.d=planetsCircle.getMinAsWidth()-r.planetSizeInt*2
         }
     }*/
     function resizeAspCircle(){
         /*if(r.ev){
-            ai.width=planetsCircleBack.getMinAsWidth()-r.planetSize*2
-            ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
+            ai.width=planetsCircleBack.getMinAsWidth()-r.planetSizeInt*2
+            ca.d=planetsCircle.getMinAsWidth()-r.planetSizeInt*2
             //aspsCircle.width=300
         }else{
             ai.width=r.width
-            ca.d=planetsCircle.getMinAsWidth()-r.planetSize*2
+            ca.d=planetsCircle.getMinAsWidth()-r.planetSizeInt*2
         }
         hideTapa()*/
     }
@@ -2235,6 +2237,35 @@ Rectangle{
         rect.y = 0-rect.height*0.25+r.height*0.5-((0-newY+r.height*0.5)-(0-newY+r.height*0.5)-(0-newY+r.height*0.5))
         //rectXAnim.start();
         //rectYAnim.start();
+    }
+    function setPlanetsSize(isExt, downOrUp){
+        if(!isExt){
+            if(downOrUp===0){
+                if(zm.planetSizeInt>app.fs*0.25 && zm.objCA.width<app.fs*15){
+                    zm.planetSizeInt-=app.fs*0.1
+                }
+            }else{
+                if(!zm.ev){
+                    if(zm.planetSizeInt<app.fs*2 && zm.objCA.width>app.fs*4){
+                        zm.planetSizeInt+=app.fs*0.1
+                    }
+                }else{
+                    if(zm.planetSizeInt<app.fs*2 && zm.objCA.width>app.fs*4 && ai.d<ae.d-(zm.planetSizeExt*r.posMaxExt)-(zm.planetSizeExt*2)){
+                        zm.planetSizeInt+=app.fs*0.1
+                    }
+                }            }
+        }else{
+            if(downOrUp===0){
+                if(zm.planetSizeExt>app.fs*0.25 && zm.objCA.width<app.fs*15){
+                    zm.planetSizeExt-=app.fs*0.1
+                }
+            }else{
+                if(zm.planetSizeExt<app.fs*2 && zm.objCA.width>app.fs*4){
+                    zm.planetSizeExt+=app.fs*0.1
+                }
+            }
+        }
+        zm.setAreasWidth(!isExt)
     }
     function getCoordsRotatedPoint(x, y, angle) {
         // Convertir el ángulo a radianes

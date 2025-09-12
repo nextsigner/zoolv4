@@ -55,7 +55,7 @@ Item{
         anchors.centerIn: parent
         Rectangle{
             id: ejePointer
-            width: zm.planetSize*f
+            width: !r.isBack?zm.planetSizeInt*f:zm.planetSizeExt*f
             height: 1
             color: apps.fontColor
             anchors.left: parent.horizontalCenter

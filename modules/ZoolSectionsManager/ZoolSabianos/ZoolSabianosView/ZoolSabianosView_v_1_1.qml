@@ -64,7 +64,7 @@ Rectangle {
                     border.color: 'black'
                     Image {
                         id: sign
-                        source: "../../../imgs/signos/"+r.numSign+".svg"
+                        source: "../../../../imgs/signos/"+r.numSign+".svg"
                         width: xSigno.width*0.8
                         fillMode: Image.PreserveAspectFit
                         anchors.centerIn: parent

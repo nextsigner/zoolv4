@@ -11,17 +11,17 @@ import ZoolMap.ZoolMapPointerPlanet 1.1
 
 Item{
     id: r
-    //width: parent.width-((zm.planetSize*pos*2))-(zm.planetsMargin*2)//-(zm.planetsMargin*2)
+    //width: parent.width-((zm.planetSizeInt*pos*2))-(zm.planetsMargin*2)//-(zm.planetsMargin*2)
     width: !apps.showDec?
-               parent.width-((zm.planetSize*pos*2))
+               parent.width-((zm.planetSizeInt*pos*2))
              :
-               parent.width-((zm.planetSize*pos*2))-zm.objSignsCircle.w*2
+               parent.width-((zm.planetSizeInt*pos*2))-zm.objSignsCircle.w*2
     height: 10
     anchors.centerIn: parent
     z: !selected?numAstro:20
 
 
-    property real mCaThis: zm.planetSize*pos*2 // Margin From SignsCircle To This Bodie
+    property real mCaThis: zm.planetSizeInt*pos*2 // Margin From SignsCircle To This Bodie
 
     property bool widhCAChecked: false
 
@@ -157,13 +157,13 @@ Item{
     }
     Timer{
         id: tRevIsAspZone
-        running: false//zm.aBodies[r.numAstro]==='Juno'//(!r.isBack && ca.width<=zm.objAspsCircle.width) || r.width>zm.objCA.d-(zm.planetSize*2)
+        running: false//zm.aBodies[r.numAstro]==='Juno'//(!r.isBack && ca.width<=zm.objAspsCircle.width) || r.width>zm.objCA.d-(zm.planetSizeInt*2)
         repeat: true
         interval: 5000
         onTriggered: {
             //zm.maxAbsPosInt=zm.objPlanetsCircle.getMaxAsAbsPos()
             //zpn.log('-->'+zm.aBodies[r.numAstro]+' pos: '+pos+' zm.maxAbsPosInt: '+zm.maxAbsPosInt)
-            //zm.objCA.d=zm.objSignsCircle.width-(zm.objSignsCircle.w*2)-(zm.planetSize*(zm.maxAbsPosInt+1)*2)
+            //zm.objCA.d=zm.objSignsCircle.width-(zm.objSignsCircle.w*2)-(zm.planetSizeInt*(zm.maxAbsPosInt+1)*2)
             //zm.objPlanetsCircle.ordenarPosiciones()
         }
     }
@@ -217,7 +217,7 @@ Item{
         visible: false
         Rectangle{
             id: cw2
-            width: zm.objCA.d+(zm.planetSize*2)
+            width: zm.objCA.d+(zm.planetSizeInt*2)
             height: app.fs*0.25
             color: 'transparent'
             border.width: 2
@@ -231,7 +231,7 @@ Item{
 
 //            Timer{
 //                id: tRevIsAspZoneDistante
-//                //running: false//!r.isBack && r.pos===zm.maxAbsPosInt && parent.parent.width-2>parent.width//r.pos===zm.maxAbsPosInt && (r.width-(zm.planetSize*2))>=ca.width
+//                //running: false//!r.isBack && r.pos===zm.maxAbsPosInt && parent.parent.width-2>parent.width//r.pos===zm.maxAbsPosInt && (r.width-(zm.planetSizeInt*2))>=ca.width
 //                running: !r.widhCAChecked && r.pos > 1 && r.pos===zm.maxAbsPosInt
 //                repeat: true
 //                interval: 3000
@@ -244,7 +244,7 @@ Item{
 //                    }
 //                    //zm.maxAbsPosInt=zm.objPlanetsCircle.getMaxAsAbsPos()
 
-//                    //ca.d=zm.objSignsCircle.width-(zm.objSignsCircle.w*2)-(zm.planetSize*(zm.maxAbsPosInt+1)*2)
+//                    //ca.d=zm.objSignsCircle.width-(zm.objSignsCircle.w*2)-(zm.planetSizeInt*(zm.maxAbsPosInt+1)*2)
 //                }
 //            }
 
@@ -280,7 +280,7 @@ Item{
         Repeater{
             model: r.pos
             Rectangle{
-                width: zm.planetSize
+                width: zm.planetSizeInt
                 height: width
                 border.width: 2
                 border.color: 'red'
@@ -299,7 +299,7 @@ Item{
         height: 3
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
-        anchors.leftMargin: zm.planetSize
+        anchors.leftMargin: zm.planetSizeInt
         //visible: (app.t==='dirprim'  || app.t==='trans' || app.t==='progsec') && r.isBack
         visible: (app.t==='dirprim' || app.t==='progsec') && r.isBack
         Rectangle{
@@ -321,7 +321,7 @@ Item{
         height: 3
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
-        anchors.leftMargin: zm.planetSize
+        anchors.leftMargin: zm.planetSizeInt
         visible:  false//&& r.isBack
         Timer{
             running: app.t==='trans'
@@ -352,14 +352,14 @@ Item{
         }
         Rectangle{
             id: ejeTrans1
-            width: r.width*0.5-zm.planetSize
+            width: r.width*0.5-zm.planetSizeInt
             height: 1
             anchors.top: parent.top
             color: apps.houseColorBack
         }
         Rectangle{
             id: ejeTrans2
-            width: r.width*0.5-zm.planetSize
+            width: r.width*0.5-zm.planetSizeInt
             height: 1
             anchors.bottom: parent.bottom
             color: apps.houseColorBack
@@ -388,7 +388,7 @@ Item{
         pos: r.pos
         numAstro: r.numAstro
         is: r.is
-        width: zm.planetSize
+        width: zm.planetSizeInt
         objData: r.objData
         anchors.left: parent.left
         anchors.leftMargin: 0//!r.selected?0:width*0.5
@@ -563,8 +563,8 @@ Item{
                         if(pointerPlanet.opacity===1.0){
                             pointerPlanet.pointerRot+=5
                         }else{
-                            if(zm.planetSize<app.fs*2 && zm.objCA.width>app.fs*4){
-                                zm.planetSize+=app.fs*0.1
+                            if(zm.planetSizeInt<app.fs*2 && zm.objCA.width>app.fs*4){
+                                zm.planetSizeInt+=app.fs*0.1
                                 zm.setAreasWidth(!r.isBack)
                             }
                         }
@@ -572,8 +572,8 @@ Item{
                         if(pointerPlanet.opacity===1.0){
                             pointerPlanet.pointerRot-=5
                         }else{
-                            if(zm.planetSize>app.fs*0.25 && zm.objCA.width<app.fs*15){
-                                zm.planetSize-=app.fs*0.1
+                            if(zm.planetSizeInt>app.fs*0.25 && zm.objCA.width<app.fs*15){
+                                zm.planetSizeInt-=app.fs*0.1
                                 zm.setAreasWidth(!r.isBack)
                             }
                         }

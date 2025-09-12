@@ -1027,13 +1027,39 @@ ApplicationWindow {
         }
     }
     Shortcut{
+        sequence: '-'
+        onActivated: {
+            zm.setPlanetsSize(false, 0)
+        }
+    }
+    Shortcut{
+        sequence: '+'
+        onActivated: {
+            zm.setPlanetsSize(false, 1)
+        }
+    }
+    Shortcut{
+        sequence: 'Shift++'
+        onActivated: {
+                if(!zm.ev)return
+                zm.setPlanetsSize(true, 1)
+        }
+    }
+    Shortcut{
+        sequence: 'Shift+-'
+        onActivated: {
+            if(!zm.ev)return
+            zm.setPlanetsSize(true, 0)
+        }
+    }
+    Shortcut{
         sequence: 'Ctrl++'
         onActivated: {
             if(ncv.log.visible&&apps.numPanelLogFs<app.fs*2){
                 apps.numPanelLogFs+=app.fs*0.1
                 return
             }
-            sweg.width+=app.fs
+            zm.width+=app.fs
         }
     }
     Shortcut{
@@ -1043,7 +1069,7 @@ ApplicationWindow {
                 apps.numPanelLogFs-=app.fs*0.1
                 return
             }
-            sweg.width-=app.fs
+            zm.width-=app.fs
         }
     }
     Shortcut{
@@ -1054,7 +1080,7 @@ ApplicationWindow {
                 return
             }
         }
-    }
+    }    
     property int rv: 0
     Shortcut{
         sequence: '*'

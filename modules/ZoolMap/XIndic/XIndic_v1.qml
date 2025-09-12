@@ -19,7 +19,7 @@ Item{
         anchors.centerIn: parent
         Rectangle{
             id: posAs
-            width: zm.planetSize
+            width: zm.planetSizeInt
             height: width
             color: 'transparent'
             border.width: r.dev?6:0

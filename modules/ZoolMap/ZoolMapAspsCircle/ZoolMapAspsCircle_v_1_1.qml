@@ -2,7 +2,7 @@ import QtQuick 2.12
 
 Rectangle {
     id: r
-    //width: planetsCircle.width-((planetsCircle.totalPosX*planetsCircle.planetSize)*2)-planetsCircle.totalPosX*planetsCircle.planetSize-(apps.showNumberLines?planetsCircle.totalPosX*planetsCircle.planetSize:0)
+    //width: planetsCircle.width-((planetsCircle.totalPosX*planetsCircle.planetSizeInt)*2)-planetsCircle.totalPosX*planetsCircle.planetSizeInt-(apps.showNumberLines?planetsCircle.totalPosX*planetsCircle.planetSizeInt:0)
     width: parent.width
     height: width
     radius: width*0.5
@@ -197,7 +197,7 @@ Rectangle {
         let l1=zm.objPlanetsCircle.width
         let l2=zm.objAspsCircle.width//-((app.fs*as.pos))
         let l3=(l1-(l1-l2))*0.5
-        let l=l3-zm.planetSize-(zm.planetSize*as.pos)
+        let l=l3-zm.planetSizeInt-(zm.planetSizeInt*as.pos)
         //log.lv('as.pos:'+as.pos)
         //log.lv('l1:'+l1)
         //log.lv('l2:'+l2)

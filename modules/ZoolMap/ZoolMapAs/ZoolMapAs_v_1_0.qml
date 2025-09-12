@@ -13,9 +13,9 @@ Item{
 //               /*Mostrando Imagen*/
 //               (parent.width-(r.fs*objData.p)-sweg.objSignsCircle.w-(!apps.showNumberLines?0:r.fs*2)-widthRestDec):
 //               /*Mostrando Símbolo de Planeta*/
-//               (parent.width-(sweg.objPlanetsCircle.planetSize*2*objData.p)-sweg.objSignsCircle.w-(!apps.showNumberLines?0:sweg.objPlanetsCircle.planetSize*2)-widthRestDec)
+//               (parent.width-(sweg.objPlanetsCircle.planetSizeInt*2*objData.p)-sweg.objSignsCircle.w-(!apps.showNumberLines?0:sweg.objPlanetsCircle.planetSizeInt*2)-widthRestDec)
     //width: parent.width-((zm.planetsPadding/40)*numAstro)
-    width: parent.width-((zm.planetSize*pos*2))-(zm.planetsMargin*2)//-(zm.planetsMargin*2)
+    width: parent.width-((zm.planetSizeInt*pos*2))-(zm.planetsMargin*2)//-(zm.planetsMargin*2)
     height: 10
     anchors.centerIn: parent
     z: !selected?numAstro:15
@@ -103,7 +103,7 @@ Item{
         id: bodie
         numAstro: r.numAstro
         is: r.is
-        width: zm.planetSize
+        width: zm.planetSizeInt
 //        width:
 //            !apps.xAsShowIcon||aIcons.indexOf(r.numAstro)<0?
 //                (!app.ev?r.fs*0.85:/*Tam glifo interior*/r.fs*0.85):

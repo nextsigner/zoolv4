@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import ZoolMap.ZoolMapAs 1.2
+import ZoolMap.ZoolMapAs 1.3
 
 Item{
     id: r
@@ -8,7 +8,7 @@ Item{
     anchors.centerIn: parent
     property bool isBack: false
     property var cAs: r
-    property int planetSize: zm.fs*0.75
+    property int planetSize: !r.isBack?zm.planetSizeInt:zm.planetSizeExt//zm.fs*0.75
 
     property int totalPosX: 0
 
@@ -269,12 +269,12 @@ Item{
         //            }
         //        }
         if(!r.isBack){
-            //zm.aspsCircleWidth=getMinAsWidth()-zm.planetSize*2
-            //zm.planetsAreaWidth=zm.objZ2.width-getMinAsWidth()-zm.planetSize*2
-            //zm.objZ1.width=getMinAsWidth()-zm.planetSize*2
+            //zm.aspsCircleWidth=getMinAsWidth()-zm.planetSizeInt*2
+            //zm.planetsAreaWidth=zm.objZ2.width-getMinAsWidth()-zm.planetSizeInt*2
+            //zm.objZ1.width=getMinAsWidth()-zm.planetSizeInt*2
         }else{
-            //zm.planetsBackBandWidth=zm.width-getMinAsWidth()//-zm.planetSize*2
-            //zm.planetsAreaWidthBack=getMinAsWidth()-zm.planetSize*2
+            //zm.planetsBackBandWidth=zm.width-getMinAsWidth()//-zm.planetSizeInt*2
+            //zm.planetsAreaWidthBack=getMinAsWidth()-zm.planetSizeInt*2
         }
 
         //log.lv('objLastAs.width: '+objLastAs.width)

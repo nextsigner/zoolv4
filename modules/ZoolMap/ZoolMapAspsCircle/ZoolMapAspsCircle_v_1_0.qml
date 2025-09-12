@@ -2,7 +2,7 @@ import QtQuick 2.12
 
 Rectangle {
     id: r
-    //width: planetsCircle.width-((planetsCircle.totalPosX*planetsCircle.planetSize)*2)-planetsCircle.totalPosX*planetsCircle.planetSize-(apps.showNumberLines?planetsCircle.totalPosX*planetsCircle.planetSize:0)
+    //width: planetsCircle.width-((planetsCircle.totalPosX*planetsCircle.planetSizeInt)*2)-planetsCircle.totalPosX*planetsCircle.planetSizeInt-(apps.showNumberLines?planetsCircle.totalPosX*planetsCircle.planetSizeInt:0)
     width: parent.width
     height: width
     radius: width*0.5

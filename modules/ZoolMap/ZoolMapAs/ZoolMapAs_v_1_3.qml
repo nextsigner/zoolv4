@@ -13,15 +13,16 @@ Item{
     id: r
     //width: parent.width-((zm.planetSizeInt*pos*2))-(zm.planetsMargin*2)//-(zm.planetsMargin*2)
     width: !apps.showDec?
-               parent.width-((zm.planetSizeInt*pos*2))
+               parent.width-((r.planetSize*pos*2))
              :
-               parent.width-((zm.planetSizeInt*pos*2))-zm.objSignsCircle.w*2
+               parent.width-((r.planetSize*pos*2))-zm.objSignsCircle.w*2
     height: 10
     anchors.centerIn: parent
     z: !selected?numAstro:20
 
 
-    property real mCaThis: zm.planetSizeInt*pos*2 // Margin From SignsCircle To This Bodie
+    property int planetSize: !r.isBack?zm.planetSizeInt:zm.planetSizeExt
+    property real mCaThis: r.planetSize*pos*2 // Margin From SignsCircle To This Bodie
 
     property bool widhCAChecked: false
 
@@ -61,7 +62,7 @@ Item{
     //property alias img0: bodie.objImg0
     Behavior on rotation{enabled:(app.t==='dirprim' || app.t==='trans');NumberAnimation{duration: 2000}}
     //Behavior on width{enabled:(app.t==='dirprim' || app.t==='trans');NumberAnimation{duration: 500}}
-    Behavior on opacity{id:anOp;NumberAnimation{duration: 500}}
+    //Behavior on opacity{id:anOp;NumberAnimation{duration: 500}}
     onWidthChanged: {
         //h()
         if(app.t!=='trans' && app.t!=='dirprim')return
@@ -118,14 +119,18 @@ Item{
     }
     property int vr: 0
     //Behavior on width{NumberAnimation{duration:1500}}
+    property bool posIncByZero: false
     function revPos(){
-        for(var i=r.vr;i<zm.aBodies.length;i++){
+        posIncByZero=false
+        r.vr=0//r.numAstro//-1
+        for(var i=r.vr;i<zm.aBodies.length-r.numAstro;i++){
             const objAs=!r.isBack?zm.objPlanetsCircle.getAs(i):zm.objPlanetsCircleBack.getAs(i)
-            const l=parseInt(r.objData.gdec)-10
-            const h=parseInt(r.objData.gdec)+10
+            const gdec=parseInt(r.objData.gdec)
+            const l=gdec-10
+            const h=gdec+10
             if(!objAs || !objAs.objData || !objAs.objData.gdec)continue
             const n=objAs.objData.gdec
-            if((n > l && n < h)  && i!==numAstro  && i<numAstro){
+            if((n > l && n < h)  && i!==numAstro  && i<numAstro && objAs.pos===r.pos){
                 r.pos=objAs.pos+1
                 r.absPos=r.pos
 
@@ -140,23 +145,30 @@ Item{
                         //zpn.log('i'+i+': '+r.pos+' zm.maxAbsPosInt: '+zm.maxAbsPosInt)
                     }
                 }*/
-                break
+                //break
+            }else{
+                if((0 > l && 10 < h)  && i!==numAstro  && i<numAstro && objAs.pos===r.pos && !r.posIncByZero){
+                    r.pos=objAs.pos+1
+                    r.absPos=r.pos
+                    r.posIncByZero=true
+                }
             }
         }
         r.vr++
     }
     Timer{
         id: tRevIsAspZone
-        running: (!r.isBack && r.width<=zm.objAspsCircle.width) || r.width>zm.objCA.d-(zm.planetSizeInt*2)
+        running: false//zm.aBodies[r.numAstro]==='Juno'//(!r.isBack && ca.width<=zm.objAspsCircle.width) || r.width>zm.objCA.d-(zm.planetSizeInt*2)
         repeat: true
-        interval: 250
+        interval: 5000
         onTriggered: {
-            zm.maxAbsPosInt=zm.objPlanetsCircle.getMaxAsAbsPos()
+            //zm.maxAbsPosInt=zm.objPlanetsCircle.getMaxAsAbsPos()
             //zpn.log('-->'+zm.aBodies[r.numAstro]+' pos: '+pos+' zm.maxAbsPosInt: '+zm.maxAbsPosInt)
-            zm.objCA.d=zm.objSignsCircle.width-(zm.objSignsCircle.w*2)-(zm.planetSizeInt*(zm.maxAbsPosInt+1)*2)
+            //zm.objCA.d=zm.objSignsCircle.width-(zm.objSignsCircle.w*2)-(zm.planetSizeInt*(zm.maxAbsPosInt+1)*2)
+            //zm.objPlanetsCircle.ordenarPosiciones()
         }
     }
-    Timer{
+    /*Timer{
         interval: 1000
         //running: r.numAstro===1 || r.numAstro===2
         repeat: true
@@ -192,7 +204,7 @@ Item{
             let obj=Qt.createQmlObject(c, zm.xzm, 'rectPosCode')
             //log.lv("Absolute Position of child rectangle: x ="+absolutePosition.x+", y ="+absolutePosition.y);
         }
-    }
+    }*/
 
     //-->Para visualizar alcance de ancho
     Rectangle{
@@ -206,7 +218,7 @@ Item{
         visible: false
         Rectangle{
             id: cw2
-            width: zm.objCA.d+(zm.planetSizeInt*2)
+            width: zm.objCA.d+(r.planetSize*2)
             height: app.fs*0.25
             color: 'transparent'
             border.width: 2
@@ -249,6 +261,7 @@ Item{
         radius: width*0.5
         color: 'red'
         anchors.centerIn: bodie
+        visible: false
     }
     Rectangle{
         id: ejePos
@@ -268,7 +281,7 @@ Item{
         Repeater{
             model: r.pos
             Rectangle{
-                width: zm.planetSizeInt
+                width: r.planetSize
                 height: width
                 border.width: 2
                 border.color: 'red'
@@ -287,7 +300,7 @@ Item{
         height: 3
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
-        anchors.leftMargin: zm.planetSizeInt
+        anchors.leftMargin: r.planetSize
         //visible: (app.t==='dirprim'  || app.t==='trans' || app.t==='progsec') && r.isBack
         visible: (app.t==='dirprim' || app.t==='progsec') && r.isBack
         Rectangle{
@@ -309,7 +322,7 @@ Item{
         height: 3
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
-        anchors.leftMargin: zm.planetSizeInt
+        anchors.leftMargin: r.planetSize
         visible:  false//&& r.isBack
         Timer{
             running: app.t==='trans'
@@ -340,14 +353,14 @@ Item{
         }
         Rectangle{
             id: ejeTrans1
-            width: r.width*0.5-zm.planetSizeInt
+            width: r.width*0.5-r.planetSize
             height: 1
             anchors.top: parent.top
             color: apps.houseColorBack
         }
         Rectangle{
             id: ejeTrans2
-            width: r.width*0.5-zm.planetSizeInt
+            width: r.width*0.5-r.planetSize
             height: 1
             anchors.bottom: parent.bottom
             color: apps.houseColorBack
@@ -364,7 +377,7 @@ Item{
     Image {
         id: imgEarth
         source: r.folderImg+"/earth.png"
-        width: zm.width*0.05
+        width: zm.objCA.width*0.25<app.fs?zm.objCA.width*0.25:app.fs
         height: width
         rotation: -45
         antialiasing: true
@@ -373,14 +386,16 @@ Item{
     }
     ZoolMapBodie{
         id: bodie
+        pos: r.pos
         numAstro: r.numAstro
         is: r.is
-        width: zm.planetSizeInt
+        width: r.planetSize
         objData: r.objData
         anchors.left: parent.left
         anchors.leftMargin: 0//!r.selected?0:width*0.5
         anchors.verticalCenter: parent.verticalCenter
         isBack: r.isBack
+        selected: r.selected
         Rectangle{
             id: ejePosAsp
             width: r.width*0.5-(zm.objAspsCircle.width*0.5)-parent.width//(zm.width-r.width)*0.5
@@ -549,19 +564,13 @@ Item{
                         if(pointerPlanet.opacity===1.0){
                             pointerPlanet.pointerRot+=5
                         }else{
-                            if(zm.planetSizeInt<app.fs*2){
-                                zm.planetSizeInt+=app.fs*0.1
-                                zm.resizeAspsCircle(r.isBack)
-                            }
+                            zm.setPlanetsSize(r.isBack, 1)
                         }
                     }else{
                         if(pointerPlanet.opacity===1.0){
                             pointerPlanet.pointerRot-=5
                         }else{
-                            if(zm.planetSizeInt>app.fs){
-                                zm.planetSizeInt-=app.fs*0.1
-                                zm.resizeAspsCircle(r.isBack)
-                            }
+                            zm.setPlanetsSize(r.isBack, 0)
                         }
                     }
                 }else if (wheel.modifiers & Qt.ShiftModifier){
@@ -749,6 +758,7 @@ Item{
             visible: r.selected
         }
     }
+
     /*Comps.XCircleSignal{
         id: xCircleSignal
         width: app.fs*16
@@ -777,7 +787,7 @@ Item{
         repeat: true
         interval: 1000
         onTriggered: {
-            anOp.enabled=true
+            //anOp.enabled=true
             r.opacity=1.0
         }
     }
@@ -788,7 +798,7 @@ Item{
         interval: 100
         onTriggered: {
             if(numAstro>=1){
-                revPos()
+                //revPos()
             }
         }
         onRunningChanged: {
@@ -878,7 +888,7 @@ Item{
         }
     }
     function h(){
-        anOp.enabled=false
+        //anOp.enabled=false
         r.opacity=0.0
         tOpacity.restart()
     }

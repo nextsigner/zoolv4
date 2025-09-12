@@ -1,1 +1,1 @@
-i7: Se agrega Shift++ y Shift-- en conjunto con función setPlanetsSize() a zm
+i7: Se edital ZoolHelp.Teclado.md

@@ -24,6 +24,10 @@ Para que las órdenes del teclado respondan correctamente, debe activar el área
 * 1). Presionar la tecla "2" o las teclas Ctrl+TAB hasta que la parte inferior del area media de Zool esté titilando.
 * 2). Presione la combinación de teclas Control+ESPACIO
 #
+### Cambiar temporalmente los tamaños de Planetas
+* 1). Para cambiar el tamaño de los cuerpos astrológicos en el mapa interior, presionar las teclas "+" o "-".
+* 2). En el caso de que esté viendo 2 mapas a la vez, osea el mapa interior y el exterior, para cambiar el tamaño de los cuerpos astrológicos en el mapa exterior, presionar las teclas "Shift++" (La tecla shift más el signo más) o "Shift+-" (La tecla shift más el signo menos).
+#
 ### Más funciones del Teclado
 #
 * ***Ver u Ocultar Grados en la Rueda Zodiacal:*** Presionar la teclas "Ctrl+n".

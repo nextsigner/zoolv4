@@ -190,6 +190,8 @@ ZoolMainWindow{
     property bool showPointerXAsBack: true
 
     property var ci
+    property var ciPrev
+
     property bool sspEnabled: false
 
     menuBar: ZoolTopMenuBar {

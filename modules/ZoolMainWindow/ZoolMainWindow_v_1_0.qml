@@ -439,6 +439,11 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Up'
         onActivated: {
+            if(app.j.qmltypeof(app.ci)!=='ModulesLoader'){
+                //zpn.log('app.ci.objectName: '+app.ci.objectName+' Escape!')
+                app.ci.toUp()
+                return
+            }
             if(xBottomBar.state==='show'){
                 xBottomBar.toUp()
             }
@@ -452,6 +457,7 @@ ApplicationWindow {
                 return
             }
             if(zsm.getPanel('ZoolSabianos').view.visible){
+               zpn.log('Up Sabianos...')
                 zsm.getPanel('ZoolSabianos').view.toup()
                 return
             }
@@ -516,6 +522,10 @@ ApplicationWindow {
         sequence: 'Down'
         //enabled: !menuBar.expanded
         onActivated: {
+            if(app.j.qmltypeof(app.ci)!=='ModulesLoader'){
+                app.ci.toDown()
+                return
+            }
             if(xBottomBar.state==='show'){
                 xBottomBar.toDown()
             }
@@ -617,7 +627,7 @@ ApplicationWindow {
     function ctrlLeft(ctrl){
         if(!ctrl){
             if(app.ci && app.ci.objectName.indexOf('mm_ModulesLoader')<0){
-                app.ci.toRight(ctrl)
+                app.ci.toLeft(ctrl)
                 return
             }
             if(zsm.getPanel('ZoolSabianos').view.visible){
@@ -1055,20 +1065,20 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl++'
         onActivated: {
-            if(ncv.log.visible&&apps.numPanelLogFs<app.fs*2){
+            /*if(ncv.log.visible&&apps.numPanelLogFs<app.fs*2){
                 apps.numPanelLogFs+=app.fs*0.1
                 return
-            }
+            }*/
             zm.width+=app.fs
         }
     }
     Shortcut{
         sequence: 'Ctrl+-'
         onActivated: {
-            if(ncv.log.visible&&apps.numPanelLogFs>app.fs*0.5){
+            /*if(ncv.log.visible&&apps.numPanelLogFs>app.fs*0.5){
                 apps.numPanelLogFs-=app.fs*0.1
                 return
-            }
+            }*/
             zm.width-=app.fs
         }
     }

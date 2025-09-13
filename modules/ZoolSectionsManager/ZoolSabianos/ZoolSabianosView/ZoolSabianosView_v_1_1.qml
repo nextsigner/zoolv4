@@ -25,7 +25,11 @@ Rectangle {
 
     onVisibleChanged: {
         if(!visible){
+            if(app.ciPrev)app.ci=app.ciPrev
             apps.zFocus=panelSabianos.prevZFocus
+        }else{
+            app.ci=app.ciPrev
+            app.ci=r
         }
     }
 
@@ -214,59 +218,12 @@ Rectangle {
         }
         loadData()
     }
-    function todown(){
+    function toDown(){
         if(r.numDegree<30){
             r.numDegree++
         }else{
             r.numDegree=0
             r.currentInterpreter=0
-        }
-        loadData()
-    }
-    function toup(){
-        if(r.numDegree>0){
-            r.numDegree--
-        }else{
-            r.numDegree=30
-            r.currentInterpreter=0
-        }
-        loadData()
-    }
-    function toleft(){
-        if(r.currentInterpreter>0){
-            r.currentInterpreter--
-        }else{
-            r.currentInterpreter=2
-            if(r.numDegree>0){
-                r.numDegree--
-            }else{
-                r.numDegree=29
-                r.currentInterpreter=2
-                if(r.numSign>0){
-                    r.numSign--
-                }else{
-                    r.numSign=11
-                }
-            }
-        }
-        loadData()
-    }
-    function toright(){
-        if(r.currentInterpreter<2){
-            r.currentInterpreter++
-        }else{
-            r.currentInterpreter=0
-            if(r.numDegree<29){
-                r.numDegree++
-            }else{
-                r.numDegree=0
-                r.currentInterpreter=0
-                if(r.numSign<11){
-                    r.numSign++
-                }else{
-                    r.numSign=0
-                }
-            }
         }
         loadData()
     }
@@ -477,5 +434,61 @@ Rectangle {
         setJsonZoom(r.numSign, r.numDegree, r.currentInterpreter, zoom)
         r.loadData()
     }
+
+    //-->Teclado
+    function toUp(){
+        if(r.numDegree>0){
+            r.numDegree--
+        }else{
+            r.numDegree=30
+            r.currentInterpreter=0
+        }
+        loadData()
+    }
+    function toLeft(){
+        if(r.currentInterpreter>0){
+            r.currentInterpreter--
+        }else{
+            r.currentInterpreter=2
+            if(r.numDegree>0){
+                r.numDegree--
+            }else{
+                r.numDegree=29
+                r.currentInterpreter=2
+                if(r.numSign>0){
+                    r.numSign--
+                }else{
+                    r.numSign=11
+                }
+            }
+        }
+        loadData()
+    }
+    function toRight(){
+        if(r.currentInterpreter<2){
+            r.currentInterpreter++
+        }else{
+            r.currentInterpreter=0
+            if(r.numDegree<29){
+                r.numDegree++
+            }else{
+                r.numDegree=0
+                r.currentInterpreter=0
+                if(r.numSign<11){
+                    r.numSign++
+                }else{
+                    r.numSign=0
+                }
+            }
+        }
+        loadData()
+    }
+    function toEscape(){
+        r.visible=false
+    }
+    function isFocus(){
+        return false
+    }
+    //<--Teclado
 }
 

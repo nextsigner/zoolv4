@@ -1,1 +1,1 @@
-MiniMac Se optimiza GUI en ZoolFileMaker
+MiniMac Se crea función isCiActive()

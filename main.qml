@@ -189,7 +189,7 @@ ZoolMainWindow{
     property var currentXAsBack
     property bool showPointerXAsBack: true
 
-    property var ci
+    property var ci: xApp
     property var ciPrev
 
     property bool sspEnabled: false
@@ -225,6 +225,7 @@ ZoolMainWindow{
         anchors.fill: parent
         Item{
             id: xApp
+            objectName: 'xApp'
             anchors.fill: parent
             Rectangle{
                 id: xZoolMap
@@ -815,5 +816,8 @@ ZoolMainWindow{
         //app.j.loadModules()
         app.requestActivate()
         //log.focus=true
+    }
+    function isCiActive(){
+        return app.ci && app.ci.objectName.indexOf('mm_ModulesLoader')<0 && app.j.qmltypeof(app.ci)!=='ModulesLoader' && app.ci.objectName!=='xApp'
     }
 }

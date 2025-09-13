@@ -176,7 +176,7 @@ Rectangle {
         if(i)getSectionVisible().toEscape()
     }
     function isFocus(){
-        if(app.ci && app.ci.objectName.indexOf('mm_ModulesLoader')<0 && app.j.qmltypeof(app.ci)!=='ModulesLoader' ){
+        if(isCiActive()){
             return app.ci.isFocus()
         }
         return false

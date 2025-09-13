@@ -1,1 +1,1 @@
-MiniMac Se corrige max en t8.text de gmt en ZoolControlsTime
+MiniMac Se optimiza GUI en ZoolFileMaker

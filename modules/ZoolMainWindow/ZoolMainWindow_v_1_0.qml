@@ -626,7 +626,7 @@ ApplicationWindow {
     }
     function ctrlLeft(ctrl){
         if(!ctrl){
-            if(app.ci && app.ci.objectName.indexOf('mm_ModulesLoader')<0){
+            if(app.ci && app.ci.objectName.indexOf('mm_ModulesLoader')<0 && app.j.qmltypeof(app.ci)!=='ModulesLoader' ){
                 app.ci.toLeft(ctrl)
                 return
             }
@@ -653,7 +653,7 @@ ApplicationWindow {
                 return
             }
         }else{
-            if(app.ci && app.ci.objectName.indexOf('mm_ModulesLoader')<0){
+            if(app.ci && app.ci.objectName.indexOf('mm_ModulesLoader')<0 && app.j.qmltypeof(app.ci)!=='ModulesLoader' ){
                 app.ci.toRight(ctrl)
                 return
             }
@@ -708,10 +708,11 @@ ApplicationWindow {
     function ctrlRight(ctrl){
         //zpn.log('ZoolMainWindow.ctrlRight('+ctrl+')')
         if(!ctrl){
-            if(app.ci && app.ci.objectName.indexOf('mm_ModulesLoader')<0){
+            if(app.ci && app.ci.objectName.indexOf('mm_ModulesLoader')<0 && app.j.qmltypeof(app.ci)!=='ModulesLoader' ){
                 app.ci.toRight(ctrl)
                 return
             }
+            zpn.log('ZoolMainWindow.ctrlRight('+ctrl+')')
             if(zsm.getPanel('ZoolSabianos').view.visible){
                 if(zsm.getPanel('ZoolSabianos').view.visible){
                     zsm.getPanel('ZoolSabianos').view.toright()
@@ -733,7 +734,7 @@ ApplicationWindow {
                 return
             }
         }else{
-            if(app.ci && app.ci.objectName.indexOf('mm_ModulesLoader')<0){
+            if(app.ci && app.ci.objectName.indexOf('mm_ModulesLoader')<0 && app.j.qmltypeof(app.ci)!=='ModulesLoader' ){
                 app.ci.toRight(ctrl)
                 return
             }

@@ -163,6 +163,7 @@ Rectangle {
                 }
             }
             Row{
+                spacing: app.fs*0.5
                 anchors.horizontalCenter: parent.horizontalCenter
                 ZoolText{
                     id: labelGenero
@@ -175,7 +176,7 @@ Rectangle {
                 ComboBox{
                     id: cbGenero
                     model: ['No Binario', 'Femenino', 'Masculino']
-                    width: r.width-labelGenero.w-app.fs
+                    width: r.width-labelGenero.w-app.fs-parent.spacing
                     font.pixelSize: app.fs*0.5
                     anchors.verticalCenter: parent.verticalCenter
                     Rectangle{
@@ -235,26 +236,6 @@ Rectangle {
                         font.pixelSize: app.fs*0.5
                         color: 'white'
                         anchors.bottom: parent.top
-                    }
-                }
-            }
-            Row{
-                spacing: app.fs*0.5
-                anchors.horizontalCenter: parent.horizontalCenter
-                ZoolText{
-                    fs: app.fs*0.5
-                    text: 'Vista Previa'
-                }
-                CheckBox{
-                    id: cbPreview
-                    width: app.fs
-                    checked: zm.previewEnabled
-                    onCheckedChanged: {
-                        if(checked && tiCiudad.t.text===''){
-                            tiCiudad.t.text='United Kingdom'
-                            searchGeoLoc(false)
-                        }
-                        zm.previewEnabled=checked
                     }
                 }
             }
@@ -607,6 +588,30 @@ Rectangle {
                                 botCrear.focus=true
                             }
                         }
+                    }
+                }
+            }
+            Row{
+                spacing: app.fs*0.5
+                anchors.horizontalCenter: parent.horizontalCenter
+                ZoolText{
+                    fs: app.fs*0.5
+                    text: 'Vista Previa'
+                    w:app.fs*3
+                    t.width:w
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+                CheckBox{
+                    id: cbPreview
+                    width: app.fs
+                    checked: zm.previewEnabled
+                    anchors.verticalCenter: parent.verticalCenter
+                    onCheckedChanged: {
+                        if(checked && tiCiudad.t.text===''){
+                            tiCiudad.t.text='United Kingdom'
+                            searchGeoLoc(false)
+                        }
+                        zm.previewEnabled=checked
                     }
                 }
             }

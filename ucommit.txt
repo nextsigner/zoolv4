@@ -1,1 +1,1 @@
-MiniMac Se corrige Teclado en Sabianos
+MiniMac Se corrige max en t8.text de gmt en ZoolControlsTime

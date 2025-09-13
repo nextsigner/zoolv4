@@ -333,7 +333,7 @@ Rectangle {
                         if(r.cFocus!==3){
                             r.cFocus=3
                             editCellData.parent=parent
-                            editCellData.max=t8.text.length
+                            editCellData.max=(t8.text.indexOf('-')>=0 || t8.text.indexOf('+')>=0)?t8.text.length+2:3
                             return
                         }
                         let cgmt

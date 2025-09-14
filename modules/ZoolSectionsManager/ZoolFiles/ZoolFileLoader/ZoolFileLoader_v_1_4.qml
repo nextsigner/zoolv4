@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import Qt.labs.folderlistmodel 2.12
 import ZoolButton 1.2
-import ZoolText 1.2
+import ZoolText 1.3
 import Qt.labs.settings 1.1
 
 Rectangle {
@@ -14,7 +14,7 @@ Rectangle {
     border.width: 2
     border.color: apps.fontColor
 
-    property alias xCfgItem: colXConfig
+    //property alias xCfgItem: colXConfig
 
     property alias ti: txtDataSearch
     property alias currentIndex: lv.currentIndex
@@ -32,10 +32,6 @@ Rectangle {
         property bool showToolItem: false
         property var favorites: []
     }
-    MouseArea{
-        anchors.fill: parent
-        onDoubleClicked: colXConfig.visible=!xCtrlJsonsFolderTemp.visible
-    }
     FolderListModel{
         id: flm
         folder: 'file:'+apps.workSpace
@@ -49,65 +45,30 @@ Rectangle {
             updateList()
         }
     }
-    ZoolButton{
-        text:'\uf013'
-        anchors.right: parent.right
-        anchors.rightMargin: app.fs*0.25
-        anchors.top: parent.top
-        anchors.topMargin: app.fs*0.25
-        z: col.z+1
-        onClicked:{
-            zoolFileManager.s.showConfig=!zoolFileManager.s.showConfig
-        }
-    }
-
     Column{
         id: col
+        spacing: 0//app.fs*0.25
         anchors.horizontalCenter: parent.horizontalCenter
+        Item{width: 1; height: app.fs*0.25}
         Item{
             id: xth1
             width: r.width
             height: th1.contentHeight+app.fs*0.5
-            Text{
+            ZoolText{
                 id: th1
                 text: 'Para ver la Ayuda presiona F1'
                 font.pixelSize: app.fs*0.35
-                color: apps.fontColor
+                t.wrapMode: Text.Normal
                 anchors.centerIn: parent
             }
         }
         Column{
             id: colTopElements
+            anchors.horizontalCenter: parent.horizontalCenter
             Item{width: 1; height: app.fs*0.5; visible: colXConfig.visible}
-            Column{
-                id: colXConfig
-                anchors.horizontalCenter: parent.horizontalCenter
-                visible: rowCfg.visible
-            }
-            //Desactivado
-            Row{
-                id: rowCfg
-                spacing: app.fs*0.25
-                anchors.horizontalCenter: parent.horizontalCenter
-                visible: false
-                ZoolText{
-                    text:'Mostrar datos en el<br/>centro de la pantalla:'
-                    fs: app.fs*0.5
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-                CheckBox{
-                    width: app.fs*0.5
-                    checked: s.showToolItem
-                    anchors.verticalCenter: parent.verticalCenter
-                    onCheckedChanged: {
-                        s.showToolItem=checked
-                    }
-                }
-            }
-            Item{width: 1; height: app.fs; visible: rowCfg.visible}
             Rectangle{
                 id:xTit
-                width: lv.width
+                width: lv.width//-app.fs
                 height: app.fs*1.5
                 color: apps.backgroundColor
                 border.width: 2
@@ -206,30 +167,28 @@ Rectangle {
                     }
                 }
             }
-            Item{
+            Rectangle{
                 id:xTitInf
                 width: lv.width
                 height: txtTitInfo.contentHeight+app.fs*0.25
-                //color: apps.backgroundColor
+                color: 'transparent'
+                border.width: 1
+                border.color: apps.fontColor
                 anchors.horizontalCenter: parent.horizontalCenter
                 clip: true
                 ZoolText {
                     id: txtTitInfo
                     text: '<b>Cantidad Total:</b> '+flm.count+' <b>Encontrados:</b> '+lm.count+'<br/><b>Carpeta: </b>'+(''+flm.folder).replace('file://', '')
                     font.pixelSize: app.fs*0.35
-                    //width: parent.width-app.fs
                     w: parent.width-app.fs
-                    t.width: w
-                    wrapMode: Text.WordWrap
-                    color: apps.fontColor
                     anchors.centerIn: parent
                 }
             }
         }
         ListView{
             id: lv
-            width: r.width
-            height: r.height-colTopElements.height-xth1.height
+            width: r.width-app.fs
+            height: r.height-colTopElements.height-xth1.height-app.fs*0.25-(r.border.width)
             anchors.horizontalCenter: parent.horizontalCenter
             delegate: compItemList
             model: lm

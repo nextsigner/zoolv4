@@ -6,7 +6,7 @@ import ZoolTextInput 1.0
 //import "../../comps" as Comps
 //import "../../js/Funcs.js" as JS
 
-import ZoolText 1.2
+import ZoolText 1.3
 import ZoolButton 1.2
 import comps.FocusSen 1.0
 
@@ -99,11 +99,11 @@ Rectangle {
                 id: xth1
                 width: r.width
                 height: th1.contentHeight//+app.fs*0.5
-                Text{
+                ZoolText{
                     id: th1
                     text: 'Para ver la Ayuda presiona F1'
                     font.pixelSize: app.fs*0.35
-                    color: apps.fontColor
+                    t.wrapMode: Text.Normal
                     anchors.centerIn: parent
                 }
             }
@@ -118,14 +118,10 @@ Rectangle {
                 ZoolText{
                     text: '<b>Crear una nueva carta</b>'
                     font.pixelSize: app.fs*0.65
-                    color: 'white'
+                    w: r.width
+                    t.horizontalAlignment: Text.AlignHCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
                 }
-                //                ZoolText{
-                //                    text: 'Mediante este formulario usted puede crear un nuevo esquema o mapa  energético, carta natal u otros.'
-                //                    w: r.width-app.fs
-                //                    font.pixelSize: app.fs*0.5
-                //                    color: 'white'
-                //                }
             }
             Item{width: 1; height: 1;}
             ZoolTextInput{
@@ -170,7 +166,6 @@ Rectangle {
                     text: 'Género: '
                     w: app.fs*2.5
                     font.pixelSize: app.fs*0.5
-                    color: 'white'
                     anchors.verticalCenter: parent.verticalCenter
                 }
                 ComboBox{
@@ -597,8 +592,8 @@ Rectangle {
                 ZoolText{
                     fs: app.fs*0.5
                     text: 'Vista Previa'
-                    w:app.fs*3
-                    t.width:w
+                    w:t.contentWidth
+                   t.wrapMode: Text.Normal
                     anchors.verticalCenter: parent.verticalCenter
                 }
                 CheckBox{
@@ -622,7 +617,7 @@ Rectangle {
                 ZoolText{
                     text: 'Compartir con la\ncomunidad Zool'
                     fs: app.fs*0.5
-                    textFormat:Text.Normal
+                    tf:Text.Normal
                     anchors.verticalCenter: parent.verticalCenter
                 }
                 CheckBox{

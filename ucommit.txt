@@ -1,1 +1,1 @@
-MiniMac Se crea ZoolText 1.3
+MiniMac Se agrega ZoolText 1.3 a ZoolFileMaker y ZoolFileLoader

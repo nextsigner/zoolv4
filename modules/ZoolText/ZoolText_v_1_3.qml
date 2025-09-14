@@ -1,6 +1,5 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
-//import "../"
 
 Item{
     id: r
@@ -46,31 +45,3 @@ Item{
     }
 
 }
-//Item {
-//    id: r
-//    width: xText.width
-//    height: xText.height
-
-//    Rectangle{
-//        id: xText
-//        width: r.w
-//        height: txt.contentHeight+r.padding*2+r.bw*2
-//        color: r.bgc
-//        border.width: r.bw
-//        border.color: r.bc
-//        radius: r.br
-//        opacity: r.bgo
-//        anchors.centerIn: r
-//    }
-//    Text {
-//        id: txt
-//        font.pixelSize: r.fs
-//        color: 'white'
-//        //width: xText.width-r.padding*2//r.w//?txt.contentWidth:r.w
-//        textFormat: Text.RichText
-//        //wrapMode:   !r.w?Text.Normal:Text.WordWrap
-//        wrapMode:   Text.WordWrap
-//        verticalAlignment: Text.AlignVCenter
-//        anchors.centerIn: xText
-//    }
-//}

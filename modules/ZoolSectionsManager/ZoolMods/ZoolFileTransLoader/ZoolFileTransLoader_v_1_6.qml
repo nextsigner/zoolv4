@@ -4,7 +4,7 @@ import Qt.labs.settings 1.1
 import "../../../../comps" as Comps
 
 import comps.FocusSen 1.0
-import ZoolText 1.2
+import ZoolText 1.3
 import ZoolTextInput 1.0
 import ZoolButton 1.2
 import ZoolControlsTime 1.0
@@ -102,10 +102,10 @@ Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
             }
             ZoolText{
-                //t.width:r.width-app.fs
                 text: '<b>Crear Carta de Tránsitos</b>'
                 font.pixelSize: app.fs*0.65
-                color: 'white'
+                w: r.width-app.fs
+                anchors.horizontalCenter: parent.horizontalCenter
             }
             Row{
                 spacing: app.fs*0.5
@@ -114,13 +114,13 @@ Rectangle {
                     id: labelCbHSys
                     text: 'Sistema de Casas:'
                     font.pixelSize: app.fs*0.5
-                    color: apps.fontColor
+                    t.wrapMode: Text.Normal
                     anchors.verticalCenter: parent.verticalCenter
                 }
                 ComboBox{
                     id: cbHsys
-                    width: r.width-app.fs-labelCbHSys.width-parent.spacing
-                    height: app.fs*0.75
+                    width: r.width-app.fs-labelCbHSys.t.contentWidth-parent.spacing
+                    height: app.fs*1.5
                     font.pixelSize: app.fs*0.5
                     model: app.ahysNames
                     currentIndex: app.ahys.indexOf(apps.currentHsys)
@@ -482,14 +482,15 @@ Rectangle {
 
             Comps.XMarco{
                 Column{
+                    spacing: app.fs*0.5
                     anchors.centerIn: parent
                     ZoolText{
                         text: '<b>Utilizar los parámetros actuales</b>'
                         fs: app.fs*0.5
                         padding: app.fs*0.25
-                        r.width: w
+                        rx.width: w
                         w: r.width-app.fs//*0.2
-                        textFormat: Text.RichText
+                        tf: Text.RichText
                         wrapMode: Text.WordWrap
                         anchors.horizontalCenter: parent.horizontalCenter
                         //visible: false
@@ -500,11 +501,7 @@ Rectangle {
                         ZoolText{
                             text: 'Cargar tránsitos actuales.'
                             fs: app.fs*0.5
-                            padding: app.fs*0.25
-                            r.width: w
-                            w: r.width-app.fs*3
-                            textFormat: Text.PlainText
-                            wrapMode: Text.WordWrap
+                            w: r.width-btnCrearActual.width-parent.spacing*3
                             anchors.verticalCenter: parent.verticalCenter
                         }
                         ZoolButton{
@@ -522,11 +519,7 @@ Rectangle {
                         ZoolText{
                             text: 'Cargar tránsitos actuales en el exterior.'
                             fs: app.fs*0.5
-                            padding: app.fs*0.25
-                            r.width: w
-                            w: r.width-app.fs*3
-                            textFormat: Text.PlainText
-                            wrapMode: Text.WordWrap
+                            w: r.width-btnCrearActualExt.width-parent.spacing*3
                             anchors.verticalCenter: parent.verticalCenter
                         }
                         ZoolButton{
@@ -791,7 +784,7 @@ Rectangle {
             ZoolText{
                 text: 'ZoolFileTransLoader v1.3'
                 font.pixelSize: app.fs*0.5
-                color: apps.fontColor
+                c: apps.fontColor
                 anchors.horizontalCenter: parent.horizontalCenter
             }
         }

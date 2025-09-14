@@ -1,1 +1,1 @@
-MiniMac Se crea función isCiActive()
+MiniMac Se crea ZoolText 1.3

@@ -219,6 +219,7 @@ Rectangle {
                     font.pixelSize: app.fs*0.35
                     //width: parent.width-app.fs
                     w: parent.width-app.fs
+                    t.width: w
                     wrapMode: Text.WordWrap
                     color: apps.fontColor
                     anchors.centerIn: parent

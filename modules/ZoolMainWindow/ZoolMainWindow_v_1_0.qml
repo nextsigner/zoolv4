@@ -40,25 +40,6 @@ ApplicationWindow {
     }
 
     Shortcut{
-        sequence: 'Ctrl+Down'
-        onActivated: {
-            if(zsm.getPanel('ZoolSabianos').view.visible){
-                zsm.getPanel('ZoolSabianos').view.ctrlDown()
-                return
-            }            
-        }
-    }
-    Shortcut{
-        sequence: 'Ctrl+Up'
-        onActivated: {
-            if(zsm.getPanel('ZoolSabianos').view.visible){
-                zsm.getPanel('ZoolSabianos').view.ctrlUp()
-                return
-            }
-            //xDataBar.state=xDataBar.state==='show'?'hide':'show'
-        }
-    }
-    Shortcut{
         sequence: 'Space'
         onActivated: {
             if(apps.zFocus==='xLatIzq'){
@@ -139,10 +120,10 @@ ApplicationWindow {
                 app.showPointerXAs=!app.showPointerXAs
                 return
             }
-//            if(panelZonaMes.state==='show'){
-//                panelZonaMes.pause()
-//                return
-//            }
+            //            if(panelZonaMes.state==='show'){
+            //                panelZonaMes.pause()
+            //                return
+            //            }
             //sweg.nextState()
             //swegz.sweg.nextState()
         }
@@ -438,12 +419,18 @@ ApplicationWindow {
     }
     Shortcut{
         sequence: 'Up'
-        onActivated: {
-            if(app.j.qmltypeof(app.ci)!=='ModulesLoader'){
-                //zpn.log('app.ci.objectName: '+app.ci.objectName+' Escape!')
-                app.ci.toUp()
-                return
-            }
+        onActivated: ctrlUp(false)
+    }
+    Shortcut{
+        sequence: 'Ctrl+Up'
+        onActivated: ctrlUp(true)
+    }
+    function ctrlUp(ctrl){
+        if(isCiActive()){
+            app.ci.toUp(ctrl)
+            return
+        }
+        if(!ctrl){
             if(xBottomBar.state==='show'){
                 xBottomBar.toUp()
             }
@@ -457,7 +444,7 @@ ApplicationWindow {
                 return
             }
             if(zsm.getPanel('ZoolSabianos').view.visible){
-               zpn.log('Up Sabianos...')
+                zpn.log('Up Sabianos...')
                 zsm.getPanel('ZoolSabianos').view.toup()
                 return
             }
@@ -516,16 +503,33 @@ ApplicationWindow {
 
             }
             //xAreaInteractiva.back()
+        }else{
+            if(zsm.getPanel('ZoolSabianos').view.visible){
+                zsm.getPanel('ZoolSabianos').view.ctrlUp()
+                return
+            }
         }
     }
+
     Shortcut{
         sequence: 'Down'
         //enabled: !menuBar.expanded
+        onActivated:{
+            ctrlDown(false)
+        }
+    }
+    Shortcut{
+        sequence: 'Ctrl+Down'
         onActivated: {
-            if(app.j.qmltypeof(app.ci)!=='ModulesLoader'){
-                app.ci.toDown()
-                return
-            }
+            ctrlDown(true)
+        }
+    }
+    function ctrlDown(ctrl){
+        if(isCiActive()){
+            app.ci.toDown(ctrl)
+            return
+        }
+        if(!ctrl){
             if(xBottomBar.state==='show'){
                 xBottomBar.toDown()
             }
@@ -602,19 +606,25 @@ ApplicationWindow {
             //log.l('currentPlanetIndex: '+currentPlanetIndex)
             //log.l('zm.currentPlanetIndex: '+zm.currentPlanetIndex)
             //xAreaInteractiva.next()
+        }else{
+            if(zsm.getPanel('ZoolSabianos').view.visible){
+                zsm.getPanel('ZoolSabianos').view.ctrlDown()
+                return
+            }
         }
     }
-//    Shortcut{
-//        sequence: 'Ctrl+Left'
-//        onActivated: {
-//            //if(zsm.getPanel('ZoolFileManager').state==='show'){
+
+    //    Shortcut{
+    //        sequence: 'Ctrl+Left'
+    //        onActivated: {
+    //            //if(zsm.getPanel('ZoolFileManager').state==='show'){
 
 
-//        }
-//    }
+    //        }
+    //    }
     Shortcut{
         sequence: 'Left'
-       onActivated: {
+        onActivated: {
             ctrlLeft(false)
         }
     }
@@ -637,10 +647,10 @@ ApplicationWindow {
                 }
 
             }
-//            if(apps.zFocus==='xLatIzq' && zsm.getPanel('ZoolFileManager').visible){
-//                zsm.currentSectionFocused.toLeft()
-//                return
-//            }
+            //            if(apps.zFocus==='xLatIzq' && zsm.getPanel('ZoolFileManager').visible){
+            //                zsm.currentSectionFocused.toLeft()
+            //                return
+            //            }
             if(apps.zFocus==='xLatIzq'){
                 zsm.toLeft()
             }
@@ -683,9 +693,9 @@ ApplicationWindow {
                 return
             }
             //            if(apps.zFocus==='xLatDer'){
-//                zoolDataBodies.latFocus=zoolDataBodies.latFocus===0?1:0
-//                return
-//            }
+            //                zoolDataBodies.latFocus=zoolDataBodies.latFocus===0?1:0
+            //                return
+            //            }
             if(menuBar.expanded&&!zsm.getPanel('ZoolSabianos').view.visible){
                 menuBar.left()
                 return
@@ -1050,8 +1060,8 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Shift++'
         onActivated: {
-                if(!zm.ev)return
-                zm.setPlanetsSize(true, 1)
+            if(!zm.ev)return
+            zm.setPlanetsSize(true, 1)
         }
     }
     Shortcut{
@@ -1089,7 +1099,7 @@ ApplicationWindow {
                 return
             }
         }
-    }    
+    }
     property int rv: 0
     Shortcut{
         sequence: '*'
@@ -1113,7 +1123,7 @@ ApplicationWindow {
             //zm.unloadExt()
             //zoolDataBodies.objZbsv.selBodie(0)
             //zm.capturing=!zm.capturing
-           // let d = u.downloadZipFile('https://github.com/nextsigner/zoolv4/releases/download/zool-release/zoolv4_5.6.11.0.zip', '/home/ns/', false)
+            // let d = u.downloadZipFile('https://github.com/nextsigner/zoolv4/releases/download/zool-release/zoolv4_5.6.11.0.zip', '/home/ns/', false)
             //log.lv('d: '+d)
 
             //zpn.log('zm.objPlanetsCircle.getMaxAsAbsPos(): '+zm.objPlanetsCircle.getMaxAsAbsPos())
@@ -1125,4 +1135,18 @@ ApplicationWindow {
             //zpn.log('Current Date Ext: '+JSON.stringify(p, null, 2))
         }
     }
+
+    /*
+    //Plantilla Teclado
+    //-->Teclado
+    function toEnter(ctrl){}
+    function toTab(ctrl){}
+    function toUp(ctrl){}
+    function toDown(ctrl){}
+    function toLeft(ctrl){}
+    function toRight(ctrl){}
+    function toEscape(ctrl){}
+    function isFocus(){return false}
+    //<--Teclado
+    */
 }

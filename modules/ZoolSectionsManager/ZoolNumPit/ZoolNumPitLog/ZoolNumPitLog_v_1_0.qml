@@ -13,6 +13,14 @@ Rectangle{
     property alias flk: flLog
     property alias text: taLog.text
     property bool ww: true
+    onVisibleChanged: {
+        if(visible){
+            app.ciPrev=app.ci
+            app.ci=r
+        }else{
+            app.ci=app.ciPrev
+        }
+    }
 
     Flickable{
         id: flLog
@@ -21,7 +29,7 @@ Rectangle{
         contentWidth: parent.width
         contentHeight: taLog.contentHeight
         clip: true
-        Behavior on contentY{NumberAnimation{duration: 250}}
+        //Behavior on contentY{NumberAnimation{duration: 250}}
         TextEdit{
             id: taLog
             width: r.width-app.fs//*0.5
@@ -54,11 +62,13 @@ Rectangle{
                     }
                 }else{
                     if(wheel.angleDelta.y>=0){
-                        if(flLog.contentY>0){
-                            flLog.contentY-=apps.numPanelLogFs*2
-                        }
+                        toUp(false)
+//                        if(flLog.contentY>0){
+//                            flLog.contentY-=apps.numPanelLogFs*2
+//                        }
                     }else{
-                        flLog.contentY+=apps.numPanelLogFs*2
+                        toDown(false)
+                        //flLog.contentY+=apps.numPanelLogFs*2
                     }
                 }
             }
@@ -96,4 +106,51 @@ Rectangle{
     function scrollToTop(){
         flLog.contentY=0
     }
+
+    //-->Teclado
+    function toEnter(ctrl){}
+    function toTab(ctrl){}
+    function toUp(ctrl){
+        let y=0
+        if(!ctrl){
+            y=flk.contentY-app.fs
+            if(y>0){
+                flk.contentY=y
+            }else{
+                flk.contentY=0
+            }
+        }else{
+            y=flk.contentY-app.fs*0.25
+            if(y>0){
+                flk.contentY=y
+            }else{
+                flk.contentY=0
+            }
+        }
+    }
+    function toDown(ctrl){
+        let y=taLog.contentHeight+app.fs*3
+        if(!ctrl){
+            y=flk.contentY+app.fs
+            if(y<flk.contentHeight-flk.height*0.5){
+                flk.contentY=y
+            }else{
+                flk.contentY=flk.contentHeight-flk.height*0.5
+            }
+        }else{
+            y=flk.contentY+app.fs*0.25
+            if(y<flk.contentHeight-flk.height*0.5){
+                flk.contentY=y
+            }else{
+                flk.contentY=flk.contentHeight-flk.height*0.5
+            }
+        }
+    }
+    function toLeft(ctrl){}
+    function toRight(ctrl){}
+    function toEscape(ctrl){
+        r.visible=false
+    }
+    function isFocus(){return false}
+    //<--Teclado
 }

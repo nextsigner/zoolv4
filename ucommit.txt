@@ -1,1 +1,1 @@
-MiniMac Se agrega ZoolText 1.3 a ZoolFileMaker y ZoolFileLoader
+i7: Se agregan funciones Teclado a ZoolNumPitLog{}

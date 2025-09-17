@@ -1,1 +1,1 @@
-i7: Se agregan funciones Teclado a ZoolNumPitLog{}
+i7: Se agrega boton Copiar y tamaño de letras en ZoolNumPinLog

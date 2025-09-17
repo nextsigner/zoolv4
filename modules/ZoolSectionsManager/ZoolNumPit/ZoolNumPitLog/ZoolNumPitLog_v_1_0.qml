@@ -24,72 +24,78 @@ Rectangle{
 
     Flickable{
         id: flLog
-        width: parent.width
+        width: parent.width-app.fs
         height: parent.height
         contentWidth: parent.width
         contentHeight: taLog.contentHeight
-        clip: true
-        //Behavior on contentY{NumberAnimation{duration: 250}}
+        anchors.top: parent.top
+        anchors.topMargin: app.fs
         TextEdit{
             id: taLog
             width: r.width-app.fs//*0.5
-            //wrapMode: r.ww?Text.WordWrap:Text.WrapAnywhere
             wrapMode: Text.WordWrap
             anchors.horizontalCenter: parent.horizontalCenter
             font.pixelSize: apps.numPanelLogFs
             color: apps.fontColor
-
-            //background: Rectangle{color: 'transparent'}
-            //enabled: false
         }
-        MouseArea{
-            anchors.fill: parent
-            onClicked: r.visible=false
-            onWheel: {
-                if (wheel.modifiers & Qt.ControlModifier) {
-                    if(wheel.angleDelta.y>=0){
-                        if(apps.numPanelLogFs<app.fs*2){
-                            apps.numPanelLogFs+=1
-                        }else{
-                            apps.numPanelLogFs=app.fs*2
-                        }
-                    }else{
-                        if(apps.numPanelLogFs>app.fs*0.5){
-                            apps.numPanelLogFs-=1
-                        }else{
-                            apps.numPanelLogFs=app.fs*0.5
-                        }
-                    }
-                }else{
-                    if(wheel.angleDelta.y>=0){
-                        toUp(false)
-//                        if(flLog.contentY>0){
-//                            flLog.contentY-=apps.numPanelLogFs*2
-//                        }
-                    }else{
-                        toDown(false)
-                        //flLog.contentY+=apps.numPanelLogFs*2
-                    }
+    }
+    Column{
+        spacing: app.fs*0.25
+        anchors.right: parent.right
+        anchors.rightMargin: spacing
+        anchors.top: parent.top
+        anchors.topMargin: spacing
+        Repeater{
+            model: ['X', 'A+', 'A-', 'C']
+            Rectangle{
+                width: app.fs*0.75
+                height: width
+                anchors.horizontalCenter: parent.horizontalCenter
+                color: apps.fontColor
+                Text{
+                    text: '<b>'+modelData+'</b>'
+                    color: apps.backgroundColor
+                    font.pixelSize: parent.width*0.5
+                    anchors.centerIn: parent
                 }
+                MouseArea{anchors.fill: parent; onClicked: run(index)}
             }
         }
     }
-    Rectangle{
-        width: app.fs*0.5
-        height: width
-        anchors.right: parent.right
-        anchors.rightMargin: app.fs*0.1
-        anchors.top: parent.top
-        anchors.topMargin: app.fs*0.1
-        color: apps.fontColor
-        Text{text: 'X';anchors.centerIn: parent;color: apps.backgroundColor}
-        MouseArea{
-            anchors.fill: parent
-            onClicked: {
-                r.visible=false
-                r.visible=apps.showLog
+    Component{
+        id: compMsg
+        Rectangle{
+            id: xMsg
+            width: txtMsg.contentWidth+app.fs*0.5
+            height: txtMsg.contentHeight+app.fs*0.5
+            color: apps.fontColor
+            radius: app.fs*0.25
+            anchors.centerIn: parent
+            property string msg: '????'
+            Behavior on opacity{NumberAnimation{duration: 2500}}
+            Timer{
+                id: tHideMsg
+                running: true
+                repeat: false
+                interval: 5000
+                onTriggered: xMsg.opacity=0.0
+            }
+            Text{
+                id: txtMsg
+                text: msg
+                font.pixelSize: app.fs
+                color: apps.backgroundColor
+                anchors.centerIn: parent
             }
         }
+    }
+    Item{
+        id: xMsgs
+        width: r.width
+        height: app.fs
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: app.fs*2
     }
     function l(d){
         taLog.text+=d+'\n'
@@ -106,6 +112,35 @@ Rectangle{
     function scrollToTop(){
         flLog.contentY=0
     }
+    function run(index){
+        if(index===0){
+            r.visible=false
+            r.visible=apps.showLog
+            return
+        }
+        if(index===1){
+            toRight()
+            return
+        }
+        if(index===2){
+            toLeft()
+            return
+        }
+        if(index===3){
+            //Código para copiar
+            clipboard.setText(taLog.text)
+            showMsg('Se ha copiado el texto en el portapapeles.')
+            return
+        }
+    }
+    function showMsg(text){
+        for(var i=0;i<xMsgs.children.length;i++){
+            xMsgs.children[i].destroy(0)
+        }
+        let comp=compMsg.createObject(xMsgs, {msg: text})
+    }
+
+
 
     //-->Teclado
     function toEnter(ctrl){}
@@ -146,8 +181,20 @@ Rectangle{
             }
         }
     }
-    function toLeft(ctrl){}
-    function toRight(ctrl){}
+    function toLeft(ctrl){
+        if(apps.numPanelLogFs>app.fs*0.5){
+            apps.numPanelLogFs-=1
+        }else{
+            apps.numPanelLogFs=app.fs*0.5
+        }
+    }
+    function toRight(ctrl){
+        if(apps.numPanelLogFs<app.fs*2){
+            apps.numPanelLogFs+=1
+        }else{
+            apps.numPanelLogFs=app.fs*2
+        }
+    }
     function toEscape(ctrl){
         r.visible=false
     }

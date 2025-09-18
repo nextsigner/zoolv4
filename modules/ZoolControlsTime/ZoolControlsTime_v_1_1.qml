@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import ZoolText 1.2
+import ZoolText 1.3
 import comps.FocusSen 1.0
 
 Rectangle {
@@ -63,8 +63,9 @@ Rectangle {
         ZoolText {
             id: txtLabelText
             text: r.labelText
+            w: r.width
+            t.wrapMode: Text.Normal
             font.pixelSize: r.fs
-            color: 'white'
             visible: r.labelText!==''
         }
         Item{width: 1; height:r.fs*0.25;visible: r.labelText!==''}

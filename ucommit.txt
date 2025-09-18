@@ -1,1 +1,1 @@
-i7: Se agrega boton Copiar y tamaño de letras en ZoolNumPinLog
+i7: Se deja de usar ZoolText 1.2. Se pasó todo a ZoolText 1.3

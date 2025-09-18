@@ -4,7 +4,7 @@ import Qt.labs.settings 1.1
 import "../../../comps" as Comps
 
 
-import ZoolText 1.2
+import ZoolText 1.3
 import ZoolTextInput 1.0
 import ZoolButton 1.2
 import ZoolControlsTime 1.0
@@ -81,7 +81,6 @@ Rectangle {
     ZoolText{
         text: 'ZoolFileDirPrimLoader v1.0'
         font.pixelSize: app.fs*0.5
-        color: apps.fontColor
         anchors.left: parent.left
         anchors.leftMargin: app.fs*0.1
         anchors.top: parent.top
@@ -124,8 +123,7 @@ Rectangle {
                 //t.width:r.width-app.fs
                 text: '<b>Crear Direcciones Primarias</b>'//+(app.ev?'zm.dirPrimRot:'+zm.dirPrimRot:'')
                 w: r.width-app.fs
-                font.pixelSize: app.fs*0.65
-                color: 'white'
+                font.pixelSize: app.fs*0.65                
             }
             Column{
                 spacing: app.fs*0.25
@@ -400,15 +398,13 @@ Rectangle {
                     anchors.centerIn: parent
                     ZoolText{
                         text:'Mostrar Cotas de Grados<br />en los cuerpos '+(xBtns.forBack?' <b>Significadores</b><br />(cuerpos exteriores movibles).':'<b>Promisores</b><br />(cuerpos interiores fijos).')
-                        fs: app.fs*0.5
-                        color: apps.fontColor
+                        fs: app.fs*0.5                        
                     }
                     Row{
                         spacing: app.fs*0.1
                         ZoolText{
                             text:'Interior'
                             fs: app.fs*0.5
-                            color: apps.fontColor
                             anchors.verticalCenter: parent.verticalCenter
                         }
                         RadioButton {
@@ -423,7 +419,6 @@ Rectangle {
                         ZoolText{
                             text:'Exterior'
                             fs: app.fs*0.5
-                            color: apps.fontColor
                             anchors.verticalCenter: parent.verticalCenter
                         }
                         RadioButton {

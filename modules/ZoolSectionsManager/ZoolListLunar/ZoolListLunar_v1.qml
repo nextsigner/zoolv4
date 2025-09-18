@@ -4,7 +4,7 @@ import Qt.labs.settings 1.1
 import "../../../comps" as Comps
 
 import ZoolButton 1.2
-import ZoolText 1.2
+import ZoolText 1.3
 import ZoolTextInput 1.0
 
 Rectangle {
@@ -110,7 +110,7 @@ Rectangle {
                             id: label
                             text:'<b>Año:</b>'
                             anchors.verticalCenter: parent.verticalCenter
-                            color: apps.backgroundColor
+                            c: apps.backgroundColor
                             font.pixelSize: app.fs*0.5
                         }
                         Rectangle{
@@ -155,7 +155,7 @@ Rectangle {
                             ZoolText{
                                 text:showAll.checked?'<b>Ver Solo</b><br><b>Eclipses</b>':'<b>Ver todas</b><br><b>las lunas</b>'
                                 anchors.verticalCenter: parent.verticalCenter
-                                color: apps.backgroundColor
+                                c: apps.backgroundColor
                                 font.pixelSize: app.fs*0.5
                             }
                             CheckBox{
@@ -261,7 +261,7 @@ Rectangle {
                     visible: false
                     ZoolText{
                         text:'<b>Cargando...</b>'
-                        color: apps.backgroundColor
+                        c: apps.backgroundColor
                         font.pixelSize: app.fs*0.5
                         anchors.centerIn: parent
                     }

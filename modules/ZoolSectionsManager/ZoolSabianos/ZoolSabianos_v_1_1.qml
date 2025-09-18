@@ -6,7 +6,7 @@ import "../../../comps" as Comps
 
 import ZoolSectionsManager.ZoolSabianos.ZoolSabianosView 1.1
 import ZoolButton 1.1
-import ZoolText 1.2
+import ZoolText 1.3
 
 //TODO Reparar Sabianos 29/1/24
 
@@ -279,7 +279,7 @@ Rectangle {
             }
             ZoolText{
                 text: '<b>3</b>'
-                color: 'red'
+                c: 'red'
                 fs:app.fs*0.8
                 anchors.centerIn: parent
                 anchors.horizontalCenterOffset: app.fs*0.3
@@ -360,7 +360,7 @@ Rectangle {
             }
             ZoolText{
                 text: '<b>1</b>'
-                color: 'red'
+                c: 'red'
                 fs:app.fs*0.8
                 anchors.centerIn: parent
                 anchors.horizontalCenterOffset: app.fs*0.3

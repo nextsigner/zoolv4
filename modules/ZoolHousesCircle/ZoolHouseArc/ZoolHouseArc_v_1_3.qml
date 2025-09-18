@@ -1,5 +1,5 @@
 import QtQuick 2.12
-import ZoolText 1.2
+import ZoolText 1.3
 import "../"
 
 Item {

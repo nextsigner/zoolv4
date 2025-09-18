@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import ZoolText 1.2
+import ZoolText 1.3
 Rectangle{
     id: r
     width: row.width+app.fs
@@ -15,31 +15,26 @@ Rectangle{
         spacing: app.fs*0.25
         ZoolText{
             text: '<b>State:</b> '+zoolDataBodies.state
-            font.pixelSize: r.height*0.25
-            color: 'white'
+            font.pixelSize: r.height*0.25            
         }
         Column{
             visible: false
             ZoolText{
                 text: '<b>Sol:</b> '+app.currentGradoSolar
-                font.pixelSize: r.height*0.25
-                color: 'white'
+                font.pixelSize: r.height*0.25                
             }
             ZoolText{
                 text: '<b>Asc:</b> '+zm.uAscDegree
-                font.pixelSize: r.height*0.25
-                color: 'white'
+                font.pixelSize: r.height*0.25                
             }
             ZoolText{
                 text: '<b>Mc:</b> '+zm.uMcDegree
-                font.pixelSize: r.height*0.25
-                color: 'white'
+                font.pixelSize: r.height*0.25                
             }
         }
         ZoolText{
             text: '<b>Mod:</b> '+app.t
-            font.pixelSize: r.height*0.5
-            color: 'white'
+            font.pixelSize: r.height*0.5            
         }
 //        ZoolText{
 //            id: txtStatus

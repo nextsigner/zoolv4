@@ -19,7 +19,7 @@ import comps.FocusSen 1.0
 import ZoolNewsAndUpdates 3.4
 import ZoolMainWindow 1.0
 
-import ZoolText 1.2
+import ZoolText 1.3
 import ZoolDataBar 3.1
 import ZoolDataView 1.2
 import ZoolEvolutionView 1.0
@@ -338,9 +338,8 @@ ZoolMainWindow{
                     ZoolText{
                         id: capDate
                         text: 'Imagen creada por Zool'
-                        textFormat: Text.PlainText
+                        tf: Text.PlainText
                         font.pixelSize: app.fs*0.5
-                        color: apps.fontColor
                         anchors.bottom: parent.bottom
                         anchors.right: parent.right
                         visible: zm.capturing

@@ -7,7 +7,7 @@ import ZoolSectionsManager.ZoolFiles.ZoolFileMaker 1.8
 import ZoolSectionsManager.ZoolFiles.ZoolFileLoader 1.4
 
 import ZoolButton 1.0
-import ZoolText 1.2
+import ZoolText 1.3
 
 Rectangle {
     id: r

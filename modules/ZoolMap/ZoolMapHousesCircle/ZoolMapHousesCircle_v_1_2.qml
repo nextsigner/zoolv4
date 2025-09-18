@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import ZoolText 1.2
+import ZoolText 1.3
 import ZoolMap.ZoolMapPointerHouse 1.0
 
 Item {
@@ -658,7 +658,6 @@ Item {
                         text: '<b>'+parseFloat(r.wg).toFixed(2)+'</b>'
                         font.pixelSize: parent.width*0.3
                         anchors.centerIn: parent
-                        color: 'white'
                         rotation: 270+ec.rotation
                     }
                 }

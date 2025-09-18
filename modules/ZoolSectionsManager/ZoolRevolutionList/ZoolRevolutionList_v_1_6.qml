@@ -4,7 +4,7 @@ import Qt.labs.settings 1.1
 import "../../../comps" as Comps
 
 import ZoolButton 1.2
-import ZoolText 1.2
+import ZoolText 1.3
 import ZoolTextInput 1.0
 
 Rectangle {

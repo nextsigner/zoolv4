@@ -1,7 +1,7 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 
-import ZoolText 1.2
+import ZoolText 1.3
 import ZoolTextInput 1.0
 import ZoolButton 1.0
 import ZoolControlsTime 1.0
@@ -52,8 +52,7 @@ Rectangle {
                 //t.width:r.width-app.fs
                 text: '<b>Crear Progresiones Secundarias</b>'
                 w: r.width-app.fs
-                font.pixelSize: app.fs*0.65
-                color: 'white'
+                font.pixelSize: app.fs*0.65                
             }
             ListView{
                 id: lv

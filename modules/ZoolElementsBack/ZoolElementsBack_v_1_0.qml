@@ -2,7 +2,7 @@ import QtQuick 2.0
 import QtGraphicalEffects 1.0
 import "../../"
 import "../../js/Funcs.js" as JS
-import ZoolText 1.2
+import ZoolText 1.3
 Item {
     id: r
     width: apps.elementsFs*3

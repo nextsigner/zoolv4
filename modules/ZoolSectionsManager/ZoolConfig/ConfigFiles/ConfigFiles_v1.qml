@@ -3,7 +3,7 @@ import QtQuick.Controls 2.0
 
 import comps.FocusSen 1.0
 import ZoolButton 1.0
-import ZoolText 1.2
+import ZoolText 1.3
 import ZoolTextInput 1.0
 
 Rectangle{

@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import ZoolText 1.2
+import ZoolText 1.3
 import "../"
 
 Item {
@@ -337,7 +337,6 @@ Item {
                 height: contentHeight
                 horizontalAlignment: Text.AlignHCenter
                 //color: apps.enableBackgroundColor?apps.backgroundColor:'black'
-                color: apps.fontColor
                 anchors.centerIn: parent
                 rotation: 0-r.rotation-parent.rotation
             }
@@ -367,8 +366,7 @@ Item {
                 text: '<b>'+parseFloat(r.wg).toFixed(2)+'</b>'
                 font.pixelSize: parent.width*0.3
                 anchors.centerIn: parent
-                color: 'white'
-                rotation: 270+ejeCentro.rotation                
+                rotation: 270+ejeCentro.rotation
             }
         }
     }

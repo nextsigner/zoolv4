@@ -4,7 +4,7 @@ import Qt.labs.settings 1.1
 import "../../comps" as Comps
 import "../../js/Funcs.js" as JS
 
-import ZoolText 1.2
+import ZoolText 1.3
 import ZoolTextInput 1.0
 import ZoolButton 1.0
 import ZoolControlsTime 1.0

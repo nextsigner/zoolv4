@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import "../"
-import ZoolText 1.2
+import ZoolText 1.3
 
 Item {
     id: r

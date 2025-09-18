@@ -3,7 +3,7 @@ import QtQuick.Window 2.0
 import QtQuick.Controls 2.0
 import Qt.labs.settings 1.1
 
-import ZoolText 1.2
+import ZoolText 1.3
 
 Rectangle {
     id: r
@@ -133,7 +133,7 @@ Rectangle {
         property string sd: '?'
         text: '<b>'+sd+'</b>'//+' ci:'+r.currentInterpreter+' ad:'+r.numDegree+' cs:'+r.numSign
         font.pixelSize: r.fs*2
-        color: r.showDark?'white':'black'
+        c: r.showDark?'white':'black'
         anchors.bottom: parent.bottom
         visible: false
     }

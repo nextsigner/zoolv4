@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import Qt.labs.folderlistmodel 2.12
 import ZoolButton 1.0
-import ZoolText 1.2
+import ZoolText 1.3
 import ZoolButton 1.2
 import Qt.labs.settings 1.1
 
@@ -71,7 +71,6 @@ Rectangle {
                 //width: parent.width-app.fs
                 w: parent.width-app.fs
                 wrapMode: Text.WordWrap
-                color: apps.fontColor
                 focus: r.itemIndex===r.svIndex
                 anchors.centerIn: parent
                 Rectangle{

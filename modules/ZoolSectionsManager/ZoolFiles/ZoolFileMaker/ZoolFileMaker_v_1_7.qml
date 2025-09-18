@@ -6,7 +6,7 @@ import ZoolTextInput 1.0
 //import "../../comps" as Comps
 //import "../../js/Funcs.js" as JS
 
-import ZoolText 1.2
+import ZoolText 1.3
 import ZoolButton 1.2
 import comps.FocusSen 1.0
 

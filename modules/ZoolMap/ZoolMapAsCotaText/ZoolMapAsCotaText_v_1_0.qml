@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import ZoolText 1.2
+import ZoolText 1.3
 import ZoolButton 1.2
 
 Rectangle{
@@ -37,18 +37,17 @@ Rectangle{
         ZoolText{
             id: degData
             w: t.contentWidth
-            r.width: w+padding*2
+            rx.width: w+padding*2
             text:r.text
             wrapMode: Text.NoWrap
-            textFormat: Text.RichText
+            tf: Text.RichText
             fs: app.fs*0.35//!r.isBack?img.width*0.25:img0.width*0.25
             padding: fs*0.5
-            color: apps.fontColor
-            textBackgroundColor: apps.backgroundColor
+            bgc: apps.backgroundColor
             //textBackgroundOpacity: 1.0
-            borderWidth: 1
-            borderColor: apps.fontColor
-            borderRadius: fs*0.5
+            bw: 1
+            bc: apps.fontColor
+            br: fs*0.5
             //rotation: !r.isBack?bodie.rotation+Math.abs(r.rot):bodie.objImg.rotation+Math.abs(r.rot)
             rotation: 360-zm.objSignsCircle.rotation+r.rot
             anchors.centerIn: parent

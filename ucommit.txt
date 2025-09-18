@@ -1,1 +1,1 @@
-i7: Se deja de usar ZoolText 1.2. Se pasó todo a ZoolText 1.3
+i7: Se eliminan versiones obsoletas de ZoolText

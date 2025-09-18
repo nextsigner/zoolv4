@@ -60,7 +60,7 @@ Rectangle {
         id: colAll
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
-        ZoolText {
+        ZoolText{
             id: txtLabelText
             text: r.labelText
             w: r.width

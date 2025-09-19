@@ -2328,7 +2328,7 @@ Rectangle{
         aspsCircle.opacity=1.0
         aspsCircle.visible=true
         aspsCircleBack.opacity=0.0
-        aspsCircle.visible=false
+        //aspsCircle.visible=false
         panelAspectsBack.opacity=0.0
         loadFromFile(apps.url, 'vn', false)
     }

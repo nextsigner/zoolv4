@@ -407,5 +407,62 @@ Rectangle {
             return null; // Retorna null si el aspecto no es reconocido
         }
     }
+    function showOneBodieAsp(numAstro, isExt){
+        if(!isExt){
+            zm.objAspsCircle.clearAxis()
+        }else{
+            zm.objAspsCircleBack.clearAxis()
+        }
+        let j1
+        let j2
+        if(!zm.ev){
+            j1=!r.isExt?zm.currentJson:zm.currentJsonBack
+            j2=!r.isExt?zm.currentJson:zm.currentJsonBack
+        }else{
+            j1=!r.isExt?zm.currentJson:zm.currentJsonBack
+            j2=r.isExt?zm.currentJson:zm.currentJsonBack
+        }
+        if(numAstro<0){
+            if(!r.isExt){
+                zm.objAspsCircle.load(zm.currentJson)
+            }else{
+                zm.objAspsCircle.load(zm.currentJsonBack)
+            }
+            return
+        }
+
+        let indexAsp=0
+        let j={}
+        j.asps={}
+        let aAspsReg=[]
+
+        let g1=j1.pc['c'+numAstro].gdec
+        for(var i=0;i<zm.aBodies.length;i++){
+            let g2=j2.pc['c'+i].gdec
+            let aspType=zm.objAspsCircle.getAsp(g1, g2)
+            if(aspType>=0){
+                let indexAspName=zm.objAspsCircle.getAspName(indexAsp)
+                let search=''+numAstro+':'+i
+                if(aAspsReg.indexOf(search)<0&&numAstro!==i){
+                    j.asps['asp'+indexAsp]={}
+                    j.asps['asp'+indexAsp].ic1=numAstro
+                    j.asps['asp'+indexAsp].ic2=i
+                    j.asps['asp'+indexAsp].c1=zm.aBodies[numAstro]
+                    j.asps['asp'+indexAsp].c2=zm.aBodies[i]
+                    j.asps['asp'+indexAsp].ia=aspType
+                    j.asps['asp'+indexAsp].gdeg1=g1
+                    j.asps['asp'+indexAsp].gdeg2=g2
+                    j.asps['asp'+indexAsp].dga=zm.objAspsCircle.diffDegn(g1, g2)
+                    aAspsReg.push(''+numAstro+':'+i)
+                    indexAsp++
+                    zm.objAspsCircle.drawAspAxisRect(numAstro, aspType, g1, r.isExt)
+                    zm.objAspsCircle.drawAspAxisRect(numAstro, aspType, g2, r.isExt)
+                }
+                //log.lv('indexAspName: '+indexAspName)
+            }
+        }
+        //log.lv('j: '+JSON.stringify(j, null, 2))
+        zm.objAspsCircle.loadFromJsonAsps(j)
+    }
 
 }

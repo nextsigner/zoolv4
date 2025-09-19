@@ -11,6 +11,20 @@ Rectangle {
     property int indexPlanet: -1
     property int bodie: -1
     property string folderImg: '../../../modules/ZoolMap/imgs/imgs_v1'
+    property bool selected: false
+    MouseArea{
+        anchors.fill: parent
+        onClicked: {
+            if(!r.selected){
+                r.selected=true
+                zm.objAspsCircle.showOneBodieAsp(r.indexPlanet, true)
+            }else{
+                r.selected=false
+                zm.objAspsCircle.showOneBodieAsp(-1, true)
+            }
+
+        }
+    }
     Image {
         id: img
         source: r.folderImg+"/"+app.planetasRes[r.indexPlanet]+".svg"
@@ -19,5 +33,14 @@ Rectangle {
         anchors.centerIn: parent
         antialiasing: true
         mirror: true
+    }
+    Rectangle{
+        width: parent.width
+        height: parent.height
+        color: 'transparent'
+        border.width: 2
+        border.color: 'red'
+        anchors.centerIn: parent
+        visible: r.selected
     }
 }

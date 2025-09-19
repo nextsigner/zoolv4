@@ -210,7 +210,7 @@ Rectangle {
         return panelActive.isFocus()
     }
     function toEscape(){
-        panelActive.toEscape()
+        if(panelActive)panelActive.toEscape()
     }
     property bool hasUnUsedFunction: true
     function unUsed(){

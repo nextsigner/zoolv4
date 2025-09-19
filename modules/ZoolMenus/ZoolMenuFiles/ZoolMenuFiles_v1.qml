@@ -47,7 +47,8 @@ ZoolMenus{
         }
     }
     Action {
-        text: qsTr("Recargar archivo interior")
+        text: qsTr("Rec
+argar archivo interior")
         onTriggered: {
             zm.unloadExt()
         }

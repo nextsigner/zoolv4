@@ -401,7 +401,7 @@ Item{
             width: r.width*0.5-(zm.objAspsCircle.width*0.5)-parent.width//(zm.width-r.width)*0.5
             height: apps.aspLineWidth
             //color: zm.uAspShow.split('_').length>=1?zm.uAspShow.split('_')[1]:'red'
-            color: zm.uAspShow.split('_')[1]
+            color: !zm.uAspShow.indexOf('_')>0?zm.uAspShow.split('_')[1]:'transparent'
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.right
             visible: !r.isBack?(

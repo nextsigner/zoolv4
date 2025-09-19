@@ -1104,35 +1104,7 @@ ApplicationWindow {
     Shortcut{
         sequence: '*'
         onActivated: {
-            //zm.objSignsCircle.rotar(0, rv)
-            //rv++
-            //zm.isMultiCapturing=true
-            //zm.capturing=true
-
-            //log.lv('Descargando...')
-            //u.downloadZipFile('https://sitsa.dl.sourceforge.net/project/zool/zool_v5.1.11.1.zip?viasf=1', 'C:/sss')
-            //log.lv('Termino!')
-            //zm.centrarZooMap()
-
-            //log.lv('house pos: '+pos.x)
-            //log.width=xLatIzq.width
-            //log.lv('zm.currentHouseIndex: '+zm.currentHouseIndex)
-            //zm.currentPlanetIndex=20
-            //zm.zmc.start()
-
-            //zm.unloadExt()
-            //zoolDataBodies.objZbsv.selBodie(0)
-            //zm.capturing=!zm.capturing
-            // let d = u.downloadZipFile('https://github.com/nextsigner/zoolv4/releases/download/zool-release/zoolv4_5.6.11.0.zip', '/home/ns/', false)
-            //log.lv('d: '+d)
-
-            //zpn.log('zm.objPlanetsCircle.getMaxAsAbsPos(): '+zm.objPlanetsCircle.getMaxAsAbsPos())
-            //zpn.log('zm.maxAbsPosInt: '+zm.maxAbsPosInt)
-            //zpn.log('zm.objAspsCircle.visible: '+zm.objAspsCircle.visible)
-            //zpn.log('zm.objAspsCircle.opacity: '+zm.objAspsCircle.opacity)
-
-            //let p=zm.currentJsonBack.params
-            //zpn.log('Current Date Ext: '+JSON.stringify(p, null, 2))
+            //zm.objAspsCircle.showOneBodieAsp(0)
         }
     }
 

@@ -676,7 +676,22 @@ Rectangle{
                             id: ca
                             d: 0//signCircle.width-(signCircle.w*2)-(zm.planetSizeInt*(r.maxAbsPosInt+1)*2)//signCircle.width-(signCircle.w*2)-parent.w
                             color: 'transparent'//apps.backgroundColor
-                            //onWidthChanged: aspsCircle.hideAndShow()
+                            property bool spsInt: false
+                            onDChanged: {
+                                if(d<app.fs*2){
+                                    if(!ca.spsInt){
+                                        ca.spsInt=true
+                                        //zpn.log('Set planet size Int.')
+                                        zm.setPlanetsSize(false, 0)
+                                    }else{
+                                        ca.spsInt=false
+                                        //zpn.log('Set planet size Ext.')
+                                        zm.setPlanetsSize(true, 0)
+                                    }
+                                    //ca.spsInt=!ca.spsInt
+
+                                }
+                            }
                         }
                     }
 

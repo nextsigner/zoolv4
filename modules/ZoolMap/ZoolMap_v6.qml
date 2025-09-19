@@ -409,6 +409,7 @@ Rectangle{
             anchors.leftMargin: xLatIzq.visible?width:width-xLatIzq.width
             transform: Scale{ xScale: -1 }
             rotation: 180
+            //z: panelAspects.z+1
             visible: planetsCircleBack.visible
         }
     }

@@ -1,1 +1,1 @@
-i7: Se agrega onDChanged a ca para controlar el mínimo de diámetro.
+i7: Se corrige CellPlanetAspBack onClicked

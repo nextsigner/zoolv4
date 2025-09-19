@@ -409,7 +409,7 @@ Item{
                                     )
                               :
                                 (
-                                    zm.uAspShow.indexOf('ext_')===0 && (zm.uAspShow.indexOf('_'+r.numAstro+'_')>=0  || zm.uAspShow.indexOf('cellAsp_'+r.numAstro+'_')>=0)
+                                    zm.uAspShow.indexOf('ext_')===0 && (zm.uAspShow.indexOf('_'+r.numAstro+'_')>=0  || zm.uAspShow.indexOf('cellAspExt_'+r.numAstro+'_')>=0)
                                     )
             Rectangle{
                 width: parent.width+2

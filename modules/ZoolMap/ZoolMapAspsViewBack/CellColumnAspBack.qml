@@ -28,9 +28,10 @@ Item {
         Repeater{
             model:20
             CellAspBack{
-                objectName: 'cellAsp_'+index
+                objectName: 'cellAspExt_'+index
                 width: r.cellWidth
                 opacity: index>planet&&r.planet!==index?1.0:0.0
+                enabled: opacity>0.0
                 bodie: r.planet
                 isExt: r.isExt
                 yIndex: index

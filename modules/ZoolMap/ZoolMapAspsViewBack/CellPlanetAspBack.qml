@@ -17,10 +17,10 @@ Rectangle {
         onClicked: {
             if(!r.selected){
                 r.selected=true
-                zm.objAspsCircle.showOneBodieAsp(r.indexPlanet, true)
+                zm.objAspsCircleBack.showOneBodieAsp(r.indexPlanet, true)
             }else{
                 r.selected=false
-                zm.objAspsCircle.showOneBodieAsp(-1, true)
+                zm.objAspsCircleBack.showOneBodieAsp(-1, true)
             }
 
         }

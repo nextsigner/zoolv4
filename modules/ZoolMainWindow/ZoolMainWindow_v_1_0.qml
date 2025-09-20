@@ -820,12 +820,13 @@ ApplicationWindow {
         }
     }
 
-    Shortcut{
+    //ANULADO POR ASPS
+    /*Shortcut{
         sequence: 'Ctrl+Shift+a'
         onActivated: {
             apps.lt=!apps.lt
         }
-    }
+    }*/
     //Mostrar/Ocultar Información
     Shortcut{
         sequence: 'Ctrl+Shift+i'
@@ -967,11 +968,80 @@ ApplicationWindow {
         }
     }
 
-    //AutoMatic Planets
-    Shortcut{
+    //AutoMatic Planets-ANULADO POR ASPS
+    /*Shortcut{
         sequence: 'Ctrl+a'
         onActivated: {
             tAutoMaticPlanets.running=!tAutoMaticPlanets.running
+        }
+    }*/
+    Shortcut{
+        sequence: 'a'
+        onActivated: {
+            aspsCtrlShift(false, false)
+        }
+    }
+    Shortcut{
+        sequence: 'Ctrl+a'
+        onActivated: {
+            aspsCtrlShift(true, false)
+        }
+    }
+    Shortcut{
+        sequence: 'Shift+A'
+        onActivated: {
+            aspsCtrlShift(false, true)
+        }
+    }
+    Shortcut{
+        sequence: 'Ctrl+Shift+a'
+        onActivated: {
+            aspsCtrlShift(true, true)
+        }
+    }
+    function aspsCtrlShift(ctrl, shift){
+        if(!shift){
+            zm.objAspsCircle.opacity=1.0
+            zm.objAspsCircleBack.opacity=1.0
+            if(ctrl){
+                apps.showAspPanel=!apps.showAspPanel
+                zm.objAspsCircle.visible=apps.showAspPanel
+            }else{
+                zm.objAspsCircle.visible=!zm.objAspsCircle.visible
+                if(zm.objAspsCircle.visible){
+                    zm.objAspsCircle.z=zm.objAspsCircleBack.z+1
+                    if(zm.ev)zm.objAspsCircleBack.opacity=0.65
+                }else{
+                    if(zm.ev)zm.objAspsCircle.z=zm.objAspsCircleBack.z-1
+                }
+            }
+            if(zm.objAspsCircle.visible){
+                zpn.logTemp('Se comienzan a mostrar los aspectos astrológicos.\nPresionar las teclas "a" o "Ctrl+a" para ocultar.', 10000)
+            }else{
+                zpn.logTemp('Se deja de mostrar los aspectos astrológicos.\nPresionar las teclas "a" o "Ctrl+a" para mostrar.', 10000)
+            }
+        }else{
+            zm.objAspsCircle.opacity=1.0
+            zm.objAspsCircleBack.opacity=1.0
+            if(ctrl){
+                apps.showAspPanelBack=!apps.showAspPanelBack
+                zm.objAspsCircleBack.visible=apps.showAspPanelBack
+                zpn.logTemp('apps.showAspPanelBack: '+apps.showAspPanelBack)
+            }else{
+                if(!zm.ev)return
+                zm.objAspsCircleBack.visible=!zm.objAspsCircleBack.visible
+                if(zm.objAspsCircleBack.visible){
+                   zm.objAspsCircleBack.z=zm.objAspsCircle.z+1
+                   zm.objAspsCircle.opacity=0.65
+                }else{
+                    zm.objAspsCircleBack.z=zm.objAspsCircle.z-1
+                }
+            }
+            if(zm.objAspsCircleBack.visible){
+                zpn.logTemp('Se comienzan a mostrar los aspectos astrológicos externos.\nPresionar las teclas "Shift+a" o "Ctrl+Shift+a" para ocultar.', 10000)
+            }else{
+                zpn.logTemp('Se deja de mostrar los aspectos astrológicos externos.\nPresionar las teclas "Shift+a" o "Ctrl+Shift+a" para mostrar.', 10000)
+            }
         }
     }
 

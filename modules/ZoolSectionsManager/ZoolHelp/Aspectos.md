@@ -1,6 +1,14 @@
 #
 ## Aspectos
 #
+### ¿Cómo controlar para ver u ocultar los aspectos astrológicos?
+#
+Para controlar cómo ver u ocultar los aspectos, básicamente se controla mediante las teclas "a", "Ctrl+a" para ver los aspectos de un mapa que se muestra como único mapa.
+#
+Para controlar cómo ver u ocultar los aspectos en un mapa externo, esto se controla mediante las teclas "Shift+a" o "Ctrl+Shift+a".
+#
+En en panel de notificación se le informará qué esta ocurriendo.
+#
 ### ¿Qué son los aspectos astrológicos?
 #
 Los aspectos astrológicos son relaciones angulares entre planetas en una carta natal o mapa astrológico, que indican cómo interactúan sus energías. En base al ángulo en que se posicionan 2 cuerpo o planetas astrológicos, dichas posiciones a lo largo de la esfera celeste, en iguales o diferentes grados en la longitud de arco, esto puede representarse en distintos tipos de ángulos llamados de incidencia.
@@ -25,7 +33,7 @@ Los aspectos se pueden ver u observar de 2 maneras. En la parte central del mapa
 4. **Trígono:** Se muestran de color verde.
 5. **Sextil:** De momento NO se muestran en Zool. En futuras versiones se mostrarán.
 #
-La otra manera de ver los aspectos es mediante una grilla cuadriculada en forma de escalera que se sitúa en la parte inferior y superior izquierda de la zona central de la aplicación. Tiene un botón pequeñño con forma de "ojo", haga click en él para ver u ocultar esta grilla de aspectos.
+La otra manera de ver los aspectos es mediante una grilla cuadriculada en forma de escalera que se sitúa en la parte inferior y superior izquierda de la zona central de la aplicación. Tiene un botón pequeño con forma de "ojo", haga click en él para ver u ocultar esta grilla de aspectos.
 #
 ### ¿Cómo puedo resaltar o seleccionar un aspecto en el mapa?
 #

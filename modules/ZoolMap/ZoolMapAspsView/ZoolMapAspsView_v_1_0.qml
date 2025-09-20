@@ -35,11 +35,26 @@ Rectangle {
         MouseArea{
             anchors.fill: parent
             onClicked: {
-                if (mouse.modifiers & Qt.ControlModifier) {
-                    apps.showAspCircle=!apps.showAspCircle
-                    return
+                zm.objAspsCircle.opacity=1.0
+                zm.objAspsCircleBack.opacity=1.0
+                if(mouse.modifiers & Qt.ControlModifier){
+                    apps.showAspPanel=!apps.showAspPanel
+                    zm.objAspsCircle.visible=apps.showAspPanel
+                    //zpn.log('apps.showAspPanel: '+apps.showAspPanel)
+                }else{
+                    zm.objAspsCircle.visible=!zm.objAspsCircle.visible
+                    if(zm.objAspsCircle.visible){
+                       zm.objAspsCircle.z=zm.objAspsCircleBack.z+1
+                       if(zm.ev)zm.objAspsCircleBack.opacity=0.65
+                    }else{
+                        if(zm.ev)zm.objAspsCircle.z=zm.objAspsCircleBack.z-1
+                    }
                 }
-                apps.showAspPanel=!apps.showAspPanel
+//                if (mouse.modifiers & Qt.ControlModifier) {
+//                    apps.showAspCircle=!apps.showAspCircle
+//                    return
+//                }
+//                apps.showAspPanel=!apps.showAspPanel
             }
         }
         Text{

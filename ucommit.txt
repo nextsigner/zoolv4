@@ -1,1 +1,1 @@
-i7: Se corrige CellPlanetAspBack onClicked
+i7: Se optimiza ZoolAspsView y ZoolAspsViewBack

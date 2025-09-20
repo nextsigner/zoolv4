@@ -13,7 +13,7 @@ Rectangle {
     property string uAspShowed: '???'
     Row{
         id: row
-        visible: apps.showAspPanelBack
+        visible: apps.showAspPanelBack && zm.ev
         Repeater{
             model: r.visible?20:0
             CellColumnAspBack{planet: index;cellWidth: r.cellWidth; objectName: 'cellRowAsp_'+index; isExt: r.isExt}
@@ -39,12 +39,21 @@ Rectangle {
         MouseArea{
             anchors.fill: parent
             onClicked: {
-                if (mouse.modifiers & Qt.ControlModifier) {
-                    apps.showAspCircleBack=!apps.showAspCircleBack
-                    //if(apps.dev)log.ls('apps.showAspCircleBack:'+apps.showAspCircleBack, 0, log.width)
-                    return
+                zm.objAspsCircle.opacity=1.0
+                zm.objAspsCircleBack.opacity=1.0
+                if(mouse.modifiers & Qt.ControlModifier){
+                    apps.showAspPanelBack=!apps.showAspPanelBack
+                    zm.objAspsCircleBack.visible=apps.showAspPanelBack
+                    zpn.log('apps.showAspPanelBack: '+apps.showAspPanelBack)
+                }else{
+                    zm.objAspsCircleBack.visible=!zm.objAspsCircleBack.visible
+                    if(zm.objAspsCircleBack.visible){
+                       zm.objAspsCircleBack.z=zm.objAspsCircle.z+1
+                       zm.objAspsCircle.opacity=0.65
+                    }else{
+                        zm.objAspsCircleBack.z=zm.objAspsCircle.z-1
+                    }
                 }
-                apps.showAspPanelBack=!apps.showAspPanelBack
             }
         }
         Text{

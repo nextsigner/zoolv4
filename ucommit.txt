@@ -1,1 +1,1 @@
-i7: Se edita Aspectos.md y se agregan Shortcut para controlar los aspectos.
+i7: Se programan cotas a InterLink

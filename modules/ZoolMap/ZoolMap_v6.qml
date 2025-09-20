@@ -204,7 +204,7 @@ Rectangle{
 
     //-->Theme
     property string themeName: 'Zool'
-    property var aSignsColors: ['red', '#FBE103', '#09F4E2', '#0D9FD6']
+    property var aSignsColors: ['red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6']
     property color bodieColor: apps.fontColor
     property color bodieColorBack: apps.fontColor
     property color bodieBgColor: 'transparent'

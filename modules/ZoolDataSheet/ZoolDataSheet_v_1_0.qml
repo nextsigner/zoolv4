@@ -10,6 +10,7 @@ Item{
     function getKeyWordsBodiesListData(numAstro){
         let a = []
         let fn=r.folderRoot+'/bodies_list_data/astro_naipe_'+zm.aBodiesFiles[numAstro]+'.txt'
+        zpn.logTemp('Cargando archivo '+fn, 50000)
         //console.log('0::: '+fn)
         let data=u.getFile(fn)
         //console.log('1::: '+data)

@@ -19,6 +19,8 @@ Item{
     property var aParents: [capa101]
     property bool enableChangeArea: false
 
+    property int senLineWidth: app.fs*0.1
+
     property int cBSH: 1
     property string cKWS1: ''
     property string cKWS2: ''
@@ -48,6 +50,7 @@ Item{
         parent: zsm.getPanel('ModulesManager')
         property var aColors: [apps.backgroundColor, 'green', apps.backgroundColor]
         property int currentPlanetIndex: 0
+        onCurrentPlanetIndexChanged: updateBSH()
         MouseArea{
             anchors.fill: parent
             onDoubleClicked: {
@@ -97,7 +100,7 @@ Item{
             width: r.width
             height: ((r.height-txtTit.contentHeight-app.fs*0.75)/3)//-app.fs*0.5
             border.width: 3
-            color: r.aColors[t]
+            color: 'transparent'//r.aColors[t]
             property int numAstro: -1
             property int is: -1
             property int h: -1
@@ -111,9 +114,10 @@ Item{
                     border.width: 1
                     border.color: apps.fontColor
                     Rectangle{
+                        id: xBSH
                         width: colBodie.width+app.fs
                         height: colBodie.height+app.fs
-                        color: 'transparent'
+                        color: 'red'
                         border.width: 2
                         border.color: xItem.textColor
                         radius: app.fs*0.2
@@ -173,52 +177,43 @@ Item{
                     color: apps.backgroundColor
                     border.width: 2
                     border.color: apps.fontColor
-                    radius: app.fs*0.5
+                    radius: 0//app.fs*0.5
+                    Item{
+                        width: parent.width-app.fs
+                        height: parent.height-app.fs
+                        anchors.centerIn: parent
                     Text{
                         text: xItem.t===0?'¿Qué expresa?':(xItem.t===1?'¿Cómo expresa?':'¿En dónde expresa?')
                         color: apps.fontColor
-                        font.pixelSize: app.fs*3
+                        font.pixelSize: app.fs
                         //anchors.centerIn: parent
                         //anchors.horizontalCenter: parent.horizontalCenter
                     }
                     Text{
                         text: xItem.t===0?rMod.cKWS1:(xItem.t===1?rMod.cKWS2:rMod.cKWS3)
                         color: apps.fontColor
-                        font.pixelSize: app.fs*3
+                        font.pixelSize: app.fs*2
                         anchors.centerIn: parent
                         //anchors.horizontalCenter: parent.horizontalCenter
                     }
-                    /*Column{
-                        spacing: app.fs*0.5
-                        anchors.centerIn: parent
-                        Text{
-                            text: rMod.cKWS1
-                            color: apps.fontColor
-                            font.pixelSize: app.fs
-                            anchors.horizontalCenter: parent.horizontalCenter
-                        }
-                        Text{
-                            text: rMod.cKWS2
-                            color: apps.fontColor
-                            font.pixelSize: app.fs
-                            anchors.horizontalCenter: parent.horizontalCenter
-                        }
-                        Text{
-                            text: rMod.cKWS3
-                            color: apps.fontColor
-                            font.pixelSize: app.fs
-                            anchors.horizontalCenter: parent.horizontalCenter
-                        }
-                    }*/
+                    }
                 }
             }
             FocusSen{
-                width: parent.width*0.4
+                width: 6//parent.width*0.4
                 height: parent.height
                 //radius: parent.r.radius
-                border.width: 6
+                border.width: 3
                 //anchors.centerIn: parent
                 visible: xItem.t+1===rMod.cBSH
+            }
+            Rectangle{
+                width: rMod.senLineWidth
+                height: parent.height-((xItem.parent.parent.height/10)*0.25)
+                color: 'red'
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.right: parent.right
+                anchors.rightMargin: xItem.width*0.8
             }
             function setKwSelected(index){
                 var item
@@ -255,12 +250,14 @@ Item{
             }
             Component.onCompleted: {
                 r.parent=capa101
+                xBSH.color='transparent'
                 let m0
                 if(t===0){
                     m0=zds.getKeyWordsBodiesListData(numAstro)
                 }
                 if(t===1){
                     m0=zds.getKeyWordsSignsListData(is)
+                    xBSH.color=zm.aSignsColors[is]
                 }
                 if(t===2){
                     m0=zds.getKeyWordsHousesListData(h)
@@ -317,11 +314,11 @@ Item{
                 anchors.centerIn: parent
                 Rectangle{
                     width: xItem.width*0.5-parent.width*0.5//-xItem.width
-                    height: 3//app.fs*0.5
-                    color: 'red'
+                    height: rMod.senLineWidth
+                    color: !xItem.selected?'gray':'red'
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.right: parent.left
-                    visible: xItem.selected
+                    //visible: xItem.selected
                 }
                 Rectangle{
                     width: parent.width+4
@@ -390,49 +387,65 @@ Item{
 
         }
     }
-    function toUp(){
-        if(rMod.cBSH===1){
-            if(rMod.cKW1>0){
-                rMod.cKW1--
-            }else{
-                rMod.cKW1=9
-            }
-        }
-        if(rMod.cBSH===2){
-            if(rMod.cKW2>0){
-                rMod.cKW2--
-            }else{
-                rMod.cKW2=9
-            }
-            if(rMod.cBSH===3){
-                if(rMod.cKW3>0){
-                    rMod.cKW3--
+    function toUp(ctrl){
+        if(!ctrl){
+            if(rMod.cBSH===1){
+                if(rMod.cKW1>0){
+                    rMod.cKW1--
                 }else{
-                    rMod.cKW3=9
+                    rMod.cKW1=9
                 }
+            }
+            if(rMod.cBSH===2){
+                if(rMod.cKW2>0){
+                    rMod.cKW2--
+                }else{
+                    rMod.cKW2=9
+                }
+                if(rMod.cBSH===3){
+                    if(rMod.cKW3>0){
+                        rMod.cKW3--
+                    }else{
+                        rMod.cKW3=9
+                    }
+                }
+            }
+        }else{
+            if(r.currentPlanetIndex>0){
+                r.currentPlanetIndex--
+            }else{
+                r.currentPlanetIndex=zm.aBodies.length-1
             }
         }
     }
-    function toDown(){
-        if(rMod.cBSH===1){
-            if(rMod.cKW1<9){
-                rMod.cKW1++
-            }else{
-                rMod.cKW1=0
+    function toDown(ctrl){
+        if(!ctrl){
+            if(rMod.cBSH===1){
+                if(rMod.cKW1<9){
+                    rMod.cKW1++
+                }else{
+                    rMod.cKW1=0
+                }
             }
-        }
-        if(rMod.cBSH===2){
-            if(rMod.cKW2<9){
-                rMod.cKW2++
-            }else{
-                rMod.cKW2=0
+            if(rMod.cBSH===2){
+                if(rMod.cKW2<9){
+                    rMod.cKW2++
+                }else{
+                    rMod.cKW2=0
+                }
             }
-        }
-        if(rMod.cBSH===3){
-            if(rMod.cKW3<9){
-                rMod.cKW3++
+            if(rMod.cBSH===3){
+                if(rMod.cKW3<9){
+                    rMod.cKW3++
+                }else{
+                    rMod.cKW3=0
+                }
+            }
+        }else{
+            if(r.currentPlanetIndex<zm.aBodies.length){
+                r.currentPlanetIndex++
             }else{
-                rMod.cKW3=0
+                r.currentPlanetIndex=0
             }
         }
     }

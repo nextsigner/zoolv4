@@ -19,7 +19,7 @@ Item{
     property var aParents: [capa101]
     property bool enableChangeArea: false
 
-    property int senLineWidth: app.fs*0.1
+    property int senLineWidth: app.fs*0.25
 
     property int cBSH: 1
     property string cKWS1: ''
@@ -72,6 +72,7 @@ Item{
             }
             Column{
                 id: colBSH
+                spacing: app.fs
             }
             //Item{width: 1; height: app.fs*0.5}
 
@@ -98,7 +99,7 @@ Item{
         Rectangle{
             id: xItem
             width: r.width
-            height: ((r.height-txtTit.contentHeight-app.fs*0.75)/3)//-app.fs*0.5
+            height: ((r.height-txtTit.contentHeight-app.fs*0.75)/3)-app.fs//*0.5
             border.width: 3
             color: 'transparent'//r.aColors[t]
             property int numAstro: -1
@@ -110,9 +111,16 @@ Item{
                 Rectangle{
                     width: xItem.width*0.2
                     height: xItem.height
-                    color: 'transparent'
+                    color: apps.backgroundColor
                     border.width: 1
                     border.color: apps.fontColor
+                    Rectangle{
+                        width: r.width*0.5
+                        height: rMod.senLineWidth
+                        color: 'red'
+                        anchors.left: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
                     Rectangle{
                         id: xBSH
                         width: colBodie.width+app.fs
@@ -175,8 +183,8 @@ Item{
                     width: xItem.width*0.6
                     height: xItem.height
                     color: apps.backgroundColor
-                    border.width: 2
-                    border.color: apps.fontColor
+                    border.width: rMod.senLineWidth
+                    border.color: 'red'//apps.fontColor
                     radius: 0//app.fs*0.5
                     Item{
                         width: parent.width-app.fs
@@ -209,7 +217,7 @@ Item{
             }
             Rectangle{
                 width: rMod.senLineWidth
-                height: parent.height-((xItem.parent.parent.height/10)*0.25)
+                height: parent.height-((xItem.parent.parent.height/10)*0.25)+rMod.senLineWidth
                 color: 'red'
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
@@ -250,7 +258,10 @@ Item{
             }
             Component.onCompleted: {
                 r.parent=capa101
-                xBSH.color='transparent'
+                xBSH.parent.border.width=0
+                xBSH.color=apps.backgroundColor//'transparent'
+                xBSH.border.width=rMod.senLineWidth
+                xBSH.border.color='red'
                 let m0
                 if(t===0){
                     m0=zds.getKeyWordsBodiesListData(numAstro)
@@ -314,11 +325,19 @@ Item{
                 anchors.centerIn: parent
                 Rectangle{
                     width: xItem.width*0.5-parent.width*0.5//-xItem.width
-                    height: rMod.senLineWidth
+                    height: !xItem.selected?rMod.senLineWidth*0.5:rMod.senLineWidth
                     color: !xItem.selected?'gray':'red'
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.right: parent.left
                     //visible: xItem.selected
+                }
+                Rectangle{
+                    width: xItem.width*0.5-parent.width*0.5//-xItem.width
+                    height: rMod.senLineWidth
+                    color: !xItem.selected?'gray':'red'
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.right
+                    visible: xItem.selected
                 }
                 Rectangle{
                     width: parent.width+4

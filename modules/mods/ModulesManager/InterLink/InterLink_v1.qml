@@ -20,6 +20,7 @@ Item{
     property bool enableChangeArea: false
 
     property int senLineWidth: app.fs*0.25
+    property color cLineColor: 'red'
 
     property int cBSH: 1
     property string cKWS1: ''
@@ -39,6 +40,21 @@ Item{
             r.parent=rMod.aParents[s.typeShow]
         }
     }
+    SequentialAnimation on cLineColor{
+        running: true
+        loops: Animation.Infinite
+        ColorAnimation {
+            from: "red"
+            to: "yellow"
+            duration: 200
+        }
+        ColorAnimation {
+            from: "yellow"
+            to: "red"
+            duration: 200
+        }
+    }
+
     Rectangle{
         id: r
         width: parent.width
@@ -115,9 +131,9 @@ Item{
                     border.width: 1
                     border.color: apps.fontColor
                     Rectangle{
-                        width: r.width*0.5
+                        width: xItem.width*0.2*0.5
                         height: rMod.senLineWidth
-                        color: 'red'
+                        color: xItem.t+1===rMod.cBSH?rMod.cLineColor:'red'
                         anchors.left: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
                     }
@@ -127,10 +143,9 @@ Item{
                         height: colBodie.height+app.fs
                         color: 'red'
                         border.width: 2
-                        border.color: xItem.textColor
+                        border.color: xItem.t+1!==rMod.cBSH?'red':rMod.cLineColor
                         radius: app.fs*0.2
                         anchors.centerIn: parent
-
                         Column{
                             id: colBodie
                             anchors.centerIn: parent
@@ -169,6 +184,7 @@ Item{
                     delegate: compItemList
                     boundsBehavior: ListView.StopAtBounds
                     //verticalScrollBar.interactive: false
+                    opacity: 1.0
                     ListModel{
                         id: lm
                         function addItem(kw, tipo){
@@ -184,26 +200,35 @@ Item{
                     height: xItem.height
                     color: apps.backgroundColor
                     border.width: rMod.senLineWidth
-                    border.color: 'red'//apps.fontColor
+                    border.color: rMod.cLineColor//xItem.t+1!==rMod.cBSH?'red':rMod.cLineColor
                     radius: 0//app.fs*0.5
+                    Rectangle{
+                        width: rMod.senLineWidth
+                        height: app.fs
+                        color: rMod.cLineColor
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.top: parent.bottom
+                        visible: xItem.t!==2
+                    }
                     Item{
                         width: parent.width-app.fs
                         height: parent.height-app.fs
                         anchors.centerIn: parent
-                    Text{
-                        text: xItem.t===0?'¿Qué expresa?':(xItem.t===1?'¿Cómo expresa?':'¿En dónde expresa?')
-                        color: apps.fontColor
-                        font.pixelSize: app.fs
-                        //anchors.centerIn: parent
-                        //anchors.horizontalCenter: parent.horizontalCenter
-                    }
-                    Text{
-                        text: xItem.t===0?rMod.cKWS1:(xItem.t===1?rMod.cKWS2:rMod.cKWS3)
-                        color: apps.fontColor
-                        font.pixelSize: app.fs*2
-                        anchors.centerIn: parent
-                        //anchors.horizontalCenter: parent.horizontalCenter
-                    }
+                        visible: rMod.cKW1>=0 && rMod.cKW2>=0 && rMod.cKW3>=0
+                        Text{
+                            text: xItem.t===0?'¿Qué expresa?':(xItem.t===1?'¿Cómo expresa?':'¿En dónde expresa?')
+                            color: apps.fontColor
+                            font.pixelSize: app.fs
+                            //anchors.centerIn: parent
+                            //anchors.horizontalCenter: parent.horizontalCenter
+                        }
+                        Text{
+                            text: xItem.t===0?rMod.cKWS1:(xItem.t===1?rMod.cKWS2:rMod.cKWS3)
+                            color: apps.fontColor
+                            font.pixelSize: app.fs*2
+                            anchors.centerIn: parent
+                            //anchors.horizontalCenter: parent.horizontalCenter
+                        }
                     }
                 }
             }
@@ -218,7 +243,7 @@ Item{
             Rectangle{
                 width: rMod.senLineWidth
                 height: parent.height-((xItem.parent.parent.height/10)*0.25)+rMod.senLineWidth
-                color: 'red'
+                color: xItem.t+1!==rMod.cBSH?'red':rMod.cLineColor
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
                 anchors.rightMargin: xItem.width*0.8
@@ -261,7 +286,7 @@ Item{
                 xBSH.parent.border.width=0
                 xBSH.color=apps.backgroundColor//'transparent'
                 xBSH.border.width=rMod.senLineWidth
-                xBSH.border.color='red'
+                //xBSH.border.color='red'
                 let m0
                 if(t===0){
                     m0=zds.getKeyWordsBodiesListData(numAstro)
@@ -326,7 +351,7 @@ Item{
                 Rectangle{
                     width: xItem.width*0.5-parent.width*0.5//-xItem.width
                     height: !xItem.selected?rMod.senLineWidth*0.5:rMod.senLineWidth
-                    color: !xItem.selected?'gray':'red'
+                    color: !xItem.selected?'gray':rMod.cLineColor
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.right: parent.left
                     //visible: xItem.selected
@@ -334,7 +359,7 @@ Item{
                 Rectangle{
                     width: xItem.width*0.5-parent.width*0.5//-xItem.width
                     height: rMod.senLineWidth
-                    color: !xItem.selected?'gray':'red'
+                    color: !xItem.selected?'gray':rMod.cLineColor
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.right
                     visible: xItem.selected
@@ -344,7 +369,7 @@ Item{
                     height: parent.height+4
                     border.width: 1
                     border.color: parent.color
-                    color: apps.backgroundColor
+                    color: xItem.selected?'red':apps.backgroundColor
                     radius: height*0.15
                     anchors.centerIn: parent
                     z: parent.z-1
@@ -368,7 +393,7 @@ Item{
         //app.ci=rMod
         //zsm.getPanel('ModulesManager').cm=rMod
         app.ci=rMod
-        updateBSH()
+        updateBSH()        
     }
     function updateKwSelecteds(){
         for(var i=0;i<colBSH.children.length;i++){
@@ -384,7 +409,6 @@ Item{
 
     }
     function toLeft(ctrl){
-        r.opacity=0.5
         if(!ctrl){
             if(rMod.cBSH>1){
                 rMod.cBSH--
@@ -421,12 +445,12 @@ Item{
                 }else{
                     rMod.cKW2=9
                 }
-                if(rMod.cBSH===3){
-                    if(rMod.cKW3>0){
-                        rMod.cKW3--
-                    }else{
-                        rMod.cKW3=9
-                    }
+            }
+            if(rMod.cBSH===3){
+                if(rMod.cKW3>0){
+                    rMod.cKW3--
+                }else{
+                    rMod.cKW3=9
                 }
             }
         }else{
@@ -525,6 +549,11 @@ Item{
         let obj1=compBSH.createObject(colBSH, {t: 0, numAstro: b})
         let obj2=compBSH.createObject(colBSH, {t: 1, is: s, textColor: textColor})
         let obj3=compBSH.createObject(colBSH, {t: 2, h: h})
+
+        rMod.cKW1=-1
+        rMod.cKW2=-1
+        rMod.cKW3=-1
+        updateKwSelecteds()
     }
     //<--Funciones de InterLink
 

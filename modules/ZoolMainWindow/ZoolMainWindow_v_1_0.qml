@@ -1175,6 +1175,7 @@ ApplicationWindow {
         sequence: '*'
         onActivated: {
             //zm.objAspsCircle.showOneBodieAsp(0)
+            zsm.getPanel('ModulesManager').loadModule('InterLink', '1.0')
         }
     }
 

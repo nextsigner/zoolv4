@@ -623,7 +623,7 @@ Item{
             objAs.pos=0
         }
         for(i=0;i<aGdecs.length;i++){
-            for(var i2=i;i2<aGdecs.length;i2++){
+            for(var i2=0;i2<aGdecs.length;i2++){
                 let haa=hayAlgoAhi(aGdecs[i], aGdecs[i2])
                 if(haa && i!==i2){
                     //zpn.log('ordenando: '+aGdecs[i])

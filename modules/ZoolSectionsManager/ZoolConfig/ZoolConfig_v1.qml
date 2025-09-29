@@ -7,6 +7,7 @@ import ZoolText 1.3
 
 import ZoolSectionsManager.ZoolConfig.ConfigFiles 1.0
 import ZoolSectionsManager.ZoolConfig.ConfigGui 1.0
+import ZoolSectionsManager.ZoolConfig.ConfigAsps 1.0
 
 Rectangle {
     id: r
@@ -56,6 +57,13 @@ Rectangle {
                         showSection('ConfigGui')
                     }
                 }
+                ZoolButton{
+                    text:'Aspectos'
+                    colorInverted: !configAsps.visible
+                    onClicked: {
+                        showSection('ConfigAsps')
+                    }
+                }
             }
         }
         Item{
@@ -65,6 +73,7 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             ConfigFiles{id: configFiles}
             ConfigGui{id: configGui}
+            ConfigAsps{id: configAsps}
         }
     }
 

@@ -5,7 +5,7 @@ Item{
     id: r
     width: xText.width
     height: txt.contentHeight+r.padding
-    property int w : 100//r.parent.width
+    property int w : txt.contentWidth//100//r.parent.width
     property string text: '???'
     property alias t: txt
     property alias rx: xText
@@ -39,6 +39,7 @@ Item{
         id: txt
         text: r.text
         width: xText.width-r.padding*2
+        font.pixelSize: r.fs
         color: r.c
         wrapMode: Text.WordWrap
         anchors.centerIn: parent

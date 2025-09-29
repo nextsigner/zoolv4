@@ -35,7 +35,7 @@ Rectangle {
     property bool moduleEnabled: false
 
     property alias ctFecha: controlTimeFecha
-    property alias xCfgItem: colXConfig
+    //property alias xCfgItem: colXConfig
 
     property real lat:-100.00
     property real lon:-100.00
@@ -115,15 +115,17 @@ Rectangle {
             anchors.centerIn: parent
             spacing: app.fs*0.5
             Item{width: 1; height: app.fs; visible: colXConfig.visible}
-            Column{
+            /*Column{
                 id: colXConfig
                 anchors.horizontalCenter: parent.horizontalCenter
             }
+            */
             ZoolText{
                 //t.width:r.width-app.fs
                 text: '<b>Crear Direcciones Primarias</b>'//+(app.ev?'zm.dirPrimRot:'+zm.dirPrimRot:'')
                 w: r.width-app.fs
-                font.pixelSize: app.fs*0.65                
+                t.wrapMode: Text.WordWrap
+                font.pixelSize: app.fs*0.65
             }
             Column{
                 spacing: app.fs*0.25
@@ -261,7 +263,7 @@ Rectangle {
                         anchors.horizontalCenter: parent.horizontalCenter
                         ZoolButton{
                             text: !tAutoFindAsps.running?'Iniciar Rastreo':'Detener Rastreo'
-                            //anchors.horizontalCenter: parent.horizontalCenter
+                            fs: app.fs*0.35
                             onClicked:{
                                 if(!tAutoFindAsps.running)setForRastreo()
                                 if(!tAutoFindAsps.running){
@@ -281,7 +283,7 @@ Rectangle {
                         }
                         ZoolButton{
                             text: 'Reiniciar'
-                            //anchors.horizontalCenter: parent.horizontalCenter
+                            fs: app.fs*0.35
                             onClicked:{
                                 log.clear()
                                 tAutoFindAsps.stop()
@@ -290,19 +292,21 @@ Rectangle {
                         }
                         ZoolButton{
                             text: 'Ver Lista'
-                            //anchors.horizontalCenter: parent.horizontalCenter
+                            fs: app.fs*0.35
                             onClicked:{
                                 aspsList.visible=!aspsList.visible
                             }
                         }
                     }
                     Row{
-                        spacing: app.fs*0.25
+                        spacing: app.fs*0.5
                         anchors.horizontalCenter: parent.horizontalCenter
                         Row{
+                            spacing: app.fs*0.25
                             ZoolText{
                                 text:'Año'
                                 fs: app.fs*0.5
+                                w: t.contentWidth
                                 anchors.verticalCenter: parent.verticalCenter
                             }
                             RadioButton{
@@ -318,6 +322,7 @@ Rectangle {
                             }
                         }
                         Row{
+                            spacing: app.fs*0.25
                             ZoolText{
                                 text:'Mes'
                                 fs: app.fs*0.5
@@ -336,6 +341,7 @@ Rectangle {
                             }
                         }
                         Row{
+                            spacing: app.fs*0.25
                             ZoolText{
                                 text:'Día'
                                 fs: app.fs*0.5
@@ -343,7 +349,6 @@ Rectangle {
                             }
                             RadioButton{
                                 id: rd3
-                                //checked: true
                                 onCheckedChanged: {
                                     if(checked){
                                         rd1.checked=false
@@ -397,11 +402,16 @@ Rectangle {
                     spacing: app.fs*0.25
                     anchors.centerIn: parent
                     ZoolText{
+                        //visible: false
                         text:'Mostrar Cotas de Grados<br />en los cuerpos '+(xBtns.forBack?' <b>Significadores</b><br />(cuerpos exteriores movibles).':'<b>Promisores</b><br />(cuerpos interiores fijos).')
-                        fs: app.fs*0.5                        
+                        fs: app.fs*0.5
+                        //tf: Text.RichText
+                        //t.wrapMode: Text.WordWrap
+                        //w: r.width-app.fs
                     }
                     Row{
                         spacing: app.fs*0.1
+                        //visible: false
                         ZoolText{
                             text:'Interior'
                             fs: app.fs*0.5
@@ -920,6 +930,8 @@ Rectangle {
         if(sExt!=='')sf+='<b>Exterior:</b><br>'+sExt+'<br>'
         zm.objAsInfoView.text=sf
     }
+
+    //-->Teclado
     function toRight(){
         if(controlTimeFecha.focus){
             controlTimeFecha.toRight()
@@ -940,6 +952,14 @@ Rectangle {
             controlTimeFecha.toDown()
         }
     }
+    function toEscape(){
+
+    }
+    function isFocus(){
+        return false
+    }
+    //<--Teclado
+
     function setInitFocus(){
         tiNombre.t.selectAll()
         tiNombre.t.focus=true

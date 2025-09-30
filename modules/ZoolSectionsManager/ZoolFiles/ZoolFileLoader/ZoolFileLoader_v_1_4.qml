@@ -65,7 +65,7 @@ Rectangle {
         Column{
             id: colTopElements
             anchors.horizontalCenter: parent.horizontalCenter
-            Item{width: 1; height: app.fs*0.5; visible: colXConfig.visible}
+            //Item{width: 1; height: app.fs*0.5; visible: colXConfig.visible}
             Rectangle{
                 id:xTit
                 width: lv.width//-app.fs

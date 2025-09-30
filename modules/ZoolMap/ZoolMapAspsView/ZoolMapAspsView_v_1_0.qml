@@ -136,6 +136,8 @@ Rectangle {
     }
     function load(jsonData){
         if(!r.visible)return
+        let panel=zsm.getPanel('ZoolConfig')
+        let section=panel.getSection('ConfigAsps')
         clear()
         if(!jsonData.asps)return
         r.opacity=1.0
@@ -168,6 +170,9 @@ Rectangle {
                         continue
                     }else{
                         let a=asp['asp'+parseInt(i +1)]
+                        if(!section.getCheckedAsps(a.ia)){
+                            continue
+                        }
                         setAsp(a.ic1, a.ic2, a.ia,i)
                         let strAsp='Indefinido'
                         if(a.ia===0){

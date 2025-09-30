@@ -11,26 +11,34 @@ Rectangle{
     id: r
     width: parent.width-app.fs*0.5
     height: col.height+app.fs*0.5
-    border.width: 1
-    border.color: apps.fontColor
-    radius: app.fs*0.25
+    border.width: 0
+    //border.color: apps.fontColor
+    //radius: app.fs*0.25
     color: 'transparent'
+    anchors.horizontalCenter: parent.horizontalCenter
     Settings{
         id: s
         fileName: u.getPath(4)+'/zool_asps.cfg'
-        //property var aAsps: [1, 1, 1, 1, 1, 1, 1]
-        property var sAsps: '1.1.1.1.1.1.1'
+        property var sAsps: '1.1.1.1.0.0.0'
     }
     Column{
         id: col
         anchors.centerIn: parent
         spacing: app.fs*0.5
+        //Item{width: 1; height: app.fs*0.5}
         Text{
             text:'<b>Configurar Aspectos</b>'
             font.pixelSize: app.fs*0.5
             color: apps.fontColor
         }
         Item{width: 1; height: app.fs*0.5}
+        Text{
+            text:'Seleccionar qué Aspectos se visualizan'
+            width: r.width-app.fs
+            wrapMode: Text.WordWrap
+            font.pixelSize: app.fs*0.5
+            color: apps.fontColor
+        }
         Rectangle{
             width: r.width-app.fs*0.25
             height: flow1.height+app.fs//*0.25
@@ -54,10 +62,19 @@ Rectangle{
                         border.color: apps.fontColor
                         Row{
                             id: row1
+                            spacing: 0//app.fs*0.25
                             anchors.centerIn: parent
+                            Rectangle{
+                                width: app.fs*0.5
+                                height: width
+                                color: zm.objAspsCircle.aAspsColors[index]
+                                anchors.verticalCenter: parent.verticalCenter
+                            }
                             Text{
                                 id: l
                                 text: modelData
+                                width: contentWidth+app.fs*0.5
+                                horizontalAlignment: Text.AlignHCenter
                                 font.pixelSize: app.fs*0.5
                                 color: apps.fontColor
                                 anchors.verticalCenter: parent.verticalCenter
@@ -94,9 +111,19 @@ Rectangle{
 
         }
         s.sAsps=nS
-        zpn.log('s.sAsps = '+s.sAsps)
-        //s.aAsps[index]=checked?0:1
-        //zpn.log('-> s.aAsps['+index+'] = '+s.aAsps[index])
+        zm.objAspsCircle.updateAllAsps()
+        if(zm.ev)zm.objAspsCircleBack.updateAllAsps()
+
+        let jsonAsps=zm.objAspsCircle.getAsps(zm.currentJson)
+        zm.objZoolAspectsView.load(jsonAsps)
+        if(zm.ev){
+            let jsonAspsExt=zm.objAspsCircleBack.getAsps(zm.currentJsonBack)
+            zm.objZoolAspectsViewBack.load(jsonAsps)
+        }
+    }
+    function getCheckedAsps(index){
+        let aS=s.sAsps.split('.')
+        return aS[index]==='1'
     }
 
     //-->Teclado
@@ -145,8 +172,8 @@ Rectangle{
         tiJsonsFolder.t.selectAll()
     }
     function toEscape(){
-        tiJsonsFolder.text=apps.workSpace
-        tiJsonsFolder.t.focus=false
+        //tiJsonsFolder.text=apps.workSpace
+        //tiJsonsFolder.t.focus=false
     }
     function isFocus(){
         return false

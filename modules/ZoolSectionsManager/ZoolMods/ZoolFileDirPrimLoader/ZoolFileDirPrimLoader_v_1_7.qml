@@ -114,7 +114,7 @@ Rectangle {
             id: col
             anchors.centerIn: parent
             spacing: app.fs*0.5
-            Item{width: 1; height: app.fs; visible: colXConfig.visible}
+            //Item{width: 1; height: app.fs; visible: colXConfig.visible}
             /*Column{
                 id: colXConfig
                 anchors.horizontalCenter: parent.horizontalCenter

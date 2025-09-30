@@ -134,6 +134,8 @@ Rectangle {
         //log.lv('json: '+JSON.stringify(jsonData, null, 2))
         if(!r.visible)return
         //console.log('PanelAspectsBack jsonData: '+JSON.stringify(jsonData))
+        let panel=zsm.getPanel('ZoolConfig')
+        let section=panel.getSection('ConfigAsps')
         clear()
         if(!jsonData.asps)return
         r.opacity=1.0
@@ -145,6 +147,9 @@ Rectangle {
                         continue
                     }else{
                         let a=asp['asp'+parseInt(i +1)]
+                        if(!section.getCheckedAsps(a.ia)){
+                            continue
+                        }
                         setAsp(a.ic1, a.ic2, a.ia,i)
                     }
                     //log.lv('json: '+i)

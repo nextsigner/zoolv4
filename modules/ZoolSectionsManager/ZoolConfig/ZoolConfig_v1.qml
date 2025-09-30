@@ -104,7 +104,7 @@ Rectangle {
             }
         }
         s.currentQmlTypeShowed=qmltype
-        if(newCi)r.currentIndex=newCi
+        //if(newCi)r.currentIndex=newCi
         //zsm.currentSectionFocused=r
         apps.zFocus='xLatIzq'
     }

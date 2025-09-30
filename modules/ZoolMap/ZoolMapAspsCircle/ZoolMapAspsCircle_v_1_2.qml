@@ -79,7 +79,11 @@ Rectangle {
         repeat: false
         interval: 500
         onTriggered: {
+            updateAllAsps()
+            /*return
             if(!xAsps.json)return
+            let panel=zsm.getPanel('ZoolConfig')
+            let section=panel.getSection('ConfigAsps')
             //clearSL(xAsps)
             var x = xAsps.width*0.5;
             var y = xAsps.height*0.5;
@@ -94,9 +98,15 @@ Rectangle {
                         if((asp['asp'+parseInt(i +1)].ic1===10 && asp['asp'+parseInt(i +1)].ic2===11)||(asp['asp'+parseInt(i +1)].ic1===11 && asp['asp'+parseInt(i +1)].ic2===10)){
                             continue
                         }else{
-                            let a=asp['asp'+parseInt(i +1)]
+                            let a=asp['asp'+parseInt(i +1)]                            
+
                             let colorAsp='black'
                             //# -1 = no hay aspectos. 0 = oposición. 1 = cuadratura. 2 = trígono
+
+                            if(!section.getCheckedAsps(a.ia)){
+                                continue
+                            }
+
                             if(a.ia===-1){
                                 colorAsp='gray'
                             }
@@ -127,9 +137,7 @@ Rectangle {
                     }
                 }
             }
-            zm.hideTapa()
-            //r.visible=true
-            //r.opacity=1.0
+            zm.hideTapa()*/
         }
     }
 
@@ -222,6 +230,65 @@ Rectangle {
         xAsps.json=json
 
         //console.log('jsonAsps:'+JSON.stringify(json, null, 2))
+    }
+    function updateAllAsps(){
+        if(!xAsps.json)return
+        let panel=zsm.getPanel('ZoolConfig')
+        let section=panel.getSection('ConfigAsps')
+        clearSL(xAsps)
+        var x = xAsps.width*0.5;
+        var y = xAsps.height*0.5;
+        var radius=xAsps.width*0.5
+        var cx=xAsps.width*0.5
+        var cy=xAsps.height*0.5
+        //log.lv('xAsps.json: '+JSON.stringify(xAsps.json, null, 2))
+        if(xAsps.json&&xAsps.json.asps){
+            let asp=xAsps.json.asps
+            for(var i=0;i<Object.keys(asp).length;i++){
+                if(asp['asp'+parseInt(i +1)]){
+                    if((asp['asp'+parseInt(i +1)].ic1===10 && asp['asp'+parseInt(i +1)].ic2===11)||(asp['asp'+parseInt(i +1)].ic1===11 && asp['asp'+parseInt(i +1)].ic2===10)){
+                        continue
+                    }else{
+                        let a=asp['asp'+parseInt(i +1)]
+
+                        let colorAsp='black'
+                        //# -1 = no hay aspectos. 0 = oposición. 1 = cuadratura. 2 = trígono
+
+                        if(!section.getCheckedAsps(a.ia)){
+                            continue
+                        }
+
+                        if(a.ia===-1){
+                            colorAsp='gray'
+                        }
+                        if(a.ia===0){
+                            colorAsp='red'
+                        }
+                        if(a.ia===1){
+                            colorAsp='#ff8833'
+                        }
+                        if(a.ia===2){
+                            colorAsp='green'
+                        }
+                        if(a.ia===3){
+                            colorAsp='blue'
+                        }
+                        if(a.ia===4){
+                            colorAsp='#90EE90'
+                        }
+                        if(a.ia===5){
+                            colorAsp='#FFC0CB'
+                        }
+                        if(a.ia===6){
+                            colorAsp='#EE82EE'
+                        }
+                        drawAsp(cx, cy, a.gdeg1, a.gdeg2, colorAsp, i, xAsps, r.isExt)
+                        //drawAsp(cx, cy, a.gdeg1, a.gdeg2, colorAsp, i, xAsps, r.isExt)
+                    }
+                }
+            }
+        }
+        zm.hideTapa()
     }
     function clear(){
         clearSL(xAsps)
@@ -408,6 +475,9 @@ Rectangle {
         }
     }
     function showOneBodieAsp(numAstro, isExt){
+        let panel=zsm.getPanel('ZoolConfig')
+        let section=panel.getSection('ConfigAsps')
+
         if(!isExt){
             zm.objAspsCircle.clearAxis()
         }else{
@@ -440,6 +510,9 @@ Rectangle {
         for(var i=0;i<zm.aBodies.length;i++){
             let g2=j2.pc['c'+i].gdec
             let aspType=zm.objAspsCircle.getAsp(g1, g2)
+            if(!section.getCheckedAsps(aspType)){
+                continue
+            }
             if(aspType>=0){
                 let indexAspName=zm.objAspsCircle.getAspName(indexAsp)
                 let search=''+numAstro+':'+i

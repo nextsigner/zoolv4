@@ -1,1 +1,1 @@
-i7: Se optimiza ordenarPosiciones() en ZoolPlanetsCircle 1.1
+i7: Se definen los aspectos que se visualizan desde ZoolConfig.ConfigAsps

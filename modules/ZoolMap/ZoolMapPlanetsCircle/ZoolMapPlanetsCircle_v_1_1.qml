@@ -622,8 +622,8 @@ Item{
             let objAs=getAs(i)
             objAs.pos=0
         }
-        for(i=0;i<aGdecs.length;i++){
-            for(var i2=0;i2<aGdecs.length;i2++){
+        for(i=1;i<aGdecs.length;i++){
+            for(var i2=i-1;i2<aGdecs.length;i2++){
                 let haa=hayAlgoAhi(aGdecs[i], aGdecs[i2])
                 if(haa && i!==i2){
                     //zpn.log('ordenando: '+aGdecs[i])
@@ -640,6 +640,27 @@ Item{
             let objAs=getAs(i)
             objAs.pos=aBodiesPos[i]-1
         }
+        for(i=1;i<aGdecs.length;i++){
+            let objAs=getAs(i)
+            for(i2=0;i2<aGdecs.length;i2++){
+                let objAs2=getAs(i2)
+                //objAs.pos=aBodiesPos[i]-1
+                let haa=hayAlgoAhi(aGdecs[i], aGdecs[i2])
+                if(haa && i!==i2 && objAs.pos === objAs2.pos){
+                    objAs.pos++
+                }
+            }
+            if(objAs.pos>maxPos){
+                maxPos=objAs.pos
+            }
+        }
+        for(i=0;i<aGdecs.length;i++){
+            let objAs=getAs(i)
+            if(objAs.pos+1>maxPos){
+                maxPos++
+            }
+        }
+        //maxPos++
         //zpn.log('maxPos: '+maxPos)
         if(!r.isBack){
             zm.posMaxInt=maxPos

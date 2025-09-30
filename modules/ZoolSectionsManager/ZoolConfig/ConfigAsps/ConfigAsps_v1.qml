@@ -75,7 +75,7 @@ Rectangle{
     }
 
     function setCheckedAsps(index, checked){
-        zpn.log('index= '+index+' checked: '+checked)
+        //zpn.log('index= '+index+' checked: '+checked)
         let aS=s.sAsps.split('.')
         let nS=''
         for(var i=0;i<aS.length;i++){

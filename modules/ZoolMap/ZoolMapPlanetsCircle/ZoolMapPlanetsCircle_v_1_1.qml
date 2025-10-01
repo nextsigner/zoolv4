@@ -664,8 +664,10 @@ Item{
         //zpn.log('maxPos: '+maxPos)
         if(!r.isBack){
             zm.posMaxInt=maxPos
+            //zm.setAreasWidth(true)
         }else{
             zm.posMaxExt=maxPos
+            //zm.setAreasWidth(false)
         }
     }
 

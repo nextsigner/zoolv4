@@ -87,7 +87,7 @@ Rectangle {
                     maximumLength: 30
                     Keys.onReturnPressed: {
                         //app.j.loadJson(lm.get(lv.currentIndex).fileName)
-                        zm.loadJsonFromFilePath(lm.get(lv.currentIndex).fileName)
+                        zm.loadJsonFromFilePath(lm.get(lv.currentIndex).fileName, false)
                         //r.state='hide'
                     }
                     Keys.onRightPressed: {
@@ -239,7 +239,8 @@ Rectangle {
                 }
                 onDoubleClicked: {
                     //app.j.loadJson(fileName)
-                    zm.loadJsonFromFilePath(fileName)
+                    zm.setCtxToInit()
+                    zm.loadJsonFromFilePath(fileName, false)
                 }
             }
             Column{
@@ -278,7 +279,7 @@ Rectangle {
                         colorInverted: true
                         onClicked: {
                             //app.j.loadJson(fileName)
-                            zm.loadJsonFromFilePath(fileName)
+                            zm.loadJsonFromFilePath(fileName, false)
                         }
                     }
                     ZoolButton{
@@ -387,7 +388,8 @@ Rectangle {
                 anchors.fill: parent
                 onClicked: lv.currentIndex=index
                 onDoubleClicked: {
-                    zm.loadJsonFromFilePath(fileName)
+                    zm.setCtxToInit()
+                    zm.loadJsonFromFilePath(fileName, false)
                     //r.state='hide'
                 }
             }
@@ -868,7 +870,7 @@ Rectangle {
 
     //-->Teclado
     function toEnter(){
-        zm.loadJsonFromFilePath(r.currentFile)
+        zm.loadJsonFromFilePath(r.currentFile, false)
         r.currentIndex=-1
         //r.state='hide'
     }

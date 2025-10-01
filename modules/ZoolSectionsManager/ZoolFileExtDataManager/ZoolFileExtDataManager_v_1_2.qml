@@ -177,7 +177,7 @@ Rectangle {
                 }
                 onDoubleClicked: {
                     //app.j.loadJson(fileName)
-                    zm.loadJsonFromFilePath(fileName)
+                    zm.loadJsonFromFilePath(fileName, false)
                 }
             }
             Column{
@@ -416,7 +416,7 @@ Rectangle {
                 onClicked: lv.currentIndex=index
                 onDoubleClicked: {
                     //app.j.loadJson(fileName)
-                    zm.loadJsonFromFilePath(fileName)
+                    zm.loadJsonFromFilePath(fileName, false)
                     //r.state='hide'
                 }
             }
@@ -593,7 +593,7 @@ Rectangle {
     }
     function enter(){
         //app.j.loadJson(r.currentFile)
-        zm.loadJsonFromFilePath(r.currentFile)
+        zm.loadJsonFromFilePath(r.currentFile, false)
         r.currentIndex=-1
         //r.state='hide'
     }

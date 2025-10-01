@@ -2,19 +2,20 @@ import QtQuick 2.0
 
 Item{
     id: r
-    property string currentUrl: apps.url
+    property string currentUrlInt: apps.url
+    property string currentUrlExt: apps.urlBack
     property var j: ({})
     property var ja: ({})
     property var jaExt: ({})
 
     //Retorna string con el contenido del archivo actual
-    function getData(){
-        //if(apps.dev)log.lv('zfdm.getData( '+r.currentUrl+' )')
-        return u.getFile(r.currentUrl)
+    function getData(url){
+        //if(apps.dev)log.lv('zfdm.getData( '+r.currentUrlInt+' )')
+        return u.getFile(url)
     }
     //Retorna json con el contenido del archivo actual
-    function getJson(){
-        return JSON.parse(getData())
+    function getJson(url){
+        return JSON.parse(getData(url))
     }
     //Retorna json con los parámetros interior o exterior.
     /*function getJsonParams(isExt){
@@ -26,30 +27,45 @@ Item{
         return p
     }*/
     //Carga archivo
-    function loadFile(url){
+    function loadFile(url, isExt){
         //zpn.log('loadFile ('+url+')')
         let ret=false
-        r.currentUrl=url
-        if(getData()==='error'){
-            if(apps.dev)log.lv(' Error de carga de archivo! zfdm.loadFile( '+url+' )')
+        //r.currentUrl=url
+        if(getData(url)==='error'){
+            if(apps.dev){
+                if(!isExt){
+                    log.lv(' Error de carga de archivo INTERNO! zfdm.loadFile( '+url+' '+isExt+')')
+                }else{
+                    log.lv(' Error de carga de archivo EXTERNO! zfdm.loadFile( '+url+' '+isExt+')')
+                }
+            }
             return ret
         }
-        let j = getJson()
+        let j = getJson(url)
         if(!j){
             if(apps.dev)log.lv(' Error carga y formato de archivo! zfdm.loadFile( '+url+' )')
             return ret
         }
-        setJsonAbs(j)
+        if(!isExt){
+            r.currentUrlInt=url
+        }else{
+            r.currentUrlExt=url
+        }
+        setJsonAbs(j, isExt)
         ret=true
         return ret
     }
     //-->Comienza Json Abstracto.
-    function setJsonAbs(j){
+    function setJsonAbs(j, isExt){
         let exts=j.exts
         if(!exts){
             j.exts=[]
         }
-        r.ja=j
+        if(!isExt){
+            r.ja=j
+        }else{
+            r.jaExt=j
+        }
         //log.lv('r.ja: '+JSON.stringify(r.ja, null, 2))
     }
     function getJsonAbs(){
@@ -83,7 +99,7 @@ Item{
         if(mf[0]===true){
             if(apps.dev)log.lv('mkFileAndLoad(...) app.j.loadJson( '+mf[1]+')')
             //app.j.loadJson(mf[1])
-            zm.loadJsonFromFilePath(mf[1])
+            zm.loadJsonFromFilePath(mf[1], false)
             return r
         }else{
             log.lv('Error al crear el archivo: '+mf[1])
@@ -299,7 +315,7 @@ Item{
         let cjson=zfdm.getJsonAbs()
         let j=zm.getParamsFromArgs(cjson.params.n, json.d, json.m, json.a, json.h, json.min, json.gmt, json.lat, json.lon, json.alt, cjson.params.c, cjson.params.t, json.hsys, cjson.params.ms, msmod, cjson.params.f, cjson.params.g)
         if(zfdm.updateParams(j.params, true)){
-            zm.loadJsonFromFilePath(apps.url)
+            zm.loadJsonFromFilePath(apps.url, true)
         }else{
             //Error 594
             log.lv('Error N° 594 al guardar archivo.')

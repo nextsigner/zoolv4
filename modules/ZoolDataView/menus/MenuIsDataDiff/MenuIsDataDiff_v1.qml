@@ -15,7 +15,7 @@ ZoolMenus{
             let cjson=zfdm.getJsonAbs()
             let j=zm.getParamsFromArgs(cjson.params.n, json.d, json.m, json.a, json.h, json.min, json.gmt, json.lat, json.lon, json.alt, cjson.params.c, cjson.params.t, json.hsys, cjson.params.ms, msmod, cjson.params.f, cjson.params.g)
             if(zfdm.updateParams(j.params, true)){
-                zm.loadJsonFromFilePath(apps.url)
+                zm.loadJsonFromFilePath(apps.url, false)
             }else{
                 //Error 594
                 log.lv('Error N° 594 al guardar archivo.')

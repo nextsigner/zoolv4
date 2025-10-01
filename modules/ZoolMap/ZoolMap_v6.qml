@@ -60,7 +60,9 @@ Rectangle{
     property alias objPlanetsCircleBack: planetsCircleBack
     property alias objXII: xIndicInt
     property alias objXIE: xIndicExt
+    property alias objAE: ae
     property alias objCA: ca
+    property alias objAI: ai
     property alias objAspsCircle: aspsCircle
     property alias objAspsCircleBack: aspsCircleBack
     property alias objZoolAspectsView: panelAspects
@@ -236,10 +238,31 @@ Rectangle{
         }
     }
     onPosMaxIntChanged: {
+        if(posMaxInt===-1)return
         setAreasWidth(true)
     }
     onPosMaxExtChanged: {
+        if(posMaxExt===-1)return
         setAreasWidth(false)
+    }
+    function setCtxToInit(){
+        zm.ev=false
+        aspsCircleBack.clear()
+        zoolDataView.clearExtData()
+        ai.width=r.width
+        zm.objTapa.opacity=0.0
+        aspsCircle.opacity=1.0
+        aspsCircle.visible=true
+        aspsCircleBack.opacity=0.0
+        panelAspectsBack.opacity=0.0
+
+        zm.t='vn'
+        app.t='vn'
+        posMaxInt=-1
+        posMaxExt=-1
+        currentPlanetIndex=-1
+        currentPlanetIndexBack=-1
+        centerZoomAndPos()
     }
     function setAreasWidth(forInt){
         if(forInt){
@@ -1535,7 +1558,7 @@ Rectangle{
         }
         //r.loadBackFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys, -1, aR)
     }
-    function loadJsonFromFilePath(filePath){
+    function loadJsonFromFilePath(filePath, isExt){
         //zpn.log('loadJsonFromFilePath()...')
         let fileLoaded=zfdm.loadFile(filePath)
         let fileNameMat0=filePath.split('/')

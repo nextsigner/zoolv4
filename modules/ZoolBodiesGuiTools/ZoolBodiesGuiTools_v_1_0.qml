@@ -482,7 +482,7 @@ Rectangle {
                     apps.currentHsys=app.ahys[currentIndex]
                     //app.j.showMsgDialog('Zool Informa', 'El sistema de casas ha cambiado.', 'Se ha seleccionado el sistema de casas '+app.ahysNames[currentIndex]+' ['+app.ahys[currentIndex]+'].')
                     //sweg.load(JSON.parse(app.currentData))
-                    zm.loadJsonFromFilePath(apps.url)
+                    zm.loadJsonFromFilePath(apps.url, false)
                 }
             }
         }

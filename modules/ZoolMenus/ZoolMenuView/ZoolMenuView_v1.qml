@@ -73,7 +73,7 @@ ZoolMenus{
     Action {
         text: qsTr("Cargar Ejemplo")
         onTriggered: {
-            zm.loadJsonFromFilePath('/home/ns/gd/Zool/Ricardo.json')
+            zm.loadJsonFromFilePath('/home/ns/gd/Zool/Ricardo.json', false)
         }
     }
 

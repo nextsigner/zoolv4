@@ -54,7 +54,7 @@ Item{
         let fp=p+'/'+fn
         u.setFile(fp, s)
         apps.url=fp
-        zm.loadJsonFromFilePath(apps.url)
+        zm.loadJsonFromFilePath(apps.url, false)
     }
 
     //--->Conversores

@@ -769,7 +769,7 @@ ZoolMainWindow{
                     arg=ma[1]
                     //log.ls('File: '+arg, 0, xApp.width*0.5)
                     if(apps.dev)log.lv('Cargando '+arg)
-                    zm.loadJsonFromFilePath(arg)
+                    zm.loadJsonFromFilePath(arg, false)
                     fileLoaded=true
                 }
             }

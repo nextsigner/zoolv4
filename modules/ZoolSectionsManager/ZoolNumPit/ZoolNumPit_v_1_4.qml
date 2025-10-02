@@ -718,7 +718,13 @@ Rectangle {
                                 //r.logView.l(getNumNomText(text))
                                 let p=zfdm.getJsonAbsParams(false)
                                 p.nc=text
-                                zfdm.updateParams(p, true)
+                                let url
+                                if(!r.isExt){
+                                    url=apps.url
+                                }else{
+                                    url=apps.urlBack
+                                }
+                                zfdm.updateParams(p, true, url)
                                 calc()
                                 //apps.numUNom=text
                             }
@@ -726,7 +732,13 @@ Rectangle {
                                 //r.logView.l(getNumNomText(text))
                                 let p=zfdm.getJsonAbsParams(false)
                                 p.nc=text
-                                zfdm.updateParams(p, true)
+                                let url
+                                if(!r.isExt){
+                                    url=apps.url
+                                }else{
+                                    url=apps.urlBack
+                                }
+                                zfdm.updateParams(p, true, url)
                                 calc()
                                 //apps.numUNom=text
                             }
@@ -773,7 +785,13 @@ Rectangle {
                                 //r.logView.l(getNumNomText(text))
                                 let p=zfdm.getJsonAbsParams(false)
                                 p.nf=text
-                                zfdm.updateParams(p, true)
+                                let url
+                                if(!r.isExt){
+                                    url=apps.url
+                                }else{
+                                    url=apps.urlBack
+                                }
+                                zfdm.updateParams(p, true, url)
                                 calc()
                                 //apps.numUNom=text
                             }
@@ -829,7 +847,13 @@ Rectangle {
                                 rbF.checked=false
                                 let p=zfdm.getJsonAbsParams(false)
                                 p.g='m'
-                                zfdm.updateParams(p, true)
+                                let url
+                                if(!r.isExt){
+                                    url=apps.url
+                                }else{
+                                    url=apps.urlBack
+                                }
+                                zfdm.updateParams(p, true, url)
                             }
                         }
                     }
@@ -852,7 +876,13 @@ Rectangle {
                                 rbM.checked=false
                                 let p=zfdm.getJsonAbsParams(false)
                                 p.g='f'
-                                zfdm.updateParams(p, true)
+                                let url
+                                if(!r.isExt){
+                                    url=apps.url
+                                }else{
+                                    url=apps.urlBack
+                                }
+                                zfdm.updateParams(p, true, url)
                             }
                         }
                     }

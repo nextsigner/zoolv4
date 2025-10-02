@@ -11,7 +11,8 @@ Item{
     //Retorna string con el contenido del archivo actual
     function getData(url){
         //if(apps.dev)log.lv('zfdm.getData( '+r.currentUrlInt+' )')
-        return u.getFile(url)
+        //zpn.log('getData(url) ... '+url)
+        return url?u.getFile(url):'{}'
     }
     //Retorna json con el contenido del archivo actual
     function getJson(url){
@@ -168,8 +169,8 @@ Item{
     function getParam(p){
         return r.ja.params[''+p]
     }
-    function updateParams(params, save){
-        let json=zfdm.getJson()
+    function updateParams(params, save, url){
+        let json=zfdm.getJson(url)
         json.params=params
         if(u.fileExist(apps.url.replace('file://', ''))){
             let dataModNow=new Date(Date.now())
@@ -314,7 +315,7 @@ Item{
 
         let cjson=zfdm.getJsonAbs()
         let j=zm.getParamsFromArgs(cjson.params.n, json.d, json.m, json.a, json.h, json.min, json.gmt, json.lat, json.lon, json.alt, cjson.params.c, cjson.params.t, json.hsys, cjson.params.ms, msmod, cjson.params.f, cjson.params.g)
-        if(zfdm.updateParams(j.params, true)){
+        if(zfdm.updateParams(j.params, true, apps.url)){
             zm.loadJsonFromFilePath(apps.url, true)
         }else{
             //Error 594

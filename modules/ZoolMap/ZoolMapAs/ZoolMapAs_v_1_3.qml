@@ -819,7 +819,13 @@ Item{
         saveRot(parseInt(pointerPlanet.pointerRot))
     }
     function saveRot(rot){
-        let json=zfdm.getJson()
+        let url
+        if(!r.isBack){
+            url=apps.url
+        }else{
+            url=apps.urlBack
+        }
+        let json=zfdm.getJson(url)
         if(!json.rots){
             json.rots={}
         }

@@ -111,7 +111,7 @@ Rectangle {
                     //log.lv('Parmas: '+JSON.stringify(j, null, 2))
                     //log.lv('zm.currentJson: '+JSON.stringify(zm.currentJson.params, null, 2))
                     //zfdm.saveJson(j)
-                    zfdm.updateParams(j.params, true)
+                    zfdm.updateParams(j.params, true, apps.url)
                 }
             }
         }

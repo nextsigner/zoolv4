@@ -25,7 +25,8 @@ Rectangle{
             }
             ZoolText{
                 text: '<b>Asc:</b> '+zm.uAscDegree
-                font.pixelSize: r.height*0.25                
+                font.pixelSize: r.height*0.25
+                w: app.fs*2
             }
             ZoolText{
                 text: '<b>Mc:</b> '+zm.uMcDegree

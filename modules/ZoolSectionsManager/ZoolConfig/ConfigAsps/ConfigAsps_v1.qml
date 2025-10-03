@@ -80,7 +80,7 @@ Rectangle{
                                 anchors.verticalCenter: parent.verticalCenter
                             }
                             CheckBox{
-                                checked: s.sAsps.split('.')[index]==='1'
+                                //checked: s.sAsps.split('.')[index]==='1'
                                 anchors.verticalCenter: parent.verticalCenter
                                 onCheckedChanged: setCheckedAsps(index, checked)
                             }
@@ -116,7 +116,7 @@ Rectangle{
 
         let jsonAsps=zm.objAspsCircle.getAsps(zm.currentJson)
         zm.objZoolAspectsView.load(jsonAsps)
-        if(zm.ev){
+        if(zm.ev && zm.currentJsonBack){
             let jsonAspsExt=zm.objAspsCircleBack.getAsps(zm.currentJsonBack)
             zm.objZoolAspectsViewBack.load(jsonAsps)
         }

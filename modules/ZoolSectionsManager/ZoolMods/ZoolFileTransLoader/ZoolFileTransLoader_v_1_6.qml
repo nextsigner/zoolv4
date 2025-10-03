@@ -782,9 +782,10 @@ Rectangle {
                 }
             }
             ZoolText{
-                text: 'ZoolFileTransLoader v1.3'
+                text: 'ZoolFileTransLoader v1.6'
                 font.pixelSize: app.fs*0.5
                 c: apps.fontColor
+                w: app.fs*6
                 anchors.horizontalCenter: parent.horizontalCenter
             }
         }

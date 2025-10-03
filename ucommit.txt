@@ -1,1 +1,1 @@
-i7: Se corrijen errores por cambios en zfdm
+i7: Se eliminan Binding en ZoolText 1.3

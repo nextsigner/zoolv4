@@ -339,6 +339,7 @@ ZoolMainWindow{
                         id: capDate
                         text: 'Imagen creada por Zool'
                         tf: Text.PlainText
+                        w: app.fs*6
                         font.pixelSize: app.fs*0.5
                         anchors.bottom: parent.bottom
                         anchors.right: parent.right
@@ -370,6 +371,7 @@ ZoolMainWindow{
                 ZoolText {
                     id: txtPD
                     text: 'Procesando datos...'
+                    w: app.fs*6
                     //font.pixelSize: app.fs
                     //color: 'white'
                     anchors.centerIn: parent

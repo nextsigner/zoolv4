@@ -214,6 +214,7 @@ Rectangle {
                     text: parseInt(lv.currentIndex + 1)+' de '+lv.count
                     //height:fs
                     fs: app.fs*0.5
+                    w: app.fs*4
                     anchors.verticalCenter: parent.verticalCenter
                     opacity: lv.currentIndex>=0?1.0:0.0
                 }

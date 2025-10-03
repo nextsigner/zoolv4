@@ -1423,7 +1423,23 @@ Rectangle {
                                xhr.send();
                            });
     }
-
+    function setFormData(n, g, d, m, a, h, min, gmt, c){
+        tiNombre.t.text=n
+        if(g==='f'){
+            cbGenero.currentIndex=1
+        }else if(g==='m'){
+            cbGenero.currentIndex=2
+        }else{
+            cbGenero.currentIndex=0
+        }
+        controlTimeFecha.anio=a
+        controlTimeFecha.mes=m
+        controlTimeFecha.dia=d
+        controlTimeFecha.hora=h
+        controlTimeFecha.minuto=min
+        controlTimeFecha.gmt=gmt
+        tiCiudad.t.text=c
+    }
 
     //-->Funciones de Control Focus y Teclado
     property bool hasUnUsedFunction: true

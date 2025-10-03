@@ -111,9 +111,11 @@ Rectangle {
                             text:'<b>Año:</b>'
                             anchors.verticalCenter: parent.verticalCenter
                             c: apps.backgroundColor
-                            font.pixelSize: app.fs*0.5
+                            fs: app.fs*0.5
+                            w: app.fs
                         }
                         Rectangle{
+                            id: xTiAnio
                             width: app.fs*1.5
                             height: app.fs*0.7
                             anchors.verticalCenter: parent.verticalCenter
@@ -141,6 +143,7 @@ Rectangle {
                         }
 
                         Comps.ButtonIcon{
+                            id: botLupa
                             text: '\uf002'
                             width: app.fs
                             height: width
@@ -150,17 +153,21 @@ Rectangle {
                             }
                         }
                         Row{
-                            spacing: app.fs*0.1
+                            spacing: app.fs*0.25
                             anchors.verticalCenter: parent.verticalCenter
                             ZoolText{
                                 text:showAll.checked?'<b>Ver Solo</b><br><b>Eclipses</b>':'<b>Ver todas</b><br><b>las lunas</b>'
                                 anchors.verticalCenter: parent.verticalCenter
                                 c: apps.backgroundColor
-                                font.pixelSize: app.fs*0.5
+                                fs: app.fs*0.5
+                                w: r.width-showAll.width-botLupa.width-xTiAnio.width-label.width-app.fs*3.5
+                                t.horizontalAlignment: Text.AlignRight
                             }
                             CheckBox{
                                 id: showAll
                                 checked: true
+                                width: app.fs*0.5
+                                anchors.verticalCenter: parent.verticalCenter
                                 onCheckedChanged: {
                                     setListLunar(tiAnio.text, checked)
                                 }
@@ -212,9 +219,9 @@ Rectangle {
                 }
                 ZoolText{
                     text: parseInt(lv.currentIndex + 1)+' de '+lv.count
-                    //height:fs
                     fs: app.fs*0.5
-                    w: app.fs*4
+                    w: app.fs*2
+                    t.horizontalAlignment: Text.AlignHCenter
                     anchors.verticalCenter: parent.verticalCenter
                     opacity: lv.currentIndex>=0?1.0:0.0
                 }
@@ -629,6 +636,9 @@ Rectangle {
     //-->Funciones de Control Focus y Teclado
    function toEscape(){
 
+   }
+   function isFocus(){
+        return false
    }
     property bool hasUnUsedFunction: true
     function unUsed(){

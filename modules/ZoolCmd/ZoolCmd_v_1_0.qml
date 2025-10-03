@@ -196,6 +196,69 @@ Rectangle {
             return
         }
 
+        //Cargar Form FileMaker
+        if(com==='form'){
+            //Se esperan parámetros para setFormData(n, g, d, m, a, h, min, gmt, c)
+            log.clear()
+            let codeComCorr1=codeCom.replace(/, /g, ',')
+            let mParams=codeComCorr1.split(',')
+            if(mParams.length!==9){
+                log.lv('Faltan parámetros.\n')
+                log.lv('Parámetros requeridos: 9')
+                log.lv('Hay '+mParams.length+' parámetros.\n')
+                log.lv('Se requiere: Nombre, Género (f o m), día, mes, año, hora, minuto, gmt, lugar de nacimiento')
+                return
+            }
+
+            //zpn.log(mParams.toString())
+
+            let n=mParams[0]
+            let g=mParams[1]
+            let d=parseInt(mParams[2])
+            if(isNaN(d)){
+                log.lv('Error! El número del día no es válido.')
+                return
+            }
+            let m=parseInt(mParams[3])
+            if(isNaN(m)){
+                log.lv('Error! El número del mes no es válido.')
+                return
+            }
+            let a=parseInt(mParams[4])
+            if(isNaN(a)){
+                log.lv('Error! El número del año no es válido.')
+                return
+            }
+            let h=parseInt(mParams[5])
+            if(isNaN(h)){
+                log.lv('Error! El número de la hora no es válido.')
+                return
+            }
+            let min=parseInt(mParams[6])
+            if(isNaN(min)){
+                log.lv('Error! El número del día no es válido.')
+                return
+            }
+            let gmt=parseInt(mParams[7])
+            if(isNaN(gmt) && (gmt >= -12 && gmt <= 12)){
+                if(!(gmt >= -12 && gmt <= 12)){
+                    log.lv('Error! El número del gmt no es válido. Debes ser entre -12 y 12')
+                }else{
+                    log.lv('Error! El número del gmt no es válido.')
+                }
+                return
+            }
+            let c=mParams[8]
+            log.clear()
+            log.visible=false
+            //zpn.log('n: '+n+' g: '+g+' d:'+d+' m:'+m+' a:'+a+' h:'+h+' min:'+min+' c: '+c)
+            zsm.showPanel('ZoolFileManager')
+            let panel=zsm.getPanel('ZoolFileManager')
+            let section=panel.getSection('ZoolFileMaker')
+            section.setFormData(n, g, d, m, a, h, min, gmt, c)
+            return
+        }
+
         //Ver un error QML
         if(com==='ve'){
             log.clear()

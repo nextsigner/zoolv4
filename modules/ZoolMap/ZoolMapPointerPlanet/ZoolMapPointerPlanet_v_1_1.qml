@@ -156,7 +156,39 @@ Item {
                                 antialiasing: true
                             }
                         }
-
+                        Rectangle{
+                            width: r.pointerFs
+                            height: width
+                            radius: width*0.5
+                            color: zm.pointerBgColor
+                            border.width: 2
+                            border.color: zm.pointerFontColor
+                            anchors.verticalCenter: parent.verticalCenter
+                            Image {
+                                id: img2
+                                source: "../../../imgs/casa.svg"
+                                width: parent.width*0.8
+                                height: width
+                                rotation: r.iconoSignRot + 180 - r.rotation
+                                antialiasing: true
+                                visible: false
+                                anchors.centerIn: parent
+                            }
+                            ColorOverlay {
+                                id: co2
+                                anchors.fill: img2
+                                source: img2
+                                color: zm.pointerFontColor
+                                //rotation: img1.rotation
+                                antialiasing: true
+                            }
+                            Text{
+                                font.pixelSize: r.ih<=9?parent.width*0.6:parent.width*0.4
+                                text: '<b>'+r.ih+'</b>'
+                                color: zm.pointerBgColor
+                                anchors.centerIn: parent
+                            }
+                        }
                     }
                     Row{
                         spacing: r.pointerFs*0.25
@@ -202,53 +234,30 @@ Item {
                         spacing: r.pointerFs*0.25
                         anchors.horizontalCenter: parent.horizontalCenter
                         Text{
-                            text: 'En el grado °'+r.rsgdeg+'\''+r.mdeg
+                            text: 'En el grado °'+r.rsgdeg+'\''+r.mdeg+'\nEn Casa '+r.ih
                             font.pixelSize: r.pointerFs*0.5
                             color: zm.pointerFontColor
+                            horizontalAlignment: Text.AlignHCenter
                             anchors.verticalCenter: parent.verticalCenter
                         }
                     }
-                    Row{
-                        spacing: r.pointerFs*0.25
+                    Item{width: 1; height: app.fs*0.5; visible: txtSignEnergy.visible}
+                    Column{
                         anchors.horizontalCenter: parent.horizontalCenter
                         Text{
-                            text: 'Casa '
+                            text: 'Grado con energía'
                             font.pixelSize: r.pointerFs*0.5
                             color: zm.pointerFontColor
-                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            visible: txtSignEnergy.visible
                         }
-                        Rectangle{
-                            width: r.pointerFs*0.8
-                            height: width
-                            radius: width*0.5
-                            color: zm.pointerBgColor
-                            border.width: 2
-                            border.color: zm.pointerFontColor
-                            anchors.verticalCenter: parent.verticalCenter
-                            Image {
-                                id: img2
-                                source: "../../../imgs/casa.svg"
-                                width: parent.width*0.8
-                                height: width
-                                rotation: r.iconoSignRot + 180 - r.rotation
-                                antialiasing: true
-                                visible: false
-                                anchors.centerIn: parent
-                            }
-                            ColorOverlay {
-                                id: co2
-                                anchors.fill: img2
-                                source: img2
-                                color: zm.pointerFontColor
-                                //rotation: img1.rotation
-                                antialiasing: true
-                            }
-                            Text{
-                                font.pixelSize: r.ih<=9?parent.width*0.6:parent.width*0.4
-                                text: '<b>'+r.ih+'</b>'
-                                color: zm.pointerBgColor
-                                anchors.centerIn: parent
-                            }
+                        Text{
+                            id: txtSignEnergy
+                            text: '<b>'+zm.aSignsEnergy[zm.getSignOfDeg(parseInt(r.gdeg-30*r.is))]+'</b>'
+                            font.pixelSize: r.pointerFs*0.5
+                            color: zm.pointerFontColor
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            visible: text.indexOf('undefined')<0
                         }
                     }
                 }

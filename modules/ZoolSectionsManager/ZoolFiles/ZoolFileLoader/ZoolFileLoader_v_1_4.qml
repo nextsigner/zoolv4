@@ -390,6 +390,7 @@ Rectangle {
                 onDoubleClicked: {
                     zm.setCtxToInit()
                     zm.loadJsonFromFilePath(fileName, false)
+                    //zm.loadJsonFromFilePath(fileName, false)
                     //r.state='hide'
                 }
             }

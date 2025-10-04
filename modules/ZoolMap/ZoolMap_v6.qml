@@ -83,6 +83,7 @@ Rectangle{
     property int housesNumMargin: app.fs*0.25
     property int fs: app.fs
     property var aSigns: ['Aries', 'Tauro', 'Géminis', 'Cáncer', 'Leo', 'Virgo', 'Libra', 'Escorpio', 'Sagitario', 'Capricornio', 'Acuario', 'Piscis']
+    property var aSignsEnergy: ['Ariana', 'Taurina', 'Geminiana', 'Canceriana', 'Leonina', 'Virginiana', 'Libriana', 'Escorpiana', 'Sagitariana', 'Capricorniana', 'Acuariana', 'Pisciana']
     property var aSignsLowerStyle: ['aries', 'tauro', 'geminis', 'cancer', 'leo', 'virgo', 'libra', 'escorpio', 'sagitario', 'capricornio', 'acuario', 'piscis']
     property var aBodies: ['Sol', 'Luna', 'Mercurio', 'Venus', 'Marte', 'Júpiter', 'Saturno', 'Urano', 'Neptuno', 'Plutón', 'N.Norte', 'N.Sur', 'Quirón', 'Selena', 'Lilith', 'Pholus', 'Ceres', 'Pallas', 'Juno', 'Vesta']
     property var aBodiesFiles: ['sol', 'luna', 'mercurio', 'venus', 'marte', 'jupiter', 'saturno', 'urano', 'neptuno', 'pluton', 'nodo_norte', 'nodo_sur', 'quiron', 'selena', 'lilith', 'pholus', 'ceres', 'pallas', 'juno', 'vesta']
@@ -256,7 +257,7 @@ Rectangle{
         aspsCircleBack.opacity=0.0
         panelAspectsBack.opacity=0.0
 
-        zm.t='vn'
+        //zm.t='vn'
         app.t='vn'
         posMaxInt=-1
         posMaxExt=-1
@@ -2472,6 +2473,23 @@ Rectangle{
             }
         }
         return index
+    }
+    function getSignOfDeg(deg){
+        let is=-1
+        if(deg===1 || deg===13 || deg===25)is=0//Aries
+        if(deg===2 || deg===14 || deg===26)is=1//Tauro
+        if(deg===3 || deg===15 || deg===27)is=2//Géminis
+        if(deg===4 || deg===16 || deg===28)is=3//Cáncer
+        if(deg===5 || deg===17 || deg===29)is=4//Leo
+        if(deg===6 || deg===18)is=5//Virgo
+        if(deg===7 || deg===19)is=6//Libra
+        if(deg===8 || deg===20)is=7//Escorpio
+        if(deg===9 || deg===21)is=8//Sagitario
+        if(deg===10 || deg===22)is=9//Capricornio
+        if(deg===11 || deg===23)is=10//Acuario
+        if(deg===12 || deg===24)is=11//Piscis
+
+        return is
     }
     function convertDDToDMS(D, lng) {
         return {

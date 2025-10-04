@@ -653,7 +653,11 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
 
     //-->Teclado
     function toEnter(){
-        if(tiCmd.t.text===''){
+        if(tiCmd.t.text==='form'){
+            log.lv('Para utilizar el comando form utilizalo del siguiente modo:\nEscribe form, espacio, y luego separado por comas los siguientes datos requeridos.\nform nombreDelConsultante, género m o f, día, mes, año, hora, minuto, gmt (entre -12 y 12), lugar de Nacimiento\nPor ejemplo, para crear la carta Ricardo Martín Pizarro:\nform Ricardo, m, 20, 6,1975, 23, 4, -3, Malargue Mendoza\nModifica los valores y presiona ENTER o INTRO para crear la Carta que desees.')
+            tiCmd.t.text='form Ricardo, m, 20, 6,1975, 23, 4, -3, Malargue Mendoza'
+            return
+        }else if(tiCmd.t.text===''){
             tiCmd.t.text=getLastJsonCmd()
             tiCmd.t.selectAll()
             tiCmd.t.focus=true

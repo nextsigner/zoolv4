@@ -279,6 +279,7 @@ Rectangle {
                         colorInverted: true
                         onClicked: {
                             //app.j.loadJson(fileName)
+                            zm.setCtxToInit()
                             zm.loadJsonFromFilePath(fileName, false)
                         }
                     }

@@ -1,1 +1,1 @@
-i7: Se agrega aSignsEnergy a ZoolMap
+i7: Se agrregan datos a Comandos.md

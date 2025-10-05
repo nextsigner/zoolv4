@@ -1,1 +1,1 @@
-i7: Se corrige la configuración de los aspectos en ConfigFiles
+i7: Se definen valores w en ZoolText v1.3

@@ -86,7 +86,8 @@ Rectangle{
                                 anchors.verticalCenter: parent.verticalCenter
                             }
                             CheckBox{
-                                checked: getCheckedAsps(index)//s.sAsps.split('.')[index]==='1'
+                                //checked: getCheckedAsps(index)//s.sAsps.split('.')[index]==='1'
+                                checked: index===0?s.asp1:(index===1?s.asp2:(index===2?s.asp3:(index===3?s.asp4:(index===4?s.asp5:(index===5?s.asp6:index===6?s.asp7:0)))))
                                 anchors.verticalCenter: parent.verticalCenter
                                 onCheckedChanged: setCheckedAsps(index, checked)
                             }

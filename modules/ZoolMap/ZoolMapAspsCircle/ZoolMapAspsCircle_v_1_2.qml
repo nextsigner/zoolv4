@@ -315,6 +315,7 @@ Rectangle {
     }
     function getAsps(json){
         let j={}
+        if(!json)return j
         j.asps={}
         let indexAsp=1
         let aAspsReg=[]

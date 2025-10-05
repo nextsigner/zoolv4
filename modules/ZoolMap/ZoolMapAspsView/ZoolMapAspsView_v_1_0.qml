@@ -118,7 +118,7 @@ Rectangle {
         //for(var i=0;i<15;i++){
         for(var i=0;i<20;i++){
             let column=row.children[i]
-            column.clear()
+            if(column!==undefined && column.objectName.indexOf('cellRowAsp_')>=0)column.clear()
         }
     }
     function setAsp2(c1, c2, ia, iPosAsp){

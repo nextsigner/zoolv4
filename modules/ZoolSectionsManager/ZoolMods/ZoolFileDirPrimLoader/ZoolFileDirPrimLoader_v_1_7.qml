@@ -81,6 +81,7 @@ Rectangle {
     ZoolText{
         text: 'ZoolFileDirPrimLoader v1.0'
         font.pixelSize: app.fs*0.5
+        w: r.width-app.fs
         anchors.left: parent.left
         anchors.leftMargin: app.fs*0.1
         anchors.top: parent.top
@@ -407,7 +408,7 @@ Rectangle {
                         fs: app.fs*0.5
                         //tf: Text.RichText
                         //t.wrapMode: Text.WordWrap
-                        //w: r.width-app.fs
+                        w: xBtns.width-app.fs*0.5
                     }
                     Row{
                         spacing: app.fs*0.1

@@ -618,6 +618,7 @@ Rectangle {
                     text: 'Compartir con la\ncomunidad Zool'
                     fs: app.fs*0.5
                     tf:Text.Normal
+                    w: r.width-cbShared.width-app.fs
                     anchors.verticalCenter: parent.verticalCenter
                 }
                 CheckBox{

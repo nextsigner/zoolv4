@@ -15,12 +15,14 @@ Rectangle{
         spacing: app.fs*0.25
         ZoolText{
             text: '<b>State:</b> '+zoolDataBodies.state
-            font.pixelSize: r.height*0.25            
+            font.pixelSize: r.height*0.25
+            w: app.fs*4
         }
         Column{
             visible: false
             ZoolText{
                 text: '<b>Sol:</b> '+app.currentGradoSolar
+                w: app.fs*3
                 font.pixelSize: r.height*0.25                
             }
             ZoolText{
@@ -30,12 +32,14 @@ Rectangle{
             }
             ZoolText{
                 text: '<b>Mc:</b> '+zm.uMcDegree
+                w: app.fs*3
                 font.pixelSize: r.height*0.25                
             }
         }
         ZoolText{
             text: '<b>Mod:</b> '+app.t
-            font.pixelSize: r.height*0.5            
+            w: app.fs*3
+            font.pixelSize: r.height*0.5
         }
 //        ZoolText{
 //            id: txtStatus

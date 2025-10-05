@@ -1,1 +1,1 @@
-i7: Se agrregan datos a Comandos.md
+i7: Se corrige la configuración de los aspectos en ConfigFiles

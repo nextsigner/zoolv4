@@ -19,7 +19,13 @@ Rectangle{
     Settings{
         id: s
         fileName: u.getPath(4)+'/zool_asps.cfg'
-        property var sAsps: '1.1.1.1.0.0.0'
+        property int asp1
+        property int asp2
+        property int asp3
+        property int asp4
+        property int asp5
+        property int asp6
+        property int asp7
     }
     Column{
         id: col
@@ -80,7 +86,7 @@ Rectangle{
                                 anchors.verticalCenter: parent.verticalCenter
                             }
                             CheckBox{
-                                //checked: s.sAsps.split('.')[index]==='1'
+                                checked: getCheckedAsps(index)//s.sAsps.split('.')[index]==='1'
                                 anchors.verticalCenter: parent.verticalCenter
                                 onCheckedChanged: setCheckedAsps(index, checked)
                             }
@@ -93,24 +99,13 @@ Rectangle{
 
     function setCheckedAsps(index, checked){
         //zpn.log('index= '+index+' checked: '+checked)
-        let aS=s.sAsps.split('.')
-        let nS=''
-        for(var i=0;i<aS.length;i++){
-            //s.sAsps.split('.')[index]
-            let num='2'
-            if(i!==index){
-                num=aS[i]
-            }else{
-                num=checked?'1':'0'
-            }
-            if(i===0){
-                nS+=num
-            }else{
-                nS+='.'+num
-            }
-
-        }
-        s.sAsps=nS
+        if(index===0)s.asp1=checked?1:0
+        if(index===1)s.asp2=checked?1:0
+        if(index===2)s.asp3=checked?1:0
+        if(index===3)s.asp4=checked?1:0
+        if(index===4)s.asp5=checked?1:0
+        if(index===5)s.asp6=checked?1:0
+        if(index===6)s.asp7=checked?1:0
         zm.objAspsCircle.updateAllAsps()
         if(zm.ev)zm.objAspsCircleBack.updateAllAsps()
 
@@ -122,8 +117,15 @@ Rectangle{
         }
     }
     function getCheckedAsps(index){
-        let aS=s.sAsps.split('.')
-        return aS[index]==='1'
+        let ret=0
+        if(index===0)return s.asp1?s.asp1:1
+        if(index===1)return s.asp2?s.asp2:1
+        if(index===2)return s.asp3?s.asp3:1
+        if(index===3)return s.asp4?s.asp4:1
+        if(index===4)return s.asp5?s.asp5:0
+        if(index===5)return s.asp6?s.asp6:0
+        if(index===6)return s.asp7?s.asp7:0
+        return ret===1?true:false
     }
 
     //-->Teclado

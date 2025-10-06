@@ -14,14 +14,15 @@ Rectangle {
     border.width: 1
     border.color: apps.fontColor
     state: 'show'
-    property alias objZbsv: zbsv
+    //property alias objZbsv: zbsv
     property var uJson
     property int latFocus: 0
     property int currentIndex: -1
     property int currentIndexBack: -1
     Behavior on x{NumberAnimation{duration: app.msDesDuration}}
-    Column{
+    /*Column{
         Row{
+            visible: false
             ZoolBodiesSelView{
                 id: zbsv
                 width: !zm.ev?r.width:r.width*0.5
@@ -33,12 +34,13 @@ Rectangle {
                 visible: zm.ev
             }
         }
-        Row{
-            width: parent.width-r.border.width*2
-            anchors.horizontalCenter: parent.horizontalCenter
-            ZoolDataBodiesItem{id: xBodiesInt; isBack: false; hZBSL: zbsv.height;isLatFocus: r.latFocus===0}
-            ZoolDataBodiesItem{id: xBodiesExt; isBack: true; hZBSL: zbsv.height; isLatFocus: r.latFocus===1}
-        }
+
+    }*/
+    Row{
+        width: parent.width-r.border.width*2
+        anchors.horizontalCenter: parent.horizontalCenter
+        ZoolDataBodiesItem{id: xBodiesInt; isBack: false; hZBSL: 0 /*zbsv.height*/;isLatFocus: r.latFocus===0}
+        ZoolDataBodiesItem{id: xBodiesExt; isBack: true; hZBSL: 0 /*zbsv.height*/; isLatFocus: r.latFocus===1}
     }
     Rectangle{
         width: labelCargando.contentWidth+app.fs*0.25

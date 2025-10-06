@@ -69,6 +69,9 @@ Rectangle{
     property alias objZoolAspectsViewBack: panelAspectsBack
     property alias objAsInfoView: zoolMapAsInfoView
 
+    property int minCaWidth: app.fs*4
+    property int currentMinPlanetsWidth: 0
+
     property alias zev: zoolElementsView
     property alias zmc: zoolMultiCap
 
@@ -251,6 +254,7 @@ Rectangle{
         aspsCircleBack.clear()
         zoolDataView.clearExtData()
         ai.width=r.width
+        //ai.d=r.width
         zm.objTapa.opacity=0.0
         aspsCircle.opacity=1.0
         aspsCircle.visible=true
@@ -319,7 +323,7 @@ Rectangle{
     onCurrentGmtChanged: {
         //if(zm.currentData===''||app.setFromFile)return
         //xDataBar.currentGmtText=''+currentGmt
-        tReload.restart()
+        //tReload.restart()
     }
     /*onCurrentGmtBackChanged: {
         //if(app.currentData===''||app.setFromFile)return
@@ -499,11 +503,35 @@ Rectangle{
                 onTriggered: {
                     revIsDataDiff()
                     if(zm.ev){
-                        r.maxAbsPosExt=planetsCircleBack.getMaxAsAbsPos()
+                        //r.maxAbsPosExt=planetsCircleBack.getMaxAsAbsPos()
                         //ai.width=r.width-(zm.planetSizeInt*(r.maxAbsPosExt+1)*2)
+                        if(zm.ev && ae.width===ai.width){
+                            //zpn.log('ae y ai son iguales!!')
+                            //zpn.log('r.posMaxExt: '+r.posMaxExt)
+                            ai.width=ae.width-(r.planetSizeExt*r.posMaxExt*2)-zm.housesNumWidth*2
+                            //setAreasWidth(false)
+                            //setAreasWidth(true)
+                            if(zm.ev && ca.width<r.minCaWidth){
+                                zpn.logTemp('ca < r.minCaWidth'+ca.width, 2000)
+                                ca.d=r.minCaWidth+1
+                                //setAreasWidth(false)
+                                //setAreasWidth(true)
+                                //zm.setPlanetsSize(false, 0)
+                            }
+                            //setAreasWidth(false)
+                        }
+                        if(zm.ev && ca.width<r.minCaWidth){
+                            //zpn.logTemp('ca < r.minCaWidth'+ca.width, 2000)
+                            ca.d=r.minCaWidth+1
+                            zm.setPlanetsSize(false, 0)
+                        }
                     }else{
                         //ai.d=r.width//-(zm.planetSizeInt*(r.maxAbsPosExt+1)*2)
                     }
+                    if(aiPlanets.width<ca.d){
+                        ca.d=aiPlanets.width
+                    }
+
                     //housesCircle.wbgc=planetsCircle.getMinAsWidth()*0.5//-r.planetSizeInt*2
                     //housesCircleBack.wbgc=signCircle.width//ai.width
                     //zm.objPlanetsCircle.vw=zm.objAspsCircle.width
@@ -680,8 +708,8 @@ Rectangle{
                         c: '#FF8833' //Esto se vera únicamente si el item de id:xz es visible.
                     }
                     Circle{
-                        id:ae
-                        d: r.ev?r.width:0
+                        id: ae
+                        d: r.width//r.ev?r.width:0
                         c: 'transparent'
                         property int w: 100
                     }
@@ -692,6 +720,16 @@ Rectangle{
                         c: 'transparent'
                         //opacity: 0.5
                         property int w: 10
+                        onDChanged: {
+                            if(d>ae.d){
+                                ai.d=ae.d
+                            }
+                        }
+                        onWidthChanged: {
+                            if(width>ae.width){
+                                ai.width=ae.width
+                            }
+                        }
                         Circle{
                             id:bgAi
                             anchors.fill: parent
@@ -994,6 +1032,24 @@ Rectangle{
         }
     }
 
+    //IMPORTANTE. No es visible. No eliminar.
+    Rectangle{
+        id: aiPlanets
+        width: zm.objSignsCircle.width-(zm.objSignsCircle.w*2)-(zm.planetSizeInt*r.posMaxInt*2)//currentMinPlanetsWidth
+        height: width
+        color: 'transparent'
+        border.width: 10
+        border.color: 'yellow'
+        radius: width*0.5
+        opacity: 0.0
+        anchors.centerIn: parent
+        Rectangle{
+            radius: width*0.5
+            anchors.fill: parent
+            color: 'red'
+            opacity: 0.5
+        }
+    }
     Rectangle{
         id: tapa
         width: r.width*4
@@ -2286,7 +2342,7 @@ Rectangle{
                 }
             }else{
                 if(!zm.ev){
-                    if(zm.planetSizeInt<app.fs*2 && zm.objCA.width>app.fs*4){
+                    if(zm.planetSizeInt<app.fs*2 && zm.objCA.width>zm.minCaWidth){
                         zm.planetSizeInt+=app.fs*0.1
                     }
                 }else{
@@ -2363,6 +2419,8 @@ Rectangle{
         //aspsCircle.clear()
         aspsCircleBack.clear()
         zoolDataView.clearExtData()
+        ae.width=r.width
+        ae.d=r.width
         ai.width=r.width
         zm.objTapa.opacity=0.0
         aspsCircle.opacity=1.0

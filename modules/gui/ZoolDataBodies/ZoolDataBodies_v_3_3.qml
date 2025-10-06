@@ -13,13 +13,13 @@ Rectangle {
     color: apps.backgroundColor
     border.width: 1
     border.color: apps.fontColor
-    state: 'show'
+    //state: 'show'
     //property alias objZbsv: zbsv
     property var uJson
     property int latFocus: 0
     property int currentIndex: -1
     property int currentIndexBack: -1
-    Behavior on x{NumberAnimation{duration: app.msDesDuration}}
+    //Behavior on x{NumberAnimation{duration: app.msDesDuration}}
     /*Column{
         Row{
             visible: false

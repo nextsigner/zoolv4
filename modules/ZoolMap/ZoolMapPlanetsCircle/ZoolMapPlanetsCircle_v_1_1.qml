@@ -664,6 +664,7 @@ Item{
         //zpn.log('maxPos: '+maxPos)
         if(!r.isBack){
             zm.posMaxInt=maxPos
+            //zm.currentMinPlanetsWidth=zm.objAI.width-(zm.planetSizeInt*zm.posMaxInt*2)-zm.objSignsCircle.w*2-zm.planetSizeInt
             //zm.setAreasWidth(true)
         }else{
             zm.posMaxExt=maxPos

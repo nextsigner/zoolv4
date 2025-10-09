@@ -501,43 +501,7 @@ Rectangle{
                 repeat: true
                 interval: 1000
                 onTriggered: {
-                    revIsDataDiff()
-                    if(zm.ev){
-                        //r.maxAbsPosExt=planetsCircleBack.getMaxAsAbsPos()
-                        //ai.width=r.width-(zm.planetSizeInt*(r.maxAbsPosExt+1)*2)
-                        if(zm.ev && ae.width===ai.width){
-                            //zpn.log('ae y ai son iguales!!')
-                            //zpn.log('r.posMaxExt: '+r.posMaxExt)
-                            ai.width=ae.width-(r.planetSizeExt*r.posMaxExt*2)-zm.housesNumWidth*2
-                            //setAreasWidth(false)
-                            //setAreasWidth(true)
-                            if(zm.ev && ca.width<r.minCaWidth){
-                                zpn.logTemp('ca < r.minCaWidth'+ca.width, 2000)
-                                ca.d=r.minCaWidth+1
-                                //setAreasWidth(false)
-                                //setAreasWidth(true)
-                                //zm.setPlanetsSize(false, 0)
-                            }
-                            //setAreasWidth(false)
-                        }
-                        if(zm.ev && ca.width<r.minCaWidth){
-                            //zpn.logTemp('ca < r.minCaWidth'+ca.width, 2000)
-                            ca.d=r.minCaWidth+1
-                            zm.setPlanetsSize(false, 0)
-                        }
-                    }else{
-                        //ai.d=r.width//-(zm.planetSizeInt*(r.maxAbsPosExt+1)*2)
-                    }
-                    if(aiPlanets.width<ca.d){
-                        ca.d=aiPlanets.width
-                    }
-
-                    //housesCircle.wbgc=planetsCircle.getMinAsWidth()*0.5//-r.planetSizeInt*2
-                    //housesCircleBack.wbgc=signCircle.width//ai.width
-                    //zm.objPlanetsCircle.vw=zm.objAspsCircle.width
-                    if(app.t==='dirprim')housesCircleBack.width=ae.width
-                    //log.lv('R:'+JSON.stringify(currentJson.pc.c0.gdec, null, 2))
-                    //imgEarth.rotation=360-signCircle.rotation//currentJson.pc.c0.gdec--45
+                    zm.updateGui()
                 }
             }
             PinchArea {
@@ -1490,6 +1454,7 @@ Rectangle{
             //panelSabianos.state='show'
             zsm.currentIndex=1
         }*/
+        zm.updateGui()
     }
     function loadSweJsonBack(json){
         if(!app.t==='dirprim' || !app.t==='progsec' || r.safeTapa){
@@ -1569,6 +1534,7 @@ Rectangle{
         }
         r.lockEv=false
         if(app.t!=='dirprim'&&app.t!=='progsec'&&app.t!=='trans')centerZoomAndPos()
+        zm.updateGui()
     }
     function loadFromFile(filePath, tipo, isBack){
         //zpn.log('loadFromFile( '+filePath+' )...')
@@ -2051,6 +2017,31 @@ Rectangle{
 
     }
     //<--Load Data
+
+    //-->Funciones de Control
+    function updateGui(){
+        revIsDataDiff()
+        if(zm.ev){
+            if(zm.ev && ae.width===ai.width){
+                ai.width=ae.width-(r.planetSizeExt*r.posMaxExt*2)-zm.housesNumWidth*2
+                if(zm.ev && ca.width<r.minCaWidth){
+                    //zpn.logTemp('ca < r.minCaWidth'+ca.width, 2000)
+                    ca.d=r.minCaWidth+1
+                }
+            }
+            if(zm.ev && ca.width<r.minCaWidth){
+                ca.d=r.minCaWidth+1
+                zm.setPlanetsSize(false, 0)
+            }
+        }else{
+            //ai.d=r.width//-(zm.planetSizeInt*(r.maxAbsPosExt+1)*2)
+        }
+        if(aiPlanets.width<ca.d){
+            ca.d=aiPlanets.width
+        }
+        if(app.t==='dirprim')housesCircleBack.width=ae.width
+    }
+    //<--Funciones de Control
 
     //-->Teclado
     property real panStepSize: app.fs

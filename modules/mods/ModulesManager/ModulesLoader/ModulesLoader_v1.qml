@@ -49,7 +49,7 @@ Rectangle{
                 Rectangle{
                     id: xItem
                     width: lv.width
-                    height: txt1.contentHeight+app.fs*0.5
+                    height: txt1.contentHeight+app.fs//*0.5
                     color: !xItem.selected?apps.backgroundColor:apps.fontColor
                     border.width: 1
                     border.color: xItem.selected?apps.backgroundColor:apps.fontColor
@@ -88,20 +88,7 @@ Rectangle{
 
     //-->Teclado
     function toEnter(ctrl){
-        //log.lv('ConfigFiles.toEnter('+ctrl+')')
-        if(!u.folderExist(tiJsonsFolder.text)){
-            u.mkdir(tiJsonsFolder.text)
-            if(!u.folderExist(tiJsonsFolder.text)){
-                tiJsonsFolder.t.color='red'
-            }else{
-                tiJsonsFolder.t.color=apps.fontColor
-                apps.workSpace=tiJsonsFolder.text
-                status.s=s+'\n\nLa carpeta no existía y se ha creado correctamente.'
-            }
-        }else{
-            t.color=apps.fontColor
-            apps.workSpace=tiJsonsFolder.text
-        }
+        loadModule(lv.currentIndex)
     }
     function clear(){
 
@@ -121,15 +108,23 @@ Rectangle{
         }
     }
     function toUp(){
-
+        if(lv.currentIndex>0){
+            lv.currentIndex--
+        }else{
+            lv.currentIndex=lm.count-1
+        }
     }
     function toDown(){
-
+        if(lv.currentIndex<lm.count-1){
+            lv.currentIndex++
+        }else{
+            lv.currentIndex=0
+        }
     }
     function toTab(){
         //zpn.log('ConfigFiles.toTab()')
-        tiJsonsFolder.t.focus=true
-        tiJsonsFolder.t.selectAll()
+        //tiJsonsFolder.t.focus=true
+        //tiJsonsFolder.t.selectAll()
     }
     function toEscape(){
         lv.currentIndex=0
@@ -162,6 +157,11 @@ Rectangle{
         m.name="InterLink"
         m.version='1.0'
         m.des="Módulo que permite ver los puntos de unión entre cuerpo, signo y casa para realizar una interpretación desde un punto de vista o inteligencia asociativa."
+        j.modules.push(m)
+
+        m.name="NumCalc"
+        m.version='1.0'
+        m.des="Módulo para realizar cálculos numerológicos."
         j.modules.push(m)
 
         return j

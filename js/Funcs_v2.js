@@ -902,7 +902,10 @@ function getNums(fecha){
         nf+=parseInt(m3[3])
     }
     if(nf===10)nf10=true
-    if(nf>9&&nf!==11&&nf!==22&&nf!==33&&nf!==44){
+    if(nf>9&&(nf===13||nf===14||nf===16||nf===19)){
+        numKarmico=nf
+    }
+    if(nf>9&&nf!==11&&nf!==22&&nf!==33&&nf!==44&&numKarmico<0){
         let m4=(''+nf).split('')
         let nnf=parseInt(m4[0])
         if(m4.length>1){
@@ -910,11 +913,12 @@ function getNums(fecha){
         }
         nf=nnf
     }
-    if(nf>9&&nf!==13&&nf!==14&&nf!==16&&nf!==19){
+    //if(nf>9&&nf!==13&&nf!==14&&nf!==16&&nf!==19){
+    if(nf>9&&(nf===13||nf===14||nf===16||nf===19)){
         numKarmico=nf
     }
     d=''+parseInt(m0[0])
-    if(parseInt(m0[0])>9){
+    if(parseInt(m0[0])>9&&numKarmico<0){
         let m5=d.split('')
         let nfd=parseInt(m5[0])
         if(m5.length>1){
@@ -923,7 +927,7 @@ function getNums(fecha){
         d+='-'+nfd
     }
     if(nf===10)nf10=true
-    if(nf>9){
+    if(nf>9&&numKarmico<0){
         let m6=(''+nf).split('')
         let nnf6=parseInt(m6[0])
         if(m6.length>1){

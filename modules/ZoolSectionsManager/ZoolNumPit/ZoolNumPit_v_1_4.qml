@@ -29,7 +29,7 @@ Rectangle {
     property alias logView: zoolNumPitLog
 
     property bool calcForm: false
-    property string jsonPath: './modules/ZoolSectionsManager/ZoolNumPit/numv4.json'
+    property string jsonPath: './modules/ZoolSectionsManager/ZoolNumPit/numv5.json'
     property string jsonNum: ''
     property var aDes: ['dato1', 'dato2', 'dato3', 'dato4', 'dato5', 'dato6', 'dato7', 'dato8', 'dato9']
 
@@ -1832,6 +1832,7 @@ Rectangle {
         }
         jsonString=r.jsonNum.replace(/\n/g, ' ')
         let json=JSON.parse(jsonString)
+        //clipboard.setText(JSON.stringify(json, null, 2))
 
         ret=json[''+t+''+v]
         return ret

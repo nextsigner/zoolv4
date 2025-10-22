@@ -1,1 +1,1 @@
-i7: Se crea la función updateGui() en ZoolMap v6
+i7: Se eliminaron los archivos numv2.json, numv3.json y numv4.json. Se creó numv5.json con karmicos.

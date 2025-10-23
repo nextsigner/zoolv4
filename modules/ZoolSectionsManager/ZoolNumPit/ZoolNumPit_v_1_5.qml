@@ -172,10 +172,6 @@ Rectangle {
                 modNumPit: r
                 anchors.horizontalCenter: parent.horizontalCenter
             }
-            AlphaNumTable{
-                width: r.contentWidth
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
             Rectangle{
                 id: xForm
                 width: r.contentWidth
@@ -692,6 +688,32 @@ Rectangle {
                         color: apps.fontColor
                         font.pixelSize: app.fs*0.5
                         anchors.horizontalCenter: parent.horizontalCenter
+                    }
+                    Row{
+                        spacing: app.fs*0.5
+                        visible: !tann.visible
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        Text{
+                            text: 'Ver Tabla Alfanumérica'
+                            font.pixelSize: app.fs*0.5
+                            color: apps.fontColor
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                        ZoolButton{
+                            id: botVerTANN
+                            text: 'Ver'
+                            fs: app.fs*0.5
+                            anchors.verticalCenter: parent.verticalCenter
+                            onClicked:{
+                                tann.visible=true
+                            }
+                        }
+                    }
+                    AlphaNumTable{
+                        id: tann
+                        width: r.contentWidth
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        visible: false
                     }
                     Rectangle{
                         id:xTiNombre

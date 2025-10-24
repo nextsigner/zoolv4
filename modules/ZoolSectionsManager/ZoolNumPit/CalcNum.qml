@@ -66,23 +66,23 @@ Rectangle{
             color: apps.backgroundColor
             border.width: 1
             border.color: 'red'
-            opacity: aData[0]===' '?0.0:1.0
+            opacity: aData[1]===0||aData[2]===0?0.0:1.0
             property var aData: ['a', 1]
             property int w: app.fs
             Column{
                 id: col
                 anchors.centerIn: parent
                 Repeater{
-                    model: xItem.aData//aData[0]!=='TOTAL'?xItem.aData:1
+                    model: aData[0]!==' '?xItem.aData:[xItem.aData[1]]//aData[0]!=='TOTAL'?xItem.aData:1
                     Rectangle{
                         width: aData[0]!=='TOTAL'?xItem.w:txt.contentWidth+app.fs*0.5
                         height: width
-                        border.width: 1
-                        border.color: apps.fontColor
+                        border.width: aData[0]!==' '?1:app.fs*0.15
+                        border.color: aData[0]!==' '?apps.fontColor:'red'
                         color: apps.backgroundColor
                         Text{
                             id: txt
-                            text: modelData//aData[0]!=='TOTAL'?modelData:'Total: '+modelData
+                            text: aData[0]!==' '?modelData:aData[1]
                             font.pixelSize: aData[0]!=='TOTAL'?parent.width*0.8:parent.width*0.3
                             color: apps.fontColor
                             anchors.centerIn: parent
@@ -110,7 +110,7 @@ Rectangle{
             color: apps.backgroundColor
             border.width: 1
             border.color: 'red'
-            opacity: aData[0]===' '?0.0:1.0
+            //opacity: aData[0]===' '?0.0:1.0
             property var aData: ['a', 1]
             property int w: app.fs
             Column{
@@ -147,19 +147,30 @@ Rectangle{
     function calc(){
         clear()
         let tot=0
-        let mText=tiTexto.t.text.toUpperCase().split('')
+        let textProc=(''+tiTexto.t.text.toUpperCase())+' '
+        let mText=textProc.split('')
         var a=[]
+        let tp=0
         for(var i=0;i<mText.length;i++){
             a=[]
             a.push(mText[i])
             let num=getNumOfLetter(mText[i])
             tot+=num
-            a.push(num)
-            a.push(tot)
-            let obj=comp.createObject(row1, {aData: a})
+            if(mText[i]===' '){
+                a.push(tp)
+                a.push(tot)
+                tp=0
+                let obj0=comp.createObject(row1, {aData: a})
+            }else{
+                a.push(num)
+                a.push(tot)
+                let obj=comp.createObject(row1, {aData: a})
+            }
+            tp+=num
         }
         a=[]
         a.push(' ')
+        a.push(0)
         a.push(0)
         let objSpace=comp.createObject(row1, {aData: a})
 

@@ -1,1 +1,1 @@
-i7: Se completa el desarrollo de AlphaNumTable en ZoolNumPit v1.5
+i7: Se crea CalcNum para AlphaNumTable

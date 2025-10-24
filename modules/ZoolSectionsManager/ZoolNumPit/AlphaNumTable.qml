@@ -43,7 +43,7 @@ Rectangle{
         anchors.rightMargin: app.fs*0.1
         anchors.top: parent.top
         anchors.topMargin: app.fs*0.1
-        parent: !isDinObject?r:r.parent
+        parent: !isDinObject?r:r.parent.parent
         MouseArea{
             anchors.fill: parent
             onClicked: {
@@ -89,21 +89,8 @@ Rectangle{
                             anchors.centerIn: parent
                             visible: !txt.visible && !r.isDinObject
                             onClicked: {
-                                let c='import QtQuick 2.0\n'
-                                //c+='import "./modules/ZoolSectionsManager/ZoolNumPit" as Comp\n'
-                                c+='Rectangle{\n'
-                                c+='    border.width: 1\n'
-                                c+='    border.color: apps.fontColor\n'
-                                c+='    anchors.fill: parent\n'
-                                c+='    color: apps.backgroundColor\n'
-                                c+='    AlphaNumTable{\n'
-                                c+='        width: parent.width*0.8\n'
-                                c+='        isDinObject: true\n'
-                                c+='        spacing: app.fs*3\n'
-                                c+='        anchors.centerIn: parent\n'
-                                c+='    }\n'
-                                c+='}\n'
-                                let obj=Qt.createQmlObject(c, capa101, 'qml-tann-code')
+                                let comp=Qt.createComponent('WindowTANN.qml')
+                                let obj=comp.createObject(capa101, {})
                             }
                         }
                         Text{
@@ -131,6 +118,9 @@ Rectangle{
         if(isDinObject){
             app.ciPrev=app.ci
             app.ci=r
+        }else{
+            let comp=Qt.createComponent('WindowTANN.qml')
+            let obj=comp.createObject(capa101, {})
         }
         let obj1=comp.createObject(col, {aData:['1', '2', '3', '4', '5', '6', '7', '8', '9'], rowIndex: 0})
         let obj2=comp.createObject(col, {aData:['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']})
@@ -147,7 +137,7 @@ Rectangle{
     function toRight(ctrl){}
     function toEscape(ctrl){
         app.ci=app.ciPrev
-        r.parent.destroy(0)
+        r.parent.parent.destroy(0)
     }
     function isFocus(){return false}
     //<--Teclado

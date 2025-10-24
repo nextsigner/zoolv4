@@ -119,8 +119,8 @@ Rectangle{
             app.ciPrev=app.ci
             app.ci=r
         }else{
-            let comp=Qt.createComponent('WindowTANN.qml')
-            let obj=comp.createObject(capa101, {})
+            //let comp=Qt.createComponent('WindowTANN.qml')
+            //let obj=comp.createObject(capa101, {})
         }
         let obj1=comp.createObject(col, {aData:['1', '2', '3', '4', '5', '6', '7', '8', '9'], rowIndex: 0})
         let obj2=comp.createObject(col, {aData:['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']})

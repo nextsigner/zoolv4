@@ -740,6 +740,58 @@ Item {
         }
         return defaultRet
     }
+    function getPlanetIndexHouse(deg, jsonPH) {
+        // 1. Asegurar que el grado esté en el rango [0, 360) (Normalización).
+        let housesDegs=[]
+        for (var i = 1; i < 13; i++) {
+            housesDegs.push(jsonPH['h'+i].gdec)
+        }
+        let normalizedDeg = deg % 360;
+        if (normalizedDeg < 0) {
+            normalizedDeg += 360;
+        }
+
+        // El array housesDegs debe tener 12 elementos.
+        const numHouses = housesDegs.length;
+        if (numHouses !== 12) {
+            // Manejo de error si el array no es correcto.
+            console.error("El array de cúspides debe contener exactamente 12 grados.");
+            return -1;
+        }
+
+        // 2. Determinar la casa buscando la cúspide siguiente.
+        // La Casa 1 (índice 0) comienza en housesDegs[0] y termina justo antes de housesDegs[1].
+        // La Casa 12 (índice 11) comienza en housesDegs[11] y termina justo antes de housesDegs[0] (el inicio).
+
+        // Recorremos las cúspides (i representa la cúspide de la casa i+1)
+        for (i = 0; i < numHouses; i++) {
+            const currentCusp = housesDegs[i];
+
+            // La cúspide de la casa siguiente es el límite superior.
+            // Usamos el operador módulo para que el índice 11 apunte de vuelta al índice 0.
+            const nextCusp = housesDegs[(i + 1) % numHouses];
+
+            // Caso A: La casa no cruza el punto 0/360 (límite superior > límite inferior)
+            if (currentCusp < nextCusp) {
+                if (normalizedDeg >= currentCusp && normalizedDeg < nextCusp) {
+                    // El índice i es el índice de la casa que comienza en currentCusp
+                    return i;
+                }
+            }
+            // Caso B: La casa cruza el punto 0/360 (e.g., de 330 a 30 grados).
+            else {
+                if (normalizedDeg >= currentCusp || normalizedDeg < nextCusp) {
+                    // Está entre currentCusp (incluido) y 360 (o 0), O
+                    // está entre 0 (o 360) y nextCusp (excluido).
+                    return i;
+                }
+            }
+        }
+
+        // Si por algún motivo no se encuentra (lo cual es muy improbable si el array está bien),
+        // devolvemos un valor de error.
+        return -1;
+    }
     function reloadHousesColors() {
         for(i=0;i<12;i++){
             let h=dha.children[i]

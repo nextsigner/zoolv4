@@ -319,14 +319,17 @@ Column{
         let jo
         let o
         var ih
+        //if(r.isBack)log.lv('ZoolDataBodies.loadJson(): '+JSON.stringify(json, null, 2))
         //for(var i=0;i<15;i++){
         for(var i=0;i<20;i++){
             //stringIndex='&index='+i
             jo=json.pc['c'+i]
             if(!r.isBack){
-                ih=zm.objHousesCircle.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
+                //ih=zm.objHousesCircle.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
+                ih=zm.objHousesCircle.getPlanetIndexHouse(jo.gdec, json.ph)+1
             }else{
-                ih=zm.objHousesCircleBack.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
+                //ih=zm.objHousesCircleBack.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
+                ih=zm.objHousesCircleBack.getPlanetIndexHouse(jo.gdec, json.ph)+1
             }
             var s = '<b>'+jo.nom+'</b> en <b>'+app.signos[jo.is]+'</b> @ <b>Grado:</b>°' +parseInt(jo.rsgdeg)+ '\'' +parseInt(jo.mdeg)+ '\'\'' +parseInt(jo.sdeg)+ ' <b>Casa:</b> ' +ih
             if(jo.retro===0&&i!==10&&i!==11)s+=' <b>R</b>'

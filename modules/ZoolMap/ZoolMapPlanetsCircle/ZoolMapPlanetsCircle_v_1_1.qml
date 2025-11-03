@@ -94,7 +94,8 @@ Item{
             o.g=jo.gdeg
             o.m=jo.mdeg
             //o.h=jo.h
-            o.ih=zm.objHousesCircle.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
+            let objHC=r.isBack?zm.objHousesCircle:zm.objHousesCircleBack
+            o.ih=objHC.getHousePos(jo.gdec, json.ph.h1.gdec, i, jo.ih)
             o.rsg=jo.rsgdeg
             o.gdec=jo.gdec
 
@@ -113,14 +114,16 @@ Item{
                 o.g=jo.gdeg
                 o.m=jo.mdeg
                 o.s=jo.sdeg
-                o.ih=zm.objHousesCircleBack.getHousePos(o.gdec, json.ph.h1.gdec, i, jo.ih)
+                //o.ih=zm.objHousesCircleBack.getHousePos(o.gdec, json.ph.h1.gdec, i, jo.ih)
+                o.ih=zm.objHousesCircleBack.getPlanetIndexHouse(o.gdec, json.ph)+1
                 o.is=jo.is
                 //o.rsg=jo.gdec-(30*(parseInt(jo.gdec/30)))
                 o.rsg=10//jo.gdec-(30*(o.ih))
                 objAs.is=jo.is
             }else{
                 let intJson=zm.currentJson//JSON.parse(app.fileData)
-                o.ih=!r.isBack?zm.objHousesCircleBack.getHousePos(o.gdec, intJson.ph.h1.gdec, i, jo.ih):zm.objHousesCircle.getHousePos(o.gdec, intJson.ph.h1.gdec, i, jo.ih)
+                //o.ih=!r.isBack?zm.objHousesCircleBack.getHousePos(o.gdec, intJson.ph.h1.gdec, i, jo.ih):zm.objHousesCircle.getHousePos(o.gdec, intJson.ph.h1.gdec, i, jo.ih)
+                o.ih=zm.objHousesCircle.getPlanetIndexHouse(o.gdec, json.ph)+1
                 if(i===9){
                     //log.lv('sweg.dirPrimRot:'+sweg.dirPrimRot)
                     //log.lv('o.is:'+o.is)

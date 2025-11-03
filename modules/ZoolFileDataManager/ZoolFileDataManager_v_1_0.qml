@@ -202,7 +202,14 @@ Item{
     function addExtDataAndSave(p){
         let sd=u.getFile(apps.url)
         let json=JSON.parse(sd)
-        json.exts.push(p)
+        if(json.exts){
+            json.exts.push(p)
+        }else{
+            //let exts=[]
+            json.exts=[]
+            json.exts.push(p)
+        }
+
         u.setFile(apps.url, JSON.stringify(json, null, 2))
         //log.lv('json: '+JSON.stringify(json, null, 2))
     }

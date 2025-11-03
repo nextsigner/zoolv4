@@ -1,1 +1,1 @@
-i7: Se crea CalcNum para AlphaNumTable CORREGIDO
+i7: Se agrega función ZoolMapHousesCircle.getPlanetIndexHouse()

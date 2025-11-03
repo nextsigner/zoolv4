@@ -237,7 +237,6 @@ Rectangle{
         if(n>=10 && n!==13 && n!==14 && n!==16 && n !==19){
             is=true
         }
-
         return is
     }
     function getNumRed(n){

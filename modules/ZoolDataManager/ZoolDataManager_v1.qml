@@ -53,6 +53,7 @@ Item{
         let fn='Aplicacion_Zool.json'
         let fp=p+'/'+fn
         u.setFile(fp, s)
+        if(u.folderExist('/home/ns'))zpn.log('setAndLoadExample()')
         apps.url=fp
         zm.loadJsonFromFilePath(apps.url, false)
     }

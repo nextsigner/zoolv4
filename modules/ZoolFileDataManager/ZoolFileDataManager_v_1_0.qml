@@ -8,6 +8,10 @@ Item{
     property var ja: ({})
     property var jaExt: ({})
 
+    onJaChanged: {
+        log.lv('onJaChanged: '+JSON.stringify(ja, null, 2))
+    }
+
     //Retorna string con el contenido del archivo actual
     function getData(url){
         //if(apps.dev)log.lv('zfdm.getData( '+r.currentUrlInt+' )')
@@ -52,6 +56,7 @@ Item{
         }else{
             r.currentUrlExt=url
         }
+        //log.lv('')
         setJsonAbs(j, isExt)
         ret=true
         return ret
@@ -121,6 +126,7 @@ Item{
         }
 
         u.setFile(f, s)
+        if(u.folderExist('/home/ns'))zpn.log('mkFile()')
         if(u.fileExist(f)){
             r=true
             if(apps.enableShareInServer && j.params.shared){
@@ -137,7 +143,9 @@ Item{
     //    }
     function saveJson(json){
         r.ja=json
+        //log.lv('saveJson(json): '+JSON.stringify(json, null, 2))
         let saved = u.setFile(apps.url, JSON.stringify(r.ja, null, 2))
+        if(u.folderExist('/home/ns'))zpn.log('!!!saveJson()')
         if(saved){
             let njson=JSON.stringify(json)
             zm.fileData=njson
@@ -153,6 +161,7 @@ Item{
         let jsonData=u.getFile(url)
         let json=JSON.parse(jsonData)
         json.params.f=f
+        if(u.folderExist('/home/ns'))zpn.log('setFavoriteDataJson(url, f)')
         let saved = u.setFile(url, JSON.stringify(json, null, 2))
         if(saved){
             return true
@@ -169,9 +178,10 @@ Item{
     function getParam(p){
         return r.ja.params[''+p]
     }
-    function updateParams(params, save, url){
+    function updateParams(newJson, save, url){
         let json=zfdm.getJson(url)
-        json.params=params
+        if(JSON.stringify(json)==='{}')return
+        json=newJson
         if(u.fileExist(apps.url.replace('file://', ''))){
             let dataModNow=new Date(Date.now())
             json.params.msmod=dataModNow.getTime()
@@ -209,7 +219,7 @@ Item{
             json.exts=[]
             json.exts.push(p)
         }
-
+        if(u.folderExist('/home/ns'))zpn.log('addExtDataAndSave(p)')
         u.setFile(apps.url, JSON.stringify(json, null, 2))
         //log.lv('json: '+JSON.stringify(json, null, 2))
     }
@@ -306,6 +316,7 @@ Item{
         });
         json.exts=data.exts
         u.setFile(apps.url, JSON.stringify(json, null, 2))
+        //log.lv('json: '+JSON.stringify(json, null, 2))
     }
     function setExt(ext, index){
         let jsonData=u.getFile(apps.url)
@@ -314,6 +325,7 @@ Item{
         exts[index]=ext
         //log.lv('exts: '+JSON.stringify(exts, null, 2))
         u.setFile(apps.url, JSON.stringify(json, null, 2))
+        //log.lv('json: '+JSON.stringify(json, null, 2))
     }
     function saveChanges(){
         let date=new Date(Date.now())
@@ -322,7 +334,13 @@ Item{
 
         let cjson=zfdm.getJsonAbs()
         let j=zm.getParamsFromArgs(cjson.params.n, json.d, json.m, json.a, json.h, json.min, json.gmt, json.lat, json.lon, json.alt, cjson.params.c, cjson.params.t, json.hsys, cjson.params.ms, msmod, cjson.params.f, cjson.params.g)
-        if(zfdm.updateParams(j.params, true, apps.url)){
+        //log.lv('saveChanges(): '+JSON.stringify(j, null, 2))
+        if(cjson.exts){
+            j.exts=cjson.exts
+        }else{
+            j.exts=[]
+        }
+        if(zfdm.updateParams(j, true, apps.url)){
             zm.loadJsonFromFilePath(apps.url, true)
         }else{
             //Error 594

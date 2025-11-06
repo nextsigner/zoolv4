@@ -348,6 +348,7 @@ Item{
             let dataModNow=new Date(Date.now())
             json.params.msmod=dataModNow.getTime()
         }
+        //zpn.log('ZoolMapAs v1.0!!!')
         zfdm.saveJson(json)
     }
 
@@ -382,6 +383,7 @@ Item{
             let dataModNow=new Date(Date.now())
             json.params.msmod=dataModNow.getTime()
         }
+        zpn.log('356: ZoolMapAs v1.0')
         zfdm.saveJson(json)
     }
     function setZoomAndPos(){

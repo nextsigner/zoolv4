@@ -716,15 +716,17 @@ Rectangle {
                             Keys.onReturnPressed: {
                                 if(text==='')return
                                 //r.logView.l(getNumNomText(text))
-                                let p=zfdm.getJsonAbsParams(false)
-                                p.nc=text
+                                //let p=zfdm.getJsonAbsParams(false)
+                                //p.nc=text
+                                let j=zfdm.getJsonAbs()
+                                j.params.nc=text
                                 let url
                                 if(!r.isExt){
                                     url=apps.url
                                 }else{
                                     url=apps.urlBack
                                 }
-                                zfdm.updateParams(p, true, url)
+                                zfdm.updateParams(j, true, url)
                                 calc()
                                 //apps.numUNom=text
                             }

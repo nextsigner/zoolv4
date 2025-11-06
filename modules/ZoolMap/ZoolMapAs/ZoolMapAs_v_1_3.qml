@@ -834,6 +834,8 @@ Item{
             let dataModNow=new Date(Date.now())
             json.params.msmod=dataModNow.getTime()
         }
+        //zpn.log('saveRot()')
+        //zpn.log('838: ZoolMapAs v1.3!!!')
         zfdm.saveJson(json)
     }
 
@@ -872,6 +874,8 @@ Item{
             let dataModNow=new Date(Date.now())
             json.params.msmod=dataModNow.getTime()
         }
+        //zpn.log('saveZoomAndPos()')
+        //zpn.log('878: ZoolMapAs v1.3!!!')
         zfdm.saveJson(json)
     }
     function setZoomAndPos(){

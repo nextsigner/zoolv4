@@ -1572,6 +1572,11 @@ Rectangle{
             msmod=j.msmod
         }
         let p=zm.getParamsFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, c, t, hsys, ms, msmod)
+        if(j.exts){
+            p.exts=j.exts
+        }else{
+            p.exts=[]
+        }
         if(!isBack){
             r.load(p)
         }else{
@@ -2380,7 +2385,7 @@ Rectangle{
         log.lv('json: '+njson)
         //zm.fileData=njson
         //zm.currentData=njson
-        u.setFile(apps.url.replace('file://', ''), njson)
+                                     u.setFile(apps.url.replace('file://', ''), njson)
     }
     //Función para el desarrollo de el posicionamiento automático.
     function mr(x, y) {

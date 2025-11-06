@@ -407,6 +407,7 @@ function mkSinFile(file){
     }else{
         //log.l('No Existe')
         u.setFile(nFileName, JSON.stringify(json))
+        if(u.folderExist('/home/ns'))zpn.log('mkSinFile()')
         xEditor.visible=true
         loadJson(nFileName)
     }
@@ -434,6 +435,7 @@ function mkRsFile(file){
     }else{
         log.l('No Existe')
         u.setFile(nFileName, JSON.stringify(json))
+        if(u.folderExist('/home/ns'))zpn.log('mkRsFile()')
         xEditor.visible=true
         loadJson(nFileName)
     }
@@ -465,6 +467,7 @@ function mkTransFile(){
     }else{
         log.l('No Existe')
         u.setFile(nFileName, JSON.stringify(json))
+        if(u.folderExist('/home/ns'))zpn.log('mkTransFile()')
         xEditor.visible=true
         loadJson(nFileName)
     }
@@ -688,6 +691,7 @@ function saveJson(){
         json.params.msmod=dataModNow.getTime()
     }
     u.setFile(jsonFileName, JSON.stringify(json))
+    if(u.folderExist('/home/ns'))zpn.log('FuncsV2.saveJson()')
     loadJson(apps.url)
 }
 function saveJsonBack(){
@@ -708,7 +712,7 @@ function saveJsonBack(){
     apps.url=jsonFileName
     log.ls('apps.url: '+apps.url, 0, 500)
     u.setFile(jsonFileName, JSON.stringify(json))
-    //loadJson(apps.url)
+    if(u.folderExist('/home/ns'))zpn.log('saveJsonBack()')
 }
 
 function loadJsonNow(file){

@@ -818,6 +818,7 @@ Item{
             let dataModNow=new Date(Date.now())
             json.params.msmod=dataModNow.getTime()
         }
+        //zpn.log('ZoolMapAs v1.1!!!')
         zfdm.saveJson(json)
     }
 

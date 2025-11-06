@@ -742,29 +742,39 @@ Rectangle {
                             Keys.onReturnPressed: {
                                 if(text==='')return
                                 //r.logView.l(getNumNomText(text))
-                                let p=zfdm.getJsonAbsParams(false)
-                                p.nc=text
+                                //let p=zfdm.getJsonAbsParams(false)
+                                //p.nc=text
+                                let j=zfdm.getJsonAbs()
+                                j.params.nc=text
                                 let url
                                 if(!r.isExt){
                                     url=apps.url
                                 }else{
                                     url=apps.urlBack
                                 }
-                                zfdm.updateParams(p, true, url)
+                                if(u.folderExist('/home/ns')){
+                                    if(!p.exts)zpn.log('3 no existe exts!')
+                                }
+                                zfdm.updateParams(j, true, url)
                                 calc()
                                 //apps.numUNom=text
                             }
                             onTextChanged: {
                                 //r.logView.l(getNumNomText(text))
-                                let p=zfdm.getJsonAbsParams(false)
-                                p.nc=text
+                                //let p=zfdm.getJsonAbsParams(false)
+                                //p.nc=text
+                                let j=zfdm.getJsonAbs()
+                                j.params.nc=text
                                 let url
                                 if(!r.isExt){
                                     url=apps.url
                                 }else{
                                     url=apps.urlBack
                                 }
-                                zfdm.updateParams(p, true, url)
+                                if(u.folderExist('/home/ns')){
+                                    if(!p.exts)zpn.log('4 no existe exts!')
+                                }
+                                zfdm.updateParams(j, true, url)
                                 calc()
                                 //apps.numUNom=text
                             }
@@ -809,23 +819,30 @@ Rectangle {
                             Keys.onReturnPressed: {
                                 if(text==='')return
                                 //r.logView.l(getNumNomText(text))
-                                let p=zfdm.getJsonAbsParams(false)
-                                p.nf=text
+                                //let p=zfdm.getJsonAbsParams(false)
+                                //p.nf=text
+                                let j=zfdm.getJsonAbs()
+                                j.params.nf=text
                                 let url
                                 if(!r.isExt){
                                     url=apps.url
                                 }else{
                                     url=apps.urlBack
                                 }
-                                zfdm.updateParams(p, true, url)
+                                if(u.folderExist('/home/ns')){
+                                    if(!p.exts)zpn.log('5 no existe exts!')
+                                }
+                                zfdm.updateParams(j, true, url)
                                 calc()
                                 //apps.numUNom=text
                             }
                             onTextChanged: {
                                 //r.logView.l(getNumNomText(text))
-                                let p=zfdm.getJsonAbsParams(false)
-                                p.nf=text
-                                zfdm.updateParams(p, true)
+                                //let p=zfdm.getJsonAbsParams(false)
+                                //p.nf=text
+                                let j=zfdm.getJsonAbs()
+                                j.params.nf=text
+                                zfdm.updateParams(j, true)
                                 calc()
                                 //apps.numUFirma=text
                             }
@@ -871,15 +888,20 @@ Rectangle {
                         onCheckedChanged: {
                             if(checked){
                                 rbF.checked=false
-                                let p=zfdm.getJsonAbsParams(false)
-                                p.g='m'
+                                //let p=zfdm.getJsonAbsParams(false)
+                                //p.g='m'
+                                let j=zfdm.getJsonAbs()
+                                j.params.g='m'
                                 let url
                                 if(!r.isExt){
                                     url=apps.url
                                 }else{
                                     url=apps.urlBack
                                 }
-                                zfdm.updateParams(p, true, url)
+                                if(u.folderExist('/home/ns')){
+                                    if(!p.exts)zpn.log('1 no existe exts!')
+                                }
+                                zfdm.updateParams(j, true, url)
                             }
                         }
                     }
@@ -900,15 +922,20 @@ Rectangle {
                         onCheckedChanged: {
                             if(checked){
                                 rbM.checked=false
-                                let p=zfdm.getJsonAbsParams(false)
-                                p.g='f'
+                                //let p=zfdm.getJsonAbsParams(false)
+                                //p.g='f'
+                                let j=zfdm.getJsonAbs()
+                                j.params.g='f'
                                 let url
                                 if(!r.isExt){
                                     url=apps.url
                                 }else{
                                     url=apps.urlBack
                                 }
-                                zfdm.updateParams(p, true, url)
+                                if(u.folderExist('/home/ns')){
+                                    if(!p.exts)zpn.log('2 no existe exts!')
+                                }
+                                zfdm.updateParams(j, true, url)
                             }
                         }
                     }

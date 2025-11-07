@@ -10,7 +10,7 @@ import ZoolSectionsManager.ZoolMods 1.0
 import ZoolSectionsManager.ZoolListLunar 1.0
 import ZoolSectionsManager.ZoolSabianos 1.1
 import ZoolSectionsManager.ZoolRevolutionList 1.6
-import ZoolSectionsManager.ZoolNumPit 1.5
+import ZoolSectionsManager.ZoolNumPit 1.6
 import ZoolSectionsManager.ZoolHelp 1.0
 import ZoolSectionsManager.ZoolConfig 1.0
 import mods.ModulesManager 1.0

@@ -1,1 +1,1 @@
-i7: Se corrigen los labels Asc y Desc
+i7: Se crea ZoolNumPit v1.6 y se actualiza numv5.json

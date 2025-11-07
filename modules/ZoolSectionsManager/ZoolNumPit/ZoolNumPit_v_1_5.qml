@@ -772,7 +772,7 @@ Rectangle {
                                     url=apps.urlBack
                                 }
                                 if(u.folderExist('/home/ns')){
-                                    if(!p.exts)zpn.log('4 no existe exts!')
+                                    if(!j.exts)zpn.log('4 no existe exts!')
                                 }
                                 zfdm.updateParams(j, true, url)
                                 calc()

@@ -126,7 +126,6 @@ Item{
         }
 
         u.setFile(f, s)
-        if(u.folderExist('/home/ns'))zpn.log('mkFile()')
         if(u.fileExist(f)){
             r=true
             if(apps.enableShareInServer && j.params.shared){
@@ -145,7 +144,6 @@ Item{
         r.ja=json
         //log.lv('saveJson(json): '+JSON.stringify(json, null, 2))
         let saved = u.setFile(apps.url, JSON.stringify(r.ja, null, 2))
-        if(u.folderExist('/home/ns'))zpn.log('!!!saveJson()')
         if(saved){
             let njson=JSON.stringify(json)
             zm.fileData=njson
@@ -161,7 +159,6 @@ Item{
         let jsonData=u.getFile(url)
         let json=JSON.parse(jsonData)
         json.params.f=f
-        if(u.folderExist('/home/ns'))zpn.log('setFavoriteDataJson(url, f)')
         let saved = u.setFile(url, JSON.stringify(json, null, 2))
         if(saved){
             return true
@@ -219,20 +216,8 @@ Item{
             json.exts=[]
             json.exts.push(p)
         }
-        if(u.folderExist('/home/ns'))zpn.log('addExtDataAndSave(p)')
         u.setFile(apps.url, JSON.stringify(json, null, 2))
-        //log.lv('json: '+JSON.stringify(json, null, 2))
     }
-    //    function addExtData(json){
-//        if(apps.dev)log.lv('zfdm.addExtData( '+JSON.stringify(json, null, 2)+' )')
-//        let o=r.ja.exts
-//        if(apps.dev)log.lv('r.ja.exts= '+JSON.stringify(o, null, 2)+'')
-//        if(!o)return
-//        let nIndex=Object.keys(o).length
-//        o[nIndex]={}
-//        o[nIndex]=json
-//        if(apps.dev)log.lv('adding ext data:'+JSON.stringify(r.ja, null, 2))
-//    }
     function getParamExt(p,i){
         return r.ja.exts[i][''+p]
     }

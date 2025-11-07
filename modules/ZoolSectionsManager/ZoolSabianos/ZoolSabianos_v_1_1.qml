@@ -41,7 +41,15 @@ Rectangle {
     visible: zsm.aPanelsIds.indexOf(app.j.qmltypeof(r))===zsm.currentIndex
 
     onVisibleChanged: {
-        //if(visible)zoolVoicePlayer.stop()
+        if(visible){
+            let j=zm.currentJson
+            let is=j.ph.h1.is
+            let rsgdegAsc=j.ph.h1.rsgdeg
+            r.numSign=is
+            r.numDegree=parseInt(rsgdegAsc-1)
+            r.currentInterpreter=0
+            loadData()
+        }
       //if(visible)zoolVoicePlayer.speak('Sección de Simbología de los 360 grados del zodíaco.', true)
     }
     Behavior on x{enabled: apps.enableFullAnimation;NumberAnimation{duration: app.msDesDuration}}
@@ -426,80 +434,6 @@ Rectangle {
         zsm.aPanelsIds.push(app.j.qmltypeof(r))
         zsm.aPanelesTits.push('Sabianos')
     }
-    function ctrlDown(){
-        if(r.numSign<11){
-            r.numSign++
-        }else{
-            r.numSign=0
-            r.currentInterpreter=0
-        }
-        loadData()
-    }
-    function ctrlUp(){
-        if(r.numSign>0){
-            r.numSign--
-        }else{
-            r.numSign=11
-            r.currentInterpreter=0
-        }
-        loadData()
-    }
-    function todown(){
-        if(r.numDegree<30){
-            r.numDegree++
-        }else{
-            r.numDegree=0
-            r.currentInterpreter=0
-        }
-        loadData()
-    }
-    function toup(){
-        if(r.numDegree>0){
-            r.numDegree--
-        }else{
-            r.numDegree=30
-            r.currentInterpreter=0
-        }
-        loadData()
-    }
-    function toleft(){
-        if(r.currentInterpreter>0){
-            r.currentInterpreter--
-        }else{
-            r.currentInterpreter=2
-            if(r.numDegree>0){
-                r.numDegree--
-            }else{
-                r.numDegree=29
-                r.currentInterpreter=2
-                if(r.numSign>0){
-                    r.numSign--
-                }else{
-                    r.numSign=11
-                }
-            }
-        }
-        loadData()
-    }
-    function toright(){
-        if(r.currentInterpreter<2){
-            r.currentInterpreter++
-        }else{
-            r.currentInterpreter=0
-            if(r.numDegree<29){
-                r.numDegree++
-            }else{
-                r.numDegree=0
-                r.currentInterpreter=0
-                if(r.numSign<11){
-                    r.numSign++
-                }else{
-                    r.numSign=0
-                }
-            }
-        }
-        loadData()
-    }
     function loadData(){
         //data.font.pixelSize=app.fs*0.5*apps.panelSabianosFz
         let df=r.numDegree
@@ -760,14 +694,105 @@ Rectangle {
         let fn='sabianos_'+r.signos[sabianosView.numSign]+'_grado_'+parseInt(sabianosView.numDegree+ 1)+'_texto_'+parseInt(sabianosView.currentInterpreter + 1)+'.png'
         return fn
     }
-    //-->Funciones de Control Focus y Teclado
-    function toEscape(){
 
+
+    //-->Teclado
+    function ctrlDown(){
+        if(r.numSign<11){
+            r.numSign++
+        }else{
+            r.numSign=0
+            r.currentInterpreter=0
+        }
+        loadData()
+    }
+    function ctrlUp(){
+        if(r.numSign>0){
+            r.numSign--
+        }else{
+            r.numSign=11
+            r.currentInterpreter=0
+        }
+        loadData()
+    }
+    function todown(){
+        if(r.numDegree<30){
+            r.numDegree++
+        }else{
+            r.numDegree=0
+            r.currentInterpreter=0
+        }
+        loadData()
+    }
+    function toup(){
+        if(r.numDegree>0){
+            r.numDegree--
+        }else{
+            r.numDegree=30
+            r.currentInterpreter=0
+        }
+        loadData()
+    }
+    function toleft(){
+        if(r.currentInterpreter>0){
+            r.currentInterpreter--
+        }else{
+            r.currentInterpreter=2
+            if(r.numDegree>0){
+                r.numDegree--
+            }else{
+                r.numDegree=29
+                r.currentInterpreter=2
+                if(r.numSign>0){
+                    r.numSign--
+                }else{
+                    r.numSign=11
+                }
+            }
+        }
+        loadData()
+    }
+    function toright(){
+        if(r.currentInterpreter<2){
+            r.currentInterpreter++
+        }else{
+            r.currentInterpreter=0
+            if(r.numDegree<29){
+                r.numDegree++
+            }else{
+                r.numDegree=0
+                r.currentInterpreter=0
+                if(r.numSign<11){
+                    r.numSign++
+                }else{
+                    r.numSign=0
+                }
+            }
+        }
+        loadData()
+    }
+    function toEnter(ctrl){
+        if(!r.view.visible){
+            r.view.numSign=r.numSign
+            r.view.numDegree=r.numDegree
+            r.view.currentInterpreter=0
+            r.view.loadData()
+            r.view.visible=true
+        }
+    }
+    function isFocus(){
+        return r.view.visible
+    }
+    function toEscape(){
+        if(r.view.visible){
+            r.view.visible=false
+            return
+        }
     }
     property bool hasUnUsedFunction: true
     function unUsed(){
         //log.lv(app.j.qmltypeof(r)+'.unUsed()...')
     }
-    //-->Funciones de Control Focus y Teclado
+    //-->Teclado
 }
 

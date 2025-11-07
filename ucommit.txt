@@ -1,1 +1,1 @@
-i7: Se eliminan los módulos obsoletos ZoolHousesCircle y ZoolHousesCircleBack
+i7: Se elimina ZoolNumPit_v_1_4.qml

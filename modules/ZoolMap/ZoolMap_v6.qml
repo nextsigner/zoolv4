@@ -376,12 +376,12 @@ Rectangle{
         hoverEnabled: true
         drag.target: rect
         drag.filterChildren: true
-        width: xMed.width//*0.5
-        height: xMed.height//*0.75
+        width: xMed.width*2//*0.5
+        height: xMed.height*2//*0.75
         v:0
         bw:30
         acceptedButtons: Qt.AllButtons;
-        //anchors.centerIn: parent
+        anchors.centerIn: parent
         //anchors.horizontalCenterOffset: r.width*0.5
         //anchors.verticalCenterOffset: r.width*0.5
         onClicked: {
@@ -548,6 +548,10 @@ Rectangle{
                     anchors.fill: parent
                     drag.target: rect
                     drag.filterChildren: true
+                    v: xZoolMap.showDevLines?2:0
+                    bw: xZoolMap.showDevLines?10:0
+                    bc: xZoolMap.showDevLin?'blue':'transparent'
+                    bgc: '#ff8833'
                     onWheel: {
                         let sent=wheel.angleDelta.y > 0
                         setZoom(sent, mouseX, mouseY)
@@ -587,10 +591,6 @@ Rectangle{
                         */
                     }
                     acceptedButtons: Qt.AllButtons;
-                    v:xZoolMap.showDevLines?2:0
-                    bw:xZoolMap.showDevLines?10:0
-                    bc: xZoolMap.showDevLin?'blue':'transparent'
-                    bgc: '#ff8833'
                     onClicked: {
                         click(mouse)
                     }

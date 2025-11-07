@@ -1,1 +1,1 @@
-i7: Se crea la versión Zool v5.11.7.0
+i7: Se corrigen los labels Asc y Desc

@@ -26,6 +26,7 @@ Item {
     property var aWs: []
     property int c: 0
     property int wbgc: 300
+    property int cardLabelMargin: app.fs*0.25
     property var aTipoEjes: ['Eje de<br><b>ENCUENTRO</b>', 'Eje de<br><b>POSESIONES</b>', 'Eje de<br><b>PENSAMIENTO</b>', 'Eje de la<br><b>INDIVIDUACIÓN</b>', 'Eje de<br><b>RELACIONES</b>', 'Eje de<br><b>EXISTENCIA</b>','Eje de<br><b>ENCUENTRO</b>', 'Eje de<br><b>POSESIONES</b>', 'Eje de<br><b>PENSAMIENTO</b>', 'Eje de la<br><b>INDIVIDUACIÓN</b>', 'Eje de<br><b>RELACIONES</b>', 'Eje de<br><b>EXISTENCIA</b>']
     property var aTipoEjesCasas:['Entre Casas<br>1 y 7', 'Entre Casas<br>2 y 8', 'Entre Casas<br>3 y 9', 'Entre Casas<br>4 y 10', 'Entre Casas<br>5 y 11', 'Entre Casas<br>6 y 12', 'Entre Casas<br>1 y 7', 'Entre Casas<br>2 y 8', 'Entre Casas<br>3 y 9', 'Entre Casas<br>4 y 10', 'Entre Casas<br>5 y 11', 'Entre Casas<br>6 y 12']
     //    onAHousesActivatedChanged: {
@@ -230,6 +231,7 @@ Item {
                         color: !isExt?zm.houseLineColor:zm.houseLineColorBack//apps.fontColor
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.bottom: parent.top
+                        anchors.bottomMargin: r.cardLabelMargin
                         visible: item.ih===1
                         Rectangle{
                             width: parent.width+app.fs*0.2
@@ -250,6 +252,7 @@ Item {
                         color: !isExt?zm.houseLineColor:zm.houseLineColorBack//apps.fontColor
                         anchors.right: parent.right
                         anchors.top: parent.bottom
+                        anchors.topMargin: r.cardLabelMargin
                         visible: item.ih===1
                         Rectangle{
                             width: parent.width+app.fs*0.2
@@ -270,6 +273,7 @@ Item {
                         color: !isExt?zm.houseLineColor:zm.houseLineColorBack//apps.fontColor
                         anchors.right: parent.right
                         anchors.top: tAsc1.bottom
+                        anchors.topMargin: r.cardLabelMargin
                         visible: item.ih===1
                         Rectangle{
                             width: parent.width+app.fs*0.2
@@ -289,6 +293,7 @@ Item {
                         color: !isExt?zm.houseLineColor:zm.houseLineColorBack//apps.fontColor
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.bottom: parent.top
+                        anchors.bottomMargin: r.cardLabelMargin
                         visible: item.ih===7
                         Rectangle{
                             width: parent.width+app.fs*0.2
@@ -309,6 +314,7 @@ Item {
                         color: !isExt?zm.houseLineColor:zm.houseLineColorBack//apps.fontColor
                         anchors.left: parent.left
                         anchors.top: parent.bottom
+                        anchors.topMargin: r.cardLabelMargin
                         visible: item.ih===7
                         Rectangle{
                             width: parent.width+app.fs*0.2
@@ -329,6 +335,7 @@ Item {
                         color: !isExt?zm.houseLineColor:zm.houseLineColorBack//apps.fontColor
                         anchors.left: parent.left
                         anchors.top: tDesc1.bottom
+                        anchors.topMargin: r.cardLabelMargin
                         horizontalAlignment: Text.AlignRight
                         visible: item.ih===7
                         Rectangle{
@@ -380,6 +387,7 @@ Item {
                         }
                         Column{
                             id: col101
+                            spacing: app.fs*0.25
                             anchors.centerIn: parent
                             Text{
                                 id: tFc1

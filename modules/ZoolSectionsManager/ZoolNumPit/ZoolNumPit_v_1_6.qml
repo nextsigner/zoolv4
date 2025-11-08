@@ -933,7 +933,7 @@ Rectangle {
                                     url=apps.urlBack
                                 }
                                 if(u.folderExist('/home/ns')){
-                                    if(!p.exts)zpn.log('2 no existe exts!')
+                                    if(!j.exts)zpn.log('2 no existe exts!')
                                 }
                                 zfdm.updateParams(j, true, url)
                             }
@@ -1776,9 +1776,9 @@ Rectangle {
         r.currentNumNombreInt=vtv
         //r.logView.l('st2:'+st2+' vtc: '+vtc)
         if(r.currentNumNombreExtM===-1){
-            dataExt+=getDataNum(st2, vtc)
+            //dataExt+=getDataNum(st2, vtc)
         }else{
-            dataExt+=getDataNum('extm', r.currentNumNombreExtM)
+            //dataExt+=getDataNum('extm', r.currentNumNombreExtM)
         }
         r.currentNumNombreExt=vtc
         let nunNombre=r.currentNumNombreInt+r.currentNumNombreExt

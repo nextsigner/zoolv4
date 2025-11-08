@@ -9,7 +9,7 @@ Item{
     property var jaExt: ({})
 
     onJaChanged: {
-        log.lv('onJaChanged: '+JSON.stringify(ja, null, 2))
+        //log.lv('onJaChanged: '+JSON.stringify(ja, null, 2))
     }
 
     //Retorna string con el contenido del archivo actual

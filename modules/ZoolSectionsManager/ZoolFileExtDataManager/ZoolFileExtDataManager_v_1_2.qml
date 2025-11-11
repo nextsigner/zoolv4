@@ -332,6 +332,9 @@ Rectangle {
 
                             zoolDataView.setDataView(strSep, aL, aR)
 
+                            if(t!=='dirprim'){
+                                zm.dirPrimRot=0
+                            }
                             if(t==='dirprim'||t==='trans'){
                                 //                                let vDirPrimA=j.dirprimA
                                 //                                let vDirPrimM=j.dirprimM

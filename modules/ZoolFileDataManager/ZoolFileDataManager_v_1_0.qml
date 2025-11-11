@@ -217,6 +217,8 @@ Item{
             json.exts.push(p)
         }
         u.setFile(apps.url, JSON.stringify(json, null, 2))
+        let panel=zsm.getPanel('ZoolFileExtDataManager')
+        panel.updateList()
     }
     function getParamExt(p,i){
         return r.ja.exts[i][''+p]

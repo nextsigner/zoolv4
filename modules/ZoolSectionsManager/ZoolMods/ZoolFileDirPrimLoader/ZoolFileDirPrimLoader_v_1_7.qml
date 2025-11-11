@@ -984,6 +984,9 @@ Rectangle {
     function getCurrentDate(){
         return controlTimeFechaEvento.currentDate
     }
+    function getCurrentGmt(){
+        return controlTimeFechaEvento.gmt
+    }
     //-->Funciones de Control Focus y Teclado
     property bool hasUnUsedFunction: true
     function unUsed(){

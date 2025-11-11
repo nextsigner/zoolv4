@@ -14,14 +14,26 @@ ZoolMenus{
     //property bool isBack: false
 
 
-    Action {text: qsTr("Guardar "+r.stringMiddleSep); onTriggered: {
+    Action {
+        text: qsTr("Guardar "+r.stringMiddleSep)
+        onTriggered: {
             let sp=zm.fileDataBack
             let p=JSON.parse(sp)
             let nd=new Date(Date.now())
             p.params.ms=nd.getTime()
             //log.lv('app.t: '+app.t)
             if(app.t==='dirprim'){
+                p.params.t='dirprim'
                 p.params.dirPrimRot=zm.dirPrimRot
+                let panel=zsm.getPanel('ZoolMods')
+                let section=panel.getSection('ZoolFileDirPrimLoader')
+                p.params.a=section.getCurrentDate().getFullYear()
+                p.params.m=section.getCurrentDate().getMonth()+1
+                p.params.d=section.getCurrentDate().getDate()
+                p.params.h=section.getCurrentDate().getHours()
+                p.params.min=section.getCurrentDate().getMinutes()
+                p.params.gmt=section.getCurrentGmt()
+                p.params.n+=' '+p.params.d+'.'+p.params.m+'.'+p.params.a+' '+p.params.h+'.'+p.params.min
             }
             zfdm.addExtDataAndSave(p)
         }
@@ -170,7 +182,16 @@ ZoolMenus{
                 }
                 //log.lv('app.t: '+app.t)
                 if(app.t==='dirprim'){
+                    p.params.t='dirprim'
                     p.params.dirPrimRot=zm.dirPrimRot
+                    let panel=zsm.getPanel('ZoolMods')
+                    let section=panel.getSection('ZoolFileDirPrimLoader')
+                    p.params.a=section.getCurrentDate().getFullYear()
+                    p.params.m=section.getCurrentDate().getMonth()+1
+                    p.params.d=section.getCurrentDate().getDate()
+                    p.params.h=section.getCurrentDate().getHours()
+                    p.params.min=section.getCurrentDate().getMinutes()
+                    p.params.gmt=section.getCurrentGmt()
                 }
                 zfdm.addExtDataAndSave(p)
                 zm.fileDataBack=JSON.stringify(p, null, 2)

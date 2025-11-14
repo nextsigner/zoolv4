@@ -334,6 +334,7 @@ Rectangle {
 
                             if(t!=='dirprim'){
                                 zm.dirPrimRot=0
+
                             }
                             if(t==='dirprim'||t==='trans'){
                                 //                                let vDirPrimA=j.dirprimA
@@ -352,11 +353,13 @@ Rectangle {
                                 let section
                                 let stringSectionTypeName=''
                                 if(t==='dirprim'){
+                                    zm.unloadExt('dirprim')
                                     stringSectionTypeName='ZoolFileDirPrimLoader'
                                     section=panel.getSection(stringSectionTypeName)
                                     panel.showSection(stringSectionTypeName)
                                     section.moduleEnabled=true
                                     section.setCurrentDateInitAndEvento(zm.currentDate, dateEvento)
+                                    //section.cloneIntToBackAndRot(0)
                                 }
                                 if(t==='trans'){
                                     stringSectionTypeName='ZoolFileTransLoader'
@@ -366,6 +369,8 @@ Rectangle {
                                 }
                             }else{
                                 if(apps.dev)log.lv('ZoolFileExtDataManager Boton Cargar... gmt: '+gmt)
+                                //zpn.log('Cargando: '+JSON.stringify(j, null, 2))
+                                zm.loadBackFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, strEdad, 'rs', hsys, -1, aR)
                                 //app.j.loadBack(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, strEdad, t, hsys,ms, aR)
                             }
                         }

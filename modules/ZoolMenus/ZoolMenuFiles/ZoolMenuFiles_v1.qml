@@ -50,7 +50,7 @@ ZoolMenus{
         text: qsTr("Rec
 argar archivo interior")
         onTriggered: {
-            zm.unloadExt()
+            zm.unloadExt(app.t)
         }
     }
     Action {

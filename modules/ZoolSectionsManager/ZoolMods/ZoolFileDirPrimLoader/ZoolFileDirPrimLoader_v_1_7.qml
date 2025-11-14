@@ -149,6 +149,9 @@ Rectangle {
                     setAppTime: false
                     enableGMT:false
                     visible: false
+                    onCurrentDateChanged:{
+                        //if(u.folderExist('/home/ns'))zpn.log('Zool File Dir Prim Loader.currentDate: '+getCurrentDate().toString())
+                    }
                 }
 
 
@@ -980,6 +983,12 @@ Rectangle {
             controlTimeFechaEvento.currentDate=zm.currentDate
             return
         }
+    }
+    function getCurrentDateInit(){
+        return controlTimeFecha.currentDate
+    }
+    function setCurrentDateInit(date){
+        controlTimeFecha.currentDate=date
     }
     function getCurrentDate(){
         return controlTimeFechaEvento.currentDate

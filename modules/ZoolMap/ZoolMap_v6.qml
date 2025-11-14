@@ -357,10 +357,16 @@ Rectangle{
     //        tReloadBack.restart()
     //    }
     onDirPrimRotChanged: {
-        if(app.t==='dirprim'){
+        planetsCircleBack.rotation=planetsCircle.rotation-dirPrimRot
+        housesCircleBack.rotation=360-dirPrimRot
+        /*if(app.t==='dirprim'){
             planetsCircleBack.rotation=planetsCircle.rotation-dirPrimRot
             housesCircleBack.rotation=360-dirPrimRot
         }
+        if(dirPrimRot===0){
+            //planetsCircleBack.rotation=0-signCircle.rot//planetsCircle.rotation
+            //housesCircleBack.rotation=0//360-signCircle.rot
+        }*/
     }
     onEnableAnZoomAndPosChanged: {
         tEnableAnZoomAndPos.restart()
@@ -1280,6 +1286,7 @@ Rectangle{
         r.fileDataBack=JSON.stringify(j)
     }
     function loadBackFromArgs(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, edad, tipo, hsys, ms, vAtRigth) {
+        r.dirPrimRot=0
         if(!r.lockEv){
             r.ev=false
         }
@@ -1357,6 +1364,7 @@ Rectangle{
         r.lockEv=false
     }
     function loadSweJson(json){
+        r.dirPrimRot=0
         //console.log('JSON::: '+json)
         //log.visible=true
         //log.l(JSON.stringify(json))
@@ -1457,6 +1465,7 @@ Rectangle{
         zm.updateGui()
     }
     function loadSweJsonBack(json){
+        zm.dirPrimRot=0
         if(!app.t==='dirprim' || !app.t==='progsec' || r.safeTapa){
             tapa.visible=true
             tapa.opacity=1.0
@@ -1474,6 +1483,12 @@ Rectangle{
         let scorrJson=json.replace(/\n/g, '')
         //console.log('json: '+json)
         let j=JSON.parse(scorrJson)
+        if(app.t==='rs'){
+            //zpn.log('Cargando Revolución Solar: zm.dirPrimRot:'+zm.dirPrimRot)
+        }else{
+            //zpn.log('NO Cargando Revolución Solar: zm.dirPrimRot:'+zm.dirPrimRot)
+        }
+        //zpn.log('2 Cargando: '+JSON.stringify(j, null, 2))
         //signCircle.rot=parseInt(j.ph.h1.gdec)
         //planetsCircleBack.rotation=parseFloat(j.ph.h1.gdec).toFixed(2)
         /*if(r.objectName==='sweg'){
@@ -1537,6 +1552,7 @@ Rectangle{
         zm.updateGui()
     }
     function loadFromFile(filePath, tipo, isBack){
+        r.dirPrimRot=0
         //zpn.log('loadFromFile( '+filePath+' )...')
         //if(isBack)zm.ev=true
         tapa.visible=true
@@ -1587,6 +1603,7 @@ Rectangle{
         //r.loadBackFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, ciudad, e, t, hsys, -1, aR)
     }
     function loadJsonFromFilePath(filePath, isExt){
+        r.dirPrimRot=0
         //zpn.log('loadJsonFromFilePath()...')
         let fileLoaded=zfdm.loadFile(filePath)
         let fileNameMat0=filePath.split('/')
@@ -1655,6 +1672,7 @@ Rectangle{
         zm.centerZoomAndPos()
     }
     function loadIntOrExt(fileName, isExt){
+        r.dirPrimRot=0
         let existe=u.fileExist(fileName)
         if(!existe)return
         r.lockEv=true
@@ -1759,6 +1777,7 @@ Rectangle{
         if(!isExt&&app.t!=='dirprim'&&app.t!=='progsec')zm.centerZoomAndPos()
     }
     function loadNow(isExt){
+        r.dirPrimRot=0
         let d=new Date(Date.now())
         let currentUserHours=d.getHours()
         let diffHours=d.getUTCHours()
@@ -1822,6 +1841,7 @@ Rectangle{
     }
     function loadFromArgs(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, data, tipo, isExt){
         //zpn.log('loadFromArgs()...')
+        r.dirPrimRot=0
         let dataMs=new Date(Date.now())
         let j='{"params":{"n":"Tránsitos", "t":"'+tipo+'","ms":'+dataMs.getTime()+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"alt":'+alt+',"c":"'+ciudad+'", "data": "'+data+'"}}'
         //log.lv('loadFromArgs(...): '+JSON.stringify(JSON.parse(j), null, 2))
@@ -1868,6 +1888,7 @@ Rectangle{
         //zm.ev=isExt
     }
     function loadFromJson(j, isExt, save){
+        r.dirPrimRot=0
         //zpn.log('loadFromJson()...')
         if(save){
             let mf=zfdm.mkFileAndLoad(JSON.parse(j))
@@ -2408,8 +2429,8 @@ Rectangle{
     //<--ZoomAndPan
 
     //-->Funciones Varias
-    function unloadExt(){
-        app.t='vn'
+    function unloadExt(t){
+        app.t=t
 
         zm.ev=false
         //aspsCircle.clear()
@@ -2424,7 +2445,7 @@ Rectangle{
         aspsCircleBack.opacity=0.0
         //aspsCircle.visible=false
         panelAspectsBack.opacity=0.0
-        loadFromFile(apps.url, 'vn', false)
+        loadFromFile(apps.url, t, false)
     }
     function resetGlobalVars(){
         if(!r.lockEv){

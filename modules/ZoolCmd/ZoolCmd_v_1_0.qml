@@ -619,7 +619,7 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
     }
     function saveJsonCmds(json){
         u.setFile(r.jsonFilePath, JSON.stringify(json))
-        if(u.folderExist('/home/ns'))zpn.log(JSON.stringify(json, null, 2))
+        //if(u.folderExist('/home/ns'))zpn.log(JSON.stringify(json, null, 2))
         //log.lv('saveJsonCmds(json) json: '+JSON.stringify(json, null, 2))
     }
     function getLastJsonCmd(){

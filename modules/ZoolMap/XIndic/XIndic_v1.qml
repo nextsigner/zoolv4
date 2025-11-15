@@ -29,6 +29,7 @@ Item{
         }
     }
     function setPosAndRot(gdec, w){
+        posAs.width=!r.isExt?zm.planetSizeInt:zm.planetSizeExt
         r.w=w
         ejeAs.rotation=gdec
     }

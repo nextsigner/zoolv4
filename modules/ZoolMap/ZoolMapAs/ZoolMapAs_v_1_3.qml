@@ -79,7 +79,11 @@ Item{
             if(!r.isBack){
                 zm.objXII.setPosAndRot(r.rotation, r.width)
             }else{
-                zm.objXIE.setPosAndRot(r.rotation, r.width)
+                let rot=r.rotation
+                if(app.t==='dirprim'){
+                    rot=rot-(360-zm.objHousesCircleBack.rotation)
+                }
+                zm.objXIE.setPosAndRot(rot, r.width)
             }
         }
     }
@@ -108,7 +112,11 @@ Item{
             if(!r.isBack){
                 zm.objXII.setPosAndRot(r.rotation, r.width)
             }else{
-                zm.objXIE.setPosAndRot(r.rotation, r.width)
+                let rot=r.rotation
+                if(app.t==='dirprim'){
+                    rot=rot-(360-zm.objHousesCircleBack.rotation)
+                }
+                zm.objXIE.setPosAndRot(rot, r.width)
             }
             //zm.setPos(r.mapToGlobal(0, 0).x, r.mapToGlobal(0, 0).y, zm.objSignsCircle.rotation)
 
@@ -536,7 +544,8 @@ Item{
             gdeg: objData.g
             mdeg: objData.m
             rsgdeg:objData.gdec-(30*is)
-            ih:objData.ih
+            ih: objData.ih
+            ihExt: objData.ihExt
             //expand: r.selected
             iconoSignRot: bodie.objImg.rotation+90
             p: r.numAstro

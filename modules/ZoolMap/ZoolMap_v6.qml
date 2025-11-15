@@ -359,6 +359,7 @@ Rectangle{
     onDirPrimRotChanged: {
         planetsCircleBack.rotation=planetsCircle.rotation-dirPrimRot
         housesCircleBack.rotation=360-dirPrimRot
+        zm.objPlanetsCircleBack.setAsOffSetData()
         /*if(app.t==='dirprim'){
             planetsCircleBack.rotation=planetsCircle.rotation-dirPrimRot
             housesCircleBack.rotation=360-dirPrimRot
@@ -2549,6 +2550,67 @@ Rectangle{
         }
         return index
     }
+    /**
+     * @fileoverview Funciones de utilidad para cálculos astrológicos en QML.
+     * * NOTA: Para usar esto en QML, puedes definir un componente como:
+     * import "astrology_utils.js" as Astrologia
+     * Y luego llamar a la función: Astrologia.obtenerCasaAstrologica(miGrado)
+     */
+
+
+
+    function getJsonPhToArray(jsonPh){
+        let a=[]
+        for(var i=1;i<13;i++){
+            a.push(jsonPh['h'+i].gdec)
+        }
+        return a
+    }
+    function getHouseIndexFromArrayDegs(planetDegree, cusps_degrees) {
+        const numCusps = cusps_degrees.length;
+
+        // Aseguramos que el grado esté normalizado en el rango [0, 360)
+        let degree = planetDegree % 360;
+        if (degree < 0) {
+            degree += 360;
+        }
+
+        // Iteramos a través de las 12 casas (el índice i representa la Casa i+1)
+        for (let i = 0; i < numCusps; i++) {
+            // La cúspide de inicio de la casa actual (Casa i+1)
+            const startCusp = cusps_degrees[i];
+
+            // La cúspide de fin de la casa actual, que es la cúspide de la siguiente casa (C i+2).
+            // Usamos el operador % para envolver de C12 a C1.
+            const endCusp = cusps_degrees[(i + 1) % numCusps];
+
+            // La casa actual es el rango [startCusp, endCusp)
+
+            if (startCusp <= endCusp) {
+                // Caso 1: Rango normal que no cruza el punto 0/360.
+                // Ej: C3 (19.74°) a C4 (52.47°)
+                if (degree >= startCusp && degree < endCusp) {
+                    return i;
+                }
+            } else {
+                // Caso 2: Rango que cruza el punto 0/360 (envoltura).
+                // Ej: C2 (351.03°) a C3 (19.74°).
+                // Esto incluye grados mayores que C2 O menores que C3.
+                if (degree >= startCusp || degree < endCusp) {
+                    return i;
+                }
+            }
+        }
+
+        // En teoría, este código nunca debería ser alcanzado si las cúspides cubren 360 grados.
+        // Devolvemos 0 como un valor predeterminado para el índice de la Casa 1.
+        return 0;
+    }
+
+    // Hacemos la función y el array de cúspides accesibles desde QML.
+    // En QML, puedes importar este archivo y acceder a las funciones y variables exportadas.
+    //var obtenerCasaAstrologica = obtenerCasaAstrologica;
+    //var CUSPS_DEGREES = CUSPS_DEGREES;
     function getSignOfDeg(deg){
         let is=-1
         if(deg===1 || deg===13 || deg===25)is=0//Aries

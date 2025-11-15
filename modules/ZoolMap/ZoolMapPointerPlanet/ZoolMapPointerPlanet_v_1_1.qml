@@ -7,7 +7,7 @@ Item {
     height: width
     anchors.centerIn: parent
     z:r.parent.z-1
-    rotation: 0-signCircle.rotation
+    rotation: 0-signCircle.rotation-(!r.isExt?0:(360-zm.objHousesCircleBack.rotation))
     property string folderImg: '../../../modules/ZoolMap/imgs/imgs_v1'
     property int iconoSignRot: 0
     property int is: -1
@@ -16,6 +16,7 @@ Item {
     property int sdeg: -1
     property int rsgdeg: -1
     property int ih: -1
+    property int ihExt: -2
     property int wtc: (zm.fs*0.5)/(zm.xs*0.5) //width of each circle de triple circle
     property int p: -1
     property alias pointerRot: eje.rotation
@@ -187,6 +188,48 @@ Item {
                                 text: '<b>'+r.ih+'</b>'
                                 color: zm.pointerBgColor
                                 anchors.centerIn: parent
+                            }
+                        }
+                        Rectangle{
+                            width: r.pointerFs
+                            height: width
+                            radius: width*0.5
+                            color: zm.pointerBgColor
+                            border.width: 2
+                            border.color: zm.pointerFontColor
+                            anchors.verticalCenter: parent.verticalCenter
+                            visible: app.t==='dirprim' && r.isExt
+                            Image {
+                                id: img2DirPrim
+                                source: "../../../imgs/casa.svg"
+                                width: parent.width*0.8
+                                height: width
+                                rotation: r.iconoSignRot + 180 - r.rotation
+                                antialiasing: true
+                                visible: false
+                                anchors.centerIn: parent
+                            }
+                            ColorOverlay {
+                                id: co2DirPrim
+                                anchors.fill: img2DirPrim
+                                source: img2DirPrim
+                                color: zm.pointerFontColor
+                                //rotation: img1.rotation
+                                antialiasing: true
+                            }
+                            Text{
+                                font.pixelSize: r.ihExt<=9?parent.width*0.6:parent.width*0.4
+                                text: '<b>'+r.ihExt+'</b>'
+                                color: zm.pointerBgColor
+                                anchors.centerIn: parent
+                            }
+                            Text{
+                                font.pixelSize: parent.width*0.2
+                                text: app.t==='dirprim'?'Dir.Prim':'Ext.'
+                                color: apps.fontColor
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                anchors.top: parent.bottom
+                                //anchors.centerIn: parent
                             }
                         }
                     }

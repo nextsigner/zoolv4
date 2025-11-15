@@ -486,130 +486,157 @@ Item{
         //zpn.log('objetosActualizados: '+JSON.stringify(objetosActualizados, null, 2))
     }
     function actualizarPosicionCircular(aObjects, rango) {
-      // Asegurarse de que el rango sea un número positivo
-      const rangoAbsoluto = Math.abs(rango);
+        // Asegurarse de que el rango sea un número positivo
+        const rangoAbsoluto = Math.abs(rango);
 
-      // Iterar sobre cada objeto para compararlo con todos los demás
-      for (let i = 0; i < aObjects.length; i++) {
-        const objetoActual = aObjects[i];
+        // Iterar sobre cada objeto para compararlo con todos los demás
+        for (let i = 0; i < aObjects.length; i++) {
+            const objetoActual = aObjects[i];
 
-        // Iterar sobre cada objeto para la comparación
-        for (let j = 0; j < aObjects.length; j++) {
-          // Evitar comparar un objeto consigo mismo
-          if (i === j) {
-            continue;
-          }
+            // Iterar sobre cada objeto para la comparación
+            for (let j = 0; j < aObjects.length; j++) {
+                // Evitar comparar un objeto consigo mismo
+                if (i === j) {
+                    continue;
+                }
 
-          const objetoComparado = aObjects[j];
-          const gradosActual = objetoActual.grados;
-          const gradosComparado = objetoComparado.grados;
+                const objetoComparado = aObjects[j];
+                const gradosActual = objetoActual.grados;
+                const gradosComparado = objetoComparado.grados;
 
-          // Calcular la diferencia de grados. Esto es lo que resuelve el problema del círculo
-          let diferencia = Math.abs(gradosActual - gradosComparado);
+                // Calcular la diferencia de grados. Esto es lo que resuelve el problema del círculo
+                let diferencia = Math.abs(gradosActual - gradosComparado);
 
-          // Usar el módulo para manejar la "vuelta" del círculo (ej. 355° y 5°)
-          diferencia = Math.min(diferencia, 360 - diferencia);
+                // Usar el módulo para manejar la "vuelta" del círculo (ej. 355° y 5°)
+                diferencia = Math.min(diferencia, 360 - diferencia);
 
-          // Si la diferencia está dentro del rango, incrementamos la posición
-          if (diferencia <= rangoAbsoluto) {
-            objetoComparado.pos++;
-          }
+                // Si la diferencia está dentro del rango, incrementamos la posición
+                if (diferencia <= rangoAbsoluto) {
+                    objetoComparado.pos++;
+                }
+            }
         }
-      }
-      return aObjects;
+        return aObjects;
     }
     function organizarObjetosCirculares(aGrados, margen) {
-      let objetos = [];
+        let objetos = [];
 
-      // Función para normalizar grados entre 0 y 360
-      const normalizarGrado = (grado) => {
-        return (grado % 360 + 360) % 360;
-      };
+        // Función para normalizar grados entre 0 y 360
+        const normalizarGrado = (grado) => {
+            return (grado % 360 + 360) % 360;
+        };
 
-      // Iterar sobre cada grado para crear y posicionar un objeto
-      aGrados.forEach((gradoActual, index) => {
-        let posicion = 1;
-        let gradoNormalizadoActual = normalizarGrado(gradoActual);
+        // Iterar sobre cada grado para crear y posicionar un objeto
+        aGrados.forEach((gradoActual, index) => {
+                            let posicion = 1;
+                            let gradoNormalizadoActual = normalizarGrado(gradoActual);
 
-        // Encontrar objetos existentes que colisionan con el grado actual
-        const objetosEnRango = objetos.filter(obj => {
-          const gradoExistenteNormalizado = normalizarGrado(obj.grado);
-          const rangoInferior = normalizarGrado(gradoNormalizadoActual - margen);
-          const rangoSuperior = normalizarGrado(gradoNormalizadoActual + margen);
+                            // Encontrar objetos existentes que colisionan con el grado actual
+                            const objetosEnRango = objetos.filter(obj => {
+                                                                      const gradoExistenteNormalizado = normalizarGrado(obj.grado);
+                                                                      const rangoInferior = normalizarGrado(gradoNormalizadoActual - margen);
+                                                                      const rangoSuperior = normalizarGrado(gradoNormalizadoActual + margen);
 
-          if (rangoInferior > rangoSuperior) {
-            // Manejar el cruce de 360°/0°
-            return (gradoExistenteNormalizado >= rangoInferior || gradoExistenteNormalizado <= rangoSuperior);
-          } else {
-            return (gradoExistenteNormalizado >= rangoInferior && gradoExistenteNormalizado <= rangoSuperior);
-          }
-        }).sort((a, b) => a.posicion - b.posicion); // Ordenar por posición para asignar la siguiente disponible
+                                                                      if (rangoInferior > rangoSuperior) {
+                                                                          // Manejar el cruce de 360°/0°
+                                                                          return (gradoExistenteNormalizado >= rangoInferior || gradoExistenteNormalizado <= rangoSuperior);
+                                                                      } else {
+                                                                          return (gradoExistenteNormalizado >= rangoInferior && gradoExistenteNormalizado <= rangoSuperior);
+                                                                      }
+                                                                  }).sort((a, b) => a.posicion - b.posicion); // Ordenar por posición para asignar la siguiente disponible
 
-        // Si hay colisiones, asignar la siguiente posición
-        if (objetosEnRango.length > 0) {
-          posicion = objetosEnRango[objetosEnRango.length - 1].posicion + 1;
-          // Asegurarse de que no se salte ninguna posición
-          while (objetosEnRango.some(obj => obj.posicion === posicion)) {
-            posicion++;
-          }
-        }
+                            // Si hay colisiones, asignar la siguiente posición
+                            if (objetosEnRango.length > 0) {
+                                posicion = objetosEnRango[objetosEnRango.length - 1].posicion + 1;
+                                // Asegurarse de que no se salte ninguna posición
+                                while (objetosEnRango.some(obj => obj.posicion === posicion)) {
+                                    posicion++;
+                                }
+                            }
 
-        // Agregar el nuevo objeto al array
-        objetos.push({
-          id: index + 1, // Puedes usar el índice como un ID
-          grado: gradoActual,
-          posicion: posicion
-        });
-      });
+                            // Agregar el nuevo objeto al array
+                            objetos.push({
+                                             id: index + 1, // Puedes usar el índice como un ID
+                                             grado: gradoActual,
+                                             posicion: posicion
+                                         });
+                        });
 
-      return objetos;
+        return objetos;
     }
+
+    function setAsOffSetData(){
+        let json=zm.currentJson
+        let jo
+        let o
+        for(var i=0;i<zm.aBodies.length;i++){
+            var objAs=r.children[i]
+            let nuevoGrado=objAs.objData.gdec+zm.dirPrimRot
+            if(nuevoGrado>360||nuevoGrado<0){
+                nuevoGrado=360-nuevoGrado
+            }
+            let aDMS=app.j.deg_to_dms(nuevoGrado)
+            let asObjData=objAs.objData
+            objAs.is=zm.getIndexSign(nuevoGrado)
+            asObjData.gdec=nuevoGrado
+            asObjData.is=zm.getIndexSign(nuevoGrado)
+            asObjData.ns=objSignsNames.indexOf(asObjData.is)
+            asObjData.ih=zm.getHouseIndexFromArrayDegs(objAs.objData.gdec, zm.getJsonPhToArray(zm.currentJson.ph))
+            asObjData.ihExt=zm.getHouseIndexFromArrayDegs(nuevoGrado-zm.objSignsCircle.rot, zm.getJsonPhToArray(zm.currentJson.ph))
+            asObjData.rsg=nuevoGrado-(30*objAs.is)
+            asObjData.g=aDMS[0]
+            asObjData.m=aDMS[1]
+            asObjData.s=aDMS[2]
+            objAs.objData=asObjData
+        }
+    }
+
 
 
     function hayAlgoAhi(startDegree, secondStartDegree){
-      const margen=10.00
+        const margen=10.00
         // Normalize degrees to be within the 0-360 range
-      const normalize = (deg) => ((deg % 360) + 360) % 360;
+        const normalize = (deg) => ((deg % 360) + 360) % 360;
 
-      const normalizedStart = normalize(startDegree);
-      const normalizedSecondStart = normalize(secondStartDegree);
+        const normalizedStart = normalize(startDegree);
+        const normalizedSecondStart = normalize(secondStartDegree);
 
-      // Define the arcs
-      const endDegree = normalize(normalizedStart + margen);
-      const secondEndDegree = normalize(normalizedSecondStart + margen);
+        // Define the arcs
+        const endDegree = normalize(normalizedStart + margen);
+        const secondEndDegree = normalize(normalizedSecondStart + margen);
 
-      // Check for overlap, handling the wrap-around case (end < start)
-      const isOverlapping = (start1, end1, start2, end2) => {
-        // Standard overlap check
-        if (end1 >= start1 && end2 >= start2) {
-          return (
-            (start1 >= start2 && start1 <= end2) ||
-            (end1 >= start2 && end1 <= end2) ||
-            (start2 >= start1 && start2 <= end1) ||
-            (end2 >= start1 && end2 <= end1)
-          );
-        }
+        // Check for overlap, handling the wrap-around case (end < start)
+        const isOverlapping = (start1, end1, start2, end2) => {
+            // Standard overlap check
+            if (end1 >= start1 && end2 >= start2) {
+                return (
+                    (start1 >= start2 && start1 <= end2) ||
+                    (end1 >= start2 && end1 <= end2) ||
+                    (start2 >= start1 && start2 <= end1) ||
+                    (end2 >= start1 && end2 <= end1)
+                    );
+            }
 
-        // Overlap where the first arc wraps around (end1 < start1)
-        if (end1 < start1) {
-          return (
-            (start2 >= start1 || end2 <= end1) || // Second arc spans the wrap-around
-            (start2 >= start1 && start2 <= 360) || // Second arc starts in the first part
-            (end2 >= 0 && end2 <= end1) // Second arc ends in the second part
-          );
-        }
+            // Overlap where the first arc wraps around (end1 < start1)
+            if (end1 < start1) {
+                return (
+                    (start2 >= start1 || end2 <= end1) || // Second arc spans the wrap-around
+                    (start2 >= start1 && start2 <= 360) || // Second arc starts in the first part
+                    (end2 >= 0 && end2 <= end1) // Second arc ends in the second part
+                    );
+            }
 
-        // Overlap where the second arc wraps around (end2 < start2)
-        if (end2 < start2) {
-            return (
-                (start1 >= start2 || end1 <= end2) || // First arc spans the wrap-around
-                (start1 >= start2 && start1 <= 360) || // First arc starts in the first part
-                (end1 >= 0 && end1 <= end2) // First arc ends in the second part
-              );
-        }
-      };
+            // Overlap where the second arc wraps around (end2 < start2)
+            if (end2 < start2) {
+                return (
+                    (start1 >= start2 || end1 <= end2) || // First arc spans the wrap-around
+                    (start1 >= start2 && start1 <= 360) || // First arc starts in the first part
+                    (end1 >= 0 && end1 <= end2) // First arc ends in the second part
+                    );
+            }
+        };
 
-      return isOverlapping(normalizedStart, endDegree, normalizedSecondStart, secondEndDegree);
+        return isOverlapping(normalizedStart, endDegree, normalizedSecondStart, secondEndDegree);
     }
     function ordenarPosiciones(){
         let aGdecs

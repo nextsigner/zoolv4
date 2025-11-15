@@ -928,11 +928,16 @@ Rectangle {
             if(ngdec>360.00)ngdec=360.00-ngdec
             sExt+=zm.aBodies[zm.listCotasShowingBack[i]]+' en '+app.signos[nis]+'<br>Casa '+nih+'\n°'+parseInt(zm.getDDToDMS(ngdec).deg - (30*nis))+' \''+zm.getDDToDMS(ngdec).min+' \'\''+zm.getDDToDMS(ngdec).sec+'<br>'
         }
+
+        /*
+        //-->Debug.
         zm.objAsInfoView.fs=app.fs*0.5
         let sf='<b>Fecha:</b> '+controlTimeFechaEvento.currentDate.toString()+'<br><br>'
         if(sInt!=='')sf+='<b>Interior:</b><br>'+sInt+'<br>'
         if(sExt!=='')sf+='<b>Exterior:</b><br>'+sExt+'<br>'
         zm.objAsInfoView.text=sf
+        //<--Debug.
+        */
     }
 
     //-->Teclado

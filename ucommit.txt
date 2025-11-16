@@ -1,1 +1,1 @@
-i7: Se crea función ZoolDataBodiesItem.loadJsonFromDirPrim(json)
+i7: Se crea v5.11.16.0

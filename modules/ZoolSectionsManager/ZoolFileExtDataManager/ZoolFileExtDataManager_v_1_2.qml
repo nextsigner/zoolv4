@@ -599,6 +599,9 @@ Rectangle {
             }
         }
     }
+    function clear(){
+        lm.clear()
+    }
     function enter(){
         //app.j.loadJson(r.currentFile)
         zm.loadJsonFromFilePath(r.currentFile, false)

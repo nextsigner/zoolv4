@@ -1178,6 +1178,11 @@ Rectangle{
 
     //-->Load Data
     function load(j){
+        //let panelMods=zsm.getPanel('ZoolMods')
+        //let sectionZFEM=panelMods.getSection('ZoolFileExtDataManager')
+        //sectionZFEM.clear()
+        let panelZFEM=zsm.getPanel('ZoolFileExtDataManager')
+        panelZFEM.clear()
         if(r.loadingJsonInt)return
         //console.log('Ejecutando ZoolMap.load()...')
         r.dirPrimRot=0

@@ -383,4 +383,122 @@ Column{
 
         //if(app.t!=='rs'&&app.t!=='pl')r.state='show'
     }
+    function loadJsonFromDirPrim(json){
+        numAn1.duration=1
+        r.opacity=0.0
+        lm.clear()
+        let jo
+        let o
+        var ih
+        let nuevoGrado
+        let aDMS
+        for(var i=0;i<20;i++){
+            //stringIndex='&index='+i
+            jo=json.pc['c'+i]
+            nuevoGrado=jo.gdec+zm.dirPrimRot
+            if(nuevoGrado>360||nuevoGrado<0){
+                nuevoGrado=360-nuevoGrado
+            }
+            jo.is=zm.getIndexSign(nuevoGrado)
+            ih=zm.getHouseIndexFromArrayDegs(nuevoGrado-zm.objSignsCircle.rot, zm.getJsonPhToArray(zm.currentJson.ph))
+            jo.rsg=nuevoGrado-(30*jo.is)
+            aDMS=app.j.deg_to_dms(nuevoGrado)
+            jo.g=aDMS[0]
+            jo.m=aDMS[1]
+            jo.s=aDMS[2]
+
+            var s = '<b>'+jo.nom+'</b> en <b>'+app.signos[jo.is]+'</b> @ <b>Grado:</b>°' +parseInt(jo.rsgdeg)+ '\'' +parseInt(jo.mdeg)+ '\'\'' +parseInt(jo.sdeg)+ ' <b>Casa:</b> ' +ih
+            if(jo.retro===0&&i!==10&&i!==11)s+=' <b>R</b>'
+            //console.log('--->'+s)
+            lm.append(lm.addItem(jo.is, ih, jo.rsgdeg, jo.mdeg, jo.sdeg, s))
+
+
+            //            if(i===0){
+            //                houseSun=ih
+            //            }
+        }
+
+        //Ascendente
+        let o1=json.ph['h1']
+        nuevoGrado=o1.gdec+zm.dirPrimRot
+        if(nuevoGrado>360||nuevoGrado<0){
+            nuevoGrado=360-nuevoGrado
+        }
+        o1.is=zm.getIndexSign(nuevoGrado)
+        o1.ih=zm.getHouseIndexFromArrayDegs(nuevoGrado-zm.objSignsCircle.rot, zm.getJsonPhToArray(zm.currentJson.ph))
+        aDMS=app.j.deg_to_dms(nuevoGrado)
+        o1.rsgdeg=aDMS[0]
+        o1.mdeg=aDMS[1]
+        o1.sdeg=aDMS[2]
+        s = '<b>Ascendente</b> en <b>'+app.signos[o1.is]+'</b> @ <b>Grado:</b>°' +o1.rsgdeg+ '\'' +o1.mdeg+ '\'\'' +o1.sdeg+ ' <b>Casa:</b> 1'
+        lm.append(lm.addItem(o1.is, 1, o1.rsgdeg, o1.mdeg, o1.sdeg,  s))
+
+        //Fondo Cielo
+        o1=json.ph['h4']
+        nuevoGrado=o1.gdec+zm.dirPrimRot
+        if(nuevoGrado>360||nuevoGrado<0){
+            nuevoGrado=360-nuevoGrado
+        }
+        o1.is=zm.getIndexSign(nuevoGrado)
+        o1.ih=zm.getHouseIndexFromArrayDegs(nuevoGrado-zm.objSignsCircle.rot, zm.getJsonPhToArray(zm.currentJson.ph))
+        aDMS=app.j.deg_to_dms(nuevoGrado)
+        o1.rsgdeg=aDMS[0]
+        o1.mdeg=aDMS[1]
+        o1.sdeg=aDMS[2]
+        s = '<b>Fondo Cielo</b> en <b>'+app.signos[o1.is]+'</b> @ <b>Grado:</b>°' +o1.rsgdeg+ '\'' +o1.mdeg+ '\'\'' +o1.sdeg+ ' <b>Casa:</b> 4'
+        lm.append(lm.addItem(o1.is, 4, o1.rsgdeg, o1.mdeg, o1.sdeg, s))
+
+        //Descendente
+        o1=json.ph['h7']
+        nuevoGrado=o1.gdec+zm.dirPrimRot
+        if(nuevoGrado>360||nuevoGrado<0){
+            nuevoGrado=360-nuevoGrado
+        }
+        o1.is=zm.getIndexSign(nuevoGrado)
+        o1.ih=zm.getHouseIndexFromArrayDegs(nuevoGrado-zm.objSignsCircle.rot, zm.getJsonPhToArray(zm.currentJson.ph))
+        aDMS=app.j.deg_to_dms(nuevoGrado)
+        o1.rsgdeg=aDMS[0]
+        o1.mdeg=aDMS[1]
+        o1.sdeg=aDMS[2]
+        s = '<b>Descendente</b> en <b>'+app.signos[o1.is]+'</b> @ <b>Grado:</b>°' +o1.rsgdeg+ '\'' +o1.mdeg+ '\'\'' +o1.sdeg+ ' <b>Casa:</b> 7'
+        lm.append(lm.addItem(o1.is, 7, o1.rsgdeg, o1.mdeg, o1.sdeg, s))
+
+        //Medio Cielo
+        o1=json.ph['h10']
+        nuevoGrado=o1.gdec+zm.dirPrimRot
+        if(nuevoGrado>360||nuevoGrado<0){
+            nuevoGrado=360-nuevoGrado
+        }
+        o1.is=zm.getIndexSign(nuevoGrado)
+        o1.ih=zm.getHouseIndexFromArrayDegs(nuevoGrado-zm.objSignsCircle.rot, zm.getJsonPhToArray(zm.currentJson.ph))
+        aDMS=app.j.deg_to_dms(nuevoGrado)
+        o1.rsgdeg=aDMS[0]
+        o1.mdeg=aDMS[1]
+        o1.sdeg=aDMS[2]
+        s = '<b>Medio Cielo</b> en <b>'+app.signos[o1.is]+'</b> @ <b>Grado:</b>°' +o1.rsgdeg+ '\'' +o1.mdeg+ '\'\'' +o1.sdeg+ ' <b>Casa:</b> 10'
+        lm.append(lm.addItem(o1.is, 10, o1.rsgdeg, o1.mdeg, o1.sdeg, s))
+        //log.ls('o1.is: '+o1.is, 0, 500)
+
+        //Load Houses
+        for(i=1;i<13;i++){
+            jo=json.ph['h'+i]
+            //s = 'Casa '+i+' °' +jo.rsgdeg+ '\'' +jo.mdeg+ '\'\'' +jo.sdeg+ ' ' +app.signos[jo.is]
+            nuevoGrado=jo.gdec+zm.dirPrimRot
+            if(nuevoGrado>360||nuevoGrado<0){
+                nuevoGrado=360-nuevoGrado
+            }
+            jo.is=zm.getIndexSign(nuevoGrado)
+            jo.ih=zm.getHouseIndexFromArrayDegs(nuevoGrado-zm.objSignsCircle.rot, zm.getJsonPhToArray(zm.currentJson.ph))
+            aDMS=app.j.deg_to_dms(nuevoGrado)
+            jo.rsgdeg=aDMS[0]
+            jo.mdeg=aDMS[1]
+            jo.sdeg=aDMS[2]
+            s = '<b>Casa</b> '+i+' en <b>'+app.signos[jo.is]+'</b> @ <b>Grado:</b>°' +jo.rsgdeg+ '\'' +jo.mdeg+ '\'\'' +jo.sdeg+ ''
+            lm.append(lm.addItem(jo.is, i, jo.rsgdeg, jo.mdeg, jo.sdeg, s))
+            //lm2.append(lm2.addItem(jo.is, jo.ih, jo.rsgdeg, jo.mdeg, jo.sdeg, s))
+        }
+
+
+
+    }
 }

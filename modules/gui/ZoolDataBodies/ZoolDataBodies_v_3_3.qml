@@ -15,6 +15,7 @@ Rectangle {
     border.color: apps.fontColor
     //state: 'show'
     //property alias objZbsv: zbsv
+    property alias xbe: xBodiesExt
     property var uJson
     property int latFocus: 0
     property int currentIndex: -1

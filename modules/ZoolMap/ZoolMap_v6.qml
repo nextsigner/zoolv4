@@ -360,6 +360,7 @@ Rectangle{
         planetsCircleBack.rotation=planetsCircle.rotation-dirPrimRot
         housesCircleBack.rotation=360-dirPrimRot
         zm.objPlanetsCircleBack.setAsOffSetData()
+        zoolDataBodies.xbe.loadJsonFromDirPrim(zm.currentJson)
         /*if(app.t==='dirprim'){
             planetsCircleBack.rotation=planetsCircle.rotation-dirPrimRot
             housesCircleBack.rotation=360-dirPrimRot

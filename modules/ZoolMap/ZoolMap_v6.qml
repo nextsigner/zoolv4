@@ -89,8 +89,8 @@ Rectangle{
     property var aSigns: ['Aries', 'Tauro', 'Géminis', 'Cáncer', 'Leo', 'Virgo', 'Libra', 'Escorpio', 'Sagitario', 'Capricornio', 'Acuario', 'Piscis']
     property var aSignsEnergy: ['Ariana', 'Taurina', 'Geminiana', 'Canceriana', 'Leonina', 'Virginiana', 'Libriana', 'Escorpiana', 'Sagitariana', 'Capricorniana', 'Acuariana', 'Pisciana']
     property var aSignsLowerStyle: ['aries', 'tauro', 'geminis', 'cancer', 'leo', 'virgo', 'libra', 'escorpio', 'sagitario', 'capricornio', 'acuario', 'piscis']
-    property var aBodies: ['Sol', 'Luna', 'Mercurio', 'Venus', 'Marte', 'Júpiter', 'Saturno', 'Urano', 'Neptuno', 'Plutón', 'N.Norte', 'N.Sur', 'Quirón', 'Selena', 'Lilith', 'Pholus', 'Ceres', 'Pallas', 'Juno', 'Vesta']
-    property var aBodiesFiles: ['sol', 'luna', 'mercurio', 'venus', 'marte', 'jupiter', 'saturno', 'urano', 'neptuno', 'pluton', 'nodo_norte', 'nodo_sur', 'quiron', 'selena', 'lilith', 'pholus', 'ceres', 'pallas', 'juno', 'vesta']
+    property var aBodies: ['Sol', 'Luna', 'Mercurio', 'Venus', 'Marte', 'Júpiter', 'Saturno', 'Urano', 'Neptuno', 'Plutón', 'N.Sur', 'N.Norte', 'Quirón', 'Selena', 'Lilith', 'Pholus', 'Ceres', 'Pallas', 'Juno', 'Vesta']
+    property var aBodiesFiles: ['sol', 'luna', 'mercurio', 'venus', 'marte', 'jupiter', 'saturno', 'urano', 'neptuno', 'pluton', 'nodo_sur', 'nodo_norte', 'quiron', 'selena', 'lilith', 'pholus', 'ceres', 'pallas', 'juno', 'vesta']
     property var objSignsNames: ['ari', 'tau', 'gem', 'cnc', 'leo', 'vir', 'lib', 'sco', 'sgr', 'cap', 'aqr', 'psc']
     property int planetSizeInt: !r.ev?app.fs*1.5:app.fs
     property int planetSizeExt: app.fs
@@ -1404,6 +1404,7 @@ Rectangle{
         //log.visible=true
         //log.width=xApp.width*0.4
         j=JSON.parse(scorrJson)
+        j=zm.json(j)
 
 
         //r.aTexts[] reset
@@ -1488,6 +1489,7 @@ Rectangle{
         let scorrJson=json.replace(/\n/g, '')
         //console.log('json: '+json)
         let j=JSON.parse(scorrJson)
+        j=zm.json(j)
         if(app.t==='rs'){
             //zpn.log('Cargando Revolución Solar: zm.dirPrimRot:'+zm.dirPrimRot)
         }else{
@@ -2046,6 +2048,13 @@ Rectangle{
         let obj=Qt.createQmlObject(c, xuqps, 'nioqmlcode')
         ///getDataNum.sh /home/ns/nsp/zool-release/modules/ZoolMap/ZoolMapData/numerologia_segunda_persona_fem.json 1
 
+    }
+    function json(json){
+        let objNN=json.pc['c10']
+        let objNS=json.pc['c11']
+        json.pc['c10']=objNS
+        json.pc['c11']=objNN
+        return json
     }
     //<--Load Data
 

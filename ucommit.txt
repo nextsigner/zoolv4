@@ -1,1 +1,1 @@
-i7: Se crea ZoolMapPointerPlanet v1.2 corrigiendo cotaLong
+i7: Se hace un enroque entre los nodos sur y norte

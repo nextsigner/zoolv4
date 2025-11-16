@@ -47,6 +47,7 @@ Rectangle{
     property string lastAspShowed: 'int'
 
     property alias xzm: xSweg
+    property alias zoom: pinchArea.m_zoom1
 
     property alias cm: capaMods
     //property alias anv: aspNameView
@@ -1178,9 +1179,6 @@ Rectangle{
 
     //-->Load Data
     function load(j){
-        //let panelMods=zsm.getPanel('ZoolMods')
-        //let sectionZFEM=panelMods.getSection('ZoolFileExtDataManager')
-        //sectionZFEM.clear()
         let panelZFEM=zsm.getPanel('ZoolFileExtDataManager')
         panelZFEM.clear()
         if(r.loadingJsonInt)return

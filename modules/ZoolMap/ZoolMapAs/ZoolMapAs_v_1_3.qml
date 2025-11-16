@@ -7,7 +7,7 @@ import "../../../comps" as Comps
 import ZoolMap.ZoolMapBodie 1.0
 import ZoolMap.ZoolMapAsCotaDeg 1.0
 import ZoolMap.ZoolMapAsCotaText 1.0
-import ZoolMap.ZoolMapPointerPlanet 1.1
+import ZoolMap.ZoolMapPointerPlanet 1.2
 
 Item{
     id: r

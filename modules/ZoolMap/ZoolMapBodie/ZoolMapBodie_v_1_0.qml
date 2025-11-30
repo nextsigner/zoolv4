@@ -30,7 +30,7 @@ Item{
     Rectangle{
         id: bg
         //anchors.fill: parent
-        width: parent.width*0.5
+        width: parent.width//*0.5
         height: width
         anchors.centerIn: parent
         radius: width*0.5
@@ -42,7 +42,7 @@ Item{
         border.color: !r.isBack?zm.bodieBgBorderColor:zm.bodieBgBorderColorBack
         border.width: !r.isBack?zm.bodieBgBorderWidth:zm.bodieBgBorderWidthBack
         antialiasing: true
-        opacity: 0.65
+        opacity: !r.isBack?zm.bodieBgOpacity:zm.bodieBgOpacityExt
     }
     Rectangle{
         id: nodoCenPointer

@@ -220,6 +220,8 @@ Rectangle{
     property int bodieBgBorderWidthBack: 0
     property color bodieBgBorderColor: "white"
     property color bodieBgBorderColorBack: "white"
+    property real bodieBgOpacity: 1.0
+    property real bodieBgOpacityExt: 1.0
     property color houseLineColor: 'white'
     property color houseLineColorBack: '#00ff00'
     property bool showSignsCircleColors: true
@@ -1155,6 +1157,8 @@ Rectangle{
         r.bodieBgColorBack=t.bodieBgColorBack
         r.bodieBgBorderWidth=t.bodieBgBorderWidth
         r.bodieBgBorderWidthBack=t.bodieBgBorderWidthBack
+        r.bodieBgOpacity=t.bodieBgOpacity
+        r.bodieBgOpacityExt=t.bodieBgOpacityExt
         r.bodieBgBorderColor=t.bodieBgBorderColor
         r.bodieBgBorderColorBack=t.bodieBgBorderColorBack
         r.houseLineColor=t.houseLineColor

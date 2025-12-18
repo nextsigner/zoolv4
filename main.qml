@@ -66,6 +66,7 @@ import comps.PushOver 1.0
 
 import comps.ZoolMultiOSUpdate 1.0
 
+import swe 1.0
 
 ZoolMainWindow{
     id: app
@@ -81,6 +82,9 @@ ZoolMainWindow{
     //property var qmlListErrors: qmlErrorLogger.messages
     property string version: '0.0.-1'
     //property string sweBodiesPythonFile: Qt.platform.os==='linux'?'astrologica_swe_v4.py':'astrologica_swe.py'
+
+
+    property var swe
 
     //Python
     property string sweFolder: Qt.platform.os==='windows'?'"'+u.getPath(1)+'/swe"':'/usr/share/ephe/swe'
@@ -664,6 +668,16 @@ ZoolMainWindow{
             log.lv('Error de instalación de Zool para GNU/Linux.\nSwe no está instalado.')
             return
 
+        }else{
+            if(Qt.platform.os==='linux'){
+                let c='import swe 1.0\n'
+                c+='Swe{}'
+                app.swe=Qt.createQmlObject(c, xApp, 'swe-code')
+                log.lv('')
+                log.lv('Calculando posición actual de sol...')
+                let pos=swe.getBodiePos(1, 2023, 10, 27, 12, 30, -3);
+                log.lv('Posición: '+pos)
+            }
         }
 
 

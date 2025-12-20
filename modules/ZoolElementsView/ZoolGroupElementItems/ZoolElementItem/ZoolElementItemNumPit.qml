@@ -70,6 +70,7 @@ Rectangle{
             //log.lv('zsm.getPanel(\'ZoolNumPit\').currentDate: '+zsm.getPanel('ZoolNumPit').currentDate)
         }
         //zsm.getPanel('ZoolNumPit').setCurrentDate(!r.isExt?zm.currentDate:zm.currentDateBack)
+        if(!zsm.getPanel('ZoolNumPit').visible)return
         zsm.getPanel('ZoolNumPit').setCurrentDate(cd)
         zsm.getPanel('ZoolNumPit').setCurrentNombre(!r.isExt?zm.currentNom:zm.currentNomBack)
         zsm.getPanel('ZoolNumPit').currentAG=app.arbolGenealogico[r.ag]

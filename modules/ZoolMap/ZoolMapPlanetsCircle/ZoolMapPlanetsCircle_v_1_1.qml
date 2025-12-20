@@ -73,7 +73,8 @@ Item{
                 degRed=1.0
             }
             //objAs.pos=1
-            objAs.rotation=signCircle.rot-jo.gdeg-(jo.mdeg/60)//+degRed
+            //objAs.rotation=signCircle.rot-jo.gdeg-(jo.mdeg/60)//+degRed
+            objAs.rotation=signCircle.rot-jo.gdec
             if(r.isBack && app.t==='dirprim'){
                 //objAs.rotation-=zm.dirPrimRot
                 //objAs.rotation-=zm.dirPrimRot

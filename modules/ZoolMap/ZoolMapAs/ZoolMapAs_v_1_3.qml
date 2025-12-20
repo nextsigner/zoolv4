@@ -545,7 +545,7 @@ Item{
             mdeg: objData.m
             rsgdeg:objData.gdec-(30*is)
             ih: objData.ih
-            ihExt: objData.ihExt
+            ihExt: objData.ihExt?objData.ihExt:objData.ih
             //expand: r.selected
             iconoSignRot: bodie.objImg.rotation+90
             p: r.numAstro

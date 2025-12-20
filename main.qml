@@ -30,7 +30,7 @@ import ZoolDataSheet 1.0
 import web.ZoolServerFileDataManager 1.0
 
 //import ZoolBodies 1.10
-import ZoolMap 6.0
+import ZoolMap 7.0
 import ZoolBodiesGuiTools 1.0
 
 //-->Menus
@@ -84,8 +84,7 @@ ZoolMainWindow{
     //property string sweBodiesPythonFile: Qt.platform.os==='linux'?'astrologica_swe_v4.py':'astrologica_swe.py'
 
 
-    property var swe
-
+    property bool sweFromCpp: true
     //Python
     property string sweFolder: Qt.platform.os==='windows'?'"'+u.getPath(1)+'/swe"':'/usr/share/ephe/swe'
     property string sweBodiesPythonFile: Qt.platform.os==='windows'?'astrologica_swe_v4.py':'zool_swe_portable_2.10.3.2_v2.py'
@@ -215,6 +214,20 @@ ZoolMainWindow{
     FontLoader {name: "ArialMdm";source: "./fonts/ArialMdm.ttf";}
     FontLoader {name: "TypeWriter";source: "./fonts/typewriter.ttf";}
     UniKey{id: u}
+    Swe{
+        id: swe
+        Component.onCompleted: {
+            //QString getBodiePosJson(int bi, int a, int m, int d, int h, int min, int gmt, double lon, double lat, double alt);
+            /*log.lv('')
+            log.lv('Calculando posición actual de sol...')
+            let jb=swe.getBodiePosJson(0, 1975, 6, 20, 23, 4, -3, -69.59, -35.48, 1440);
+            log.lv('Posición: '+JSON.stringify(JSON.parse(jb), null, 2))
+
+            //QString getHousesPos(int a, int m, int d, int h, int min, int gmt, double lon, double lat, QString hsys);
+            */
+            zm.getSweJson(1975, 6, 20, 23, 4, -3, -69.59, -35.48, 1440)
+        }
+    }
     ZoolAppSettings{id: apps}
     ZoolRemoteDataManager{id: zrdm}
     ZoolFileDataManager{id: zfdm}
@@ -668,21 +681,7 @@ ZoolMainWindow{
             log.lv('Error de instalación de Zool para GNU/Linux.\nSwe no está instalado.')
             return
 
-        }else{
-            if(Qt.platform.os==='linux'){
-                let c='import swe 1.0\n'
-                c+='Swe{}'
-                app.swe=Qt.createQmlObject(c, xApp, 'swe-code')
-                log.lv('')
-                log.lv('Calculando posición actual de sol...')
-                let pos=swe.getBodiePos(1, 2023, 10, 27, 12, 30, -3);
-                log.lv('Posición: '+pos)
-            }
         }
-
-
-
-
         let c='import ZoolDataManager 1.0\n'
         c+='ZoolDataManager{}'
         let obj=Qt.createQmlObject(c, capa101, 'ziscode')

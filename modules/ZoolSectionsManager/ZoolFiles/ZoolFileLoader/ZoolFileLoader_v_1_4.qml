@@ -180,6 +180,7 @@ Rectangle {
                     id: txtTitInfo
                     text: '<b>Cantidad Total:</b> '+flm.count+' <b>Encontrados:</b> '+lm.count+'<br/><b>Carpeta: </b>'+(''+flm.folder).replace('file://', '')
                     font.pixelSize: app.fs*0.35
+                    t.wrapMode: Text.Normal
                     w: parent.width-app.fs
                     anchors.centerIn: parent
                 }

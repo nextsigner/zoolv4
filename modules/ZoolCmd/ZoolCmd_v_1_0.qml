@@ -174,12 +174,12 @@ Rectangle {
                 log.lv('Error! El número del GMT no es válido.')
                 return
             }
-            let vlat=parseInt(mParams[7])
+            let vlat=parseFloat(mParams[7])
             if(isNaN(vlat)){
                 log.lv('Error! El número de la latitud no es válido.')
                 return
             }
-            let vlon=parseInt(mParams[8])
+            let vlon=parseFloat(mParams[8])
             if(isNaN(vlon)){
                 log.lv('Error! El número de la longitud no es válido.')
                 return

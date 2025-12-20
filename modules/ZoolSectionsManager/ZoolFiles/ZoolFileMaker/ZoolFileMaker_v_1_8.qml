@@ -292,6 +292,10 @@ Rectangle {
                         t.validator: RegExpValidator {
                             regExp: RegExp(/^(\+|\-)?0*(?:(?!999\.9\d*$)\d{0,3}(?:\.\d*)?|999\.0*)$/)
                         }
+                        t.onTextChanged:{
+                            r.ulat=parseFloat(t.text)
+                            r.lat=parseFloat(t.text)
+                        }
                         borderColor:apps.fontColor
                         borderRadius: app.fs*0.25
                         padding: app.fs*0.25
@@ -349,6 +353,10 @@ Rectangle {
                         t.maximumLength: 10
                         t.validator: RegExpValidator {
                             regExp: RegExp(/^(\+|\-)?0*(?:(?!999\.9\d*$)\d{0,3}(?:\.\d*)?|999\.0*)$/)
+                        }
+                        t.onTextChanged:{
+                            r.ulon=parseFloat(t.text)
+                            r.lon=parseFloat(t.text)
                         }
                         borderColor:apps.fontColor
                         borderRadius: app.fs*0.25
@@ -650,6 +658,7 @@ Rectangle {
                         if(focus)flk.contentY=flk.contentHeight-flk.height
                     }
                     onClicked: {
+                        focus=true
                         toEnter()
                         //mk()
                     }
@@ -904,6 +913,7 @@ Rectangle {
         if(!cbPreview.checked || botCrear.text==='Modificar'){
             asTemp=false
         }
+        zfdm.setJsonAbsParams(json, false)
         if(zfdm.mkFileAndLoad(json, asTemp)){
             if(apps.dev)log.lv('Archivo creado: '+json.params.n)
         }else{
@@ -959,6 +969,7 @@ Rectangle {
         if(!cbPreview.checked || botCrear.text==='Modificar'){
             asTemp=false
         }
+        zfdm.setJsonAbsParams(json, false)
         if(zfdm.mkFileAndLoad(json, asTemp)){
             if(apps.dev)log.lv('Archivo creado: '+json.params.n)
         }else{

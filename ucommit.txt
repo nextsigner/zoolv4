@@ -1,1 +1,1 @@
-i7: Se eliminan archivos innecesarios
+i7: Se corrige ZoolFileMaker 1.8 y se crea versión 5.12.20.0

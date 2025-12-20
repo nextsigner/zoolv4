@@ -1396,7 +1396,11 @@ Rectangle{
         r.lockEv=false
     }
     function getSweJson(a, m, d, h, min, gmt, lon, lat, alt, hsys){
-        swe.setSwePath(app.sweFolder)
+        if(Qt.platform.os==='linux'){
+            swe.setSwePath(app.sweFolder)
+        }else{
+            swe.setSwePath(u.getPath(1)+'\\swe')
+        }
         let jNN={}
         let j=JSON.parse(swe.getHousesPos(a, m, d, h, min, gmt, lon, lat, alt, hsys))
         //j.ph=
@@ -1437,6 +1441,8 @@ Rectangle{
         j.params.lon=lon
         j.params.alt=alt
         j.params.hsys=hsys
+        //log.lv('json: '+JSON.stringify(j, null, 2))
+        console.log('apps.url: '+apps.url)
         return j
     }
     function loadSweJson(json){

@@ -1,1 +1,1 @@
-i7: Se elimina modules/ZoolRevolutionList
+i7: Se eliminana versiones obsoletas de ZoolRevolutionList

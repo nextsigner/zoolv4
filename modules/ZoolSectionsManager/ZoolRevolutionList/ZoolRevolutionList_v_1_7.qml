@@ -502,7 +502,7 @@ Rectangle {
                             height: width
                             anchors.verticalCenter: parent.verticalCenter
                             onClicked: {
-                                xBottomBar.objPanelCmd.runCmd('rsl '+tiEdad.text)
+                                toEnter(false)
                             }
                         }
                     }

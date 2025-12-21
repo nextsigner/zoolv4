@@ -1,1 +1,1 @@
-i7: Se elimina qml-pacman subida por error
+i7: Se eliminan todos los archivos sh

@@ -25,6 +25,9 @@ Rectangle {
     property int currentAnioSelected: -1
     property int currentNumKarma: -1
 
+
+    property bool loadingCoords: false
+
     property real lat:-100.00
     property real lon:-100.00
 
@@ -35,17 +38,20 @@ Rectangle {
 
     visible: zsm.aPanelsIds.indexOf(app.j.qmltypeof(r))===zsm.currentIndex
     onSvIndexChanged: {
-//        if(svIndex===itemIndex){
-//            if(edadMaxima<=0)xTit.showTi=true
-//            tF.restart()
-//        }else{
-//            tF.stop()
-//            tiEdad.focus=false
-//        }
+        //        if(svIndex===itemIndex){
+        //            if(edadMaxima<=0)xTit.showTi=true
+        //            tF.restart()
+        //        }else{
+        //            tF.stop()
+        //            tiEdad.focus=false
+        //        }
     }
     onVisibleChanged: {
         //if(visible)zoolVoicePlayer.stop()
-      //if(visible)zoolVoicePlayer.speak('Sección para crear revoluciones solares.', true)
+        //if(visible)zoolVoicePlayer.speak('Sección para crear revoluciones solares.', true)
+    }
+    onLoadingCoordsChanged: {
+        txtLoadingCoords.text='Buscando coordenadas de '+tiCiudad.t.text
     }
     Item{id:xuqp}
     Settings{
@@ -112,27 +118,61 @@ Rectangle {
                         visible: checkBoxRetSolar.checked
                         Text{
                             text: '<b>¿Donde se esperará el retorno solar?</b>'//+height
-                            width: r.width-app.fs
+                            width: r.width-app.fs*2
                             font.pixelSize: app.fs*0.65
                             color: apps.fontColor
+                            wrapMode: Text.WordWrap
                             anchors.horizontalCenter: parent.horizontalCenter
                         }
-                        ZoolTextInput{
-                            id: tiCiudad
-                            width: xRetSolar.width-app.fs
-                            t.font.pixelSize: app.fs*0.65;
-                            labelText: 'Lugar, ciudad, provincia,\nregión y/o país de nacimiento'
-
-                            KeyNavigation.tab: settings.inputCoords?tiLat.t:(botCrear.visible&&botCrear.opacity===1.0?botCrear:botClear)
-                            t.maximumLength: 70
-                            borderWidth: 2
-                            borderColor: apps.fontColor
-                            borderRadius: app.fs*0.1
+                        Row{
+                            spacing: app.fs*0.25
                             anchors.horizontalCenter: parent.horizontalCenter
-                            onTextChanged: {
-                                //tSearch.restart()
-                                t.color='white'
+                            ZoolTextInput{
+                                id: tiCiudad
+                                //text: 'Ingresa un lugar aquí'
+                                width: xRetSolar.width-botSearchCoords.width-app.fs
+                                t.parent.width: xRetSolar.width-botSearchCoords.width-app.fs
+                                t.font.pixelSize: app.fs*0.65;
+                                t.opacity: t.text==='Ingresa un lugar aquí'?0.5:1.0
+                                t.focus:false
+                                onFocusChanged:{
+                                    if(focus && t.text==='Ingresa un lugar aquí'){
+                                        t.selectAll()
+                                    }
+                                }
+                                labelText: 'Lugar, ciudad, provincia,\nregión y/o país de nacimiento'
+
+                                KeyNavigation.tab: settings.inputCoords?tiLat.t:(botCrear.visible&&botCrear.opacity===1.0?botCrear:botClear)
+                                t.maximumLength: 70
+                                borderWidth: 2
+                                borderColor: apps.fontColor
+                                borderRadius: app.fs*0.1
+                                //anchors.horizontalCenter: parent.horizontalCenter
+                                anchors.verticalCenter: parent.verticalCenter
+                                onTextChanged: {
+                                    if(text==='Ingresa un lugar aquí'){
+                                        selectAll()
+                                        t.color='gray'
+                                        return
+                                    }
+                                    tSearch.restart()
+                                    t.color='white'
+                                }
+
                             }
+                            Comps.ButtonIcon{
+                                id: botSearchCoords
+                                text: '\uf002'
+                                width: app.fs
+                                height: width
+                                //anchors.centerIn: parent
+                                anchors.verticalCenter: parent.verticalCenter
+                                onClicked: {
+                                    tSearch.stop()
+                                    searchGeoLoc(false)
+                                }
+                            }
+
                         }
                         Row{
                             anchors.horizontalCenter: parent.horizontalCenter
@@ -154,11 +194,22 @@ Rectangle {
                                     //t.color='white'
                                 }
                             }
-                            ZoolButton{
-                                text: 'Buscar Coordenadas'
+                            ZoolTextInput{
+                                id: tiAnio
+                                w: app.fs*2
+                                t.font.pixelSize: app.fs*0.65;
+                                labelText: 'Año'
+
+                                //KeyNavigation.tab: settings.inputCoords?tiLat.t:(botCrear.visible&&botCrear.opacity===1.0?botCrear:botClear)
+                                t.maximumLength: 4
+                                borderWidth: 2
+                                borderColor: apps.fontColor
+                                borderRadius: app.fs*0.1
                                 anchors.verticalCenter: parent.verticalCenter
-                                visible:!checkBoxInsertarCoordMan.checked
-                                onClicked: searchGeoLoc(false)
+                                onTextChanged: {
+                                    //tSearch.restart()
+                                    //t.color='white'
+                                }
                             }
                         }
                         Row{
@@ -352,14 +403,23 @@ Rectangle {
                                 visible: r.ulat!==-1&&r.ulon!==-1&&tiCiudad.text!==''
                                 onClicked: {
                                     if(!settings.inputCoords){
-                                        searchGeoLoc(true)
+                                        //searchGeoLoc(true)
                                     }else{
                                         r.lat=parseFloat(tiLat.t.text)
                                         r.lon=parseFloat(tiLon.t.text)
                                         r.ulat=r.lat
                                         r.ulon=r.lon
-                                        setNewJsonFileData()
+
+                                        //setNewJsonFileData()
                                     }
+                                    let p=zfdm.getJsonAbsParams(false)
+                                    let a=parseInt(tiAnio.t.text)
+                                    let m=p.m
+                                    let d=p.d
+                                    let gmt=parseInt(tiGMT.t.text)
+                                    let ar = swe.getSolarReturn(zm.currentJson.pc.c0.gdec, a, m, d, gmt)
+                                    let nd=new Date(ar[0], ar[1]-1, ar[2], ar[3], ar[4])
+                                    loadRsFromOtherPlace(tiCiudad.t.text, nd, gmt, r.lat, r.lon, 0)
                                 }
 
                                 //                            Timer{
@@ -488,10 +548,10 @@ Rectangle {
                                     if(focus)apps.zFocus='xLatIzq'
                                 }
                                 Keys.onReturnPressed: {
-                                    r.enter()
+                                    r.toEnter(false)
                                 }
                                 Keys.onEnterPressed: {
-                                    r.enter()
+                                    r.toEnter(false)
                                 }
                             }
                         }
@@ -508,26 +568,26 @@ Rectangle {
                     }
                 }
 
-//                Text{
-//                    id: txtLabelTit
-//                    //text: parent.showTit?'Revoluciones Solares hasta los '+r.edadMaxima+' años':'Click para cargar'
-//                    text: 'Revoluciones Solares hasta los '+r.edadMaxima+' años'
-//                    font.pixelSize: app.fs*0.5
-//                    width: parent.width-app.fs
-//                    wrapMode: Text.WordWrap
-//                    color: apps.backgroundColor
-//                    //focus: true
-//                    anchors.centerIn: parent
-//                    visible: !xTit.showTi
-//                }
+                //                Text{
+                //                    id: txtLabelTit
+                //                    //text: parent.showTit?'Revoluciones Solares hasta los '+r.edadMaxima+' años':'Click para cargar'
+                //                    text: 'Revoluciones Solares hasta los '+r.edadMaxima+' años'
+                //                    font.pixelSize: app.fs*0.5
+                //                    width: parent.width-app.fs
+                //                    wrapMode: Text.WordWrap
+                //                    color: apps.backgroundColor
+                //                    //focus: true
+                //                    anchors.centerIn: parent
+                //                    visible: !xTit.showTi
+                //                }
 
-//                Timer{
-//                    id: tShowXTit
-//                    running: false
-//                    repeat: false
-//                    interval: 3000
-//                    onTriggered: parent.showTit=true
-//                }
+                //                Timer{
+                //                    id: tShowXTit
+                //                    running: false
+                //                    repeat: false
+                //                    interval: 3000
+                //                    onTriggered: parent.showTit=true
+                //                }
 
             }
             //        Item{
@@ -618,7 +678,7 @@ Rectangle {
             border.width: 0
             border.color: apps.fontColor
             anchors.horizontalCenter: parent.horizontalCenter
-            opacity: selected?1.0:0.85
+            opacity: lv.currentIndex===index?1.0:0.65//selected?1.0:0.85
             property int is: -1
             property var rsDate
             property bool selected: lv.currentIndex===index
@@ -763,7 +823,7 @@ Rectangle {
                             anchors.horizontalCenter: parent.horizontalCenter
                             Text{
                                 id: labelAnioPersonal
-                                text: '7'
+                                text: '?'
                                 color: apps.fontColor
                                 font.pixelSize: parent.width*0.5
                                 anchors.centerIn: parent
@@ -776,10 +836,28 @@ Rectangle {
                                 border.width: app.fs*0.1
                                 border.color: apps.fontColor
                                 anchors.verticalCenter: parent.top
-                                visible: itemRS.selected
+                                //visible: itemRS.selected
                                 Text{
                                     id: labelNumKarma
-                                    text: '7'
+                                    text: '?'
+                                    color: apps.fontColor
+                                    font.pixelSize: parent.width*0.5
+                                    anchors.centerIn: parent
+                                }
+                            }
+                            Rectangle{
+                                width: parent.width*0.45
+                                height: width
+                                radius: width*0.5
+                                color: apps.backgroundColor
+                                border.width: app.fs*0.1
+                                border.color: apps.fontColor
+                                anchors.verticalCenter: parent.top
+                                anchors.right: parent.right
+                                //visible: itemRS.selected
+                                Text{
+                                    id: labelAnioMundial
+                                    text: '?'
                                     color: apps.fontColor
                                     font.pixelSize: parent.width*0.5
                                     anchors.centerIn: parent
@@ -808,6 +886,15 @@ Rectangle {
                 itemRS.is=zm.getIndexSign(jsonHouses.ph.h1.gdec)
                 txtData.text='<b>Fecha:</b> '+ar[0]+'/'+ar[1]+'/'+ar[2]+' <b>Hora: </b>'+ar[3]+':'+ar[4]+'hs <b>GMT</b> '+p.gmt
                 itemRS.rsDate=new Date(ar[0],ar[1],ar[2],ar[3],ar[4])
+                let f = ar[2] + '/' + ar[1] + '/' + ar[0]
+                let aGetNums=app.j.getNums(f)
+                labelAnioPersonal.text=aGetNums[0]
+                f = p.d + '/' + p.m + '/' + p.a
+                aGetNums=app.j.getNums(f)
+                labelNumKarma.text=aGetNums[0]
+                f = '1/1/' + parseInt(ar[0]-2)
+                aGetNums=app.j.getNums(f)
+                labelAnioMundial.text=aGetNums[0]
                 return
 
                 let params=j['ph']['params']
@@ -830,14 +917,7 @@ Rectangle {
                 let d = itemRsGMT.getDate()
                 let m = itemRsGMT.getMonth() + 1
                 let a = itemRsGMT.getFullYear()
-                let f = d + '/' + m + '/' + a
-                let aGetNums=app.j.getNums(f)
-                if(index===0){
-                    r.currentNumKarma=aGetNums[0]
-                    r.currentAnioSelected=parseInt(a)
-                }
-                labelAnioPersonal.text=aGetNums[0]
-                labelNumKarma.text=r.currentNumKarma
+
                 //txtData.text+='<br />N° Karma: '+r.currentNumKarma+' Año Personal: '+aGetNums[0]
             }
         }
@@ -847,16 +927,16 @@ Rectangle {
         id: rLoading
         color: apps.backgroundColor
         anchors.fill: parent
-        visible: r.loading
+        visible: r.loadingCoords
         MouseArea{
             anchors.fill: parent
-            onClicked: r.loading=false
+            onClicked: r.loadingCoords=false
         }
         Column{
             spacing: app.fs*0.5
             anchors.centerIn: parent
             Text{
-                id: txtLoading
+                id: txtLoadingCoords
                 color: apps.fontColor
                 font.pixelSize: app.fs*0.5
                 width: r.width-app.fs*2
@@ -867,7 +947,58 @@ Rectangle {
                 font.pixelSize: app.fs*0.5
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
-                    r.loading=false
+                    r.loadingCoords=false
+                }
+            }
+        }
+    }
+    Rectangle{
+        id: rLoadingError
+        color: apps.backgroundColor
+        anchors.fill: parent
+        visible: r.loadingCoords
+        MouseArea{
+            anchors.fill: parent
+            onClicked: r.loadingCoords=false
+        }
+        Column{
+            spacing: app.fs*0.5
+            anchors.centerIn: parent
+            Text{
+                text: 'Ha ocurrido un problema para encontrar las coordenadas de ['+tiCiudad.t.text+'].<br><br>Esto se debe posiblemente a que el nombre del lugar está mal escrito o una falla en la conexión a internet.<br>'
+                color: apps.fontColor
+                font.pixelSize: app.fs*0.5
+                width: r.width-app.fs*2
+                wrapMode: Text.WordWrap
+                textFormat: Text.RichText
+                horizontalAlignment: Text.AlignHCenter
+            }
+            Text{
+                text: 'En este formulario tienes la opción de cargar las coordenadas geográifcas de modo manual. <br><br>¿Quieres cargar las coordenadas geográficas manualmente?'
+                color: apps.fontColor
+                font.pixelSize: app.fs*0.5
+                width: r.width-app.fs*2
+                wrapMode: Text.WordWrap
+                textFormat: Text.RichText
+                horizontalAlignment: Text.AlignHCenter
+            }
+            Button{
+                text: 'Cargar Manualmente'
+                font.pixelSize: app.fs*0.5
+                anchors.horizontalCenter: parent.horizontalCenter
+                onClicked: {
+                    rLoadingError.visible=false
+                    cbInputCoords.checked=true
+                    loadingCoords=false
+                }
+            }
+            Button{
+                text: 'Entendido'
+                font.pixelSize: app.fs*0.5
+                anchors.horizontalCenter: parent.horizontalCenter
+                onClicked: {
+                    rLoadingError.visible=false
+                    loadingCoords=false
                 }
             }
         }
@@ -878,13 +1009,13 @@ Rectangle {
         repeat: true
         interval: 500
         onTriggered: {
-//            if(lv.count<1){
-//                xTit.showTit=true
-//                xTit.showTi=true
-//            }else{
-//                xTit.showTit=false
-//                xTit.showTi=false
-//            }
+            //            if(lv.count<1){
+            //                xTit.showTit=true
+            //                xTit.showTi=true
+            //            }else{
+            //                xTit.showTit=false
+            //                xTit.showTi=false
+            //            }
         }
     }
 
@@ -892,54 +1023,12 @@ Rectangle {
         zsm.aPanelsIds.push(app.j.qmltypeof(r))
         zsm.aPanelesTits.push('Revolución Solar')
     }
-    function setRsList(edad){
-        r.jsonFull=''
-        r.edadMaxima=edad-1
-        lm.clear()
-        let cd3= new Date(zm.currentDate)
-        //let hsys=apps.currentHsys
-        let finalCmd=''
-        //finalCmd+=''+app.pythonLocation+' "'+u.currentFolderPath()+'/py/astrologica_swe_search_revsol_time.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+edad+' "'+u.currentFolderPath()+'"'//+' '+hsys
-        if(!checkBoxRetSolar.checked){
-            finalCmd+=''+app.pythonLocation+' "'+u.currentFolderPath()+'/py/astrologica_swe_search_revsol_time.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+zm.currentGmt+' '+zm.currentLat+' '+zm.currentLon+' '+zm.currentGradoSolar+' '+zm.currentMinutoSolar+' '+zm.currentSegundoSolar+' '+edad+' "'+app.sweFolder+'"'//+' '+hsys
-        }else{
-            finalCmd+=''+app.pythonLocation+' "'+u.currentFolderPath()+'/py/astrologica_swe_search_revsol_time.py" '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+0+' '+r.ulat+' '+r.ulon+' '+zm.currentGradoSolar+' '+zm.currentMinutoSolar+' '+zm.currentSegundoSolar+' '+edad+' "'+app.sweFolder+'"'//+' '+hsys
-        }
-        console.log('setRsList('+edad+')::finalCmd: '+finalCmd)
-        let c=''
-            +'  if(logData.length<=3||logData==="")return\n'
-            +'  let j\n'
-            +'try {\n'
-            +'  j=JSON.parse(logData)\n'
-            +'  loadJson(j)\n'
-            +'  logData=""\n'
-            +'} catch(e) {\n'
-            +'  console.log(e+" "+logData);\n'
-            +'  //u.speak("error");\n'
-            +'}\n'
-        mkCmd(finalCmd, c, xuqp)
-    }
-    function mkCmd(finalCmd, code, item){
-        for(var i=0;i<item.children.length;i++){
-            item.children[i].destroy(0)
-        }
-        let d = new Date(Date.now())
-        let ms=d.getTime()
-        let c='import QtQuick 2.0\n'
-        c+='import unik.UnikQProcess 1.0\n'
-        c+='UnikQProcess{\n'
-        c+='    id: uqp'+ms+'\n'
-        c+='    onLogDataChanged:{\n'
-        c+='        '+code+'\n'
-        c+='        uqp'+ms+'.destroy(3000)\n'
-        c+='    }\n'
-        c+='    Component.onCompleted:{\n'
-        //c+='        log.ls(\'finalCmdRS: '+finalCmd+'\', 0, 500)\n'
-        c+='        run(\''+finalCmd+'\')\n'
-        c+='    }\n'
-        c+='}\n'
-        //console.log(c)
-        let comp=Qt.createQmlObject(c, item, 'uqpcodecmdrslist')
+    Timer{
+        id: tSearch
+        running: false
+        repeat: false
+        interval: 10000
+        onTriggered: searchGeoLoc(false)
     }
     function clear(){
         r.edadMaxima=-1
@@ -995,6 +1084,35 @@ Rectangle {
         //app.j.loadBack(nom, vd, vm, va, vh, vmin, gmt, lat, lon, alt, ubicacion, strEdad, 'rs', apps.currentHsys, -1, aR)
         /*let js='{"params":{"t":"'+tipo+'","ms":'+ms+',"n":"'+nom+'","d":'+vd+',"m":'+vm+',"a":'+va+',"h":'+vh+',"min":'+vmin+',"gmt":'+vgmt+',"lat":'+vlat+',"lon":'+vlon+',"alt":'+valt+',"c":"'+vCiudad+'", "hsys":"'+hsys+'", "extId":"'+extId+'"}}'*/
     }
+    function loadRsFromOtherPlace(from, date, gmt, lat, lon, alt){
+        //if(apps.dev)log.lv('1 loadRs()... gmt: '+gmt)
+        let d = new Date(date)
+        let ms=new Date(Date.now()).getTime()
+
+        let vd=d.getDate()
+        let vm=d.getMonth()+1
+        let va=d.getFullYear()
+        let vh=d.getHours()
+        let vmin=d.getMinutes()
+
+        let nom='RS '+from+' '+va
+
+        let p=zfdm.getJsonAbsParams(false)
+        let edad=va-p.a
+        let strEdad='Edad: '+edad+' años'
+        let ubicacion=zm.currentLugar
+        let aR=[]
+        aR.push(''+va+'/'+vm+'/'+vd)
+        aR.push(''+vh+':'+vmin)
+        aR.push(ubicacion)
+        aR.push('<b>GMT:</b>'+gmt)
+        aR.push('<b>Lat:</b>'+lat)
+        aR.push('<b>Lon:</b>'+lon)
+        aR.push('<b>Alt:</b>'+alt)
+        zm.loadBackFromArgs(nom, vd, vm, va, vh, vmin, gmt, lat, lon, alt, ubicacion, strEdad, 'rs', apps.currentHsys, -1, aR)
+        //app.j.loadBack(nom, vd, vm, va, vh, vmin, gmt, lat, lon, alt, ubicacion, strEdad, 'rs', apps.currentHsys, -1, aR)
+        /*let js='{"params":{"t":"'+tipo+'","ms":'+ms+',"n":"'+nom+'","d":'+vd+',"m":'+vm+',"a":'+va+',"h":'+vh+',"min":'+vmin+',"gmt":'+vgmt+',"lat":'+vlat+',"lon":'+vlon+',"alt":'+valt+',"c":"'+vCiudad+'", "hsys":"'+hsys+'", "extId":"'+extId+'"}}'*/
+    }
     function loadJson(json){
         lm.clear()
         for(var i=0;i<Object.keys(json).length;i++){
@@ -1016,85 +1134,172 @@ Rectangle {
         tiEdad.focus=false
     }
     function searchGeoLoc(crear){
-        for(var i=0;i<xuqp.children.length;i++){
-            xuqp.children[i].destroy(0)
-        }
-        let d = new Date(Date.now())
-        let ms=d.getTime()
-        let c='import QtQuick 2.0\n'
-        c+='import unik.UnikQProcess 1.0\n'
-        c+='UnikQProcess{\n'
-        c+='    id: uqp'+ms+'\n'
-        c+='    onLogDataChanged:{\n'
-        c+='            console.log(logData)\n'
-        c+='        let result=(\'\'+logData).replace(/\\n/g, \'\')\n'
-        c+='        let json=JSON.parse(result)\n'
-        c+='        if(json){\n'
-        c+='            console.log(JSON.stringify(json))\n'
+        r.loadingCoords=true
+        const lugarABuscar = tiCiudad.t.text
+        obtenerCoordenadas(lugarABuscar)
+    }
+    //openstreetmap
+    function obtenerCoordenadas(lugar) {
+        return new Promise((resolve, reject) => {
+                               const xhr = new XMLHttpRequest();
+                               const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(lugar)}&format=json`;
 
-        c+='                if(r.lat===-1&&r.lon===-1){\n'
-        c+='                   tiCiudad.t.color="red"\n'
-        c+='                }else{\n'
-        c+='                   tiCiudad.t.color=apps.fontColor\n'
-        if(crear){
-            c+='                r.lat=json.coords.lat\n'
-            c+='                r.lon=json.coords.lon\n'
-            c+='                    setNewJsonFileData()\n'
-            c+='                    //r.state=\'hide\'\n'
-        }else{
-            c+='                r.ulat=json.coords.lat\n'
-            c+='                r.ulon=json.coords.lon\n'
-            //c+='                    setNewJsonFileData()\n'
-            //c+='                if(tiGMT.t.text===""){\n'
-            //c+='                    tiGMT.t.text=parseFloat(r.ulat / 10).toFixed(1)\n'
-            //c+='                }\n'
+
+                               xhr.open('GET', url);
+
+                               xhr.onload = function() {
+                                   if (xhr.status >= 200 && xhr.status < 300) {
+                                       try {
+                                           //log.lv('obtenerCoordenadas('+lugar+'): '+xhr.responseText)
+                                           const respuesta = JSON.parse(xhr.responseText);
+                                           if(respuesta && respuesta.length > 0) {
+                                               //if(false) {
+                                               const latitud = parseFloat(respuesta[0].lat);
+                                               const longitud = parseFloat(respuesta[0].lon);
+                                               //zpn.logTemp('Latitud: '+latitud, 10000)
+                                               //zpn.logTemp('Longitud: '+longitud, 10000)
+                                               if(!r.loadingCoords)return
+                                               r.lat=parseFloat(latitud)
+                                               r.ulat=r.lat
+                                               r.lon=parseFloat(longitud)
+                                               r.ulon=r.lon
+                                               r.loadingCoords=false
+                                               rLoadingError.visible=false
+                                           }else{
+                                               //reject('No se encontraron coordenadas para el lugar especificado.');
+                                               //log.clear()
+                                               zpn.logTemp('OpenStreet.ort NO se encontraron las coordenadas de geolocalización de '+tiCiudad.text+'\nBuscando con el sistema GeoNames...', 10000)
+                                               r.loadingCoords=true
+                                               obtenerCoordenadasGeoNames(lugar)
+                                               /*if(Qt.platform.os==='linux' && u.folderExist('/home/ns')){
+                                                   //if(Qt.platform.os==='linux'){
+                                                   searchCoordsTurbo()
+                                               }*/
+                                           }
+                                       } catch (error) {
+                                           //reject('Error al parsear la respuesta JSON.');
+                                           //log.clear()
+                                           zpn.logTemp('Busqueda de coordenadas con OpenStreet: Hay un error de red en estos momentos. Error al solicitar las coordenadas de geolocalización de '+tiCiudad.text, 10000)
+                                           obtenerCoordenadasGeoNames(lugar)
+                                           //                                           if(Qt.platform.os==='linux' && u.folderExist('/home/ns')){
+                                           //                                               //if(Qt.platform.os==='linux'){
+                                           //                                               searchCoordsTurbo()
+                                           //                                           }
+                                       }
+                                   }else{
+                                       //reject(`Error en la petición: Código de estado ${xhr.status}`);
+                                       //log.clear()
+                                       zpn.logTemp('Busqueda de coordenadas con OpenStreet: Hay un error de red en estos momentos. Error al solicitar las coordenadas de geolocalización de '+tiCiudad.text, 10000)
+                                       obtenerCoordenadasGeoNames(lugar)
+                                   }
+                               };
+
+                               xhr.onerror = function() {
+                                   //reject('Error de red al realizar la petición.');
+                                   //log.clear()
+                                   zpn.logTemp('Busqueda de coordenadas con OpenStreet: Hay un error de red en estos momentos. Error al solicitar las coordenadas de geolocalización de '+tiCiudad.text, 10000)
+                                   obtenerCoordenadasGeoNames(lugar)
+                               };
+
+                               xhr.send();
+                           });
+    }
+    //GeoNames
+    function obtenerCoordenadasGeoNames(lugar) {
+        if (lugar === "") return;
+
+        var xhr = new XMLHttpRequest();
+        // Endpoint: searchJSON
+        // maxRows=1 para obtener solo el mejor resultado
+        // style=FULL para obtener la altitud (elevation)
+        var url = "http://api.geonames.org/searchJSON?q=" + encodeURIComponent(lugar)
+                + "&maxRows=1&username=" + 'qtpizarro' + "&style=FULL";
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+
+                    let res='Sin datos!'
+
+                    if (response.geonames && response.geonames.length > 0) {
+                        var data = response.geonames[0];
+                        var lat = data.lat;
+                        var lon = data.lng;
+                        var alt = parseInt(data.elevation) || 0;
+
+                        r.lat=parseFloat(lat)
+                        r.ulat=r.lat
+                        r.lon=parseFloat(lon)
+                        r.ulon=r.lon
+                        r.loadingCoords=false
+                        rLoadingError.visible=false
+
+                        res = "Lat: " + lat + "\nLon: " + lon + "\nAlt: " + alt + " m";
+                    } else {
+                        res = "El sistema de búsqueda de coordenadas GeoNames NO encontró el lugar "+lugar+".";
+                        zpn.logTemp(res, 10000)
+
+                        rLoadingError.visible=true
+                        r.loadingCoords=false
+
+                    }
+                    //log.lv('Res: '+res)
+                } else {
+                    zpn.logTemp("Error en la petición: " + xhr.status, 10000);
+                    r.loadingCoords=false
+                    rLoadingError.visible=true
+                }
+            }
         }
-        c+='                }\n'
-        c+='        }else{\n'
-        c+='            console.log(\'No se encontraron las cordenadas.\')\n'
-        c+='        }\n'
-        c+='        uqp'+ms+'.destroy(0)\n'
-        c+='    }\n'
-        c+='    Component.onCompleted:{\n'
-        //c+='        console.log(\''+app.pythonLocation+' '+app.mainLocation+'/py/astrologica_swe.py '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+'\')\n'
-        c+='        run(\''+app.pythonLocation+' "'+u.currentFolderPath()+'/py/geoloc.py" "'+tiCiudad.t.text+'" "'+u.currentFolderPath()+'"\')\n'
-        c+='    }\n'
-        c+='}\n'
-        let comp=Qt.createQmlObject(c, xuqp, 'uqpcodenewvn')
+
+        xhr.open("GET", url);
+        xhr.send();
     }
 
     //-->Teclado
     function toEnter(ctrl){
+        let anioInicio=0
         if(ctrl){
-            if(lv.currentIndex<=0 && lv.count<1){
+            lm.clear()
+            let p=zfdm.getJsonAbsParams(false)
+            anioInicio=p.a
+            let d = new Date(Date.now())
+            let ca=d.getFullYear()
+            let edad=ca-anioInicio
+            for(var i=0;i<edad+5;i++){
+                let j={}
+                j.a=anioInicio
+                lm.append(lm.addItem(j))
+                anioInicio++
+            }
+            /*if(lv.currentIndex<=0 && lv.count<1){
                 //log.lv('0 ZoolRevolutionList enter()...')
-                //xBottomBar.objPanelCmd.runCmd('rsl '+tiEdad.text)
                 txtLoading.text='Cargando lista de '+tiEdad.text+' Revoluciones Solares..'
                 r.loading=true
                 return
             }else{
                 //log.lv('1 ZoolRevolutionList enter()...')
                 //r.prepareLoad()
-            }
+            }*/
         }else{
-            /*if(!tiEdad.focus){
-                tiEdad.focus=true
-                return
-            }
-            xBottomBar.objPanelCmd.runCmd('rs '+tiEdad.text)
-            */
-            lm.clear()
-            let p=zfdm.getJsonAbsParams(false)
-            let anioInicio=p.a
-            for(var i=0;i<parseInt(tiEdad.text)+1;i++){
-                let j={}
-                j.a=anioInicio
-                lm.append(lm.addItem(j))
-                anioInicio++
+            if(lv.currentIndex>=0 && lv.count>=1){
+                prepareLoad()
+            }else{
+                lm.clear()
+                let p=zfdm.getJsonAbsParams(false)
+                anioInicio=p.a
+                for(var i=0;i<parseInt(tiEdad.text)+1;i++){
+                    let j={}
+                    j.a=anioInicio
+                    lm.append(lm.addItem(j))
+                    anioInicio++
+                }
             }
         }
     }
     function toUp(){
+        tiEdad.focus=false
         if(lv.currentIndex>0){
             lv.currentIndex--
         }else{
@@ -1102,6 +1307,7 @@ Rectangle {
         }
     }
     function toDown(){
+        tiEdad.focus=false
         if(lv.currentIndex<lm.count-1){
             lv.currentIndex++
         }else{
@@ -1115,13 +1321,21 @@ Rectangle {
         }
     }
     function toEscape(){
+        zpn.logTemp('Escape Rs 0')
+        if(lv.currentIndex>=0 && !tiEdad.focus){
+            zpn.logTemp('Escape Rs 1')
+            lv.currentIndex=-1
+            tiEdad.focus=true
+            return
+        }
+
         if(tiEdad.focus){
             tiEdad.focus=false
             return
         }
     }
     function isFocus(){
-           return tiEdad.focus
+        return tiEdad.focus || lv.currentIndex>=1
     }
     property bool hasUnUsedFunction: true
     function unUsed(){

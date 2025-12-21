@@ -279,18 +279,18 @@ Rectangle {
                     }
                 }
 
-                    Comps.ButtonIcon{
-                        id: botSearchCoords
-                        text: '\uf002'
-                        width: app.fs
-                        height: width
-                        //anchors.centerIn: parent
-                        anchors.verticalCenter: parent.verticalCenter
-                        onClicked: {
-                            tSearch.stop()
-                            searchGeoLoc(false)
-                        }
+                Comps.ButtonIcon{
+                    id: botSearchCoords
+                    text: '\uf002'
+                    width: app.fs
+                    height: width
+                    //anchors.centerIn: parent
+                    anchors.verticalCenter: parent.verticalCenter
+                    onClicked: {
+                        tSearch.stop()
+                        searchGeoLoc(false)
                     }
+                }
 
             }
             Column{
@@ -867,41 +867,14 @@ Rectangle {
     //        }
     //    }
 
+
     function searchGeoLoc(crear){
         r.loadingCoords=true
         const lugarABuscar = tiCiudad.t.text
         obtenerCoordenadas(lugarABuscar)
-        .then(coordenadas => {
-                  //console.log(`Las coordenadas de ${lugarABuscar} son:`);
-                  //console.log(`Latitud: ${coordenadas.latitud}`);
-                  //console.log(`Longitud: ${coordenadas.longitud}`);
-                  //r.loadingCoords=false
-                  if(!r.loadingCoords)return
-                  if(coordenadas){
-                      if(r.lat===-1&&r.lon===-1){
-                          tiCiudad.t.color="red"
-                      }else{
-                          tiCiudad.t.color=apps.fontColor
-                          if(crear){
-                              r.lat=coordenadas.latitud
-                              r.lon=coordenadas.longitud
-                              setNewJsonFileData()
-                              r.state='hide'
-                          }else{
-                              //r.modoTurbo=true
-                              r.ulat=coordenadas.latitud
-                              r.ulon=coordenadas.longitud
-                          }
-                      }
-                  }else{
-                      console.log('No se encontraron las cordenadas.')
-                  }
-              })
-        .catch(error => {
-                   //r.loadingCoords=false
-                   console.error('Ocurrió un error:', error);
-               });
     }
+
+
     function setNewJsonFileData(){
         let p=zfdm.getJsonAbs().params
         let vtipo='vn' //Esto luego lo programaré para EVENTOS tipo='even'
@@ -1489,10 +1462,10 @@ Rectangle {
                                            //log.clear()
                                            zpn.logTemp('Busqueda de coordenadas con OpenStreet: Hay un error de red en estos momentos. Error al solicitar las coordenadas de geolocalización de '+tiCiudad.text, 10000)
                                            obtenerCoordenadasGeoNames(lugar)
-//                                           if(Qt.platform.os==='linux' && u.folderExist('/home/ns')){
-//                                               //if(Qt.platform.os==='linux'){
-//                                               searchCoordsTurbo()
-//                                           }
+                                           //                                           if(Qt.platform.os==='linux' && u.folderExist('/home/ns')){
+                                           //                                               //if(Qt.platform.os==='linux'){
+                                           //                                               searchCoordsTurbo()
+                                           //                                           }
                                        }
                                    }else{
                                        //reject(`Error en la petición: Código de estado ${xhr.status}`);

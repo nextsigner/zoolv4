@@ -283,7 +283,6 @@ ApplicationWindow {
             return
         }
         if(apps.zFocus==='xLatIzq'){
-
             zsm.getPanelVisible().toEnter(ctrl)
             return
         }

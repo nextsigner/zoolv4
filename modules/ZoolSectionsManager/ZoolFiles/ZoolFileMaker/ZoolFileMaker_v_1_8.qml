@@ -1547,6 +1547,7 @@ Rectangle {
                     } else {
                         res = "El sistema de búsqueda de coordenadas GeoNames NO encontró el lugar "+lugar+".";
                         zpn.logTemp(res, 10000)
+
                         rLoadingError.visible=true
                         r.loadingCoords=false
 

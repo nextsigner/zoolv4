@@ -1,1 +1,1 @@
-i7: Se agrega Año mundial a item de ZoolRevolutionList
+i7: Se elimina qml-pacman subida por error

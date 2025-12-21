@@ -3,6 +3,7 @@ import QtQuick.Controls 2.0
 import Qt.labs.settings 1.1
 import ZoolControlsTime 1.1
 import ZoolTextInput 1.0
+import "../../../../comps" as Comps
 //import "../../comps" as Comps
 //import "../../js/Funcs.js" as JS
 
@@ -235,42 +236,62 @@ Rectangle {
                 }
             }
             Item{width: 1;height: app.fs*0.25}
-            ZoolTextInput{
-                id: tiCiudad
-                width: tiNombre.width
-                t.parent.width: r.width-app.fs*0.5
+            Row{
+                spacing: 0
                 anchors.horizontalCenter: parent.horizontalCenter
-                t.font.pixelSize: app.fs*0.65;
-                KeyNavigation.tab: cbInputCoords.checked?tiLat.t:tiAlt.t
-                t.maximumLength: 50
-                borderColor:apps.fontColor
-                borderRadius: app.fs*0.25
-                padding: app.fs*0.25
-                horizontalAlignment: TextInput.AlignLeft
-                onTextChanged: {
-                    r.modoTurbo=false
-                    if(text==='Ingresa un lugar aquí'){
-                        selectAll()
-                        return
+                ZoolTextInput{
+                    id: tiCiudad
+                    width: tiNombre.width-botSearchCoords.width//*2-parent.spacing
+                    t.parent.width: r.width-botSearchCoords.width-app.fs//*0.5
+                    anchors.verticalCenter: parent.verticalCenter
+                    //anchors.horizontalCenter: parent.horizontalCenter
+                    w: width
+                    t.font.pixelSize: app.fs*0.65;
+                    KeyNavigation.tab: cbInputCoords.checked?tiLat.t:tiAlt.t
+                    t.maximumLength: 50
+                    borderColor:apps.fontColor
+                    borderRadius: app.fs*0.25
+                    padding: app.fs*0.25
+                    horizontalAlignment: TextInput.AlignLeft
+                    onTextChanged: {
+                        r.modoTurbo=false
+                        if(text==='Ingresa un lugar aquí'){
+                            selectAll()
+                            return
+                        }
+                        settings.inputCoords=false
+                        tSearch.restart()
+                        t.color='white'
                     }
-                    settings.inputCoords=false
-                    tSearch.restart()
-                    t.color='white'
+                    FocusSen{
+                        width: parent.r.width
+                        height: parent.r.height
+                        radius: parent.r.radius
+                        border.width:2
+                        anchors.centerIn: parent
+                        visible: parent.t.focus
+                    }
+                    Text {
+                        text: 'Lugar, ciudad, provincia,\nregión y/o país de nacimiento'
+                        font.pixelSize: app.fs*0.5
+                        color: 'white'
+                        anchors.bottom: parent.top
+                    }
                 }
-                FocusSen{
-                    width: parent.r.width
-                    height: parent.r.height
-                    radius: parent.r.radius
-                    border.width:2
-                    anchors.centerIn: parent
-                    visible: parent.t.focus
-                }
-                Text {
-                    text: 'Lugar, ciudad, provincia,\nregión y/o país de nacimiento'
-                    font.pixelSize: app.fs*0.5
-                    color: 'white'
-                    anchors.bottom: parent.top
-                }
+
+                    Comps.ButtonIcon{
+                        id: botSearchCoords
+                        text: '\uf002'
+                        width: app.fs
+                        height: width
+                        //anchors.centerIn: parent
+                        anchors.verticalCenter: parent.verticalCenter
+                        onClicked: {
+                            tSearch.stop()
+                            searchGeoLoc(false)
+                        }
+                    }
+
             }
             Column{
                 id: colTiLonLat
@@ -601,7 +622,7 @@ Rectangle {
                     fs: app.fs*0.5
                     text: 'Vista Previa'
                     w:t.contentWidth
-                   t.wrapMode: Text.Normal
+                    t.wrapMode: Text.Normal
                     anchors.verticalCenter: parent.verticalCenter
                 }
                 CheckBox{
@@ -775,6 +796,57 @@ Rectangle {
             }
         }
     }
+    Rectangle{
+        id: rLoadingError
+        color: apps.backgroundColor
+        anchors.fill: parent
+        visible: r.loadingCoords
+        MouseArea{
+            anchors.fill: parent
+            onClicked: r.loadingCoords=false
+        }
+        Column{
+            spacing: app.fs*0.5
+            anchors.centerIn: parent
+            Text{
+                text: 'Ha ocurrido un problema para encontrar las coordenadas de ['+tiCiudad.t.text+'].<br><br>Esto se debe posiblemente a que el nombre del lugar está mal escrito o una falla en la conexión a internet.<br>'
+                color: apps.fontColor
+                font.pixelSize: app.fs*0.5
+                width: r.width-app.fs*2
+                wrapMode: Text.WordWrap
+                textFormat: Text.RichText
+                horizontalAlignment: Text.AlignHCenter
+            }
+            Text{
+                text: 'En este formulario tienes la opción de cargar las coordenadas geográifcas de modo manual. <br><br>¿Quieres cargar las coordenadas geográficas manualmente?'
+                color: apps.fontColor
+                font.pixelSize: app.fs*0.5
+                width: r.width-app.fs*2
+                wrapMode: Text.WordWrap
+                textFormat: Text.RichText
+                horizontalAlignment: Text.AlignHCenter
+            }
+            Button{
+                text: 'Cargar Manualmente'
+                font.pixelSize: app.fs*0.5
+                anchors.horizontalCenter: parent.horizontalCenter
+                onClicked: {
+                    rLoadingError.visible=false
+                    cbInputCoords.checked=true
+                    loadingCoords=false
+                }
+            }
+            Button{
+                text: 'Entendido'
+                font.pixelSize: app.fs*0.5
+                anchors.horizontalCenter: parent.horizontalCenter
+                onClicked: {
+                    rLoadingError.visible=false
+                    loadingCoords=false
+                }
+            }
+        }
+    }
     Item{
         id: xuqp
     }
@@ -782,7 +854,7 @@ Rectangle {
         id: tSearch
         running: false
         repeat: false
-        interval: 2000
+        interval: 10000
         onTriggered: searchGeoLoc(false)
     }
     //    Timer{
@@ -1373,19 +1445,23 @@ Rectangle {
         taInforme.text=p.data
         //log.lv('p:'+JSON.stringify(p, null, 2))
     }
+
+    //openstreetmap
     function obtenerCoordenadas(lugar) {
         return new Promise((resolve, reject) => {
                                const xhr = new XMLHttpRequest();
                                const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(lugar)}&format=json`;
+
 
                                xhr.open('GET', url);
 
                                xhr.onload = function() {
                                    if (xhr.status >= 200 && xhr.status < 300) {
                                        try {
+                                           //log.lv('obtenerCoordenadas('+lugar+'): '+xhr.responseText)
                                            const respuesta = JSON.parse(xhr.responseText);
                                            if(respuesta && respuesta.length > 0) {
-                                           //if(false) {
+                                               //if(false) {
                                                const latitud = parseFloat(respuesta[0].lat);
                                                const longitud = parseFloat(respuesta[0].lon);
                                                //zpn.logTemp('Latitud: '+latitud, 10000)
@@ -1396,44 +1472,96 @@ Rectangle {
                                                r.lon=parseFloat(longitud)
                                                r.ulon=r.lon
                                                r.loadingCoords=false
+                                               rLoadingError.visible=false
                                            }else{
-                                               reject('No se encontraron coordenadas para el lugar
- especificado.');
+                                               //reject('No se encontraron coordenadas para el lugar especificado.');
                                                //log.clear()
-                                               zpn.logTemp('No se encontraron las coordenadas de geolocalización de '+tiCiudad.text, 10000)
-                                               if(Qt.platform.os==='linux' && u.folderExist('/home/ns')){
-                                               //if(Qt.platform.os==='linux'){
+                                               zpn.logTemp('OpenStreet.ort NO se encontraron las coordenadas de geolocalización de '+tiCiudad.text+'\nBuscando con el sistema GeoNames...', 10000)
+                                               r.loadingCoords=true
+                                               obtenerCoordenadasGeoNames(lugar)
+                                               /*if(Qt.platform.os==='linux' && u.folderExist('/home/ns')){
+                                                   //if(Qt.platform.os==='linux'){
                                                    searchCoordsTurbo()
-                                               }
+                                               }*/
                                            }
                                        } catch (error) {
-                                           reject('Error al parsear la respuesta JSON.');
+                                           //reject('Error al parsear la respuesta JSON.');
                                            //log.clear()
-                                           zpn.logTemp('Hay un error de red en estos momentos. Error al solicitar las coordenadas de geolocalización de '+tiCiudad.text, 10000)
-                                           if(Qt.platform.os==='linux' && u.folderExist('/home/ns')){
-                                           //if(Qt.platform.os==='linux'){
-                                               searchCoordsTurbo()
-                                           }
+                                           zpn.logTemp('Busqueda de coordenadas con OpenStreet: Hay un error de red en estos momentos. Error al solicitar las coordenadas de geolocalización de '+tiCiudad.text, 10000)
+                                           obtenerCoordenadasGeoNames(lugar)
+//                                           if(Qt.platform.os==='linux' && u.folderExist('/home/ns')){
+//                                               //if(Qt.platform.os==='linux'){
+//                                               searchCoordsTurbo()
+//                                           }
                                        }
                                    }else{
-                                       reject(`Error en la petición: Código de estado ${xhr.status}`);
+                                       //reject(`Error en la petición: Código de estado ${xhr.status}`);
                                        //log.clear()
-                                       zpn.logTemp('Hay un error de red en estos momentos. Error al solicitar las coordenadas de geolocalización de '+tiCiudad.text, 10000)
-                                       if(Qt.platform.os==='linux' && u.folderExist('/home/ns')){
-                                       //if(Qt.platform.os==='linux'){
-                                           searchCoordsTurbo()
-                                       }
+                                       zpn.logTemp('Busqueda de coordenadas con OpenStreet: Hay un error de red en estos momentos. Error al solicitar las coordenadas de geolocalización de '+tiCiudad.text, 10000)
+                                       obtenerCoordenadasGeoNames(lugar)
                                    }
                                };
 
                                xhr.onerror = function() {
-                                   reject('Error de red al realizar la petición.');
+                                   //reject('Error de red al realizar la petición.');
                                    //log.clear()
-                                   zpn.logTemp('Hay un error de red en estos momentos. Error al solicitar las coordenadas de geolocalización de '+tiCiudad.text, 10000)
+                                   zpn.logTemp('Busqueda de coordenadas con OpenStreet: Hay un error de red en estos momentos. Error al solicitar las coordenadas de geolocalización de '+tiCiudad.text, 10000)
+                                   obtenerCoordenadasGeoNames(lugar)
                                };
 
                                xhr.send();
                            });
+    }
+    //GeoNames
+    function obtenerCoordenadasGeoNames(lugar) {
+        if (lugar === "") return;
+
+        var xhr = new XMLHttpRequest();
+        // Endpoint: searchJSON
+        // maxRows=1 para obtener solo el mejor resultado
+        // style=FULL para obtener la altitud (elevation)
+        var url = "http://api.geonames.org/searchJSON?q=" + encodeURIComponent(lugar)
+                + "&maxRows=1&username=" + 'qtpizarro' + "&style=FULL";
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+
+                    let res='Sin datos!'
+
+                    if (response.geonames && response.geonames.length > 0) {
+                        var data = response.geonames[0];
+                        var lat = data.lat;
+                        var lon = data.lng;
+                        var alt = parseInt(data.elevation) || 0;
+
+                        r.lat=parseFloat(lat)
+                        r.ulat=r.lat
+                        r.lon=parseFloat(lon)
+                        r.ulon=r.lon
+                        r.loadingCoords=false
+                        rLoadingError.visible=false
+
+                        res = "Lat: " + lat + "\nLon: " + lon + "\nAlt: " + alt + " m";
+                    } else {
+                        res = "El sistema de búsqueda de coordenadas GeoNames NO encontró el lugar "+lugar+".";
+                        zpn.logTemp(res, 10000)
+                        rLoadingError.visible=true
+                        r.loadingCoords=false
+
+                    }
+                    //log.lv('Res: '+res)
+                } else {
+                    zpn.logTemp("Error en la petición: " + xhr.status, 10000);
+                    r.loadingCoords=false
+                    rLoadingError.visible=true
+                }
+            }
+        }
+
+        xhr.open("GET", url);
+        xhr.send();
     }
     function setFormData(n, g, d, m, a, h, min, gmt, c){
         tiNombre.t.text=n

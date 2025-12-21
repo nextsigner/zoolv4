@@ -88,7 +88,7 @@ ZoolMainWindow{
     //Python
     property string sweFolder: Qt.platform.os==='windows'?'"'+u.getPath(1)+'/swe"':'/usr/share/ephe/swe'
     property string sweBodiesPythonFile: Qt.platform.os==='windows'?'astrologica_swe_v4.py':'zool_swe_portable_2.10.3.2_v2.py'
-    property string pythonLocation: Qt.platform.os==='windows'?'"'+u.getPath(1).replace(/\"/g, '')+'/Python/python.exe"':'python3'
+    property string pythonLocation: !sweFromCpp?(Qt.platform.os==='windows'?'"'+u.getPath(1).replace(/\"/g, '')+'/Python/python.exe"':'python3'):''
 
     property var j: JS
     property var c: CAP

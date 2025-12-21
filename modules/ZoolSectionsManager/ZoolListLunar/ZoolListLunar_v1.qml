@@ -408,6 +408,17 @@ Rectangle {
 
 
 
+    Rectangle{
+        anchors.fill: parent
+        color: apps.backgroundColor
+        Text{
+            text: 'Módulo en construcción'
+            width: parent.width*0.8
+            color: apps.fontColor
+            font.pixelSize: app.fs*0.5
+            anchors.centerIn: parent
+        }
+    }
     Component.onCompleted: {
         zsm.aPanelsIds.push(app.j.qmltypeof(r))
         zsm.aPanelesTits.push('Lista Lunar')
@@ -421,53 +432,22 @@ Rectangle {
             procesarDatos(r.uJson, onlyEclipses)
             return
         }
-        //log.lv('Creando nuevo json de '+anio+'.')
-        let finalCmd=''
-        finalCmd+=''+app.pythonLocation+' "'+u.currentFolderPath()+'/py/getMoonsV2.py" '+anio+' '+u.getPath(5)
-        //console.log('finalCmd: '+finalCmd)
-        let c=''
-        //+'  if(logData.length<=3||logData==="")return\n'
-            +'  let j\n'
-            +'  try {\n'
-            +'      j=JSON.parse(logData)\n'
-            +'      procesarDatos(j, '+onlyEclipses+')\n'
-        //+'  logData=""\n'
-            +'  } catch(e) {\n'
-            +'      console.log(e+" "+logData);\n'
-            +'  }\n'
-        r.uAnio=parseInt(anio)
-        mkCmd(finalCmd, c, xuqp)
-    }
-    function mkCmd(finalCmd, code, item){
-        for(var i=0;i<item.children.length;i++){
-            item.children[i].destroy(0)
-        }
-        let d = new Date(Date.now())
-        let ms=d.getTime()
-        let c='import QtQuick 2.0\n'
-        c+='import unik.UnikQProcess 1.0\n'
-        //c+='import "../../js/Funcs.js" as JS\n'
-        c+='UnikQProcess{\n'
-        c+='    id: uqp'+ms+'\n'
-        c+='    onLogDataChanged:{\n'
-        c+='        '+code+'\n'
-        c+='        uqp'+ms+'.destroy(3000)\n'
-        c+='    }\n'
-        c+='    Component.onCompleted:{\n'
-        //c+='        log.ls(\'finalCmdRS: '+finalCmd+'\', 0, 500)\n'
-        c+='        run(\''+finalCmd+'\')\n'
-        c+='    }\n'
-        c+='}\n'
-        //console.log(c)
-        let comp=Qt.createQmlObject(c, item, 'uqpcodecmdrslist')
+        let p=zfdm.getJsonAbsParams(false)
+        let jll=JSON.parse(swe.getLunarEvents(anio, p.gmt))
+        procesarDatos(jll, onlyEclipses)
     }
     function procesarDatos(j, onlyEclipses){
-        //log.lv('json: '+JSON.stringify(j, null, 2))
+        log.lv('json: '+JSON.stringify(j, null, 2))
         //return
         //log.lv('onlyEclipses: '+onlyEclipses)
         r.uJson=j
         lm.clear()
-        let eclipses=j.eclipses
+        let eclipses_lunares=j.eclipses_lunares
+        for(var i=0;i<eclipses_lunares.length;i++){
+            log.lv('--->'+JSON.stringify(eclipses_lunares[i].date, null, 2))
+            lm.append(lm.addItem(eclipses_lunares[i].date, '0|20/6/1975 - 23:04'))
+        }
+        return
         for(var i=0;i<12;i++){
             let mes=j.meses[i]
             //log.lv('mes '+i+': '+JSON.stringify(mes, null, 2))

@@ -232,11 +232,11 @@ Rectangle {
                         if(lv.currentIndex<lv.count-1)lv.currentIndex++
                     }
                 }
-//                ZoolText{
-//                    text: r.currentAnioSelected//lv.currentIndex
-//                    fs: app.fs*0.5
-//                    anchors.verticalCenter: parent.verticalCenter
-//                }
+                //                ZoolText{
+                //                    text: r.currentAnioSelected//lv.currentIndex
+                //                    fs: app.fs*0.5
+                //                    anchors.verticalCenter: parent.verticalCenter
+                //                }
                 ZoolButton{
                     id: btnLoad
                     text:'Cargar'
@@ -245,7 +245,8 @@ Rectangle {
                     onClicked:{
                         //setListLunar(parseInt(tiAnio.text), true)
                         //log.lv('c:'+JSON.stringify(lm.get(lv.currentIndex).json, null, 2))
-                        loadToZm(lm.get(lv.currentIndex).json, lm.get(lv.currentIndex).ste)
+                        //loadToZm(t, lm.get(lv.currentIndex).json, lm.get(lv.currentIndex).ste)
+                        loadToZm(t, lm.get(lv.currentIndex).json, lm.get(lv.currentIndex).ste)
                     }
                 }
             }
@@ -280,10 +281,10 @@ Rectangle {
     }
     ListModel{
         id: lm
-        function addItem(vJson, vSTE){
+        function addItem(vT, vJson){
             return {
-                json: vJson,
-                ste: vSTE
+                t: vT,
+                json: vJson
             }
         }
     }
@@ -296,6 +297,7 @@ Rectangle {
             color: apps.backgroundColor
             border.width: !selected?1:3
             border.color: apps.fontColor
+            property bool isTit: t<0
             property bool selected: lv.currentIndex===index
             Rectangle{
                 anchors.fill: parent
@@ -305,15 +307,17 @@ Rectangle {
             }
             MouseArea{
                 anchors.fill: parent
+                enabled: !item.isTit
                 onClicked: {
                     lv.currentIndex=index
                     //log.lv('\n\n\njson item: '+JSON.stringify(json, null, 2))
-                    loadToZm(json, ste)
+                    loadToZm(t, json)
                 }
             }
             Row{
                 spacing: app.fs*0.25
                 anchors.centerIn: parent
+                visible: !item.isTit
                 Item{
                     id: xLuna
                     width: app.fs
@@ -351,7 +355,7 @@ Rectangle {
                 Text{
                     id: txtData
                     text: 'Dato index: '+index
-                    font.pixelSize: app.fs*0.65
+                    font.pixelSize: app.fs*0.5
                     color: apps.fontColor
                     width: parent.parent.width-xLuna.width-app.fs-app.fs*0.25
                     wrapMode: Text.WordWrap
@@ -359,50 +363,144 @@ Rectangle {
                     anchors.verticalCenter: parent.verticalCenter
                 }
             }
+            Rectangle{
+                anchors.fill: parent
+                visible: item.isTit
+                color: apps.fontColor
+                Text{
+                    text: '<b>???</b>'
+                    font.pixelSize: app.fs*0.5
+                    color: apps.backgroundColor
+                    anchors.centerIn: parent
+                    Component.onCompleted: {
+                        if(t===-1){
+                            text='<b>Eclipses Lunares</b>'
+                        }else if(t===-2){
+                            text='<b>Eclipses Solares</b>'
+                        }else if(t===-3){
+                            text='<b>Lunas Nuevas</b>'
+                        }else if(t===-4){
+                            text='<b>Lunas Llenas</b>'
+                        }else{
+                            text='<b>Indefinido</b>'
+                        }
+                    }
+                }
+            }
             Component.onCompleted: {
+                if(item.isTit)return
                 //log.lv('json: '+JSON.stringify(json, null, 2))
                 let sd=''
                 let d=json.d
                 let m=json.m
                 let a=json.a
-                let mste=ste.split('|')
-                let te=mste[0]
-                let matTe=mste[1].split('-')
-                let hte=matTe[0]
-                let minte=matTe[1]
-                let sTimeEclipse=''
 
-                let matDege=mste[2].split('-')
-                let degDege=matDege[0]
-                let minDege=matDege[1]
+                xLuna.t=t
+                let strDMS=''
+                let aDMS=[]
+                let is=-1
+                let gdeg=-1
+                if(t===0 || t===1){
+                    if(t===0){
+                        is=json.moon_is
+                        aDMS=app.j.deg_to_dms(json.moon_gdec)
+                        gdeg=parseInt(aDMS[0]-30.00*is)
+                        if(gdeg===30){
+                            gdeg=0
+                            if(is<11){
+                                is++
+                            }else{
+                                is=0
+                            }
+                        }
+                        strDMS='°'+gdeg+' \''+aDMS[1]+' \'\''+aDMS[2]
+                        sd+='<b>Luna en </b>: '+zm.aSigns[is]+' '+strDMS+'<br>'
 
-                if(json.isEvent===0){
-                    xLuna.t=0
-                    sd+=te===''?'<b>Luna Nueva</b><br>':(te==='lunar'?'<b>Eclipse Lunar</b><br>':'<b>Eclipse Solar</b><br>')
+                        is=json.sun_is
+                        aDMS=app.j.deg_to_dms(json.sun_gdec)
+                        gdeg=parseInt(aDMS[0]-30.00*is)
+                        if(gdeg===30){
+                            gdeg=0
+                            if(is<11){
+                                is++
+                            }else{
+                                is=0
+                            }
+                        }
+                        strDMS='°'+gdeg+' \''+aDMS[1]+' \'\''+aDMS[2]
+                        sd+='<b>Sol en </b>: '+zm.aSigns[json.sun_is]+' '+strDMS+'<br>'
+                    }
+                    if(t===1){
+                        is=json.is
+                        aDMS=app.j.deg_to_dms(json.gdec)
+                        gdeg=parseInt(aDMS[0]-30.00*is)
+                        if(gdeg===30){
+                            gdeg=0
+                            if(is<11){
+                                is++
+                            }else{
+                                is=0
+                            }
+                        }
+                        strDMS='°'+gdeg+' \''+aDMS[1]+' \'\''+aDMS[2]
+                        sd+='<b>Sol y Luna en </b>: '+zm.aSigns[json.is]+' '+strDMS+'<br>'
+                    }
+                    //sd+='<b>Signo</b>: '+JSON.stringify(json, null, 2)+'<br>'
+                    sd+=t<2?'<b>Tipo:</b> '+json.type+'<br>':''
+                    sd+='<b>Fecha</b>: '+json.date.d+'/'+json.date.m+'/'+json.date.a+'<br>'
+                    sd+='<b>Hora</b>: '+json.date.h+':'+json.date.min+'hs'
+                }else{
+                    if(t===2){
+                        is=json.is
+                        aDMS=app.j.deg_to_dms(json.gdec)
+                        gdeg=parseInt(aDMS[0]-30.00*is)
+                        if(gdeg===30){
+                            gdeg=0
+                            if(is<11){
+                                is++
+                            }else{
+                                is=0
+                            }
+                        }
+                        strDMS='°'+gdeg+' \''+aDMS[1]+' \'\''+aDMS[2]
+                        sd+='<b>Luna Nueva en </b>: '+zm.aSigns[json.is]+' '+strDMS+'<br>'
+                        sd+='<b>Fecha</b>: '+json.d+'/'+json.m+'/'+json.a+'<br>'
+                        sd+='<b>Hora</b>: '+json.h+':'+json.min+'hs'
+                    }else{
+                        //sd+=''+JSON.stringify(json, null, 2)
+                        is=json.moon_is
+                        aDMS=app.j.deg_to_dms(json.moon_gdec)
+                        gdeg=parseInt(aDMS[0]-30.00*is)
+                        if(gdeg===30){
+                            gdeg=0
+                            if(is<11){
+                                is++
+                            }else{
+                                is=0
+                            }
+                        }
+                        strDMS='°'+gdeg+' \''+aDMS[1]+' \'\''+aDMS[2]
+                        sd+='<b>Luna Llena en </b>: '+zm.aSigns[is]+' '+strDMS+'<br>'
+
+                        is=json.sun_is
+                        aDMS=app.j.deg_to_dms(json.sun_gdec)
+                        gdeg=parseInt(aDMS[0]-30.00*is)
+                        if(gdeg===30){
+                            gdeg=0
+                            if(is<11){
+                                is++
+                            }else{
+                                is=0
+                            }
+                        }
+                        strDMS='°'+gdeg+' \''+aDMS[1]+' \'\''+aDMS[2]
+                        sd+='<b>Sol en </b>: '+zm.aSigns[is]+' '+strDMS+'<br>'
+                        sd+='<b>Fecha</b>: '+json.d+'/'+json.m+'/'+json.a+'<br>'
+                        sd+='<b>Hora</b>: '+json.h+':'+json.min+'hs'
+                    }
+
                 }
-                if(json.isEvent===1){
-                    xLuna.t=1
-                    sd+='<b>Luna Creciente</b><br>'
-                }
-                if(json.isEvent===2){
-                    xLuna.t=2
-                    sd+=te===''?'<b>Luna Llena</b><br>':(te==='lunar'?'<b>Eclipse Lunar</b><br>':'<b>Eclipse Solar</b><br>')
-                }
-                if(json.isEvent===3){
-                    xLuna.t=3
-                    sd+='<b>Luna Menguante</b><br>'
-                }
-                if(te!=='')sTimeEclipse=''+hte+':'+minte+'hs '
-                sd+='<b>Fecha</b>: '+d+'/'+m+'/'+a+' '+sTimeEclipse
-                if(te!==''){
-                    let indexSign=zm.getIndexSign(parseInt(degDege))
-                    let rsdeg=parseInt(degDege)-(30*indexSign)
-                    sd+='<br><b>Signo:</b> '+zm.aSigns[indexSign]
-                    sd+=' °'+rsdeg+' \''+minDege
-                }
-                txtData.text=sd
-                //txtData.text+='<br>'+ste
-            }
+                txtData.text=sd            }
         }
     }
 
@@ -411,6 +509,7 @@ Rectangle {
     Rectangle{
         anchors.fill: parent
         color: apps.backgroundColor
+        visible: false
         Text{
             text: 'Módulo en construcción'
             width: parent.width*0.8
@@ -434,62 +533,44 @@ Rectangle {
         }
         let p=zfdm.getJsonAbsParams(false)
         let jll=JSON.parse(swe.getLunarEvents(anio, p.gmt))
+        //clipboard.setText(JSON.stringify(jll, null, 2))
         procesarDatos(jll, onlyEclipses)
     }
     function procesarDatos(j, onlyEclipses){
-        log.lv('json: '+JSON.stringify(j, null, 2))
+        //log.lv('json: '+JSON.stringify(j, null, 2))
         //return
         //log.lv('onlyEclipses: '+onlyEclipses)
         r.uJson=j
         lm.clear()
+
+        //Eclipses Lunares
+        lm.append(lm.addItem(-1, {}))
         let eclipses_lunares=j.eclipses_lunares
         for(var i=0;i<eclipses_lunares.length;i++){
-            log.lv('--->'+JSON.stringify(eclipses_lunares[i].date, null, 2))
-            lm.append(lm.addItem(eclipses_lunares[i].date, '0|20/6/1975 - 23:04'))
+            //log.lv('--->'+JSON.stringify(eclipses_lunares[i].date, null, 2))
+            lm.append(lm.addItem(0, eclipses_lunares[i]))
         }
-        return
-        for(var i=0;i<12;i++){
-            let mes=j.meses[i]
-            //log.lv('mes '+i+': '+JSON.stringify(mes, null, 2))
-            for(var i2=0;i2<Object.keys(mes.ciclos).length;i2++){
-                let ciclo=mes.ciclos[i2]
-                //log.lv('ciclo '+i2+': '+JSON.stringify(ciclo, null, 2))
-                if(ciclo.isEvent>=0){
-                    let te=''
-                    let he=''
-                    let dege=''
-                    for(var i3=0;i3<Object.keys(eclipses).length;i3++){
-                        let ds=eclipses['solar'][i3].d
-                        let ms=eclipses['solar'][i3].m
-                        let as=eclipses['solar'][i3].a
-                        if(ds===ciclo.d && ms===ciclo.m && as===ciclo.a){
-                            te='solar'
-                            he=''+eclipses['solar'][i3].h+'-'+eclipses['solar'][i3].min
-                            dege=''+ciclo.gs+'-'+ciclo.ms
-                            break
-                        }
-                    }
-                    for(i3=0;i3<Object.keys(eclipses).length;i3++){
-                        let ds=eclipses['lunar'][i3].d
-                        let ms=eclipses['lunar'][i3].m
-                        let as=eclipses['lunar'][i3].a
-                        if(ds===ciclo.d && ms===ciclo.m && as===ciclo.a){
-                            te='lunar'
-                            he=''+eclipses['lunar'][i3].h+'-'+eclipses['lunar'][i3].min
-                            dege=''+ciclo.gl+'-'+ciclo.ml
-                            break
-                        }
-                    }
-                    if(onlyEclipses){
-                        if(te!=='')lm.append(lm.addItem(ciclo, te+'|'+he+'|'+dege))
-                    }else{
-                        lm.append(lm.addItem(ciclo, te+'|'+he+'|'+dege))
-                    }
-
-                }
-            }
+        //Eclipses Solares
+        lm.append(lm.addItem(-2, {}))
+        let eclipses_solares=j.eclipses_solares
+        for(i=0;i<eclipses_solares.length;i++){
+            //log.lv('--->'+JSON.stringify(eclipses_solares[i].date, null, 2))
+            lm.append(lm.addItem(1, eclipses_solares[i]))
         }
-        //log.lv('eclipses: '+JSON.stringify(j.eclipses, null, 2))
+        //Lunas Nuevas
+        lm.append(lm.addItem(-3, {}))
+        let lunas_nuevas=j.lunas_nuevas
+        for(i=0;i<lunas_nuevas.length;i++){
+            //log.lv('--->'+JSON.stringify(eclipses_solares[i].date, null, 2))
+            lm.append(lm.addItem(2, lunas_nuevas[i]))
+        }
+        //Lunas Llenas
+        lm.append(lm.addItem(-4, {}))
+        let lunas_llenas=j.lunas_llenas
+        for(i=0;i<lunas_llenas.length;i++){
+            //log.lv('--->'+JSON.stringify(eclipses_solares[i].date, null, 2))
+            lm.append(lm.addItem(3, lunas_llenas[i]))
+        }
 
         return
         let aData=[]
@@ -520,26 +601,24 @@ Rectangle {
 
 
     }
-    function loadToZm(json, ste){
+    function loadToZm(vt, json){
         let j=zfdm.getJsonAbs()
         //j.params=zfdm.getJsonAbs().params
-        j.params.d=json.d
-        j.params.m=json.m
-        j.params.a=json.a
-        if(ste!=='' && ste!=='||'){
-            let mste=ste.split('|')
-            let te=mste[0]
-            let matTe=mste[1].split('-')
-            let hte=matTe[0]
-            let minte=matTe[1]
-            j.params.h=parseInt(hte)
-            j.params.min=parseInt(minte)
-            j.params.gmt=0
+        if(vt<2){
+            j.params.d=json.date.d
+            j.params.m=json.date.m
+            j.params.a=json.date.a
+            j.params.h=json.date.h
+            j.params.min=json.date.min
         }else{
-            j.params.gmt=0
+            j.params.d=json.d
+            j.params.m=json.m
+            j.params.a=json.a
             j.params.h=json.h
             j.params.min=json.min
         }
+
+
         j.params.t='trans'
         //log.lv('JSON Lunar: '+JSON.stringify(j, null, 2))
         zm.loadBack(j)
@@ -561,20 +640,18 @@ Rectangle {
         let aL=zoolDataView.atLeft
         let aR=[]
         let strSep='?'
-        strSep='Evento Lunar'
-        let mste=ste.split('|')
-        let te=mste[0]
-        if(json.isEvent===0){
-            strSep=te===''?'Luna Nueva':(te==='lunar'?'Eclipse Lunar':'Eclipse Solar')
+        strSep=''
+        if(vt===0){
+            strSep='Eclipse Lunar '+json.type
         }
-        if(json.isEvent===1){
-            strSep='Luna Creciente'
+        if(vt===1){
+            strSep='Eclipse Solar '+json.type
         }
-        if(json.isEvent===2){
-            strSep=te===''?'Luna Llena':(te==='lunar'?'Eclipse Lunar':'Eclipse Solar')
+        if(vt===2){
+            strSep='Luna Nueva'
         }
-        if(json.isEvent===3){
-            strSep='Luna Menguante'
+        if(vt===3){
+            strSep='Luna Llena'
         }
 
         //aR.push('<b>'+nom+'</b>')
@@ -614,12 +691,12 @@ Rectangle {
         tiAnio.focus=false
     }
     //-->Funciones de Control Focus y Teclado
-   function toEscape(){
+    function toEscape(){
 
-   }
-   function isFocus(){
+    }
+    function isFocus(){
         return false
-   }
+    }
     property bool hasUnUsedFunction: true
     function unUsed(){
         //log.lv(app.j.qmltypeof(r)+'.unUsed()...')

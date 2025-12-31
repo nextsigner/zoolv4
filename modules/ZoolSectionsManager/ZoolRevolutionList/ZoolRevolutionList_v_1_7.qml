@@ -684,7 +684,7 @@ Rectangle {
             property bool selected: lv.currentIndex===index
             onSelectedChanged: {
                 if(selected){
-                    let j=JSON.parse(json)
+                    let j=json//JSON.parse(json)
                     let params=j['ph']['params']
                     let sdgmt=params.sdgmt
                     let m0=sdgmt.split(' ')//20/6/1984 06:40
@@ -1045,7 +1045,10 @@ Rectangle {
                 log.lv('r.ulon: '+r.ulon)
             }
             //lv.itemAtIndex(lv.currentIndex).loadRs(0, app.currentLat, app.currentLon, app.currentAlt)
-            lv.itemAtIndex(lv.currentIndex).loadRs(0, zm.currentLat, zm.currentLon, zm.currentAlt)
+            //log.lv('prepareLoad() zm.currentGmt:'+zm.currentGmt)
+            let p=zfdm.getJsonAbsParams(false)
+            lv.itemAtIndex(lv.currentIndex).loadRs(p.gmt, p.lat, p.lon, p.alt)
+            //lv.itemAtIndex(lv.currentIndex).loadRs(zm.currentGmt, zm.currentLat, zm.currentLon, zm.currentAlt)
         }else{
             r.ulat=zm.currentLat
             r.ulon=zm.currentLon
@@ -1053,12 +1056,15 @@ Rectangle {
                 log.lv('r.ulat: '+r.ulat)
                 log.lv('r.ulon: '+r.ulon)
             }
-            lv.itemAtIndex(lv.currentIndex).loadRs(0, zm.currentLat, zm.currentLon, zm.currentAlt)
-            //lv.itemAtIndex(lv.currentIndex).loadRs(app.currentGmt, app.currentLat, app.currentLon, app.currentAlt)
+            //log.lv('prepareLoad() zm.currentGmt:'+zm.currentGmt)
+            let p=zfdm.getJsonAbsParams(false)
+            lv.itemAtIndex(lv.currentIndex).loadRs(p.gmt, p.lat, p.lon, p.alt)
+            //lv.itemAtIndex(lv.currentIndex).loadRs(zm.currentGmt, app.currentLat, app.currentLon, app.currentAlt)
         }
     }
     function loadRs(date, index, gmt, lat, lon, alt){
         //if(apps.dev)log.lv('1 loadRs()... gmt: '+gmt)
+        //log.lv('loadRs(date: '+date.toString()+', index: '+index+', gmt:'+gmt+', lat:'+lat+', lon:'+lon+', alt:'+alt+')')
         let d = new Date(date)
         let ms=new Date(Date.now()).getTime()
 

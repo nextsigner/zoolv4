@@ -43,6 +43,7 @@ Rectangle{
                 MouseArea{
                     anchors.fill: parent
                     onClicked: {
+                        log.lv('tranlist j: '+JSON.stringify(j, null, 2))
                         if(lv.currentIndex!==index){
                             lv.currentIndex=index
                             r.selected(JSON.stringify(j))
@@ -64,7 +65,8 @@ Rectangle{
                 }
                 Component.onCompleted: {                   
                     let sAsp=zm.objAspsCircle.getAspName(j.aspIndex)
-                    t1.text='<b>'+sAsp+'</b> '+j.b+' '+j.d+'/'+j.m+'/'+j.a//+' '+j.h+':'+j.min
+                    //t1.text='<b>'+sAsp+'</b> '+zm.aBodies[j.numAstro]+' '+j.d+'/'+j.m+'/'+j.a//+' '+j.h+':'+j.min
+                    t1.text='<b>'+sAsp+': </b> '+zm.aBodies[bb.bsel2]+' transitando en '+sAsp+' con '+zm.aBodies[bb.bsel1]+' <br><b>Fecha: </b> '+j.d+'/'+j.m+'/'+j.a//+'
                 }
         }
     }

@@ -1,1 +1,1 @@
-i7: Se corrige la fecha de carga, error en el mes de itemRS.rsDate
+i7: Se prepara la ultima version del año 2025

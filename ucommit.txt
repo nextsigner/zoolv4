@@ -1,1 +1,1 @@
-i7: Se reparó Rs
+i7: Se agregó con éxito searchAspsBodieFromLong() a swe

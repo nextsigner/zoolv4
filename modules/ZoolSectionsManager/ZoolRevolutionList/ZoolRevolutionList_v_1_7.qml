@@ -885,7 +885,7 @@ Rectangle {
                 //log.lv('RS h1.is:::'+zm.getIndexSign(jsonHouses.ph.h1.gdec))
                 itemRS.is=zm.getIndexSign(jsonHouses.ph.h1.gdec)
                 txtData.text='<b>Fecha:</b> '+ar[0]+'/'+ar[1]+'/'+ar[2]+' <b>Hora: </b>'+ar[3]+':'+ar[4]+'hs <b>GMT</b> '+p.gmt
-                itemRS.rsDate=new Date(ar[0],ar[1],ar[2],ar[3],ar[4])
+                itemRS.rsDate=new Date(ar[0],ar[1]-1,ar[2],ar[3],ar[4])
                 let f = ar[2] + '/' + ar[1] + '/' + ar[0]
                 let aGetNums=app.j.getNums(f)
                 labelAnioPersonal.text=aGetNums[0]

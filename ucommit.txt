@@ -1,1 +1,1 @@
-i7: Se actualiza ZoolListLunar
+i7: Se corrige la fecha de carga, error en el mes de itemRS.rsDate

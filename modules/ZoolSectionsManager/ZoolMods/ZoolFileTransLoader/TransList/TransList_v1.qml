@@ -43,7 +43,7 @@ Rectangle{
                 MouseArea{
                     anchors.fill: parent
                     onClicked: {
-                        log.lv('tranlist j: '+JSON.stringify(j, null, 2))
+                        //log.lv('tranlist j: '+JSON.stringify(j, null, 2))
                         if(lv.currentIndex!==index){
                             lv.currentIndex=index
                             r.selected(JSON.stringify(j))

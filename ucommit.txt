@@ -1,1 +1,1 @@
-i7: Se agregó con éxito searchAspsBodieFromLong() a swe
+i7: Se repara rotation de PointerPlanet en trans

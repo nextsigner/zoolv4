@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
 
-import ZoolTextInput 1.0
+import ZoolTextInput 1.1
 
 Rectangle{
     id: r
@@ -31,7 +31,7 @@ Rectangle{
             borderColor:apps.fontColor
             borderRadius: app.fs*0.1
             padding: app.fs*0.25
-            horizontalAlignment: TextInput.AlignLeft
+            t.horizontalAlignment: TextInput.AlignLeft
             opacity: enabled?1.0:0.5
             onTextChanged: if(cbPreview.checked)loadTemp()
             onEnterPressed: {

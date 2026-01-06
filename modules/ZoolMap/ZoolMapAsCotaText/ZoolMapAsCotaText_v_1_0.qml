@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import ZoolText 1.3
+import ZoolText 1.4
 import ZoolButton 1.2
 
 Rectangle{
@@ -37,7 +37,7 @@ Rectangle{
         ZoolText{
             id: degData
             w: t.contentWidth
-            rx.width: w+padding*2
+            //rx.width: w+padding*2
             text:r.text
             wrapMode: Text.NoWrap
             tf: Text.RichText

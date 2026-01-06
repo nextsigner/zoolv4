@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import ZoolText 1.3
+import ZoolText 1.4
 
 Rectangle{
     id: r
@@ -35,7 +35,7 @@ Rectangle{
         ZoolText{
             id: degData
             w: t.contentWidth
-            rx.width: w+padding*2
+            //rx.width: w+padding*2
             //text:'°'+r.g+' \''+r.m+' \'\''+r.s+'\n'+sweg.getDDToDMS(r.gdec).deg
             text:''+app.signos[r.is]+' Casa '+r.ih+'\n°'+parseInt(zm.getDDToDMS(r.gdec).deg - (30*r.is))+' \''+zm.getDDToDMS(r.gdec).min+' \'\''+zm.getDDToDMS(r.gdec).sec
             wrapMode: Text.NoWrap

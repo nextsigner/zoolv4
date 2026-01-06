@@ -1,1 +1,1 @@
-i7: Se creo la versión de final de 2025 v5.12.31.3!!!!
+i7: Se actualizan ZoolText y ZoolTextInput

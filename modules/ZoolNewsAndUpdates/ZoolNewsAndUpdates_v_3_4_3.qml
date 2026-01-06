@@ -1,7 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.0
 import ZoolButton 1.2
-import ZoolText 1.3
+import ZoolText 1.4
 
 Rectangle{
     id: r

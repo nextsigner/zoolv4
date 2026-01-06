@@ -1,8 +1,8 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
-import ZoolTextInput 1.0
+import ZoolTextInput 1.1
 
-import ZoolText 1.3
+import ZoolText 1.4
 import ZoolButton 1.2
 
 import comps.ZoolLoadingCircle 1.0

@@ -5,8 +5,8 @@ import QtGraphicalEffects 1.0
 
 import comps.FocusSen 1.0
 import ZoolButton 1.2
-import ZoolText 1.3
-import ZoolTextInput 1.0
+import ZoolText 1.4
+import ZoolTextInput 1.1
 
 //import ZoolLogView 1.0
 
@@ -67,15 +67,15 @@ Item{
                 borderColor:apps.fontColor
                 borderRadius: app.fs*0.25
                 padding: app.fs*0.25
-                horizontalAlignment: TextInput.AlignLeft
+                t.horizontalAlignment: TextInput.AlignLeft
                 onTextChanged: printNumMision()
                 onEnterPressed: {
                     //printNumMision()
                 }
                 FocusSen{
-                    width: parent.r.width
-                    height: parent.r.height
-                    radius: parent.r.radius
+                    width: parent.rx.width
+                    height: parent.rx.height
+                    radius: parent.rx.radius
                     border.width:2
                     anchors.centerIn: parent
                     visible: parent.t.focus

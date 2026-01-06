@@ -2,12 +2,12 @@ import QtQuick 2.7
 import QtQuick.Controls 2.0
 import Qt.labs.settings 1.1
 import ZoolControlsTime 1.1
-import ZoolTextInput 1.0
+import ZoolTextInput 1.1
 import "../../../../comps" as Comps
 //import "../../comps" as Comps
 //import "../../js/Funcs.js" as JS
 
-import ZoolText 1.3
+import ZoolText 1.4
 import ZoolButton 1.2
 import comps.FocusSen 1.0
 
@@ -136,7 +136,7 @@ Rectangle {
                 borderColor:apps.fontColor
                 borderRadius: app.fs*0.25
                 padding: app.fs*0.25
-                horizontalAlignment: TextInput.AlignLeft
+                t.horizontalAlignment: TextInput.AlignLeft
                 onTextChanged: if(cbPreview.checked)loadTemp()
                 onEnterPressed: {
                     cbGenero.focus=true
@@ -144,9 +144,9 @@ Rectangle {
                     //controlTimeFecha.cFocus=0
                 }
                 FocusSen{
-                    width: parent.r.width
-                    height: parent.r.height
-                    radius: parent.r.radius
+                    width: parent.rx.width
+                    height: parent.rx.height
+                    radius: parent.rx.radius
                     border.width:2
                     anchors.centerIn: parent
                     visible: parent.t.focus
@@ -252,7 +252,7 @@ Rectangle {
                     borderColor:apps.fontColor
                     borderRadius: app.fs*0.25
                     padding: app.fs*0.25
-                    horizontalAlignment: TextInput.AlignLeft
+                    t.horizontalAlignment: TextInput.AlignLeft
                     onTextChanged: {
                         r.modoTurbo=false
                         if(text==='Ingresa un lugar aquí'){
@@ -263,12 +263,20 @@ Rectangle {
                         tSearch.restart()
                         t.color='white'
                     }
-                    FocusSen{
-                        width: parent.r.width
-                        height: parent.r.height
-                        radius: parent.r.radius
+                    /*FocusSen{
+                        width: parent.rx.width
+                        height: parent.rx.height
+                        radius: parent.rx.radius
                         border.width:2
                         anchors.centerIn: parent
+                        visible: parent.t.focus
+                    }*/
+                    FocusSen{
+                        width: parent.rx.width
+                        height: parent.rx.height
+                        radius: parent.rx.radius
+                        border.width:2
+                        //anchors.centerIn: parent
                         visible: parent.t.focus
                     }
                     Text {
@@ -320,7 +328,7 @@ Rectangle {
                         borderColor:apps.fontColor
                         borderRadius: app.fs*0.25
                         padding: app.fs*0.25
-                        horizontalAlignment: TextInput.AlignLeft
+                        t.horizontalAlignment: TextInput.AlignLeft
                         property bool valid: false
                         Timer{
                             running: r.visible && cbInputCoords.checked
@@ -349,9 +357,9 @@ Rectangle {
                             //controlTimeFecha.cFocus=0
                         }
                         FocusSen{
-                            width: parent.r.width
-                            height: parent.r.height
-                            radius: parent.r.radius
+                            width: parent.rx.width
+                            height: parent.rx.height
+                            radius: parent.rx.radius
                             border.width:2
                             anchors.centerIn: parent
                             visible: parent.t.focus
@@ -382,7 +390,7 @@ Rectangle {
                         borderColor:apps.fontColor
                         borderRadius: app.fs*0.25
                         padding: app.fs*0.25
-                        horizontalAlignment: TextInput.AlignLeft
+                        t.horizontalAlignment: TextInput.AlignLeft
                         property bool valid: false
                         Timer{
                             running: r.visible && cbInputCoords.checked
@@ -412,9 +420,9 @@ Rectangle {
                             //controlTimeFecha.cFocus=0
                         }
                         FocusSen{
-                            width: parent.r.width
-                            height: parent.r.height
-                            radius: parent.r.radius
+                            width: parent.rx.width
+                            height: parent.rx.height
+                            radius: parent.rx.radius
                             border.width:2
                             anchors.centerIn: parent
                             visible: parent.t.focus
@@ -495,6 +503,7 @@ Rectangle {
                     ZoolTextInput{
                         id: tiAlt
                         text: r.ualt
+                        w: parent.width
                         //width: app.fs*3
                         t.font.pixelSize: app.fs*0.65
                         anchors.centerIn: parent
@@ -505,7 +514,7 @@ Rectangle {
                         borderColor:apps.fontColor
                         borderRadius: app.fs*0.25
                         padding: app.fs*0.25
-                        horizontalAlignment: TextInput.AlignLeft
+                        t.horizontalAlignment: TextInput.AlignLeft
                         property int uNum: 0
                         onTextChanged:{
                             let t=text
@@ -530,9 +539,9 @@ Rectangle {
                             //controlTimeFecha.cFocus=0
                         }
                         FocusSen{
-                            width: parent.r.width
-                            height: parent.r.height
-                            radius: parent.r.radius
+                            width: parent.rx.width
+                            height: parent.rx.height
+                            radius: parent.rx.radius
                             border.width:2
                             anchors.centerIn: parent
                             visible: parent.t.focus

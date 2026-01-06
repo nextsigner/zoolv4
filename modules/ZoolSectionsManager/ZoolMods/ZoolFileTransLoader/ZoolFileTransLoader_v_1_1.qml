@@ -3,8 +3,8 @@ import QtQuick.Controls 2.0
 import Qt.labs.settings 1.1
 import "../../comps" as Comps
 
-import ZoolText 1.3
-import ZoolTextInput 1.0
+import ZoolText 1.4
+import ZoolTextInput 1.1
 import ZoolButton 1.2
 import ZoolControlsTime 1.0
 

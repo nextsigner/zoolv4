@@ -4,8 +4,8 @@ import Qt.labs.settings 1.1
 import "../../../../comps" as Comps
 
 import comps.FocusSen 1.0
-import ZoolText 1.3
-import ZoolTextInput 1.0
+import ZoolText 1.4
+import ZoolTextInput 1.1
 import ZoolButton 1.2
 import ZoolControlsTime 1.0
 import ZoolSectionsManager.ZoolMods.ZoolFileTransLoader.BodiesButtons 2.0
@@ -488,7 +488,7 @@ Rectangle {
                         text: '<b>Utilizar los parámetros actuales</b>'
                         fs: app.fs*0.5
                         padding: app.fs*0.25
-                        rx.width: w
+                        //rx.width: w
                         w: r.width-app.fs//*0.2
                         tf: Text.RichText
                         wrapMode: Text.WordWrap

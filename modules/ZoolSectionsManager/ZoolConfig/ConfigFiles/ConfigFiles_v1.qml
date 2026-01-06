@@ -3,8 +3,8 @@ import QtQuick.Controls 2.0
 
 import comps.FocusSen 1.0
 import ZoolButton 1.0
-import ZoolText 1.3
-import ZoolTextInput 1.0
+import ZoolText 1.4
+import ZoolTextInput 1.1
 
 Rectangle{
     id: r
@@ -60,7 +60,7 @@ Rectangle{
             borderColor:apps.fontColor
             borderRadius: app.fs*0.25
             padding: app.fs*0.25
-            horizontalAlignment: TextInput.AlignLeft
+            t.horizontalAlignment: TextInput.AlignLeft
             onTextChanged: {
                 //if(cbPreview.checked)loadTemp()
                 if(!u.folderExist(t.text)){

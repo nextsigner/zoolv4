@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import ZoolMenus 1.0
 
-import ZoolTextInput 1.0
+import ZoolTextInput 1.1
 import ZoolButton 1.2
 
 ZoolMenus{
@@ -94,7 +94,7 @@ ZoolMenus{
                     borderColor:apps.fontColor
                     borderRadius: app.fs*0.25
                     padding: app.fs*0.25
-                    horizontalAlignment: TextInput.AlignLeft
+                    t.horizontalAlignment: TextInput.AlignLeft
                     //onTextChanged: if(cbPreview.checked)loadTemp()
                     onEnterPressed: {
                         setNom()

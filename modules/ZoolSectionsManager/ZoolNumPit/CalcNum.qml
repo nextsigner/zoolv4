@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import ZoolTextInput 1.0
+import ZoolTextInput 1.1
 import comps.FocusSen 1.0
 
 Rectangle{

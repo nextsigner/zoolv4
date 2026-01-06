@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Window 2.0
-import ZoolText 1.3
+import ZoolText 1.4
 import ZoolButton 1.2
 
 Rectangle{

@@ -1,7 +1,7 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import Qt.labs.folderlistmodel 2.12
-import ZoolTextInput 1.0
+import ZoolTextInput 1.1
 import comps.FocusSen 1.0
 
 Rectangle {
@@ -37,7 +37,7 @@ Rectangle {
         borderColor:apps.fontColor
         borderRadius: app.fs*0.25
         //padding: app.fs*0.25
-        horizontalAlignment: TextInput.AlignLeft
+        t.horizontalAlignment: TextInput.AlignLeft
         anchors.verticalCenter: parent.verticalCenter
         property int cmdIndex: 0
         //onTextChanged: if(cbPreview.checked)loadTemp()
@@ -45,9 +45,9 @@ Rectangle {
             toEnter()
         }
         FocusSen{
-            width: parent.width
-            height: parent.height
-            radius: parent.r.radius
+            width: parent.rx.width
+            height: parent.rx.height
+            radius: parent.rx.radius
             border.width: 2
             anchors.centerIn: parent
             visible: parent.t.focus

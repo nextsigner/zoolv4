@@ -39,7 +39,14 @@ Rectangle{
     MouseArea{
         anchors.fill: parent
         onClicked: {
-            sendDataToModuleNumPit(true)
+            //zm.previewEnabled=true
+            //sendDataToModuleNumPit(true)
+            //sendDataToModuleNumPit(false)
+            let p=zfdm.getJsonAbsParams(r.isExt)
+            zsm.showPanel('ZoolNumPit')
+            let panel=zsm.getPanel('ZoolNumPit')
+            let date= new Date(p.a, p.m-1, p.d, p.h, p.min)
+            panel.setCurrentDate(date)
         }
     }
     Row{
@@ -56,10 +63,12 @@ Rectangle{
         r.ns=d[1]
         r.ag=parseInt(d[2])
         r.arbolGen=app.arbolGenealogico[parseInt(d[2])][0]
+        //log.lv('ZoolElementItemNumPit::update()...')
     }
     function sendDataToModuleNumPit(fromMouseClick){
+        //log.lv('ZoolElementItemNumPit::sendDataToModuleNumPit(fromMouseClick: '+fromMouseClick+')...')
         if(zm.previewEnabled)return
-
+        //log.lv('zm.previewEnabled: '+zm.previewEnabled)
         let sp=!r.isExt?zm.fileData:zm.fileDataBack
         let p=JSON.parse(sp)
         let cd=new Date(p.params.a, p.params.m-1, p.params.d)

@@ -21,6 +21,7 @@ Rectangle {
     color: apps.backgroundColor
     border.width: 1
     border.color: apps.fontColor
+    objectName: 'zoolNumPit_v6'
 
     property bool isExt: false
 

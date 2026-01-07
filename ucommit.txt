@@ -1,1 +1,1 @@
-i7: Se actualizan ZoolText y ZoolTextInput
+i7: Se optimiza la carga de el ZoolNumPit.currentDate desde ZoolElementItemNumPit

@@ -1212,43 +1212,10 @@ Rectangle{
         let hsys=j.params.hsys?j.params.hsys:apps.currentHsys
         if(j.params.hsys)hsys=j.params.hsys
         r.fileData=JSON.stringify(j)
-        if(!app.sweFromCpp){
-            let c='import QtQuick 2.0\n'
-            c+='import unik.UnikQProcess 1.0\n'
-            c+='UnikQProcess{\n'
-            c+='    id: uqp'+ms+'\n'
-            c+='    onFinished:{\n'
-            c+='        r.loadingJsonInt=false\n'
-            c+='        //clipboard.setText(JSON.stringify(JSON.parse(logData), null, 2))\n'
-            c+='        loadSweJson(logData)\n'
-            c+='        uqp'+ms+'.destroy(3000)\n'
-            c+='    }\n'
-            c+='    onLogDataChanged:{\n'
-            c+='        //log.lv(logData)\n'
-            c+='        if(!r.enableLoad)return\n'
-            //c+='        let json=(\'\'+logData)\n'
-            c+='        //log.lv(\'JSON: \'+json)\n'
-            c+='    }\n'
-            c+='    Component.onCompleted:{\n'
-            c+='    let cmd=\''+app.pythonLocation+' "'+u.currentFolderPath()+'/py/'+app.sweBodiesPythonFile+'" '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+' '+hsys+' "'+app.sweFolder.replace(/\"/g, '')+'" '+valt+'\'\n'
-            c+='        console.log(\'zm.load()\'+cmd)\n'
-            c+='        run(cmd)\n'
-            //c+='        Qt.quit()\n'
-            c+='    }\n'
-            c+='}\n'
-            let comp=Qt.createQmlObject(c, xuqp, 'uqpcode')
-            r.loadingJsonInt=true
-        }else{
-            let nswej=getSweJson(va, vm, vd, vh, vmin, vgmt, vlon, vlat, valt, hsys)
-            //log.lv('nswej: '+JSON.stringify(nswej, null, 2))
-            //clipboard.setText(JSON.stringify(nswej, null, 2))
-            loadSweJson(JSON.stringify(nswej))
-            r.loadingJsonInt=false
-        }
-
+        let nswej=getSweJson(va, vm, vd, vh, vmin, vgmt, vlon, vlat, valt, hsys)
+        loadSweJson(JSON.stringify(nswej))
+        r.loadingJsonInt=false
         app.t=j.params.t
-        //r.fileData=JSON.stringify(j)
-        //zev.load(j)
     }
     function loadBack(j){
         //console.log('Ejecutando SweGraphic.load()...')
@@ -1279,43 +1246,10 @@ Rectangle{
         r.currentFechaBack=vd+'/'+vm+'/'+va
         if(params.hsys)hsys=params.hsys
         r.fileDataBack=JSON.stringify(j)
-        if(!app.sweFromCpp){
-            let c='import QtQuick 2.0\n'
-            c+='import unik.UnikQProcess 1.0\n'
-            c+='UnikQProcess{\n'
-            c+='    id: uqp'+ms+'\n'
-            c+='    onFinished:{\n'
-            c+='        r.loadingJsonExt=false\n'
-            c+='        loadSweJsonBack(logData)\n'
-            c+='        r.ev=true\n'
-            c+='        app.objZoolFileExtDataManager.updateList()\n'
-            c+='        uqp'+ms+'.destroy(3000)\n'
-            c+='    }\n'
-            c+='    onLogDataChanged:{\n'
-            //c+='        if(!r.enableLoadBack)return\n'
-            c+='    }\n'
-            c+='    Component.onCompleted:{\n'
-            c+='        let cmd=\''+app.pythonLocation+' "'+u.currentFolderPath()+'/py/'+app.sweBodiesPythonFile+'" '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+' '+hsys+' "'+app.sweFolder.replace(/\"/g, '')+'" '+valt+'\'\n'
-            c+='          console.log("zm.loadBack() "+cmd)\n'
-            c+='          run(cmd)\n'
-            c+='    }\n'
-            c+='}\n'
-            r.loadingJsonExt=true
-            let comp=Qt.createQmlObject(c, xuqp, 'uqpcode')
-        }else{
-            let nswej=getSweJson(va, vm, vd, vh, vmin, vgmt, vlon, vlat, valt, hsys)
-            //log.lv('nswej: '+JSON.stringify(nswej, null, 2))
-            //clipboard.setText(JSON.stringify(nswej, null, 2))
-            loadSweJsonBack(JSON.stringify(nswej))
-            r.loadingJsonExt=false
-        }
-
-        if(j.params.t){
-            app.t=j.params.t
-        }else{
-            app.t=j.params.t
-        }
-
+        let nswej=getSweJson(va, vm, vd, vh, vmin, vgmt, vlon, vlat, valt, hsys)
+        loadSweJsonBack(JSON.stringify(nswej))
+        r.loadingJsonExt=false
+        app.t=j.params.t
     }
     function loadBackFromArgs(nom, vd, vm, va, vh, vmin, vgmt, vlat, vlon, valt, vCiudad, edad, tipo, hsys, ms, vAtRigth) {
         r.dirPrimRot=0
@@ -1447,15 +1381,11 @@ Rectangle{
     }
     function loadSweJson(json){
         r.dirPrimRot=0
-        //console.log('JSON::: '+json)
-        //log.visible=true
-        //log.l(JSON.stringify(json))
         if(!r.safeTapa){
             tapa.visible=true
             tapa.opacity=1.0
         }
         var scorrJson=json.replace(/\n/g, '')
-        //app.currentJson=JSON.parse(scorrJson)
         aspsCircle.clear()
         //zsm.getPanel('ZoolRevolutionList').clear()
         //panelRsList.clear()
@@ -1473,56 +1403,39 @@ Rectangle{
         r.currentPlanetIndex=-1
         r.currentHouseIndex=-1
 
-        //console.log('json: '+json)
-        var j
-        //try {
-
-        //log.l(scorrJson)
-        //log.visible=true
-        //log.width=xApp.width*0.4
-        j=JSON.parse(scorrJson)
+        var j=JSON.parse(scorrJson)
         j=zm.json(j)
 
-
-        //r.aTexts[] reset
         let nATexts=[]
         for(var i=0;i<Object.keys(j.pc).length;i++){
             nATexts.push('')
         }
         r.aTexts=nATexts
-
         r.currentJson=j
+
         //-->ZoolMap
         signCircle.rot=parseFloat(j.ph.h1.gdec).toFixed(2)
         housesCircle.loadHouses(j)
         planetsCircle.loadJson(j)
-        //zpn.log('zm.maxAbsPosInt: '+zm.maxAbsPosInt)
-        //r.maxAbsPosInt=planetsCircle.getMaxAsAbsPos()
-        //zpn.log('r.maxAbsPosInt: '+r.maxAbsPosInt)
         aspsCircle.load(j)
-        //ca.d=planetsCircle.getMinAsWidth()-r.planetSizeInt*2
-        //ai.width=r.width
         zoolDataBodies.loadJson(j)
         zoolElementsView.load(j, false)
         let jsonAsps=aspsCircle.getAsps(j)
         panelAspects.load(jsonAsps)
-        //log.lv('Nakshatra length:'+nakshatraView.aNakshatra.length)
-        //log.lv('Nakshatra index:'+nakshatraView.getIndexNakshatra(j.pc.c1.gdec))
-        //log.lv('Nakshatra:'+nakshatraView.getNakshatraName(nakshatraView.getIndexNakshatra(j.pc.c1.gdec)))
         r.currentNakshatra=nakshatraView.getNakshatraName(nakshatraView.getIndexNakshatra(j.pc.c1.gdec))
 
-        //resizeAspsCircle()
-        //zm.setPos(r.mapToGlobal(0, 0).x, r.mapToGlobal(0, 0).y, zm.objSignsCircle.rotation)
         zm.setPos(0, 0, 0)
-
         let o1=j.ph['h1']
-        //r.isAsc=o1.is
-        //r.gdegAsc=o1.rsgdeg
-        //r.mdegAsc=o1.mdeg
         zm.uAscDegree=parseInt(o1.rsgdeg)
         o1=j.ph['h10']
-        zm.uMcDegree=parseInt(o1.rsgdeg)
 
+        zsm.showPanel('ZoolNumPit')
+        let panel=zsm.getPanel('ZoolNumPit')
+        let date= new Date(j.params.a, j.params.m-1, j.params.d, j.params.h, j.params.min)
+        panel.setCurrentDate(date)
+
+
+        //log.lv('Dato: '+panel.objectName)
         //<--ZoolMap
 
         //ascMcCircle.loadJson(j)

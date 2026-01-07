@@ -1177,7 +1177,8 @@ ApplicationWindow {
         onActivated: {
             //zm.objAspsCircle.showOneBodieAsp(0)
             //zsm.getPanel('ModulesManager').loadModule('InterLink', '1.0')
-            log.lv('json: '+JSON.stringify(zm.currentJson, null, 2))
+            //log.lv('json: '+JSON.stringify(zm.currentJson, null, 2))
+            //zsm.showPanel('ZoolNumPit')
         }
     }
 

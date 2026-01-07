@@ -87,9 +87,9 @@ Rectangle{
 
             }
             FocusSen{
-                width: parent.r.width
-                height: parent.r.height
-                radius: parent.r.radius
+                width: parent.rx.width
+                height: parent.rx.height
+                radius: parent.rx.radius
                 border.width:2
                 anchors.centerIn: parent
                 visible: parent.t.focus

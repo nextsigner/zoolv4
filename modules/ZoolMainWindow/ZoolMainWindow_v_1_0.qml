@@ -839,6 +839,13 @@ ApplicationWindow {
             }
         }
     }
+    //Cambiar Thema
+    Shortcut{
+        sequence: 'Ctrl+Shift+t'
+        onActivated: {
+            zm.nextTheme()
+        }
+    }
     //Mostrar/Ocultar MenuBar
     Shortcut{
         sequence: 'Ctrl+m'

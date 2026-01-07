@@ -1140,6 +1140,7 @@ Rectangle{
         setTheme(apps.zmCurrenThemeIndex)
     }
     function nextTheme(){
+        zpn.logTemp('nextTheme()...', 5000)
         let jd=u.getFile('./modules/ZoolMap/themes.json')
         let lt=JSON.parse(jd).themes.length
         if(apps.currentThemeIndex>0){

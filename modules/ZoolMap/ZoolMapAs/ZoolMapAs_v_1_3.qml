@@ -64,6 +64,9 @@ Item{
     //Behavior on width{enabled:(app.t==='dirprim' || app.t==='trans');NumberAnimation{duration: 500}}
     //Behavior on opacity{id:anOp;NumberAnimation{duration: 500}}
     onWidthChanged: {
+        if(r.isBack && r.numAstro === zm.currentPlanetIndexBack){
+            zm.objXIE.setPosAndRot(r.rotation-zm.dirPrimRot, r.width)
+        }
         //h()
         if(app.t!=='trans' && app.t!=='dirprim')return
         if(!r.isBack){
@@ -910,6 +913,9 @@ Item{
         //anOp.enabled=false
         r.opacity=0.0
         tOpacity.restart()
+        if(r.isBack && r.numAstro === zm.currentPlanetIndexBack){
+            zm.objXIE.setPosAndRot(r.rotation-zm.dirPrimRot, r.width)
+        }
     }
     function getPos(){
         var item1=zm.xzm

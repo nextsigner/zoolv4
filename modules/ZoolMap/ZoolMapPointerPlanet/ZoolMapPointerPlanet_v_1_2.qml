@@ -76,7 +76,7 @@ Item {
                               r.iconoSignRot-eje.rotation+(0)
                             :
                               //r.iconoSignRot-eje.rotation-zm.objPlanetsCircleBack.rotation+(app.t!=='dirprim'?0:-90)
-                              r.iconoSignRot-eje.rotation-zm.objPlanetsCircleBack.rotation+(0)
+                              r.iconoSignRot-eje.rotation-zm.objPlanetsCircleBack.rotation+(00)
                 anchors.horizontalCenter: parent.left
                 anchors.verticalCenter: parent.top
                 property bool isCapturing: zm.capturing

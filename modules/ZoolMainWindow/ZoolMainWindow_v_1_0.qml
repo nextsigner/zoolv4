@@ -1186,6 +1186,14 @@ ApplicationWindow {
             //zsm.getPanel('ModulesManager').loadModule('InterLink', '1.0')
             //log.lv('json: '+JSON.stringify(zm.currentJson, null, 2))
             //zsm.showPanel('ZoolNumPit')
+
+
+            /*
+            zm.currentPlanetIndex=2
+            let as=zm.objPlanetsCircle.getAs(zm.currentPlanetIndex)
+            log.lv('as.rotation: '+as.rotation)
+            zm.objXII.setPosAndRot(as.rotation, as.width)
+            */
         }
     }
 

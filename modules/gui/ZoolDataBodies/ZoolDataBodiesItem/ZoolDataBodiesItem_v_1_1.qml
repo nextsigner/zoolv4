@@ -4,14 +4,10 @@ import QtQuick.Controls 2.0
 Column {
     id: r
     width: !zm.ev ? parent.width : parent.width * 0.5
-    //opacity: 0.0
     property bool isBack: false
     property bool isLatFocus: false
     property int currentIndex: !isBack ? zoolDataBodies.currentIndex : zoolDataBodies.currentIndexBack
     property int hZBSL: 0
-
-    //Behavior on opacity { NumberAnimation { id: numAn1; duration: 250 } }
-
     Rectangle {
         id: headerLv
         width: r.width
@@ -24,7 +20,6 @@ Column {
             anchors.fill: parent
             onClicked: zoolDataBodies.latFocus = r.isBack ? 1 : 0
         }
-
         Text {
             id: txtTit
             text: 'Lista de Cuerpos'
@@ -62,15 +57,12 @@ Column {
             }
         }
     }
-
-
     Component {
         id: compItemList
         Rectangle {
             id: xItem
             width: lv.width
-            // Forzamos la altura que pediste
-            height: app.fs * 1.2
+            height: app.fs
 
             property bool isSelected: !r.isBack ?
                                           (index === zoolDataBodies.currentIndex || (index > 50 && zm.objHousesCircle.currentHouse === index - 21)) :
@@ -95,15 +87,11 @@ Column {
 
                 // Reemplazamos el separador por un espacio simple para asegurar una sola línea
                 text: !zm.ev?sd.replace(" @ ", " "):sd.replace(" @ ", "<br>")
-
-                // Forzamos Texto enriquecido pero sin saltos
                 textFormat: Text.StyledText
-                wrapMode: Text.NoWrap // EVITA LAS 3 FILAS
-
-                // Configuración de auto-ajuste
+                wrapMode: Text.NoWrap
                 font.pixelSize: app.fs
                 fontSizeMode: Text.Fit // Ajusta el tamaño para que quepa en el ancho y alto
-                minimumPixelSize: 5    // Tamaño mínimo al que puede llegar si es muy largo
+                minimumPixelSize: 5
 
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
@@ -139,22 +127,8 @@ Column {
             }
         }
     }
-    Timer {
-        id: tShow
-        running: false
-        repeat: false
-        interval: 300
-        onTriggered: {
-            //numAn1.duration = 250
-            //r.opacity = 1.0
-        }
-    }
-
-    // --- Lógica de carga optimizada ---
 
     function loadJson(json) {
-        //numAn1.duration = 1
-        //r.opacity = 0.0
         lm.clear()
 
         let jo, ih, s
@@ -188,8 +162,6 @@ Column {
             s = "<b>Casa</b> " + j + " en <b>" + app.signos[jo.is] + "</b> @ <b>Grado:</b> " + jo.rsgdeg + "°" + jo.mdeg + "'" + jo.sdeg + "''"
             lm.append(lm.addItem(jo.is, j, jo.rsgdeg, jo.mdeg, jo.sdeg, s))
         }
-
-        tShow.restart()
     }
 
     function loadJsonFromDirPrim(json) {

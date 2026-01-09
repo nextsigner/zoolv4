@@ -1,1 +1,1 @@
-i7: Se modifica archivo de versión a 6.1.9.0
+i7: Se elimina carpeta py

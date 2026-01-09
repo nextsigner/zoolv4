@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import ZoolMap.ZoolMapAs 1.3
+import ZoolMap.ZoolMapAs 1.4
 
 Item{
     id: r

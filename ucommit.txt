@@ -1,1 +1,1 @@
-i7: Se optimiza el funcionamiento de PointerPlanets en trans y dirprim
+i7: Se crea ZoolDataBodiesItem v1.1

@@ -3,7 +3,7 @@ import QtQuick.Controls 2.0
 import Qt.labs.folderlistmodel 2.12
 
 import gui.ZoolDataBodies.ZoolBodiesSelView 1.0
-import gui.ZoolDataBodies.ZoolDataBodiesItem 1.0
+import gui.ZoolDataBodies.ZoolDataBodiesItem 1.1
 
 Rectangle {
     id: r
@@ -50,8 +50,9 @@ Rectangle {
         border.width: 2
         border.color: apps.fontColor
         color: apps.backgroundColor
-        opacity: !zm.ev?(xBodiesInt.opacity===1.0?0.0:1.0):(xBodiesInt.opacity===1.0&&xBodiesExt.opacity===1.0?0.0:1.0)
+        //opacity: !zm.ev?(xBodiesInt.opacity===1.0?0.0:1.0):(xBodiesInt.opacity===1.0&&xBodiesExt.opacity===1.0?0.0:1.0)
         anchors.centerIn: parent
+        visible: false
         Text{
             id: labelCargando
             text: 'Cargando'

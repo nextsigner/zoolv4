@@ -17,7 +17,7 @@ Item{
     onCChanged: {
         if(r.numAstro===0){
             //log.lv('Themes r.bodieColor: '+zm.bodieColor)
-            co.color=zm.bodieColor
+            coGlifoPlanets.color=zm.bodieColor
         }
         //saAsColor.running=true
     }
@@ -107,7 +107,6 @@ Item{
                 anchors.horizontalCenter: parent.right
                 anchors.verticalCenter: parent.verticalCenter
                 rotation: imgGlifoPlanets.rotation-nodoCenPointer.rotation
-                //opacity: 0.5
                 MouseArea{
                     acceptedButtons: Qt.AllButtons;
                     anchors.fill: parent

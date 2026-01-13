@@ -1,1 +1,1 @@
-i7: Se completa la programación de ZoolMapBodie v1.1
+i7: Se agrega carpeta signs a imgs_v2

@@ -8,7 +8,7 @@ Item {
     anchors.centerIn: parent
     z:r.parent.z-1
     rotation: 0-signCircle.rotation-(!r.isExt?0:(360-zm.objHousesCircleBack.rotation))
-    property string folderImg: '../../../modules/ZoolMap/imgs/imgs_v1'
+    property string folderImgs: '../../../imgs/imgs_v2'
     property int iconoSignRot: 0
     property int is: -1
     property int gdeg: -1
@@ -113,7 +113,7 @@ Item {
                             Image {
                                 id: img0
                                 //source: "../../imgs/planetas/"+app.planetasRes[r.p]+".svg"
-                                source: r.folderImg+"/"+app.planetasRes[r.p]+".svg"
+                                source: r.folderImgs+"/glifos/"+app.planetasRes[r.p]+".svg"
                                 width: parent.width*0.8
                                 height: width
                                 anchors.centerIn: parent
@@ -143,7 +143,8 @@ Item {
                             anchors.verticalCenter: parent.verticalCenter
                             Image {
                                 id: img1
-                                source: r.is>=0?"../../../imgs/signos/"+r.is+".svg":""
+                                //source: r.is>=0?"../../../imgs/signos/"+r.is+".svg":""
+                                source: r.is>=0?r.folderImgs+"/signs/"+r.is+".svg":""
                                 width: parent.width*0.8
                                 height: width
                                 anchors.centerIn: parent

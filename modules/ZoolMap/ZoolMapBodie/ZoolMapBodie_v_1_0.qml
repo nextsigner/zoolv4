@@ -104,7 +104,9 @@ Item{
         id: img0
         //source: app.planetasRes[r.numAstro]?"./resources/imgs/planetas/"+app.planetasRes[r.numAstro]+".svg":""
         source: app.planetasRes[r.numAstro]||r.numAstro!==10?r.folderImg+"/"+app.planetasRes[r.numAstro]+(apps.xAsShowIcon&&r.aIcons.indexOf(r.numAstro)>=0?"_i.png":".svg"):""
-        //source: '/home/nsp/zool-release/modules/ZoolBodies/ZoolAs/imgs_v1/'+app.planetasRes[0]+'.png'
+        //source: '/home/ns/nsp/zoolv4/imgs/bodies/v1/0.jpg'
+        //source: '/home/ns/Descargas/bodies/sol.png'
+        //source: app.planetasRes[r.numAstro]||r.numAstro!==10?r.folderImg+"/"+app.planetasRes[r.numAstro]+(apps.xAsShowIcon&&r.aIcons.indexOf(r.numAstro)>=0?"_i.png":".svg"):""
         width: !apps.xAsShowIcon||r.numAstro<10?r.width*0.75:r.width*0.35
         height: width
         anchors.centerIn: parent

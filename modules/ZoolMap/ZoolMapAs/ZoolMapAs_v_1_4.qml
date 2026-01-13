@@ -4,7 +4,7 @@ import comps.MouseAreaView 1.0
 import "../"
 import "../../../comps" as Comps
 
-import ZoolMap.ZoolMapBodie 1.0
+import ZoolMap.ZoolMapBodie 1.1
 import ZoolMap.ZoolMapAsCotaDeg 1.0
 import ZoolMap.ZoolMapAsCotaText 1.0
 import ZoolMap.ZoolMapPointerPlanet 1.2

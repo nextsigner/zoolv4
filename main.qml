@@ -81,6 +81,7 @@ ZoolMainWindow{
     property bool dev: Qt.application.arguments.indexOf('-dev')>=0
     //property var qmlListErrors: qmlErrorLogger.messages
     property string version: '0.0.-1'
+    property string folderImgsName: 'imgs_v2'
     //property string sweBodiesPythonFile: Qt.platform.os==='linux'?'astrologica_swe_v4.py':'astrologica_swe.py'
 
 

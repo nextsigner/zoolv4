@@ -1194,6 +1194,7 @@ ApplicationWindow {
             log.lv('as.rotation: '+as.rotation)
             zm.objXII.setPosAndRot(as.rotation, as.width)
             */
+            apps.showDec=!apps.showDec
         }
     }
 

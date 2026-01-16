@@ -5,6 +5,7 @@ Item {
     id: r
     height: width
     anchors.centerIn: parent
+    property string folderImgs: '../../../imgs/'+app.folderImgsName
     property int f: 0
     property int w: zm.zodiacBandWidth
     //property bool v: sweg.v
@@ -180,7 +181,8 @@ Item {
                 }
                 Image {
                     id: iconoSigno
-                    source: "../../../imgs/signos/"+index+".svg"
+                    //source: "../../../imgs/signos/"+index+".svg"
+                    source: folderImgs+'/signs/'+index+'.svg'
                     width: !app.ev?r.w*0.8:r.w*0.4
                     height: width
                     //rotation: 360-parent.parent.rotation+parent.rotation//+30
@@ -215,7 +217,7 @@ Item {
                 anchors.centerIn: parent
                 Image {
                     id: iconoSignoDec
-                    source: "../../../imgs/signos/"+index+".svg"
+                    source: folderImgs+'/signs/'+index+'.svg'
                     width: !app.ev?r.w*0.8:r.w*0.4
                     height: width
                     rotation: 360-r.rot-parent.rotation
@@ -247,7 +249,7 @@ Item {
                 anchors.centerIn: parent
                 Image {
                     id: iconoSignoDec24
-                    source: "../../../imgs/signos/"+index+".svg"
+                    source: folderImgs+'/signs/'+index+'.svg'
                     width: !app.ev?r.w*0.8:r.w*0.4
                     height: width
                     rotation: 360-r.rot-parent.rotation

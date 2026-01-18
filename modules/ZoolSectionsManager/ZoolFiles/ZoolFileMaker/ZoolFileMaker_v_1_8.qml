@@ -299,7 +299,6 @@ Rectangle {
                         searchGeoLoc(false)
                     }
                 }
-
             }
             Column{
                 id: colTiLonLat

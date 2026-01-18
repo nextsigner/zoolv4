@@ -1,1 +1,1 @@
-i7: Se corrige el cálculo del año próximo en ZoolNumPit
+i7: Se agrega candado enabled ControlsTime en ZoolNumPit

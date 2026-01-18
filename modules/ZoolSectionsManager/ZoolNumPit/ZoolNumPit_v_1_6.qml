@@ -244,20 +244,39 @@ Rectangle {
                                         }
                                     }
                                 }
-                                ZoolControlsTime{
-                                    id: ct
-                                    verHoraMinuto: false
-                                    enableGMT: false
-                                    fs: app.fs
+                                Item{
+                                    width: ct.width
+                                    height: ct.height
                                     anchors.horizontalCenter: parent.horizontalCenter
                                     anchors.horizontalCenterOffset: fs*0.5
-                                    onCurrentDateChanged:{
-                                        if(dia<0||mes<0||anio<0)return
-                                        let s=''+dia
-                                        s+='.'+mes
-                                        s+='.'+anio
-                                        txtDataSearchFecha.text=s
-                                        calc()
+                                    ZoolControlsTime{
+                                        id: ct
+                                        verHoraMinuto: false
+                                        enableGMT: false
+                                        fs: app.fs
+                                        enabled: false
+                                        opacity: enabled?1.0:0.65
+                                        onCurrentDateChanged:{
+                                            if(dia<0||mes<0||anio<0)return
+                                            let s=''+dia
+                                            s+='.'+mes
+                                            s+='.'+anio
+                                            txtDataSearchFecha.text=s
+                                            calc()
+                                        }
+                                    }
+                                    Comps.ButtonIcon{
+                                        id: botEnableCT
+                                        text: ct.enabled?'\uf09c':'\uf023'
+                                        width: app.fs
+                                        height: width
+                                        anchors.top: parent.top
+                                        anchors.topMargin: app.fs*0.1
+                                        anchors.left: parent.left
+                                        anchors.leftMargin: app.fs*0.1
+                                        onClicked: {
+                                            ct.enabled=!ct.enabled
+                                        }
                                     }
                                 }
                                 Item{width: 2; height: app.fs*0.25}
@@ -2581,10 +2600,12 @@ Rectangle {
         rbF.checked=true
     }
     function getNumProg(ctx, ag, ap, aa){
+        /*
         zpn.log('ctx: '+ctx)
         zpn.log('ag: '+ag)
         zpn.log('ap: '+ap)
         zpn.log('aa: '+aa)
+        */
         let tt='futuro'
         let realAA=new Date(Date.now()).getFullYear()
         if(aa===realAA){

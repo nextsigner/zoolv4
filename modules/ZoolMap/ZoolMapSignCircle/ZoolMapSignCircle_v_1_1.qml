@@ -181,7 +181,6 @@ Item {
                 }
                 Image {
                     id: iconoSigno
-                    //source: "../../../imgs/signos/"+index+".svg"
                     source: folderImgs+'/signs/'+index+'.svg'
                     width: !app.ev?r.w*0.8:r.w*0.4
                     height: width
@@ -281,7 +280,7 @@ Item {
                 anchors.centerIn: parent
                 Image {
                     id: iconoSignoDec36
-                    source: "../../../imgs/signos/"+index+".svg"
+                    source: '../../../imgs/signos/'+index+'.svg'
                     width: !app.ev?r.w*0.8:r.w*0.4
                     height: width
                     rotation: 360-r.rot-parent.rotation

@@ -102,12 +102,8 @@ Item{
     }
     Image{
         id: img0
-        //source: app.planetasRes[r.numAstro]?"./resources/imgs/planetas/"+app.planetasRes[r.numAstro]+".svg":""
-        source: app.planetasRes[r.numAstro]||r.numAstro!==10?r.folderImg+"/"+app.planetasRes[r.numAstro]+(apps.xAsShowIcon&&r.aIcons.indexOf(r.numAstro)>=0?"_i.png":".svg"):""
-        //source: '/home/ns/nsp/zoolv4/imgs/bodies/v1/0.jpg'
-        //source: '/home/ns/Descargas/bodies/sol.png'
-        //source: app.planetasRes[r.numAstro]||r.numAstro!==10?r.folderImg+"/"+app.planetasRes[r.numAstro]+(apps.xAsShowIcon&&r.aIcons.indexOf(r.numAstro)>=0?"_i.png":".svg"):""
-        width: !apps.xAsShowIcon||r.numAstro<10?r.width*0.75:r.width*0.35
+        source: app.planetasRes[r.numAstro]||r.numAstro!==10?r.folderImg+'/'+app.planetasRes[r.numAstro]+(apps.xAsShowIcon&&r.aIcons.indexOf(r.numAstro)>=0?'_i.png':'.svg'):''
+        ´width: !apps.xAsShowIcon||r.numAstro<10?r.width*0.75:r.width*0.35
         height: width
         anchors.centerIn: parent
         /*rotation: !r.isBack?
@@ -189,41 +185,7 @@ Item{
 //    }
 
 
-//    Image {
-//        id: img
-//        source: app.planetasRes[r.numAstro]?r.folderImg+"/"+app.planetasRes[r.numAstro]+(apps.xAsShowIcon&&r.aIcons.indexOf(r.numAstro)>=0?"_i.png":".svg"):""
-//        width: parent.width*0.8
-//        height: width
-//        rotation: 0-parent.parent.rotation
-//        antialiasing: true
-//        anchors.centerIn: parent
-//        //anchors.horizontalCenterOffset: apps.xAsShowIcon?0-zm.fs*0.5:0
-//        visible: false
-//        Behavior on width {
-//            enabled: apps.enableFullAnimation;
-//            NumberAnimation{
-//                duration: 350
-//                easing.type: Easing.InOutQuad
-//            }
-//        }
-//        Behavior on x {
-//            enabled: apps.enableFullAnimation;
-//            NumberAnimation{
-//                duration: 350
-//                easing.type: Easing.InOutQuad
-//            }
-//        }
 
-//    }
-//    ColorOverlay {
-//        id: co1
-//        anchors.fill: img
-//        source: img
-//        color: !apps.xAsShowIcon?(r.selected?apps.fontColor:apps.xAsColor):'white'
-//        rotation: img.rotation
-//        antialiasing: true
-//        visible: false//!apps.xAsShowIcon||r.aIcons.indexOf(r.numAstro)<0
-//    }
     onPosChanged: setPointerRot()
     function setPointerRot(){
         if(r.pos===0)nodoCenPointer.rotation=45

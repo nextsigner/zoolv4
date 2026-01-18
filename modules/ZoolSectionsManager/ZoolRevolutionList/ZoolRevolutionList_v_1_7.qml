@@ -15,6 +15,7 @@ Rectangle {
     color: apps.backgroundColor
     border.width: 2
     border.color: apps.fontColor
+    property string folderImgs: '../../../imgs/'+app.folderImgsName
     property alias currentIndex: lv.currentIndex
     property alias listModel: lm
     property int edadMaxima: 0
@@ -694,7 +695,7 @@ Rectangle {
                 }
             }
             onIsChanged:{
-                iconoSigno.source="../../../imgs/signos/"+is+".svg"
+                iconoSigno.source=r.folderImgs+'/signos/'+is+'.svg'
             }
             //Behavior on height{enabled: apps.enableFullAnimation;NumberAnimation{duration: app.msDesDuration}}
             Behavior on opacity{enabled: apps.enableFullAnimation;NumberAnimation{duration: app.msDesDuration}}
@@ -807,7 +808,6 @@ Rectangle {
                             anchors.horizontalCenter: parent.horizontalCenter
                             Image {
                                 id: iconoSigno
-                                //source: indexSign!==-1?"./resources/imgs/signos/"+indexSign+".svg":""
                                 width: parent.width*0.8
                                 height: width
                                 anchors.centerIn: parent

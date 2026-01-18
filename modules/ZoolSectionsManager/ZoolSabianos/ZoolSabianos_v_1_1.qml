@@ -17,6 +17,7 @@ Rectangle {
     height: parent.height
     clip: true
 
+    property string folderImgs: '../../../imgs/'+app.folderImgsName
     property alias view: sabianosView
 
     property string folderData: './modules/ZoolSectionsManager/ZoolSabianos/data'
@@ -113,7 +114,7 @@ Rectangle {
                         border.color: 'black'
                         Image {
                             id: sign
-                            source: "../../../imgs/signos/"+r.numSign+".svg"
+                            source: r.folderImgs+'/signos/'+r.numSign+'.svg'
                             width: xSigno.width*0.8
                             fillMode: Image.PreserveAspectFit
                             anchors.centerIn: parent

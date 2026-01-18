@@ -158,7 +158,7 @@ Item {
                             anchors.verticalCenter: parent.verticalCenter
                             Image {
                                 id: img1
-                                source: r.is>=0?"../../../imgs/signos/"+r.is+".svg":""
+                                source: r.is>=0?'../../../imgs/signos/'+r.is+'.svg':''
                                 width: parent.width*0.8
                                 height: width
                                 anchors.centerIn: parent

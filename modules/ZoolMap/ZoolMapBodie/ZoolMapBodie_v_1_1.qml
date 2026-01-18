@@ -55,7 +55,7 @@ Item{
         width: r.width*(apps.xAsShowIcon?r.porcIncrement*(0.5):1.0)//!apps.xAsShowIcon||r.numAstro<10?r.width*0.75:r.width*0.35
         height: width
         anchors.centerIn: parent
-        source: r.folderImgs+"/glifos/"+app.planetasRes[r.numAstro]+".svg"
+        source: r.folderImgs+'/glifos/'+app.planetasRes[r.numAstro]+'.svg'
         visible: !apps.xAsShowIcon
         rotation: !r.isBack?
                       0-parent.parent.rotation

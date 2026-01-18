@@ -10,6 +10,7 @@ Rectangle {
     visible: false
     color: showDark?'black':'white'
     anchors.fill: parent
+    property string folderImgs: '../../../imgs/'+app.folderImgsName
     property alias container: xData
     property string folderData
     property real fz: 1.0
@@ -68,7 +69,7 @@ Rectangle {
                     border.color: 'black'
                     Image {
                         id: sign
-                        source: "../../../../imgs/signos/"+r.numSign+".svg"
+                        source: folderImgs+'/signos/'+r.numSign+'.svg'
                         width: xSigno.width*0.8
                         fillMode: Image.PreserveAspectFit
                         anchors.centerIn: parent

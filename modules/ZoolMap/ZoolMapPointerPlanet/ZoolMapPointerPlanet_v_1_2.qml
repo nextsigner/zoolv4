@@ -112,8 +112,7 @@ Item {
                             anchors.verticalCenter: parent.verticalCenter
                             Image {
                                 id: img0
-                                //source: "../../imgs/planetas/"+app.planetasRes[r.p]+".svg"
-                                source: r.folderImgs+"/glifos/"+app.planetasRes[r.p]+".svg"
+                                source: r.folderImgs+'/glifos/'+app.planetasRes[r.p]+'.svg'
                                 width: parent.width*0.8
                                 height: width
                                 anchors.centerIn: parent
@@ -143,8 +142,7 @@ Item {
                             anchors.verticalCenter: parent.verticalCenter
                             Image {
                                 id: img1
-                                //source: r.is>=0?"../../../imgs/signos/"+r.is+".svg":""
-                                source: r.is>=0?r.folderImgs+"/signs/"+r.is+".svg":""
+                                source: r.is>=0?r.folderImgs+'/signs/'+r.is+'.svg':''
                                 width: parent.width*0.8
                                 height: width
                                 anchors.centerIn: parent

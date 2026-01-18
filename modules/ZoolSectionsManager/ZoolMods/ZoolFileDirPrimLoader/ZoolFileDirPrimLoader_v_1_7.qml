@@ -29,6 +29,7 @@ Rectangle {
     border.color: apps.fontColor
 
 
+    property string folderImgs: '../../../../imgs/'+app.folderImgsName
     property var aClavesNames: ["Naibod 0° 59\' 8.33\"", "Ptolomeo 1°", "Subduodenaria 0° 12\' 30\"", "Narónica 0° 36´", "Duodenaria 2° 30\'", "Navamsa 3° 20’", "Septenaria 4° 17\'"]
     property var aClavesValuesDec: [0.9856481481481388, 1.0, 0.20833333333333, 0.6, 2.5, 3.3333333333333, 4.2833333333333]
 
@@ -499,7 +500,7 @@ Rectangle {
                                 //                            }
                                 Image{
                                     id: img0
-                                    source: r.folderImg+"/"+app.planetasRes[index]+".svg"
+                                    source: r.folderImgs+'/glifos/'+app.planetasRes[index]+'.svg'
                                     width: parent.width*0.9
                                     height: width
                                     anchors.centerIn: parent

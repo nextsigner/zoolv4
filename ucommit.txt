@@ -1,1 +1,1 @@
-i7: Se eliminan imágenes duplicadas
+i7: Se corrige el cálculo del año próximo en ZoolNumPit

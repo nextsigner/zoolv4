@@ -623,8 +623,8 @@ Rectangle {
                                     let anioGlobal= new Date(parseInt(a), 0, 1)
                                     let ag=getNumYearGlobal(anioGlobal.getFullYear()+offSet)
                                     let aa=parseInt(a)+offSet
-                                    let s='global_'+ag+'_personal_'+ap
-                                    let data=getNumProg(s, ag, ap, aa)
+                                    let s='global_'+bigNumToPitNum(ag, false)+'_personal_'+ap
+                                    let data=getNumProg(s, bigNumToPitNum(ag, false), bigNumToPitNum(ap, false), aa)
                                     logView.clear()
                                     logView.l(data)
                                     logView.scrollToTop()
@@ -2581,7 +2581,10 @@ Rectangle {
         rbF.checked=true
     }
     function getNumProg(ctx, ag, ap, aa){
-        //zpn.log(ctx)
+        zpn.log('ctx: '+ctx)
+        zpn.log('ag: '+ag)
+        zpn.log('ap: '+ap)
+        zpn.log('aa: '+aa)
         let tt='futuro'
         let realAA=new Date(Date.now()).getFullYear()
         if(aa===realAA){

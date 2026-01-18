@@ -258,9 +258,9 @@ ZoolMainWindow{
                     height: parent.height
                     transform: Scale{ xScale: xZoolMap.showDevLines?0.25:1.0; yScale: xZoolMap.showDevLines?0.25:1.0 }
                     color: apps.backgroundColor
-                    x: xZoolMap.showDevLines?(parent.width*0.5)-width*0.25*0.5:0
+                    x: (xZoolMap.showDevLines?(parent.width*0.5)-width*0.25*0.5:0)-(xLatIzq.visible?0:xLatIzq.width*0.5)
                     y: xZoolMap.showDevLines?(parent.height*0.5)-height*0.25*0.5:0
-                    clip: true
+                    clip: xLatIzq.visible//?true
                     //ZoolBodies{id: sweg;objectName: 'sweg'; visible: !apps.dev}
                     ZoolMap{
                         id: zm;
@@ -536,7 +536,13 @@ ZoolMainWindow{
                         }
                     }
                     */
-                    FocusSen{visible: apps.zFocus==='xMed'}
+                    FocusSen{
+                        width: xLatIzq.visible?parent.width:parent.width+xLatIzq.width
+                        //anchors.horizontalCenterOffset: 800//xLatIzq.visible?0:500
+                        anchors.left: parent.left
+                        anchors.leftMargin: xLatIzq.visible?0:0-xLatIzq.width
+                        visible: apps.zFocus==='xMed'
+                    }
                     Rectangle{
                         id: centro
                         width: 10

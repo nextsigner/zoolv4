@@ -170,6 +170,6 @@ Column {
         //r.opacity = 0.0
         lm.clear()
         // [Carga simplificada omitida para brevedad, sigue el patrón de loadJson superior]
-        tShow.restart()
+        //tShow.restart()
     }
 }

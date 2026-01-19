@@ -1,1 +1,1 @@
-i7: Se optimiza GUI Ocultar xLatIzq
+i7: Se optimiza el ejeBack en ZoolMapAs

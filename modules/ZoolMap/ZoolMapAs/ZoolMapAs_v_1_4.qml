@@ -290,7 +290,7 @@ Item{
         anchors.right:  parent.left
         visible: apps.dev
         Repeater{
-            model: r.pos
+            model: apps.dev?r.pos:0
             Rectangle{
                 width: r.planetSize
                 height: width
@@ -315,12 +315,36 @@ Item{
         //visible: (app.t==='dirprim'  || app.t==='trans' || app.t==='progsec') && r.isBack
         visible: (app.t==='dirprim' || app.t==='progsec') && r.isBack
         Rectangle{
+            id: epb1
             width: r.width
             height: 1
             anchors.top: parent.top
             color: apps.houseColorBack
         }
         Rectangle{
+            id: epb2
+            width: r.width
+            height: 1
+            anchors.verticalCenter: parent.verticalCenter
+            color: apps.houseColor
+            Timer{
+                running: app.t==='dirprim'
+                repeat: true
+                interval: 500
+                onTriggered: {
+                    let b=!r.isBack?(zm.listCotasShowing.indexOf(r.numAstro)>=0):(zm.listCotasShowingBack.indexOf(r.numAstro)>=0)
+                    if(b){
+                        parent.visible=!parent.visible
+                    }else{
+                        parent.visible=false
+                    }
+                    epb1.visible=!epb2.visible
+                    epb3.visible=!epb2.visible
+                }
+            }
+        }
+        Rectangle{
+            id: epb3
             width: r.width
             height: 1
             anchors.bottom: parent.bottom
@@ -340,7 +364,7 @@ Item{
             repeat: true
             interval: 1000
             onRunningChanged: {
-                if(!running)parent.visible=false
+                if(!running)parent.visible=false                
             }
             onTriggered: {
                 let panel=zsm.getPanel('ZoolMods')
@@ -720,20 +744,20 @@ Item{
         cotaColor: apps.fontColor
         cotaOpacity: 1.0//xIconPlanetSmall.opacity
         //rot: -270
-        visible: !r.isBack?
-                     zm.listCotasShowing.indexOf(r.numAstro)>=0
-                   :
-                     zm.listCotasShowingBack.indexOf(r.numAstro)>=0
+//        visible: !r.isBack?
+//                     zm.listCotasShowing.indexOf(r.numAstro)>=0
+//                   :
+//                     zm.listCotasShowingBack.indexOf(r.numAstro)>=0
         //        Rectangle{
         //            width: 100
         //            height: 100
         //        }
         Timer{
-            running: false//true
+            running: app.t==='trans' || app.t==='dirprim'
             repeat: true
             interval: 250
             onTriggered: {
-                parent.visible=zm.listCotasShowing.indexOf(r.numAstro)>=0
+                parent.visible=!r.isBack?(zm.listCotasShowing.indexOf(r.numAstro)>=0):(zm.listCotasShowingBack.indexOf(r.numAstro)>=0)
             }
         }
     }

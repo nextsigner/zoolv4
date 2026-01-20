@@ -1196,7 +1196,8 @@ ApplicationWindow {
             */
 
             //apps.showDec=!apps.showDec
-            zpn.log('zm.listCotasShowingBack: '+zm.listCotasShowingBack.toString())
+            //zpn.log('zm.listCotasShowingBack: '+zm.listCotasShowingBack.toString())
+            zpn.log('zm.listCotasShowing: '+zm.listCotasShowing.toString())
         }
     }
 

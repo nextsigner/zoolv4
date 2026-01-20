@@ -744,6 +744,7 @@ Item{
         cotaColor: apps.fontColor
         cotaOpacity: 1.0//xIconPlanetSmall.opacity
         //rot: -270
+        visible: false
 //        visible: !r.isBack?
 //                     zm.listCotasShowing.indexOf(r.numAstro)>=0
 //                   :

@@ -1178,6 +1178,12 @@ ApplicationWindow {
             }
         }
     }
+    Shortcut{
+        sequence: 'F11'
+        onActivated: {
+            app.visibility=app.visibility===ApplicationWindow.FullScreen?ApplicationWindow.Maximized:ApplicationWindow.FullScreen
+        }
+    }
     property int rv: 0
     Shortcut{
         sequence: '*'

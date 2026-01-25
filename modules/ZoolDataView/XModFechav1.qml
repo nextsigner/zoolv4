@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import ZoolControlsTime 1.0
 import ZoolButton 1.2
+import "../../comps" as Comps
 
 Rectangle{
     id: r
@@ -44,6 +45,18 @@ Rectangle{
                     r.destroy(0)
                 }
             }
+        }
+    }
+    Comps.ButtonIcon{
+        text: 'X'
+        width: app.fs*0.5
+        height: width
+        anchors.right: parent.right
+        anchors.rightMargin: app.fs*0.1
+        anchors.top: parent.top
+        anchors.topMargin: app.fs*0.1
+        onClicked: {
+            r.destroy(1)
         }
     }
     Component.onCompleted: {

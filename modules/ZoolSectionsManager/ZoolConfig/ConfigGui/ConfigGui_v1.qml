@@ -98,7 +98,7 @@ Rectangle{
         tiJsonsFolder.t.focus=false
     }
     function isFocus(){
-        return tiJsonsFolder.t.focus
+        return false
     }
     function toHelp(){
         let itemHelpExist=zsm.cleanOneDinamicItems("ItemHelp_"+app.j.qmltypeof(r))

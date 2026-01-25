@@ -1,1 +1,1 @@
-i7: Se optimiza el ejeBack en ZoolMapAs 2
+i7: Se agrega función F11 para FullScreen

@@ -159,11 +159,13 @@ Rectangle{
         m.des="Módulo que permite ver los puntos de unión entre cuerpo, signo y casa para realizar una interpretación desde un punto de vista o inteligencia asociativa."
         j.modules.push(m)
 
+        m={}
         m.name="NumCalc"
         m.version='1.0'
         m.des="Módulo para realizar cálculos numerológicos."
         j.modules.push(m)
 
+        //log.lv('Json Modules Manager: '+JSON.stringify(j, null, 2))
         return j
     }
     function loadModulesList(){

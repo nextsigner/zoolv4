@@ -50,7 +50,7 @@ Item{
             Item{width: 1; height: app.fs*0.25}
             Text{
                 id: txtTit
-                text:'<b>NumCalc</b>'
+                text:'<b>NumCalc</b> Ingresa una fecha de nacimiento bajo el siguiente formato: 20.6.1975'
                 font.pixelSize: app.fs*0.5
                 color: apps.fontColor
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -131,7 +131,7 @@ Item{
         let sf=''+d+'/'+m+'/'+a
         let aGetNums=app.j.getNums(sf)
         //currentNumNacimiento=aGetNums[0]
-        finalText+='Número de Karma/Misión: '+aGetNums[0]+'\n'
+        finalText+='Número de Sendero/Camino de Vida: '+aGetNums[0]+'\n'
         if(parseInt(aGetNums[3])>0){
             finalText+='Número Karmaico: '+aGetNums[3]+'\n'
         }

@@ -27,6 +27,7 @@ Rectangle {
 
     property alias objBB: bb
 
+    property bool loadingCoords: false
     property real lat:-100.00
     property real lon:-100.00
 
@@ -204,6 +205,7 @@ Rectangle {
             Row{
                 spacing: app.fs*0.5
                 anchors.horizontalCenter: parent.horizontalCenter
+                //visible: false
                 ZoolButton{
                     text: 'Ahora'
                     onClicked:{
@@ -227,6 +229,7 @@ Rectangle {
                 width: r.width-app.fs*0.5
                 height: col2.height+app.fs*0.4
                 anchors.horizontalCenter: parent.horizontalCenter
+                //visible: false
                 Column{
                     id: col2
                     spacing: app.fs*0.5
@@ -479,8 +482,9 @@ Rectangle {
                     }
                 }
             }
-
             Comps.XMarco{
+                width: r.width-app.fs*0.5
+                //visible: false
                 Column{
                     spacing: app.fs*0.5
                     anchors.centerIn: parent
@@ -490,10 +494,10 @@ Rectangle {
                         padding: app.fs*0.25
                         //rx.width: w
                         w: r.width-app.fs//*0.2
+                        t.width: w
                         tf: Text.RichText
                         wrapMode: Text.WordWrap
                         anchors.horizontalCenter: parent.horizontalCenter
-                        //visible: false
                     }
                     Row{
                         spacing: app.fs*0.25
@@ -502,6 +506,8 @@ Rectangle {
                             text: 'Cargar tránsitos actuales.'
                             fs: app.fs*0.5
                             w: r.width-btnCrearActual.width-parent.spacing*3
+                            t.width: r.width-btnCrearActual.width-app.fs
+                            width: r.width-btnCrearActual.width-app.fs
                             anchors.verticalCenter: parent.verticalCenter
                         }
                         ZoolButton{
@@ -517,9 +523,10 @@ Rectangle {
                         spacing: app.fs*0.25
                         anchors.horizontalCenter: parent.horizontalCenter
                         ZoolText{
-                            text: 'Cargar tránsitos actuales en el exterior.'
+                            text: 'Cargar tránsitos actuales\nen el exterior.'
                             fs: app.fs*0.5
                             w: r.width-btnCrearActualExt.width-parent.spacing*3
+                            width: r.width-btnCrearActualExt.width-app.fs
                             anchors.verticalCenter: parent.verticalCenter
                         }
                         ZoolButton{
@@ -533,260 +540,386 @@ Rectangle {
                     }
                 }
             }
-
-            Row{
-                spacing: app.fs*0.5
-                anchors.horizontalCenter: parent.horizontalCenter
-                Text{
-                    text: 'Utilizar las coordenadas\ndel esquema interior.\nLatitud: '+zm.currentLat+'\nLongitud: '+zm.currentLon
-                    font.pixelSize: app.fs*0.5
-                    color: apps.fontColor
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-                CheckBox{
-                    id: cbUseIntCoords
-                    checked: true
-                    anchors.verticalCenter: parent.verticalCenter
-                    onCheckedChanged:{
-                        if(apps.dev){
-                            log.lv('UTC checkbox zm.currentLat: '+zm.currentLat)
-                            log.lv('UTC checkbox zm.currentLon: '+zm.currentLon)
-                        }
-                        if(checked){
-                            r.ulat=zm.currentLat
-                            r.ulon=zm.currentLon
-                            r.lat=zm.currentLat
-                            r.lon=zm.currentLon
-                        }
-                    }
-                    //onCheckedChanged: settings.inputCoords=checked
-                }
-            }
-            ZoolTextInput{
-                id: tiCiudad
-                width:r.width-app.fs*0.5
-                t.width: r.width-app.fs*0.25
-                t.font.pixelSize: app.fs*0.65;
-                labelText: 'Lugar, ciudad, provincia,\nregión y/o país de desde donde se obsevan los tránsitos'
-                borderWidth: 2
-                borderColor: apps.fontColor
-                borderRadius: app.fs*0.1
-                KeyNavigation.tab: settings.inputCoords?tiLat.t:(botCrear.visible&&botCrear.opacity===1.0?botCrear:botClear)
-                t.maximumLength: 50
-                visible: !cbUseIntCoords.checked
-                onTextChanged: {
-                    tSearch.restart()
-                    t.color='white'
-                }
-            }
-            Row{
-                spacing: app.fs*0.5
-                anchors.horizontalCenter: parent.horizontalCenter
-                visible: !cbUseIntCoords.checked
-                Text{
-                    text: 'Ingresar coordenadas\nmanualmente'
-                    font.pixelSize: app.fs*0.5
-                    color: apps.fontColor
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-                CheckBox{
-                    checked: settings.inputCoords
-                    anchors.verticalCenter: parent.verticalCenter
-                    onCheckedChanged: settings.inputCoords=checked
-                }
-            }
-            Column{
-                id: colTiLonLat
-                anchors.horizontalCenter: parent.horizontalCenter
-                visible: settings.inputCoords && !cbUseIntCoords.checked
-
-                Row{
+            Comps.XMarco{
+                width: r.width-app.fs
+                Column{
                     spacing: app.fs*0.5
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    Comps.XTextInput{
-                        id: tiLat
-                        width: r.width*0.5-app.fs*0.5
-                        t.font.pixelSize: app.fs*0.65
-                        anchors.verticalCenter: parent.verticalCenter
-                        KeyNavigation.tab: tiLon.t
-                        t.maximumLength: 10
-                        t.validator: RegExpValidator {
-                            regExp: RegExp(/^(\+|\-)?0*(?:(?!999\.9\d*$)\d{0,3}(?:\.\d*)?|999\.0*)$/)
+                    anchors.centerIn: parent
+                    Row{
+                        spacing: app.fs*0.5
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        Text{
+                            text: 'Utilizar las coordenadas\ndel esquema interior.\nLatitud: '+zm.currentLat+'\nLongitud: '+zm.currentLon
+                            font.pixelSize: app.fs*0.5
+                            color: apps.fontColor
+                            anchors.verticalCenter: parent.verticalCenter
                         }
-                        property bool valid: false
-                        Timer{
-                            running: r.visible && settings.inputCoords
-                            repeat: true
-                            interval: 100
-                            onTriggered: {
-                                parent.valid=parent.t.text===''?false:(parseFloat(parent.t.text)>=-180.00 && parseFloat(parent.t.text)<=180.00)
-                                if(parent.valid){
-                                    r.ulat=parseFloat(parent.t.text)
-                                }else{
-                                    r.ulat=-1
+                        CheckBox{
+                            id: cbUseIntCoords
+                            checked: true
+                            anchors.verticalCenter: parent.verticalCenter
+                            onCheckedChanged:{
+                                if(apps.dev){
+                                    log.lv('UTC checkbox zm.currentLat: '+zm.currentLat)
+                                    log.lv('UTC checkbox zm.currentLon: '+zm.currentLon)
+                                }
+                                if(checked){
+                                    r.ulat=zm.currentLat
+                                    r.ulon=zm.currentLon
+                                    r.lat=zm.currentLat
+                                    r.lon=zm.currentLon
                                 }
                             }
-                        }
-                        Rectangle{
-                            width: parent.width+border.width*2
-                            height: parent.height+border.width*2
-                            anchors.centerIn: parent
-                            color: 'transparent'
-                            border.width: 4
-                            border.color: 'red'
-                            visible: parent.t.text===''?false:!parent.valid
-                        }
-                        onPressed: {
-                            //controlTimeFecha.focus=true
-                            //controlTimeFecha.cFocus=0
-                        }
-                        Text {
-                            text: 'Latitud'
-                            font.pixelSize: app.fs*0.5
-                            color: 'white'
-                            //anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.bottom: parent.top
+                            //onCheckedChanged: settings.inputCoords=checked
                         }
                     }
-                    Comps.XTextInput{
-                        id: tiLon
-                        width: r.width*0.5-app.fs*0.5
-                        t.font.pixelSize: app.fs*0.65
-                        anchors.verticalCenter: parent.verticalCenter
-                        KeyNavigation.tab: botCrear.visible&&botCrear.opacity===1.0?botCrear:botClear
-                        t.maximumLength: 10
-                        t.validator: RegExpValidator {
-                            regExp: RegExp(/^(\+|\-)?0*(?:(?!999\.9\d*$)\d{0,3}(?:\.\d*)?|999\.0*)$/)
-                        }
-                        property bool valid: false
-                        Timer{
-                            running: r.visible && settings.inputCoords
-                            repeat: true
-                            interval: 100
-                            onTriggered: {
-                                parent.valid=parent.t.text===''?false:(parseFloat(parent.t.text)>=-180.00 && parseFloat(parent.t.text)<=180.00)
-                                if(parent.valid){
-                                    r.ulon=parseFloat(parent.t.text)
-                                }else{
-                                    r.ulon=-1
+                    Item{width: 1;height: parent.spacing}
+                    Row{
+                        spacing: app.fs*0.25
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        visible: !cbUseIntCoords.checked
+                        ZoolTextInput{
+                            id: tiCiudad
+                            w: r.width-app.fs*3//*2-parent.spacing
+                            //t.parent.width: r.width-botSearchCoords.width-app.fs*2//*0.5
+                            anchors.verticalCenter: parent.verticalCenter
+                            //anchors.horizontalCenter: parent.horizontalCenter
+                            //w: width
+                            t.font.pixelSize: app.fs*0.65;
+                            //KeyNavigation.tab: cbInputCoords.checked?tiLat.t:tiAlt.t
+                            t.maximumLength: 50
+                            borderColor:apps.fontColor
+                            borderRadius: app.fs*0.25
+                            padding: app.fs*0.25
+                            t.horizontalAlignment: TextInput.AlignLeft
+                            onTextChanged: {
+                                //r.modoTurbo=false
+                                if(text==='Ingresa un lugar aquí'){
+                                    selectAll()
+                                    return
                                 }
+                                settings.inputCoords=false
+                                tSearch.restart()
+                                t.color='white'
+                            }
+                            FocusSen{
+                                width: parent.rx.width
+                                height: parent.rx.height
+                                radius: parent.rx.radius
+                                border.width:2
+                                visible: parent.t.focus
+                            }
+                            Text {
+                                text: 'Lugar, ciudad, provincia,\nregión y/o país de nacimiento'
+                                font.pixelSize: app.fs*0.5
+                                color: 'white'
+                                anchors.bottom: parent.top
                             }
                         }
-                        Rectangle{
-                            width: parent.width+border.width*2
-                            height: parent.height+border.width*2
-                            anchors.centerIn: parent
-                            color: 'transparent'
-                            border.width: 4
-                            border.color: 'red'
-                            visible: parent.t.text===''?false:!parent.valid
-                        }
-                        onPressed: {
-                            //controlTimeFecha.focus=true
-                            //controlTimeFecha.cFocus=0
-                        }
-                        Text {
-                            text: 'Longitud'
-                            font.pixelSize: app.fs*0.5
-                            color: 'white'
-                            //anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.bottom: parent.top
+                        //Item{width: parent.spacing; height: 1}
+                        Comps.ButtonIcon{
+                            id: botSearchCoords
+                            text: '\uf002'
+                            width: app.fs
+                            height: width
+                            //anchors.centerIn: parent
+                            anchors.verticalCenter: parent.verticalCenter
+                            onClicked: {
+                                tSearch.stop()
+                                searchGeoLoc(false)
+                            }
                         }
                     }
-                }
-                Item{width: 1; height: app.fs*0.5;visible: settings.inputCoords}
-                Text{
-                    text: tiLat.t.text===''&&tiLon.t.text===''?'Escribir las coordenadas geográficas.':
-                                                                (
-                                                                    tiLat.valid && tiLon.valid?
-                                                                        'Estas coordenadas son válidas.':
-                                                                        'Las coordenadas no son correctas'
-                                                                    )
-                    font.pixelSize: app.fs*0.5
-                    color: apps.fontColor
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    visible: settings.inputCoords
-                }
-            }
+                    Row{
+                        spacing: app.fs*0.5
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        visible: !cbUseIntCoords.checked
+                        Text{
+                            text: 'Ingresar coordenadas\nmanualmente'
+                            font.pixelSize: app.fs*0.5
+                            color: apps.fontColor
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                        CheckBox{
+                            checked: settings.inputCoords
+                            anchors.verticalCenter: parent.verticalCenter
+                            onCheckedChanged: settings.inputCoords=checked
+                        }
+                    }
+                    Column{
+                        id: colTiLonLat
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        visible: settings.inputCoords && !cbUseIntCoords.checked
 
-            /*Button{
+                        Row{
+                            spacing: app.fs*0.5
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            Comps.XTextInput{
+                                id: tiLat
+                                width: r.width*0.5-app.fs*0.5
+                                t.font.pixelSize: app.fs*0.65
+                                anchors.verticalCenter: parent.verticalCenter
+                                KeyNavigation.tab: tiLon.t
+                                t.maximumLength: 10
+                                t.validator: RegExpValidator {
+                                    regExp: RegExp(/^(\+|\-)?0*(?:(?!999\.9\d*$)\d{0,3}(?:\.\d*)?|999\.0*)$/)
+                                }
+                                property bool valid: false
+                                Timer{
+                                    running: r.visible && settings.inputCoords
+                                    repeat: true
+                                    interval: 100
+                                    onTriggered: {
+                                        parent.valid=parent.t.text===''?false:(parseFloat(parent.t.text)>=-180.00 && parseFloat(parent.t.text)<=180.00)
+                                        if(parent.valid){
+                                            r.ulat=parseFloat(parent.t.text)
+                                        }else{
+                                            r.ulat=-1
+                                        }
+                                    }
+                                }
+                                Rectangle{
+                                    width: parent.width+border.width*2
+                                    height: parent.height+border.width*2
+                                    anchors.centerIn: parent
+                                    color: 'transparent'
+                                    border.width: 4
+                                    border.color: 'red'
+                                    visible: parent.t.text===''?false:!parent.valid
+                                }
+                                onPressed: {
+                                    //controlTimeFecha.focus=true
+                                    //controlTimeFecha.cFocus=0
+                                }
+                                Text {
+                                    text: 'Latitud'
+                                    font.pixelSize: app.fs*0.5
+                                    color: 'white'
+                                    //anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.bottom: parent.top
+                                }
+                            }
+                            Comps.XTextInput{
+                                id: tiLon
+                                width: r.width*0.5-app.fs*0.5
+                                t.font.pixelSize: app.fs*0.65
+                                anchors.verticalCenter: parent.verticalCenter
+                                KeyNavigation.tab: botCrear.visible&&botCrear.opacity===1.0?botCrear:botClear
+                                t.maximumLength: 10
+                                t.validator: RegExpValidator {
+                                    regExp: RegExp(/^(\+|\-)?0*(?:(?!999\.9\d*$)\d{0,3}(?:\.\d*)?|999\.0*)$/)
+                                }
+                                property bool valid: false
+                                Timer{
+                                    running: r.visible && settings.inputCoords
+                                    repeat: true
+                                    interval: 100
+                                    onTriggered: {
+                                        parent.valid=parent.t.text===''?false:(parseFloat(parent.t.text)>=-180.00 && parseFloat(parent.t.text)<=180.00)
+                                        if(parent.valid){
+                                            r.ulon=parseFloat(parent.t.text)
+                                        }else{
+                                            r.ulon=-1
+                                        }
+                                    }
+                                }
+                                Rectangle{
+                                    width: parent.width+border.width*2
+                                    height: parent.height+border.width*2
+                                    anchors.centerIn: parent
+                                    color: 'transparent'
+                                    border.width: 4
+                                    border.color: 'red'
+                                    visible: parent.t.text===''?false:!parent.valid
+                                }
+                                onPressed: {
+                                    //controlTimeFecha.focus=true
+                                    //controlTimeFecha.cFocus=0
+                                }
+                                Text {
+                                    text: 'Longitud'
+                                    font.pixelSize: app.fs*0.5
+                                    color: 'white'
+                                    //anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.bottom: parent.top
+                                }
+                            }
+                        }
+                        Item{width: 1; height: app.fs*0.5;visible: settings.inputCoords}
+                        Text{
+                            text: tiLat.t.text===''&&tiLon.t.text===''?'Escribir las coordenadas geográficas.':
+                                                                        (
+                                                                            tiLat.valid && tiLon.valid?
+                                                                                'Estas coordenadas son válidas.':
+                                                                                'Las coordenadas no son correctas'
+                                                                            )
+                            font.pixelSize: app.fs*0.5
+                            color: apps.fontColor
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            visible: settings.inputCoords
+                        }
+                    }
+
+                    /*Button{
                 text: 'Buscar'
                 onClicked: {
                     searchBodieDateFronLong(4, 150.00, 2025, 1, 1, 2026, 1, 1, 0.1)
                 }
             }*/
-            Column{
-                id: colLatLon
-                anchors.horizontalCenter: parent.horizontalCenter
-                visible: r.lat===r.ulat&&r.lon===r.ulon && !cbUseIntCoords.checked
-                //height: !visible?0:app.fs*3
-                Text{
-                    text: 'Lat:'+r.lat
-                    font.pixelSize: app.fs*0.5
-                    color: 'white'
-                    opacity: r.lat!==-100.00?1.0:0.0
-                }
-                Text{
-                    text: 'Lon:'+r.lon
-                    font.pixelSize: app.fs*0.5
-                    color: 'white'
-                    opacity: r.lon!==-100.00?1.0:0.0
-                }
-            }
-            Column{
-                visible: !colLatLon.visible
-                //height: !visible?0:app.fs*3
-                anchors.horizontalCenter: parent.horizontalCenter
-                Text{
-                    text: 'Error: Corregir el nombre de ubicación'
-                    font.pixelSize: app.fs*0.25
-                    color: 'white'
-                    visible: r.ulat===-1&&r.ulon===-1
-                }
-                Text{
-                    text: 'Lat:'+r.ulat
-                    font.pixelSize: app.fs*0.5
-                    color: 'white'
-                    opacity: r.ulat!==-100.00?1.0:0.0
-                }
-                Text{
-                    text: 'Lon:'+r.ulon
-                    font.pixelSize: app.fs*0.5
-                    color: 'white'
-                    opacity: r.ulon!==-100.00?1.0:0.0
-                }
-            }
-            Row{
-                anchors.horizontalCenter: parent.horizontalCenter
-                spacing: app.fs*0.25
-                Button{
-                    id: botClear
-                    text: 'Limpiar'
-                    font.pixelSize: app.fs*0.5
-                    opacity:  r.lat!==-100.00||r.lon!==-100.00||tiCiudad.text!==''?1.0:0.0
-                    enabled: opacity===1.0
-                    visible: !cbUseIntCoords.checked
-                    onClicked: {
-                        clear()
+                    Column{
+                        id: colLatLon
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        visible: r.lat===r.ulat&&r.lon===r.ulon && !cbUseIntCoords.checked
+                        //height: !visible?0:app.fs*3
+                        Text{
+                            text: 'Lat:'+r.lat
+                            font.pixelSize: app.fs*0.5
+                            color: 'white'
+                            opacity: r.lat!==-100.00?1.0:0.0
+                        }
+                        Text{
+                            text: 'Lon:'+r.lon
+                            font.pixelSize: app.fs*0.5
+                            color: 'white'
+                            opacity: r.lon!==-100.00?1.0:0.0
+                        }
                     }
-                }
-                Button{
-                    id: botCrear
-                    text: 'Cargar'
-                    font.pixelSize: app.fs*0.5
-                    KeyNavigation.tab: tiCiudad.t
-                    visible: !cbUseIntCoords.checked?r.ulat!==-1&&r.ulon!==-1&&tiCiudad.text!=='':true
-                    onClicked: {
-                        loadTrans()
+                    Column{
+                        visible: !colLatLon.visible
+                        //height: !visible?0:app.fs*3
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        Text{
+                            text: 'Error: Corregir el nombre de ubicación'
+                            font.pixelSize: app.fs*0.25
+                            color: 'white'
+                            visible: r.ulat===-1&&r.ulon===-1
+                        }
+                        Text{
+                            text: 'Lat:'+r.ulat
+                            font.pixelSize: app.fs*0.5
+                            color: 'white'
+                            opacity: r.ulat!==-100.00?1.0:0.0
+                        }
+                        Text{
+                            text: 'Lon:'+r.ulon
+                            font.pixelSize: app.fs*0.5
+                            color: 'white'
+                            opacity: r.ulon!==-100.00?1.0:0.0
+                        }
+                    }
+                    Row{
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        spacing: app.fs*0.25
+                        Button{
+                            id: botClear
+                            text: 'Limpiar'
+                            font.pixelSize: app.fs*0.5
+                            opacity:  r.lat!==-100.00||r.lon!==-100.00||tiCiudad.text!==''?1.0:0.0
+                            enabled: opacity===1.0
+                            visible: !cbUseIntCoords.checked
+                            onClicked: {
+                                clear()
+                            }
+                        }
+                        Button{
+                            id: botCrear
+                            text: 'Cargar'
+                            font.pixelSize: app.fs*0.5
+                            KeyNavigation.tab: tiCiudad.t
+                            visible: !cbUseIntCoords.checked?r.ulat!==-1&&r.ulon!==-1&&tiCiudad.text!=='':true
+                            onClicked: {
+                                loadTrans()
+                            }
+                        }
                     }
                 }
             }
             ZoolText{
-                text: 'ZoolFileTransLoader v1.6'
+                text: 'ZoolFileTransLoader v1.7'
                 font.pixelSize: app.fs*0.5
                 c: apps.fontColor
                 w: app.fs*6
                 anchors.horizontalCenter: parent.horizontalCenter
+            }
+        }
+    }
+    Rectangle{
+        id: rLoading
+        color: apps.backgroundColor
+        anchors.fill: parent
+        visible: r.loadingCoords
+        MouseArea{
+            anchors.fill: parent
+            onClicked: r.loadingCoords=false
+        }
+        Column{
+            spacing: app.fs*0.5
+            anchors.centerIn: parent
+            Text{
+                id: txtLoadingCoords
+                color: apps.fontColor
+                font.pixelSize: app.fs*0.5
+                width: r.width-app.fs*2
+                wrapMode: Text.WordWrap
+            }
+            Button{
+                text: 'Cancelar'
+                font.pixelSize: app.fs*0.5
+                anchors.horizontalCenter: parent.horizontalCenter
+                onClicked: {
+                    r.loadingCoords=false
+                }
+            }
+        }
+    }
+    Rectangle{
+        id: rLoadingError
+        color: apps.backgroundColor
+        anchors.fill: parent
+        visible: r.loadingCoords
+        MouseArea{
+            anchors.fill: parent
+            onClicked: r.loadingCoords=false
+        }
+        Column{
+            spacing: app.fs*0.5
+            anchors.centerIn: parent
+            Text{
+                text: 'Ha ocurrido un problema para encontrar las coordenadas de ['+tiCiudad.t.text+'].<br><br>Esto se debe posiblemente a que el nombre del lugar está mal escrito o una falla en la conexión a internet.<br>'
+                color: apps.fontColor
+                font.pixelSize: app.fs*0.5
+                width: r.width-app.fs*2
+                wrapMode: Text.WordWrap
+                textFormat: Text.RichText
+                horizontalAlignment: Text.AlignHCenter
+            }
+            Text{
+                text: 'En este formulario tienes la opción de cargar las coordenadas geográifcas de modo manual. <br><br>¿Quieres cargar las coordenadas geográficas manualmente?'
+                color: apps.fontColor
+                font.pixelSize: app.fs*0.5
+                width: r.width-app.fs*2
+                wrapMode: Text.WordWrap
+                textFormat: Text.RichText
+                horizontalAlignment: Text.AlignHCenter
+            }
+            Button{
+                text: 'Cargar Manualmente'
+                font.pixelSize: app.fs*0.5
+                anchors.horizontalCenter: parent.horizontalCenter
+                onClicked: {
+                    rLoadingError.visible=false
+                    cbInputCoords.checked=true
+                    loadingCoords=false
+                }
+            }
+            Button{
+                text: 'Entendido'
+                font.pixelSize: app.fs*0.5
+                anchors.horizontalCenter: parent.horizontalCenter
+                onClicked: {
+                    rLoadingError.visible=false
+                    loadingCoords=false
+                }
             }
         }
     }
@@ -798,50 +931,175 @@ Rectangle {
         onTriggered: searchGeoLoc(false)
     }
     Item{id: xuqp}
-    function searchGeoLoc(crear){
-        for(var i=0;i<xuqp.children.length;i++){
-            xuqp.children[i].destroy(0)
-        }
-        let d = new Date(Date.now())
-        let ms=d.getTime()
-        let c='import QtQuick 2.0\n'
-        c+='import unik.UnikQProcess 1.0\n'
-        c+='UnikQProcess{\n'
-        c+='    id: uqp'+ms+'\n'
-        c+='    onLogDataChanged:{\n'
-        c+='            console.log(logData)\n'
-        c+='        let result=(\'\'+logData).replace(/\\n/g, \'\')\n'
-        c+='        let json=JSON.parse(result)\n'
-        c+='        if(json){\n'
-        //c+='            console.log(JSON.stringify(json))\n'
 
-        c+='                if(r.lat===-1&&r.lon===-1){\n'
-        c+='                   tiCiudad.t.color="red"\n'
-        c+='                }else{\n'
-        c+='                   tiCiudad.t.color=apps.fontColor\n'
-        if(crear){
-            c+='                r.lat=json.coords.lat\n'
-            c+='                r.lon=json.coords.lon\n'
-            c+='                    updateUParams()//loadJsonFromArgsBack()\n'
-            c+='                    //setNewJsonFileData()\n'
-            c+='                    //r.state=\'hide\'\n'
-        }else{
-            c+='                r.ulat=json.coords.lat\n'
-            c+='                r.ulon=json.coords.lon\n'
+//    function searchGeoLoc(crear){
+//        for(var i=0;i<xuqp.children.length;i++){
+//            xuqp.children[i].destroy(0)
+//        }
+//        let d = new Date(Date.now())
+//        let ms=d.getTime()
+//        let c='import QtQuick 2.0\n'
+//        c+='import unik.UnikQProcess 1.0\n'
+//        c+='UnikQProcess{\n'
+//        c+='    id: uqp'+ms+'\n'
+//        c+='    onLogDataChanged:{\n'
+//        c+='            console.log(logData)\n'
+//        c+='        let result=(\'\'+logData).replace(/\\n/g, \'\')\n'
+//        c+='        let json=JSON.parse(result)\n'
+//        c+='        if(json){\n'
+//        //c+='            console.log(JSON.stringify(json))\n'
+
+//        c+='                if(r.lat===-1&&r.lon===-1){\n'
+//        c+='                   tiCiudad.t.color="red"\n'
+//        c+='                }else{\n'
+//        c+='                   tiCiudad.t.color=apps.fontColor\n'
+//        if(crear){
+//            c+='                r.lat=json.coords.lat\n'
+//            c+='                r.lon=json.coords.lon\n'
+//            c+='                    updateUParams()//loadJsonFromArgsBack()\n'
+//            c+='                    //setNewJsonFileData()\n'
+//            c+='                    //r.state=\'hide\'\n'
+//        }else{
+//            c+='                r.ulat=json.coords.lat\n'
+//            c+='                r.ulon=json.coords.lon\n'
+//        }
+//        c+='                }\n'
+//        c+='        }else{\n'
+//        c+='            console.log(\'No se encontraron las cordenadas.\')\n'
+//        c+='        }\n'
+//        c+='        uqp'+ms+'.destroy(0)\n'
+//        c+='    }\n'
+//        c+='    Component.onCompleted:{\n'
+//        c+='        console.log(\''+app.pythonLocation+' "'+u.currentFolderPath()+'/py/geoloc.py" "'+tiCiudad.t.text+'" "'+u.currentFolderPath()+'"\')\n'
+//        c+='        run(\''+app.pythonLocation+' "'+u.currentFolderPath()+'/py/geoloc.py" "'+tiCiudad.t.text+'" "'+u.currentFolderPath()+'"\')\n'
+//        c+='    }\n'
+//        c+='}\n'
+//        if(apps.dev)log.lv('\n\n'+c+'\n\n')
+//        let comp=Qt.createQmlObject(c, xuqp, 'uqpcodenewtrans')
+//    }
+
+    function searchGeoLoc(crear){
+        r.loadingCoords=true
+        const lugarABuscar = tiCiudad.t.text
+        obtenerCoordenadas(lugarABuscar)
+    }
+    //openstreetmap
+    function obtenerCoordenadas(lugar) {
+        return new Promise((resolve, reject) => {
+                               const xhr = new XMLHttpRequest();
+                               const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(lugar)}&format=json`;
+
+
+                               xhr.open('GET', url);
+
+                               xhr.onload = function() {
+                                   if (xhr.status >= 200 && xhr.status < 300) {
+                                       try {
+                                           //log.lv('obtenerCoordenadas('+lugar+'): '+xhr.responseText)
+                                           const respuesta = JSON.parse(xhr.responseText);
+                                           if(respuesta && respuesta.length > 0) {
+                                               //if(false) {
+                                               const latitud = parseFloat(respuesta[0].lat);
+                                               const longitud = parseFloat(respuesta[0].lon);
+                                               //zpn.logTemp('Latitud: '+latitud, 10000)
+                                               //zpn.logTemp('Longitud: '+longitud, 10000)
+                                               if(!r.loadingCoords)return
+                                               r.lat=parseFloat(latitud)
+                                               r.ulat=r.lat
+                                               r.lon=parseFloat(longitud)
+                                               r.ulon=r.lon
+                                               r.loadingCoords=false
+                                               rLoadingError.visible=false
+                                           }else{
+                                               //reject('No se encontraron coordenadas para el lugar especificado.');
+                                               //log.clear()
+                                               zpn.logTemp('OpenStreet.ort NO se encontraron las coordenadas de geolocalización de '+tiCiudad.text+'\nBuscando con el sistema GeoNames...', 10000)
+                                               r.loadingCoords=true
+                                               obtenerCoordenadasGeoNames(lugar)
+                                               /*if(Qt.platform.os==='linux' && u.folderExist('/home/ns')){
+                                                   //if(Qt.platform.os==='linux'){
+                                                   searchCoordsTurbo()
+                                               }*/
+                                           }
+                                       } catch (error) {
+                                           //reject('Error al parsear la respuesta JSON.');
+                                           //log.clear()
+                                           zpn.logTemp('Busqueda de coordenadas con OpenStreet: Hay un error de red en estos momentos. Error al solicitar las coordenadas de geolocalización de '+tiCiudad.text, 10000)
+                                           obtenerCoordenadasGeoNames(lugar)
+                                           //                                           if(Qt.platform.os==='linux' && u.folderExist('/home/ns')){
+                                           //                                               //if(Qt.platform.os==='linux'){
+                                           //                                               searchCoordsTurbo()
+                                           //                                           }
+                                       }
+                                   }else{
+                                       //reject(`Error en la petición: Código de estado ${xhr.status}`);
+                                       //log.clear()
+                                       zpn.logTemp('Busqueda de coordenadas con OpenStreet: Hay un error de red en estos momentos. Error al solicitar las coordenadas de geolocalización de '+tiCiudad.text, 10000)
+                                       obtenerCoordenadasGeoNames(lugar)
+                                   }
+                               };
+
+                               xhr.onerror = function() {
+                                   //reject('Error de red al realizar la petición.');
+                                   //log.clear()
+                                   zpn.logTemp('Busqueda de coordenadas con OpenStreet: Hay un error de red en estos momentos. Error al solicitar las coordenadas de geolocalización de '+tiCiudad.text, 10000)
+                                   obtenerCoordenadasGeoNames(lugar)
+                               };
+
+                               xhr.send();
+                           });
+    }
+    //GeoNames
+    function obtenerCoordenadasGeoNames(lugar) {
+        if (lugar === "") return;
+
+        var xhr = new XMLHttpRequest();
+        // Endpoint: searchJSON
+        // maxRows=1 para obtener solo el mejor resultado
+        // style=FULL para obtener la altitud (elevation)
+        var url = "http://api.geonames.org/searchJSON?q=" + encodeURIComponent(lugar)
+                + "&maxRows=1&username=" + 'qtpizarro' + "&style=FULL";
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+
+                    let res='Sin datos!'
+
+                    if (response.geonames && response.geonames.length > 0) {
+                        var data = response.geonames[0];
+                        var lat = data.lat;
+                        var lon = data.lng;
+                        var alt = parseInt(data.elevation) || 0;
+
+                        r.lat=parseFloat(lat)
+                        r.ulat=r.lat
+                        r.lon=parseFloat(lon)
+                        r.ulon=r.lon
+                        r.loadingCoords=false
+                        rLoadingError.visible=false
+
+                        res = "Lat: " + lat + "\nLon: " + lon + "\nAlt: " + alt + " m";
+                    } else {
+                        res = "El sistema de búsqueda de coordenadas GeoNames NO encontró el lugar "+lugar+".";
+                        zpn.logTemp(res, 10000)
+
+                        rLoadingError.visible=true
+                        r.loadingCoords=false
+
+                    }
+                    //log.lv('Res: '+res)
+                } else {
+                    zpn.logTemp("Error en la petición: " + xhr.status, 10000);
+                    r.loadingCoords=false
+                    rLoadingError.visible=true
+                }
+            }
         }
-        c+='                }\n'
-        c+='        }else{\n'
-        c+='            console.log(\'No se encontraron las cordenadas.\')\n'
-        c+='        }\n'
-        c+='        uqp'+ms+'.destroy(0)\n'
-        c+='    }\n'
-        c+='    Component.onCompleted:{\n'
-        c+='        console.log(\''+app.pythonLocation+' "'+u.currentFolderPath()+'/py/geoloc.py" "'+tiCiudad.t.text+'" "'+u.currentFolderPath()+'"\')\n'
-        c+='        run(\''+app.pythonLocation+' "'+u.currentFolderPath()+'/py/geoloc.py" "'+tiCiudad.t.text+'" "'+u.currentFolderPath()+'"\')\n'
-        c+='    }\n'
-        c+='}\n'
-        if(apps.dev)log.lv('\n\n'+c+'\n\n')
-        let comp=Qt.createQmlObject(c, xuqp, 'uqpcodenewtrans')
+
+        xhr.open("GET", url);
+        xhr.send();
     }
     function loadTrans(){
         if(!settings.inputCoords){
@@ -1024,14 +1282,14 @@ Rectangle {
             let strInfo='En las fechas '+sfi+' y '+sff+', no hay ningún tránsito de '+zm.aBodies[bb.bsel2]+' sobre '+zm.aBodies[bb.bsel1]
             rTxt.text=strRTxt1+'\n'+strInfo
             //if(controlTimeFechaForBB.currentDate.getTime()<cDateHasta.getTime()){
-                //controlTimeFechaForBB.anio++
-               //controlTimeFechaForBB.mes++
+            //controlTimeFechaForBB.anio++
+            //controlTimeFechaForBB.mes++
             //d1=d1.setMonth(d1.getMonth()+1)
             //controlTimeFechaForBB.currentDate=d1
             let myDate = new Date(controlTimeFechaForBB.currentDate);
             myDate.setDate(myDate.getDate() + 20);
             controlTimeFechaForBB.currentDate=myDate
-                initSearch()
+            initSearch()
             //}
         }
         zpn.addNot(jNot, true, 15000)

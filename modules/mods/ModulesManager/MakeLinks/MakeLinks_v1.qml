@@ -144,6 +144,7 @@ Item{
                 fs: app.fs*0.35
                 colorInverted: true
                 onClicked: {
+                    zsm.getPanel('ModulesManager').loadModule('ModulesLoader', '1.0')
                     rMod.destroy(0)
                 }
             }
@@ -215,6 +216,7 @@ Item{
 
     }
     function toEscape(){
+        zsm.getPanel('ModulesManager').loadModule('ModulesLoader', '1.0')
         rMod.destroy(0)
     }
     function isFocus(){

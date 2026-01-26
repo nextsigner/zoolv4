@@ -172,7 +172,7 @@ Item{
         return url
     }
     function getConsCarta(){
-        let ret='Consulta Astrológica. Dime cómo se manifiesta las siguientes influencias astrológicas de una persona nacida con la siguiente carta natal. De momento solo dime sobre el sol y al final recuerdame que debo escribir "siguiente" o "s" para ir interpretando las manifestaciones de los demás cuerpos astrológicos listados. Sobre cada cuerpo debes decirme 10 manifestaciones positivas y 10 negativas. Enfócate en interpretarlo desde un punto de vista psicológico y de evolución espiritual. Lista: '
+        let ret='Consulta Astrológica. Dime cómo se manifiesta las siguientes influencias astrológicas de una persona nacida con la siguiente carta natal. De momento solo dime sobre el sol y al final recuerdame que debo escribir siguiente o s para ir interpretando las manifestaciones de los demás cuerpos astrológicos listados. Sobre cada cuerpo debes decirme 10 manifestaciones positivas y 10 negativas. Enfócate en interpretarlo desde un punto de vista psicológico y de evolución espiritual. Lista: '
         var i=0
         let j=zm.currentJson
         //log.lv(JSON.stringify(j, null, 2))

@@ -1,1 +1,1 @@
-i7: Se crea módulo MakeLinks 1.0
+Se prueba subida desde macmini

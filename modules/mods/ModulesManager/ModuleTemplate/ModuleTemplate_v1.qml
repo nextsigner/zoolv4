@@ -123,7 +123,7 @@ Item{
 
     //-->Funciones ModulesTemplate
     function toNextArea(){
-        if(s.typeShow<r.aParents.length-1){
+        if(s.typeShow<rMod.aParents.length-1){
             s.typeShow++
         }else{
             s.typeShow=0

@@ -1,1 +1,1 @@
-i7: Se corrige error de carga de lista de modulos en ModulesManager.
+i7: Se crea módulo MakeLinks 1.0

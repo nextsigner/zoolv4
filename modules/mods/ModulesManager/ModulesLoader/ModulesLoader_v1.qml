@@ -49,7 +49,7 @@ Rectangle{
                 Rectangle{
                     id: xItem
                     width: lv.width
-                    height: txt1.contentHeight+app.fs//*0.5
+                    height: colNameDes.height+app.fs//*0.5
                     color: !xItem.selected?apps.backgroundColor:apps.fontColor
                     border.width: 1
                     border.color: xItem.selected?apps.backgroundColor:apps.fontColor
@@ -58,14 +58,28 @@ Rectangle{
                     Row{
                         spacing: app.fs*0.5
                         anchors.centerIn: parent
-                        Text{
-                            id: txt1
-                            font.pixelSize: app.fs*0.5
-                            color: xItem.selected?apps.backgroundColor:apps.fontColor
-                            wrapMode: Text.WordWrap
+                        Column{
+                            id: colNameDes
+                            spacing: app.fs*0.25
                             anchors.verticalCenter: parent.verticalCenter
+                            Text{
+                                id: txt1
+                                font.pixelSize: app.fs*0.5
+                                color: xItem.selected?apps.backgroundColor:apps.fontColor
+                                wrapMode: Text.WordWrap
+                                anchors.horizontalCenter: parent.horizontalCenter
+                            }
+                            Text{
+                                id: txt2
+                                width: xItem.width-botLoad.width-app.fs
+                                font.pixelSize: app.fs*0.5
+                                color: xItem.selected?apps.backgroundColor:apps.fontColor
+                                wrapMode: Text.WordWrap
+                                anchors.horizontalCenter: parent.horizontalCenter
+                            }
                         }
                         Button{
+                            id: botLoad
                             text: 'Cargar'
                             font.pixelSize: app.fs*0.5
                             onClicked: loadModule(index)
@@ -74,6 +88,7 @@ Rectangle{
                     }
                     Component.onCompleted: {
                         txt1.text=j.name
+                        txt2.text='<b>Descripción: </b>'+j.des
                     }
                 }
             }
@@ -84,6 +99,9 @@ Rectangle{
     Component.onCompleted: {
         loadModulesList()
         app.ci=r
+
+        //-->IMPORTANTE! Cargar al iniciar app para programar o desarrollar un módulo
+        //loadModule(2)
     }
 
     //-->Teclado
@@ -165,7 +183,12 @@ Rectangle{
         m.des="Módulo para realizar cálculos numerológicos."
         j.modules.push(m)
 
-        //log.lv('Json Modules Manager: '+JSON.stringify(j, null, 2))
+        m={}
+        m.name="MakeLinks"
+        m.version='1.0'
+        m.des="Módulo para crea enlaces."
+        j.modules.push(m)
+
         return j
     }
     function loadModulesList(){

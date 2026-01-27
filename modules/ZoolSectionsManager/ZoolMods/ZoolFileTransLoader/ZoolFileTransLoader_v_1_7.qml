@@ -216,10 +216,11 @@ Rectangle {
                 ZoolButton{
                     text: 'Recargar Hora de Archivo'
                     onClicked:{
-                        let json=JSON.parse(zm.currentData)
-                        let d=new Date(json.params.a, parseInt(json.params.m - 1), json.params.d, json.params.h, json.params.min)
+                        //let json=JSON.parse(zm.currentData)
+                        let p=zfdm.getJsonAbs().params
+                        let d=new Date(p.a, parseInt(p.m - 1), p.d, p.h, p.min)
                         controlTimeFecha.currentDate=d
-                        controlTimeFecha.gmt=json.params.gmt
+                        controlTimeFecha.gmt=p.gmt
                         loadTrans()
                     }
                 }
@@ -1179,6 +1180,7 @@ Rectangle {
         let strEdad='Edad: '+zm.getEdad(d, m, a, h, min)+' años'
         let aR=[]
         zm.loadBackFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, vCiudad, strEdad, t, hsys, -1, aR)
+        zpn.logTemp('Transito: '+d+'/'+m+'/'+a+' '+h+':'+min+'hs', 10000)
     }
     //Crear Proceso para searchBodieDateFronLong.py
     function initSearch(){

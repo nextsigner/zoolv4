@@ -61,8 +61,10 @@ Rectangle{
         if(d[0]===-1 && d[1]===-1 && d[2]===-1)return
         r.nd=d[0]
         r.ns=d[1]
-        r.ag=parseInt(d[2])
-        r.arbolGen=app.arbolGenealogico[parseInt(d[2])][0]
+        if(parseInt(d[2])>=0 && parseInt(d[2])<=3){
+            r.ag=parseInt(d[2])
+            r.arbolGen=app.arbolGenealogico[parseInt(d[2])][0]
+        }
         //log.lv('ZoolElementItemNumPit::update()...')
     }
     function sendDataToModuleNumPit(fromMouseClick){

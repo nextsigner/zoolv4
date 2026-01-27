@@ -37,15 +37,17 @@ Rectangle {
 
     Flickable{
         id: flk
-        width: r.width-app.fs
+        width: r.width//-app.fs
         height: r.height
         contentWidth: col.width
         contentHeight: col.height
-        anchors.horizontalCenter: parent.horizontalCenter
+        //anchors.horizontalCenter: parent.horizontalCenter
         Column{
             id: col
-            anchors.centerIn: parent
-            spacing: app.fs*0.5
+            //anchors.centerIn: parent
+            width: r.width
+            anchors.horizontalCenter: parent.horizontalCenter
+            spacing: 0//app.fs*0.5
             Item{width: 1; height: app.fs*0.25}
             ZoolText{
                 id: tit
@@ -54,10 +56,11 @@ Rectangle {
                 w: r.width-app.fs
                 font.pixelSize: app.fs*0.65                
             }
+            Item{width: 1; height: app.fs*0.25}
             ListView{
                 id: lv
-                width: r.width-app.fs
-                height: r.height-tit.t.contentHeight-app.fs*5//1.75
+                width: r.width//-app.fs*2
+                height: r.height-tit.t.contentHeight-app.fs*5+app.fs//1.75
                 delegate: delegate
                 model: lm
                 clip: true
@@ -77,6 +80,21 @@ Rectangle {
                     border.color: apps.fontColor
                 }
             }
+            Rectangle{
+                width: r.width
+                height: app.fs*1.5
+                color: 'transparent'
+                border.width: 1
+                border.color: apps.fontColor
+                Text{
+                    id: txtInfo
+                    color: apps.fontColor
+                    font.pixelSize: app.fs*0.5
+                    width: parent.width-app.fs*0.5
+                    wrapMode: Text.WordWrap
+                    anchors.centerIn: parent
+                }
+            }
         }
     }
     Component{
@@ -89,6 +107,7 @@ Rectangle {
             border.width: 1
             border.color: index===lv.currentIndex?apps.fontColor:apps.backgroundColor
             //property int a: -1
+            anchors.horizontalCenter: parent.horizontalCenter
             Text{
                 text: a>1?'<b>Año: </b> '+parseInt(r.currentAnioNac + a)+' <b>Edad: </b>'+a+' años.':'<b>Año: </b> '+parseInt(r.currentAnioNac + a)+' <b>Edad: </b>'+a+' año.'
                 font.pixelSize: app.fs*0.5
@@ -121,6 +140,8 @@ Rectangle {
             }
         }
     }
+
+    //-->Teclado
     function updateDateList(){
         lm.clear()
         for(var i=0;i<150;i++){
@@ -163,6 +184,7 @@ Rectangle {
             zm.currentAltBack=alt
             zm.currentDateBack= new Date(parseInt(anio), parseInt(mes) - 1, parseInt(dia), parseInt(hora), parseInt(minutos))
         zm.loadFromArgs(d.getDate(), parseInt(d.getMonth() +1),d.getFullYear(), d.getHours(), d.getMinutes(), gmt,lat,lon, alt, nom, ciudad, data, "progsec", true)
+        txtInfo.text='Ultima carga: '+d.toString()
 
     }
     function toUp(){
@@ -181,11 +203,16 @@ Rectangle {
     }
     function toRight(){
         loadProgSec(lv.currentIndex)
+    }    
+    function toEscape(){
+
     }
-    //-->Funciones de Control Focus y Teclado
+    function isFocus(){
+        return false
+    }
     property bool hasUnUsedFunction: true
     function unUsed(){
         //log.lv(app.j.qmltypeof(r)+'.unUsed()...')
     }
-    //-->Funciones de Control Focus y Teclado
+    //-->Teclado
 }

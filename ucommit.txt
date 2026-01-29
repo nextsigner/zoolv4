@@ -1,1 +1,1 @@
-Se optimiza ProgSec
+Se arreglan rutas de imagenes en ZoolRevolutionsList

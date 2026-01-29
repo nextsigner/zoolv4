@@ -695,7 +695,7 @@ Rectangle {
                 }
             }
             onIsChanged:{
-                iconoSigno.source=r.folderImgs+'/signos/'+is+'.svg'
+                iconoSigno.source=r.folderImgs+'/signs/'+is+'.svg'
             }
             //Behavior on height{enabled: apps.enableFullAnimation;NumberAnimation{duration: app.msDesDuration}}
             Behavior on opacity{enabled: apps.enableFullAnimation;NumberAnimation{duration: app.msDesDuration}}

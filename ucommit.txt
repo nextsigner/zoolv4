@@ -1,1 +1,1 @@
-i7: Se optimiza la busqueda de aspectos en ZoolFileTransLoader
+i7: Se corrige rotationn ZoolPointerPlanet

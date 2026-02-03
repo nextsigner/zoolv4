@@ -589,6 +589,16 @@ Item{
                 //saveRot()
                 //setRot()
             }
+            /*onVisibleChanged: {
+                if(!visible)return
+                if(r.isBack && r.numAstro === zm.currentPlanetIndexBack){
+                    zm.objXIE.setPosAndRot(r.rotation-zm.dirPrimRot, r.width)
+                }
+                if(!r.isBack && zm.currentPlanetIndex===r.numAstro){
+                    zm.objXII.setPosAndRot(r.rotation-dirPrimRot, r.width)
+
+                }
+            }*/
         }
         MouseAreaView{
             id: maSig

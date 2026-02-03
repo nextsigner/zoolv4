@@ -73,10 +73,10 @@ Item {
                 //rotation: r.iconoSignRot-eje.rotation
                 rotation: !r.isExt?
                               //r.iconoSignRot-eje.rotation+(app.t==='trans'?-90:0)
-                              r.iconoSignRot-eje.rotation+(0)
+                              r.iconoSignRot-eje.rotation+(zm.currentPlanetIndex>=0?0:-90)
                             :
                               //r.iconoSignRot-eje.rotation-zm.objPlanetsCircleBack.rotation+(app.t!=='dirprim'?0:-90)
-                              r.iconoSignRot-eje.rotation-zm.objPlanetsCircleBack.rotation+(00)
+                              r.iconoSignRot-eje.rotation-zm.objPlanetsCircleBack.rotation+(zm.currentPlanetIndexBack>=0?0:-90)
                 anchors.horizontalCenter: parent.left
                 anchors.verticalCenter: parent.top
                 property bool isCapturing: zm.capturing

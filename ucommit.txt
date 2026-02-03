@@ -1,1 +1,1 @@
-i7: Se corrige rotationn ZoolPointerPlanet
+i7: Se crea version 6.2.3.0

@@ -54,7 +54,10 @@ Rectangle{
                     border.width: 1
                     border.color: xItem.selected?apps.backgroundColor:apps.fontColor
                     property bool selected: index===lv.currentIndex
-
+                    MouseArea{
+                        anchors.fill: parent
+                        onClicked: lv.currentIndex=index
+                    }
                     Row{
                         spacing: app.fs*0.5
                         anchors.centerIn: parent
@@ -78,12 +81,14 @@ Rectangle{
                                 anchors.horizontalCenter: parent.horizontalCenter
                             }
                         }
-                        Button{
+                        ZoolButton{
                             id: botLoad
-                            text: 'Cargar'
-                            font.pixelSize: app.fs*0.5
-                            onClicked: loadModule(index)
+                            text:'Cargar'
+                            colorInverted: lv.currentIndex===index
                             anchors.verticalCenter: parent.verticalCenter
+                            onClicked: {
+                                loadModule(index)
+                            }
                         }
                     }
                     Component.onCompleted: {
@@ -188,6 +193,12 @@ Rectangle{
         m.version='1.0'
         m.des="Módulo para crea enlaces."
         j.modules.push(m)
+
+        /*m={}
+        m.name="TelegramBotChat"
+        m.version='1.0'
+        m.des="Módulo para chatear con el Programador de la aplicación."
+        j.modules.push(m)*/
 
         return j
     }

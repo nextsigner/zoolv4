@@ -253,6 +253,11 @@ Rectangle {
                     Column{
                         spacing: app.fs*0.25
                         anchors.horizontalCenter: parent.horizontalCenter
+                        Text{
+                            text: 'Selecciona un rango de tiempo.'
+                            font.pixelSize: app.fs*0.5
+                            color: apps.fontColor
+                        }
                         Row{
                             spacing: app.fs*0.5
                             anchors.horizontalCenter: parent.horizontalCenter
@@ -369,6 +374,13 @@ Rectangle {
 
                         }
                     }
+                    Text{
+                        text: 'Haz click en algún cuerpo para seleccionar. Selecciona 1 o 2 cuerpos de los cuales quieres detectar aspectos tales como conjunción, cuadratura, oposición etc. Puedes seleccionar 2 veces el mismo cuerpo.'
+                        width: r.width-app.fs
+                        font.pixelSize: app.fs*0.5
+                        color: apps.fontColor
+                        wrapMode: Text.WordWrap
+                    }
                     BodiesButtons{
                         id: bb
                         width: xm1.width-app.fs*0.5
@@ -376,7 +388,9 @@ Rectangle {
                         onSelected:{
                             tl.clear()
                             if(!is1){
-                                initSearch()
+                                //initSearch()
+                                txtBuscando.opacity=1.0
+                                tInitSearch.start()
                             }else{
                                 if(bsel1===-1&&bsel2===-1){
                                     botCancel.visible=false
@@ -387,14 +401,20 @@ Rectangle {
                             }
 
                         }
-                    }
-                    TransList{
-                        id: tl
-                        width: bb.width
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        onSelected:{
-                            setSearchBodieDateFronLongResult(JSON.parse(j))
+                        Timer{
+                            id: tInitSearch
+                            running: false
+                            repeat: false
+                            interval: 1000
+                            onTriggered: initSearch()
                         }
+                    }
+                    Text{
+                        id: txtBuscando
+                        text: 'Buscando...'
+                        font.pixelSize: app.fs*0.5
+                        color: apps.fontColor
+                        opacity: 0.0
                     }
                     Row{
                         ZoolButton{
@@ -431,6 +451,14 @@ Rectangle {
                                 let s=tl.getData(bb.bsel1)
                                 clipboard.setText(s)
                             }
+                        }
+                    }
+                    TransList{
+                        id: tl
+                        width: bb.width
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        onSelected:{
+                            setSearchBodieDateFronLongResult(JSON.parse(j))
                         }
                     }
                     Item{
@@ -1184,7 +1212,7 @@ Rectangle {
     }
     //Crear Proceso para searchBodieDateFronLong.py
     function initSearch(){
-        if(bb.bsel1<0||bb.bsel<0)return
+        if(bb.bsel1<0||bb.bsel<0)return        
         botCancel.visible=true
         let numAstroBuscado=-1
         let b
@@ -1275,6 +1303,7 @@ Rectangle {
                 }
             }
             console.log(' '+sfecha)
+            txtBuscando.opacity=0.0
             rTxt.text='Búsqueda Finalizada.\nSe han encontrado un total de '+tl.olm.count+' aspectos (ángulos de incidencia) entre el '+zm.aBodies[bb.bsel2]+' transitando con respecto al '+zm.aBodies[bb.bsel1]+' natal o de origen.'
             botCancel.visible=false
         }else{

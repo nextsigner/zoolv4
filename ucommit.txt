@@ -1,1 +1,1 @@
-Se arreglan rutas de imagenes en ZoolRevolutionsList
+i7: Se optimiza la busqueda de aspectos en ZoolFileTransLoader

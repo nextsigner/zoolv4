@@ -13,7 +13,7 @@ Item{
     function sendMessage(msg){
         var xhr = new XMLHttpRequest();
         var url = "https://api.pushover.net/1/messages.json";
-        var params = "token=a7biiubgzgcjjm4pdp8s8wghcxh81k" +
+        var params = "token=ay2sevo1e8h4hefhb8bck7gja5i5zy" +
                 "&user=udj7y27mkawju5mtmph7r7qxr6ng7b" +
                 "&message=" + encodeURIComponent(msg);
 

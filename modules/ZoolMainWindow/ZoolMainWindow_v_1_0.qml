@@ -415,16 +415,76 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+Esc'
         onActivated: {
+            if(app.show3D){
+                view.cCam.position=Qt.vector3d(0, 0, (0-zm3d.d)*2)
+                view.cCam.rotation=Qt.vector3d(0, 0, 0)
+                return
+            }
             xApp.focus=true
         }
     }
     Shortcut{
         sequence: 'Up'
-        onActivated: ctrlUp(false)
+        onActivated: {
+            if(app.show3D){
+                if(view.camera===cameraGiro){
+                    if(zm3d.cbi<zm3d.aBodies.length-1){
+                        zm3d.cbi++
+                    }else{
+                        zm3d.cbi=-1
+                    }
+
+                }else{
+                    if(view.cCam.position.y<2000){
+                        let cr=view.cCam.rotation.x
+                        cr+=5
+                        view.cCam.rotation.x=cr
+
+                        let cp=view.cCam.position.y
+                        cp+=200
+                        view.cCam.position.y=cp
+                    }
+                }
+                return
+            }
+            ctrlUp(false)
+        }
+    }
+    Shortcut{
+        sequence: 'Shift+Up'
+        onActivated: {
+            if(app.show3D){
+                view.cCam.position.z+=50.0
+                return
+            }
+        }
     }
     Shortcut{
         sequence: 'Ctrl+Up'
-        onActivated: ctrlUp(true)
+        onActivated: {
+            if(app.show3D){
+                if(view.camera===cameraGiro){
+                    if(zm3d.cbi<zm3d.aBodies.length-1){
+                        zm3d.cbi++
+                    }else{
+                        zm3d.cbi=-1
+                    }
+
+                }else{
+                    if(view.cCam.position.y<2000){
+                        let cr=view.cCam.rotation.x
+                        cr+=5
+                        view.cCam.rotation.x=cr
+
+                        let cp=view.cCam.position.y
+                        cp+=200
+                        view.cCam.position.y=cp
+                    }
+                }
+                return
+            }
+            ctrlUp(true)
+        }
     }
     function ctrlUp(ctrl){
         if(isCiActive()){
@@ -516,7 +576,36 @@ ApplicationWindow {
         sequence: 'Down'
         //enabled: !menuBar.expanded
         onActivated:{
+            if(app.show3D){
+                if(view.camera===cameraGiro){
+                    if(zm3d.cbi>-1){
+                        zm3d.cbi--
+                    }else{
+                        zm3d.cbi=zm3d.aBodies.length-1
+                    }
+                }else{
+                    if(view.cCam.position.y>-2000){
+                        let cr=view.cCam.rotation.x
+                        cr-=5
+                        view.cCam.rotation.x=cr
+
+                        let cp=view.cCam.position.y
+                        cp-=200
+                        view.cCam.position.y=cp
+                    }
+                }
+                return
+            }
             ctrlDown(false)
+        }
+    }
+    Shortcut{
+        sequence: 'Shift+Down'
+        onActivated: {
+            if(app.show3D){
+                view.cCam.position.z-=50.0
+                return
+            }
         }
     }
     Shortcut{
@@ -626,12 +715,22 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Left'
         onActivated: {
+            if(app.show3D){
+                zm3d.cbi=-4
+                rotCam(5, 'l')
+                return
+            }
             ctrlLeft(false)
         }
     }
     Shortcut{
         sequence: 'Ctrl+Left'
         onActivated: {
+            if(app.show3D){
+                zm3d.cbi=-4
+                rotCam(1, 'l')
+                return
+            }
             ctrlLeft(true)
         }
     }
@@ -707,12 +806,22 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Right'
         onActivated: {
+            if(app.show3D){
+                zm3d.cbi=-4
+                rotCam(5, 'r')
+                return
+            }
             ctrlRight(false)
         }
     }
     Shortcut{
         sequence: 'Ctrl+Right'
         onActivated: {
+            if(app.show3D){
+                zm3d.cbi=-4
+                rotCam(1, 'r')
+                return
+            }
             ctrlRight(true)
         }
     }
@@ -1039,8 +1148,8 @@ ApplicationWindow {
                 if(!zm.ev)return
                 zm.objAspsCircleBack.visible=!zm.objAspsCircleBack.visible
                 if(zm.objAspsCircleBack.visible){
-                   zm.objAspsCircleBack.z=zm.objAspsCircle.z+1
-                   zm.objAspsCircle.opacity=0.65
+                    zm.objAspsCircleBack.z=zm.objAspsCircle.z+1
+                    zm.objAspsCircle.opacity=0.65
                 }else{
                     zm.objAspsCircleBack.z=zm.objAspsCircle.z-1
                 }
@@ -1059,6 +1168,25 @@ ApplicationWindow {
             apps.showDec=!apps.showDec
         }
     }
+    Shortcut{
+        sequence: 'c'
+        onActivated: {
+            if(app.show3D){
+                if(view.camera===cameraGiro){
+                    view.camera=camera
+                    view.cCam=camera
+                }else if(view.camera===camera){
+                    view.camera=cameraLeft
+                    view.cCam=cameraLeft
+                }else{
+                    view.camera=cameraGiro
+                    view.cCam=cameraGiro
+                }
+            }
+            return
+        }
+    }
+
     Shortcut{
         sequence: 'Ctrl+n'
         onActivated: {
@@ -1203,7 +1331,9 @@ ApplicationWindow {
 
             //apps.showDec=!apps.showDec
             //zpn.log('zm.listCotasShowingBack: '+zm.listCotasShowingBack.toString())
-            zpn.log('zm.listCotasShowing: '+zm.listCotasShowing.toString())
+            //zpn.log('zm.listCotasShowing: '+zm.listCotasShowing.toString())
+
+            app.show3D=!app.show3D
         }
     }
 

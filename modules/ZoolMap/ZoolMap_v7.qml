@@ -1419,6 +1419,7 @@ Rectangle{
 
         var j=JSON.parse(scorrJson)
         j=zm.json(j)
+        zm3d.loadData(j)
 
         let nATexts=[]
         for(var i=0;i<Object.keys(j.pc).length;i++){

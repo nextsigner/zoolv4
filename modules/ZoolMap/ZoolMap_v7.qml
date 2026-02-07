@@ -15,6 +15,8 @@ import ZoolMap.ZoolMapAsInfoView 1.0
 import ZoolElementsView 1.0
 import ZoolMap.NumberLines 2.0
 
+//import ZoolMap.ZoolMap3D 1.0
+
 import ZoolMap.ZoolMapNakshatraView 1.0
 
 import ZoolMap.ZoolMultiCap 2.0
@@ -967,6 +969,13 @@ Rectangle{
 
         }
 
+        /*ZoolMap3D{
+            id: z3d
+            width: r.width
+            height: r.height
+            anchors.centerIn: parent
+            parent: capa101
+        }*/
     }
     Rectangle{
         id: xFrontItems

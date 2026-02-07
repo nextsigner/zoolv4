@@ -5,14 +5,14 @@ Rectangle{
     id: r
     width: app.fs*20
     //height: xApp.height-(xApp.height-xBottomBar.y)-(xDataBar.state==='show'?xDataBar.height:0)
-    height: xApp.height-(xApp.height-xBottomBar.y)-(zoolDataView.state==='show'?zoolDataView.height:0)
-    color: apps.backgroundColor
-    visible: apps.showLog
+    height: app.height//-(app.height-xBottomBar.y)-(zoolDataView.state==='show'?zoolDataView.height:0)
+    color: 'black'
+    visible: false
     border.width: 2
-    border.color: apps.fontColor
+    border.color: 'white'
     clip: true
     //y: xDataBar.state==='show'?xDataBar.height:0
-    y: zoolDataView.state==='show'?zoolDataView.height:0
+    //y: zoolDataView.state==='show'?zoolDataView.height:0
     property bool ww: true
     MouseArea{
         anchors.fill: parent
@@ -39,8 +39,8 @@ Rectangle{
                 //anchors.top: parent.top
                 //anchors.topMargin: app.fs*0.5
                 font.pixelSize: app.fs*0.5
-                color: apps.fontColor
-                background: Rectangle{color: apps.backgroundColor}
+                color: 'white'
+                background: Rectangle{color: 'black'}
                 clip: true
             }
         }
@@ -48,20 +48,15 @@ Rectangle{
     Rectangle{
         width: app.fs*0.5
         height: width
-        color: apps.fontColor
         anchors.right: parent.right
         anchors.rightMargin: app.fs*0.1
         anchors.top: parent.top
         anchors.topMargin: app.fs*0.1
-        Text{
-            text: 'X';
-            anchors.centerIn: parent
-            color: apps.backgroundColor
-        }
+        Text{text: 'X';anchors.centerIn: parent}
         MouseArea{
             anchors.fill: parent
             onClicked: {
-                apps.showLog=false
+                //pps.showLog=false
                 r.visible=apps.showLog
             }
         }

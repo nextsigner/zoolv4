@@ -118,12 +118,12 @@ ApplicationWindow {
         anchors.right: parent.right
         Column{
             Label {
-                text: "rot:"+parseFloat(z3d.objZm.currentSignRot).toFixed(2)
+                text: "rot:"+parseFloat(zm.currentSignRot).toFixed(2)
                 font.pointSize: 14
                 color: app.c
             }
             Label {
-                text: "cbi:"+z3d.objZm.cbi
+                text: "cbi:"+zm.cbi
                 font.pointSize: 14
                 color: app.c
             }
@@ -148,7 +148,7 @@ ApplicationWindow {
             border.color: 'red'
 
             Text{
-                text:'<b>'+z3d.objZm.aBodies[z3d.objZm.cbi]+' en '+z3d.objZm.aSigns[z3d.objZm.cbis]+' en casa '+z3d.objZm.cbih+'</b><br><b>en el grado °'+z3d.objZm.cbRsgdeg+' \''+z3d.objZm.cbmdeg+' \'\''+z3d.objZm.cbsdeg+'</b>'
+                text:'<b>'+zm.aBodies[zm.cbi]+' en '+zm.aSigns[zm.cbis]+' en casa '+zm.cbih+'</b><br><b>en el grado °'+zm.cbRsgdeg+' \''+zm.cbmdeg+' \'\''+zm.cbsdeg+'</b>'
                 font.pixelSize: parent.parent.width*0.2
                 rotation: 90
                 //color: 'white'
@@ -185,7 +185,7 @@ ApplicationWindow {
             border.color: 'red'
 
             Text{
-                text:'<b>Ascendente °'+z3d.objZm.cAscRsDeg+' de '+z3d.objZm.aSigns[z3d.objZm.cAscIs]+'</b>'
+                text:'<b>Ascendente °'+zm.cAscRsDeg+' de '+zm.aSigns[zm.cAscIs]+'</b>'
                 font.pixelSize: parent.parent.width*0.2
                 rotation: 90
                 //color: 'white'
@@ -226,7 +226,7 @@ ApplicationWindow {
                 anchors.centerIn: parent
                 Text{
                     id: txtSen1
-                    text:'<b>°'+sen.ciDegSen+' '+z3d.objZm.aSigns[sen.ciSignSen]+'</b>'
+                    text:'<b>°'+sen.ciDegSen+' '+zm.aSigns[sen.ciSignSen]+'</b>'
                     font.pixelSize: parent.parent.width*0.2
                     anchors.verticalCenter: parent.verticalCenter
                 }
@@ -294,12 +294,12 @@ ApplicationWindow {
         Node{
             id: ncg
             rotation.z: gdec
-            property real gdec: -90-z3d.objZm.currentSignRot
+            property real gdec: -90-zm.currentSignRot
             onGdecChanged: rotation.z=gdec
             //rotation.y:90
             Behavior on rotation.z{NumberAnimation{duration: 2000}}
             Node{
-                //position: Qt.vector3d(0, 0, ((0-z3d.objZm.d)*2)+2000)
+                //position: Qt.vector3d(0, 0, ((0-zm.d)*2)+2000)
                 position: Qt.vector3d(0, -1600, -600)
                 rotation.x: -90
                 PerspectiveCamera {
@@ -370,14 +370,14 @@ ApplicationWindow {
 
         PerspectiveCamera {
             id: camera
-            position: Qt.vector3d(0, 0, ((0-z3d.objZm.d)*2)-400)
+            position: Qt.vector3d(0, 0, ((0-zm.d)*2)-400)
             //Behavior on rotation.x{NumberAnimation{duration: 2000}}
             //Behavior on rotation.y{NumberAnimation{duration: 2000}}
             //Behavior on rotation.z{NumberAnimation{duration: 2000}}
         }
         PerspectiveCamera {
             id: cameraLeft
-            position: Qt.vector3d(((0-z3d.objZm.d)*2)-400, 0, 0)
+            position: Qt.vector3d(((0-zm.d)*2)-400, 0, 0)
             rotation.y: 90
             //Behavior on rotation.x{NumberAnimation{duration: 2000}}
             //Behavior on rotation.y{NumberAnimation{duration: 2000}}
@@ -494,7 +494,7 @@ ApplicationWindow {
             }
         }
         onDoubleClicked: {
-            view.cCam.position=Qt.vector3d(0, 0, (0-z3d.objZm.d)*2)
+            view.cCam.position=Qt.vector3d(0, 0, (0-zm.d)*2)
             view.cCam.rotation=Qt.vector3d(0, 0, 0)
         }
         onWheel: {
@@ -575,7 +575,7 @@ ApplicationWindow {
             }else{
                 ci=-1
             }
-            z3d.objZm.cbi=ci
+            zm.cbi=ci
         }
     }
     Shortcut{
@@ -591,35 +591,35 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+Esc'
         onActivated: {
-            view.cCam.position=Qt.vector3d(0, 0, (0-z3d.objZm.d)*2)
+            view.cCam.position=Qt.vector3d(0, 0, (0-zm.d)*2)
             view.cCam.rotation=Qt.vector3d(0, 0, 0)
         }
     }
     Shortcut{
         sequence: 'Left'
         onActivated: {
-            z3d.objZm.cbi=-4
+            zm.cbi=-4
             rotCam(5, 'l')
         }
     }
     Shortcut{
         sequence: 'Right'
         onActivated: {
-            z3d.objZm.cbi=-4
+            zm.cbi=-4
             rotCam(5, 'r')
         }
     }
     Shortcut{
         sequence: 'Ctrl+Left'
         onActivated: {
-            z3d.objZm.cbi=-4
+            zm.cbi=-4
             rotCam(1, 'l')
         }
     }
     Shortcut{
         sequence: 'Ctrl+Right'
         onActivated: {
-            z3d.objZm.cbi=-4
+            zm.cbi=-4
             rotCam(1, 'r')
         }
     }
@@ -627,10 +627,10 @@ ApplicationWindow {
         sequence: 'Up'
         onActivated: {
             if(view.camera===cameraGiro){
-                if(z3d.objZm.cbi<z3d.objZm.aBodies.length-1){
-                    z3d.objZm.cbi++
+                if(zm.cbi<zm.aBodies.length-1){
+                    zm.cbi++
                 }else{
-                    z3d.objZm.cbi=-1
+                    zm.cbi=-1
                 }
 
             }else{
@@ -650,10 +650,10 @@ ApplicationWindow {
         sequence: 'Down'
         onActivated: {
             if(view.camera===cameraGiro){
-                if(z3d.objZm.cbi>-1){
-                    z3d.objZm.cbi--
+                if(zm.cbi>-1){
+                    zm.cbi--
                 }else{
-                    z3d.objZm.cbi=z3d.objZm.aBodies.length-1
+                    zm.cbi=zm.aBodies.length-1
                 }
             }else{
                 if(view.cCam.position.y>-2000){
@@ -684,12 +684,12 @@ ApplicationWindow {
         sequence: 'a'
         onActivated: {
             if(!tAutomatic.running){
-                z3d.objZm.cbi=-1
+                zm.cbi=-1
                 tAutomatic.running=true
                 tAutomatic.start()
             }else{
                 tAutomatic.running=false
-                z3d.objZm.cbi=-4
+                zm.cbi=-4
             }
 
         }
@@ -713,74 +713,74 @@ ApplicationWindow {
     Shortcut{
         sequence: '*'
         onActivated: {
-            z3d.objZm.cbi=-1
-            //app.setRotCamSen(-90-z3d.objZm.currentSignRot-1+parseInt(z3d.objZm.cAscDeg))
+            zm.cbi=-1
+            //app.setRotCamSen(-90-zm.currentSignRot-1+parseInt(zm.cAscDeg))
         }
     }
     Shortcut{
         sequence: '0'
         onActivated: {
-            z3d.objZm.cbi=z3d.objZm.cbi===-1?0:-1
+            zm.cbi=zm.cbi===-1?0:-1
         }
     }
     Shortcut{
         sequence: '1'
         onActivated: {
-            z3d.objZm.cbi=z3d.objZm.cbi===-1?1:-1
+            zm.cbi=zm.cbi===-1?1:-1
         }
     }
     Shortcut{
         sequence: '2'
         onActivated: {
-            z3d.objZm.cbi=z3d.objZm.cbi===-1?2:-1
+            zm.cbi=zm.cbi===-1?2:-1
         }
     }
     Shortcut{
         sequence: '3'
         onActivated: {
-            z3d.objZm.cbi=z3d.objZm.cbi===-1?3:-1
+            zm.cbi=zm.cbi===-1?3:-1
         }
     }
     Shortcut{
         sequence: '4'
         onActivated: {
-            z3d.objZm.cbi=z3d.objZm.cbi===-1?4:-1
+            zm.cbi=zm.cbi===-1?4:-1
         }
     }
     Shortcut{
         sequence: '5'
         onActivated: {
-            z3d.objZm.cbi=z3d.objZm.cbi===-1?5:-1
+            zm.cbi=zm.cbi===-1?5:-1
         }
     }
     Shortcut{
         sequence: '6'
         onActivated: {
-            z3d.objZm.cbi=z3d.objZm.cbi===-1?6:-1
+            zm.cbi=zm.cbi===-1?6:-1
         }
     }
     Shortcut{
         sequence: '7'
         onActivated: {
-            z3d.objZm.cbi=z3d.objZm.cbi===-1?7:-1
+            zm.cbi=zm.cbi===-1?7:-1
         }
     }
     Shortcut{
         sequence: '8'
         onActivated: {
-            z3d.objZm.cbi=z3d.objZm.cbi===-1?8:-1
+            zm.cbi=zm.cbi===-1?8:-1
         }
     }
     Shortcut{
         sequence: '9'
         onActivated: {
-            z3d.objZm.cbi=z3d.objZm.cbi===-1?9:-1
+            zm.cbi=zm.cbi===-1?9:-1
         }
     }
     Shortcut{
         sequence: 'Shift+1'
         onActivated: {
-            z3d.objZm.cbi=z3d.objZm.cbi===-1?10:-1
+            zm.cbi=zm.cbi===-1?10:-1
         }
     }
     QtObject{
@@ -788,7 +788,7 @@ ApplicationWindow {
         function setData(data){
             let json=JSON.parse(data)
             console.log('DATA::: '+data)
-            z3d.objZm.loadData(json.data)
+            zm.loadData(json.data)
         }
     }
     Component.onCompleted: {
@@ -808,7 +808,7 @@ ApplicationWindow {
             //console.log('JSON:\n'+js)
             js=js.replace(/\n/g, '')
             let json=JSON.parse(js)
-            z3d.objZm.loadData(json)
+            zm.loadData(json)
         }else{
             //Ejemplo
             //getRD("http://www.zool.ar/zool/getZoolData?n=Ricardo&d=20&m=6&a=1975&h=23&min=4&gmt=-3&lugarNacimiento=Malargue%20Mendoza&lat=-35.4752134&lon=-69.585934&alt=0&ciudad=Malargue+Mendoza&ms=0&msReq=0&adminId=formwebzoolar&onlyJson=true", setZoolData)
@@ -871,7 +871,7 @@ ApplicationWindow {
             gc=360+gc
         }
         let gradoCamaraAPartirDeCasa1=gc
-        let gcRZ=gradoCamaraAPartirDeCasa1+z3d.objZm.currentSignRot
+        let gcRZ=gradoCamaraAPartirDeCasa1+zm.currentSignRot
         if(gcRZ<0){
             gcRZ=360-gcRZ
         }

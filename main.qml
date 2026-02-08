@@ -39,6 +39,7 @@ import ZoolMenus.ZoolMenuCtxAs 1.0
 import ZoolMenus.ZoolMapMenuCtx 1.0
 import ZoolMenuCtxPlanetsAsc 1.0
 import ZoolMenuCtxHouses 1.0
+import ZoolMenus.ZoolMenuCtxView3D 1.0
 //<--Menus
 
 
@@ -877,35 +878,8 @@ ZoolMainWindow{
                     source: "maps-/OpenfootageNET_garage-1024.hdr"
                 }
             }
-
-
-            //        DirectionalLight {
-            //            rotation: Qt.vector3d(0, 100, 0)
-            //            brightness: 100
-            //            SequentialAnimation on rotation {
-            //                loops: Animation.Infinite
-            //                PropertyAnimation {
-            //                    duration: 5000
-            //                    to: Qt.vector3d(0, 360, 0)
-            //                    from: Qt.vector3d(0, 0, 0)
-            //                }
-            //            }
-            //        }
-
             Luces{id: luces}
-
-            //        PointLight {
-            //            x: 0
-            //            y: 0
-            //            z: 0
-            //            quadraticFade: 0
-            //            brightness: 10.5
-            //            //visible: false
-            //        }
-
             ZM3D{id: zm3d}
-
-
             Node{
                 id: ncg
                 rotation.z: gdec
@@ -982,7 +956,6 @@ ZoolMainWindow{
                     }
                 }
             }
-
             PerspectiveCamera {
                 id: camera
                 position: Qt.vector3d(0, 0, ((0-zm3d.d)*2)-400)
@@ -1025,7 +998,6 @@ ZoolMainWindow{
                 //            }
 
             }
-
             Model {
                 source: "#Sphere"
                 scale: Qt.vector3d(2.0, 2.0, 2.0)
@@ -1054,56 +1026,59 @@ ZoolMainWindow{
             Sen{id: sen}
         }
         MouseArea {
+            acceptedButtons: Qt.AllButtons;
             anchors.fill: view
-
-            //onClicked: (mouse) => {
             onClicked: {
-                // Get screen coordinates of the click
-                pickPosition.text = "(" + mouse.x + ", " + mouse.y + ")"
-                var result = view.pick(mouse.x, mouse.y);
-                if (result.objectHit) {
-                    var pickedObject = result.objectHit;
-                    // Toggle the isPicked property for the model
-                    pickedObject.isPicked = !pickedObject.isPicked;
-                    // Get picked model name
-                    pickName.text = pickedObject.objectName;
-                    //                var object = result.node;
-                    //                if (object) {
-                    //                    log.lv("Posición absoluta del objeto seleccionado:", object.position);
-                    //                }
-                    //                log.lv('result.position: '+pickedObject.parent.position)
-                    //                log.lv('result.position: '+pickedObject.node)
-                    //view.cCam.position=result.position
-                    // Get other pick specifics
-                    uvPosition.text = "("
-                            + result.uvPosition.x.toFixed(2) + ", "
-                            + result.uvPosition.y.toFixed(2) + ")";
-                    //view.cCam.position.x=result.uvPosition.x
-                    distance.text = result.distance.toFixed(2);
-                    scenePosition.text = "("
-                            + result.scenePosition.x.toFixed(2) + ", "
-                            + result.scenePosition.y.toFixed(2) + ", "
-                            + result.scenePosition.z.toFixed(2) + ")";
-                    localPosition.text = "("
-                            + result.position.x.toFixed(2) + ", "
-                            + result.position.y.toFixed(2) + ", "
-                            + result.position.z.toFixed(2) + ")";
-                    worldNormal.text = "("
-                            + result.sceneNormal.x.toFixed(2) + ", "
-                            + result.sceneNormal.y.toFixed(2) + ", "
-                            + result.sceneNormal.z.toFixed(2) + ")";
-                    localNormal.text = "("
-                            + result.normal.x.toFixed(2) + ", "
-                            + result.normal.y.toFixed(2) + ", "
-                            + result.normal.z.toFixed(2) + ")";
-                } else {
-                    pickName.text = "None";
-                    uvPosition.text = "";
-                    distance.text = "";
-                    scenePosition.text = "";
-                    localPosition.text = "";
-                    worldNormal.text = "";
-                    localNormal.text = "";
+                if (mouse.button === Qt.RightButton) {
+                    menuView3D.popup()
+                }else{
+                    // Get screen coordinates of the click
+                    pickPosition.text = "(" + mouse.x + ", " + mouse.y + ")"
+                    var result = view.pick(mouse.x, mouse.y);
+                    if (result.objectHit) {
+                        var pickedObject = result.objectHit;
+                        // Toggle the isPicked property for the model
+                        pickedObject.isPicked = !pickedObject.isPicked;
+                        // Get picked model name
+                        pickName.text = pickedObject.objectName;
+                        //                var object = result.node;
+                        //                if (object) {
+                        //                    log.lv("Posición absoluta del objeto seleccionado:", object.position);
+                        //                }
+                        //                log.lv('result.position: '+pickedObject.parent.position)
+                        //                log.lv('result.position: '+pickedObject.node)
+                        //view.cCam.position=result.position
+                        // Get other pick specifics
+                        uvPosition.text = "("
+                                + result.uvPosition.x.toFixed(2) + ", "
+                                + result.uvPosition.y.toFixed(2) + ")";
+                        //view.cCam.position.x=result.uvPosition.x
+                        distance.text = result.distance.toFixed(2);
+                        scenePosition.text = "("
+                                + result.scenePosition.x.toFixed(2) + ", "
+                                + result.scenePosition.y.toFixed(2) + ", "
+                                + result.scenePosition.z.toFixed(2) + ")";
+                        localPosition.text = "("
+                                + result.position.x.toFixed(2) + ", "
+                                + result.position.y.toFixed(2) + ", "
+                                + result.position.z.toFixed(2) + ")";
+                        worldNormal.text = "("
+                                + result.sceneNormal.x.toFixed(2) + ", "
+                                + result.sceneNormal.y.toFixed(2) + ", "
+                                + result.sceneNormal.z.toFixed(2) + ")";
+                        localNormal.text = "("
+                                + result.normal.x.toFixed(2) + ", "
+                                + result.normal.y.toFixed(2) + ", "
+                                + result.normal.z.toFixed(2) + ")";
+                    } else {
+                        pickName.text = "None";
+                        uvPosition.text = "";
+                        distance.text = "";
+                        scenePosition.text = "";
+                        localPosition.text = "";
+                        worldNormal.text = "";
+                        localNormal.text = "";
+                    }
                 }
             }
             onDoubleClicked: {
@@ -1254,6 +1229,7 @@ ZoolMainWindow{
     ZoolMapMenuCtx{id: menuRuedaZodiacal}
     ZoolMenuPlanetsCtxAsc{id: menuPlanetsCtxAsc}
     ZoolMenuCtxHouses{id: menuCtxHouses}
+    ZoolMenuCtxView3D{id: menuView3D}
     //ZoolMediaLive{id: zoolMediaLive;parent: zoolDataBodies}
 
     //Este esta en el centro

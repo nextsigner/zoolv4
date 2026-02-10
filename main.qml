@@ -842,7 +842,7 @@ ZoolMainWindow{
                     anchors.centerIn: parent
                     Text{
                         id: txtSen1
-                        text:'<b>°'+sen.ciDegSen+' '+zm3d.aSigns[sen.ciSignSen]+'</b>'
+                        text:'<b>°'+parseInt(sen.ciDegSen-1)+' '+zm3d.aSigns[sen.ciSignSen]+'</b>'
                         font.pixelSize: parent.parent.width*0.2
                         anchors.verticalCenter: parent.verticalCenter
                     }
@@ -1185,7 +1185,6 @@ ZoolMainWindow{
         gcRZ=parseInt(gcRZ + 1)
         sen.currentDegSen=gcRZ
     }
-
     //<---3D
 
     Item{id: xuqps}

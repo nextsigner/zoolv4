@@ -183,7 +183,7 @@ Model {
             property string objName: 'sin_nombre'
             property string tipo: 'ninguno'
             property int hi
-            property var aSources: ["imgs/sol/basecolor2.jpg", "imgs/sol/metallic.jpg", "maps/metallic/roughness.jpg", "imgs/sol/basecolor1.jpg", "imgs/sol/metallic.jpg"]
+            property var aSources: ["/home/ns/nsp/zoolv4/modules/ZM3D/ZM3DBodiesCircle/imgs/sol/basecolor2.jpg", "/home/ns/nsp/zoolv4/modules/ZM3D/ZM3DBodiesCircle/imgs/sol/metallic.jpg", "/home/ns/nsp/zoolv4/modules/ZM3D/ZM3DBodiesCircle/maps/metallic/roughness.jpg", "/home/ns/nsp/zoolv4/modules/ZM3D/ZM3DBodiesCircle/imgs/sol/basecolor1.jpg", "/home/ns/nsp/zoolv4/modules/ZM3D/ZM3DBodiesCircle/imgs/sol/metallic.jpg"]
             property real s: 1.5
             property bool selected: parent.selected
             //property bool selected: zm3d.cbi===n.bi

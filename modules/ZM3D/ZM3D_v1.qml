@@ -79,6 +79,11 @@ Node{
         r.currentSignRot=0-rot
         hc.load(j.ph)
         bc.load(j.pc)
+        //view.cCam.rotation.y=30
+        view.camera=cameraGiro
+        //view.cCam.rotation.x=30
+        let grado=parseInt(j.ph.h1.gdec)
+        r.cbi=0
     }
 
     function getObjZGdec(gdec){

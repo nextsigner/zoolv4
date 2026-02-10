@@ -1,1 +1,1 @@
-i7: Se agrega menu a View 3D
+i7: Se corrigen los grados de sen 3D

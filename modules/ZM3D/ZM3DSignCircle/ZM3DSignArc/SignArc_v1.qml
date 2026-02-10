@@ -134,11 +134,11 @@ Model {
     }
     Component.onCompleted: {
         let r1=r.ci*30
-        console.log(''+r.ci+' grado: '+r1)
+        //console.log(''+r.ci+' grado: '+r1)
         //for(let i=r.ci*30;i<(r.ci*30)+30;i++){
         for(let i=0;i<30;i++){
             let grado=r1+i
-            console.log('grado: '+grado)
+            //console.log('grado: '+grado)
             let obj=compDeg.createObject(ns, {grado: grado})
             //obj.rotation=Qt.vector3d(0, parseFloat(i), 0)
             obj.rotation=Qt.vector3d(0, parseFloat(grado), 0)

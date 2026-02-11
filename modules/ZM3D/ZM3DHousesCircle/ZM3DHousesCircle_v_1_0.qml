@@ -35,9 +35,9 @@ Model {
         for(i=0;i<12;i++){
             aDegs.push(j['h'+parseInt(i + 1)].gdec)
             if(i===0){
-                zm3d.cAscDeg=j['h'+parseInt(i + 1)].gdec
-                zm3d.cAscRsDeg=zm3d.cAscDeg-(j['h'+parseInt(i + 1)].is*30)
-                zm3d.cAscIs=j['h'+parseInt(i + 1)].is
+                zoolMap3D.zm3d.cAscDeg=j['h'+parseInt(i + 1)].gdec
+                zoolMap3D.zm3d.cAscRsDeg=zoolMap3D.zm3d.cAscDeg-(j['h'+parseInt(i + 1)].is*30)
+                zoolMap3D.zm3d.cAscIs=j['h'+parseInt(i + 1)].is
             }
         }
         for(i=0;i<12;i++){

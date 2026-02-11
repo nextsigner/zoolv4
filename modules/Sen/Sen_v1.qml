@@ -15,7 +15,7 @@ Node{
     property int currentDegSen: 0
     property color cCursorColor: 'white'
     onCurrentDegSenChanged: {
-        r.ciSignSen=zm3d.getIndexSign(currentDegSen-1)
+        r.ciSignSen=zoolMap3D.zm3d.getIndexSign(currentDegSen-1)
         let gs=(r.currentDegSen-(r.ciSignSen*30))//-1
         r.ciDegSen=gs
     }
@@ -103,7 +103,7 @@ Node{
                 position.x: 160
                 position.y: 0
                 position.z: -250
-                itemTexture: zm3d.cbi<-1?itemSen1:(zm3d.cbi===-1?itemAscSen:itemBodieSen)
+                itemTexture: zoolMap3D.zm3d.cbi<-1?itemSen1:(zoolMap3D.zm3d.cbi===-1?itemAscSen:itemBodieSen)
             }
 //            Cartel{
 //                id: cartel1

@@ -8,9 +8,9 @@ Model {
     property bool isPicked: false
     property real rot: 0
     property int ih: 12
-    property real anchoProfundoLineaHouse: zm3d.anchoProfundoBandaSign
+    property real anchoProfundoLineaHouse: zoolMap3D.zm3d.anchoProfundoBandaSign
     property var aColors: ['red', 'green']
-    property bool selected: ih===zm3d.chi || ih===zm3d.chi+1
+    property bool selected: ih===zoolMap3D.zm3d.chi || ih===zoolMap3D.zm3d.chi+1
     scale.x: 1.0
     scale.y: 1.0
     scale.z: 1.0

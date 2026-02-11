@@ -14,7 +14,7 @@ Node {
     property real wAnc: 1.0
     //property real wAlt: 0.18
     property real wAlt: 0.18
-    property real wProf: zm3d.anchoProfundoBandaSign
+    property real wProf: zoolMap3D.zm3d.anchoProfundoBandaSign
 
     ZM3DSignArc{ci:0}
     ZM3DSignArc{ci:1}

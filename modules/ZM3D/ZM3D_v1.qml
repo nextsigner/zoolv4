@@ -47,11 +47,11 @@ Node{
             r.cbis=ic.is
             r.cbih=getIndexHouse(ic.gdec, r.cJson)
         }else{
-            app.setRotCamSen(-90-zm3d.currentSignRot-1+parseInt(zm3d.cAscDeg))
+            zoolMap3D.setRotCamSen(-90-zoolMap3D.zm3d.currentSignRot-1+parseInt(zoolMap3D.zm3d.cAscDeg))
         }
     }
     onChiChanged: {
-        //log.lv('zm3d.chi: '+chi)
+        //log.lv('zoolMap3D.zm3d.chi: '+chi)
     }
 
     ZM3DSignCircle{
@@ -87,7 +87,7 @@ Node{
     }
 
     function getObjZGdec(gdec){
-        let nz=-90-zm3d.currentSignRot-gdec+90
+        let nz=-90-zoolMap3D.zm3d.currentSignRot-gdec+90
         if(nz>360.00)nz=360.00-nz
         return nz
     }

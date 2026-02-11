@@ -416,8 +416,8 @@ ApplicationWindow {
         sequence: 'Ctrl+Esc'
         onActivated: {
             if(app.show3D){
-                view.cCam.position=Qt.vector3d(0, 0, (0-zm3d.d)*2)
-                view.cCam.rotation=Qt.vector3d(0, 0, 0)
+                zoolMap3D.view.cCam.position=Qt.vector3d(0, 0, (0-zm3d.d)*2)
+                zoolMap3D.view.cCam.rotation=Qt.vector3d(0, 0, 0)
                 return
             }
             xApp.focus=true
@@ -427,22 +427,22 @@ ApplicationWindow {
         sequence: 'Up'
         onActivated: {
             if(app.show3D){
-                if(view.camera===cameraGiro){
-                    if(zm3d.cbi<zm3d.aBodies.length-1){
-                        zm3d.cbi++
+                if(zoolMap3D.view.camera===cameraGiro){
+                    if(zoolMap3D.zm3d.cbi<zm3d.aBodies.length-1){
+                        zoolMap3D.zm3d.cbi++
                     }else{
-                        zm3d.cbi=-1
+                        zoolMap3D.zm3d.cbi=-1
                     }
 
                 }else{
-                    if(view.cCam.position.y<2000){
-                        let cr=view.cCam.rotation.x
+                    if(zoolMap3D.view.cCam.position.y<2000){
+                        let cr=zoolMap3D.view.cCam.rotation.x
                         cr+=5
-                        view.cCam.rotation.x=cr
+                        zoolMap3D.view.cCam.rotation.x=cr
 
-                        let cp=view.cCam.position.y
+                        let cp=zoolMap3D.view.cCam.position.y
                         cp+=200
-                        view.cCam.position.y=cp
+                        zoolMap3D.view.cCam.position.y=cp
                     }
                 }
                 return
@@ -454,7 +454,7 @@ ApplicationWindow {
         sequence: 'Shift+Up'
         onActivated: {
             if(app.show3D){
-                view.cCam.position.z+=50.0
+                zoolMap3D.view.cCam.position.z+=50.0
                 return
             }
         }
@@ -463,22 +463,22 @@ ApplicationWindow {
         sequence: 'Ctrl+Up'
         onActivated: {
             if(app.show3D){
-                if(view.camera===cameraGiro){
-                    if(zm3d.cbi<zm3d.aBodies.length-1){
-                        zm3d.cbi++
+                if(zoolMap3D.view.camera===cameraGiro){
+                    if(zoolMap3D.zm3d.cbi<zoolMap3D.zm3d.aBodies.length-1){
+                        zoolMap3D.zm3d.cbi++
                     }else{
-                        zm3d.cbi=-1
+                        zoolMap3D.zm3d.cbi=-1
                     }
 
                 }else{
-                    if(view.cCam.position.y<2000){
-                        let cr=view.cCam.rotation.x
+                    if(zoolMap3D.view.cCam.position.y<2000){
+                        let cr=zoolMap3D.view.cCam.rotation.x
                         cr+=5
-                        view.cCam.rotation.x=cr
+                        zoolMap3D.view.cCam.rotation.x=cr
 
-                        let cp=view.cCam.position.y
+                        let cp=zoolMap3D.view.cCam.position.y
                         cp+=200
-                        view.cCam.position.y=cp
+                        zoolMap3D.view.cCam.position.y=cp
                     }
                 }
                 return
@@ -577,11 +577,11 @@ ApplicationWindow {
         //enabled: !menuBar.expanded
         onActivated:{
             if(app.show3D){
-                if(view.camera===cameraGiro){
-                    if(zm3d.cbi>-1){
-                        zm3d.cbi--
+                if(zoolMap3D.view.camera===cameraGiro){
+                    if(zoolMap3D.zm3d.cbi>-1){
+                        zoolMap3D.zm3d.cbi--
                     }else{
-                        zm3d.cbi=zm3d.aBodies.length-1
+                        zoolMap3D.zm3d.cbi=zm3d.aBodies.length-1
                     }
                 }else{
                     if(view.cCam.position.y>-2000){
@@ -603,7 +603,7 @@ ApplicationWindow {
         sequence: 'Shift+Down'
         onActivated: {
             if(app.show3D){
-                view.cCam.position.z-=50.0
+                zoolMap3D.view.cCam.position.z-=50.0
                 return
             }
         }
@@ -716,8 +716,8 @@ ApplicationWindow {
         sequence: 'Left'
         onActivated: {
             if(app.show3D){
-                zm3d.cbi=-4
-                rotCam(5, 'l')
+                zoolMap3D.zm3d.cbi=-4
+                zoolMap3D.rotCam(5, 'l')
                 return
             }
             ctrlLeft(false)
@@ -727,8 +727,8 @@ ApplicationWindow {
         sequence: 'Ctrl+Left'
         onActivated: {
             if(app.show3D){
-                zm3d.cbi=-4
-                rotCam(1, 'l')
+                zoolMap3D.zm3d.cbi=-4
+                zoolMap3D.rotCam(1, 'l')
                 return
             }
             ctrlLeft(true)
@@ -807,8 +807,8 @@ ApplicationWindow {
         sequence: 'Right'
         onActivated: {
             if(app.show3D){
-                zm3d.cbi=-4
-                rotCam(5, 'r')
+                zoolMap3D.zm3d.cbi=-4
+                zoolMap3D.rotCam(5, 'r')
                 return
             }
             ctrlRight(false)
@@ -818,8 +818,8 @@ ApplicationWindow {
         sequence: 'Ctrl+Right'
         onActivated: {
             if(app.show3D){
-                zm3d.cbi=-4
-                rotCam(1, 'r')
+                zoolMap3D.zm3d.cbi=-4
+                zoolMap3D.rotCam(1, 'r')
                 return
             }
             ctrlRight(true)
@@ -1172,15 +1172,15 @@ ApplicationWindow {
         sequence: 'c'
         onActivated: {
             if(app.show3D){
-                if(view.camera===cameraGiro){
-                    view.camera=camera
-                    view.cCam=camera
+                if(zoolMap3D.view.camera===cameraGiro){
+                    zoolMap3D.view.camera=camera
+                    zoolMap3D.view.cCam=camera
                 }else if(view.camera===camera){
-                    view.camera=cameraLeft
-                    view.cCam=cameraLeft
+                    zoolMap3D.view.camera=cameraLeft
+                    zoolMap3D.view.cCam=cameraLeft
                 }else{
-                    view.camera=cameraGiro
-                    view.cCam=cameraGiro
+                    zoolMap3D.view.camera=cameraGiro
+                    zoolMap3D.view.cCam=cameraGiro
                 }
             }
             return

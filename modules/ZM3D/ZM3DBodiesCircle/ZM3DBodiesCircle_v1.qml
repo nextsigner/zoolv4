@@ -9,7 +9,7 @@ Model {
     scale: Qt.vector3d(1.0, 1.0, 1.0)
     position: Qt.vector3d(0, 0, 0)
     rotation: Qt.vector3d(90, 0, 0)
-    property int ci: zm3d.cbi
+    property int ci: zoolMap3D.zm3d.cbi
     //property color c: parent.colors[ci]
     property var aBdiesColors: ["#00ff00", "#33ff51", "#00ff88", "#ff8833", "#0f00ff", "#88ddff", "#0ff08d", "#ff5133", "#ff51dd", "#3f313f", "#ddff00", "#ff3838", "#ffff38", "#38ffcc", "#cc3838", "#ac38ff", "#afafaf", "#f8f838", "#ff38ff", "#ffccaa"]
     property var aBodies: ['Sol', 'Luna', 'Mercurio', 'Venus', 'Marte', 'Júpiter', 'Saturno', 'Urano', 'Neptuno', 'Plutón', 'N.Norte', 'N.Sur', 'Quirón', 'Selena', 'Lilith', 'Pholus', 'Ceres', 'Pallas', 'Juno', 'Vesta']
@@ -29,10 +29,10 @@ Model {
             property int hi
             property var aIHs: []
             property real gdec: 0.0
-            property bool selected: zm3d.cbi===bi
+            property bool selected: zoolMap3D.zm3d.cbi===bi
             onSelectedChanged: {
                 if(selected){
-                    app.setRotCamSen(-90-zm3d.currentSignRot-1+parseInt(xModel.gdec))
+                    zoolMap3D.setRotCamSen(-90-zoolMap3D.zm3d.currentSignRot-1+parseInt(xModel.gdec))
                 }
             }
             Component.onCompleted: {
@@ -183,10 +183,10 @@ Model {
             property string objName: 'sin_nombre'
             property string tipo: 'ninguno'
             property int hi
-            property var aSources: ["/home/ns/nsp/zoolv4/modules/ZM3D/ZM3DBodiesCircle/imgs/sol/basecolor2.jpg", "/home/ns/nsp/zoolv4/modules/ZM3D/ZM3DBodiesCircle/imgs/sol/metallic.jpg", "/home/ns/nsp/zoolv4/modules/ZM3D/ZM3DBodiesCircle/maps/metallic/roughness.jpg", "/home/ns/nsp/zoolv4/modules/ZM3D/ZM3DBodiesCircle/imgs/sol/basecolor1.jpg", "/home/ns/nsp/zoolv4/modules/ZM3D/ZM3DBodiesCircle/imgs/sol/metallic.jpg"]
+            property var aSources: ["../ZM3D/ZM3DBodiesCircle/imgs/sol/basecolor2.jpg", "../ZM3D/ZM3DBodiesCircle/imgs/sol/metallic.jpg", "../ZM3D/ZM3DBodiesCircle/maps/metallic/roughness.jpg", "../ZM3D/ZM3DBodiesCircle/imgs/sol/basecolor1.jpg", "../ZM3D/ZM3DBodiesCircle/imgs/sol/metallic.jpg"]
             property real s: 1.5
             property bool selected: parent.selected
-            //property bool selected: zm3d.cbi===n.bi
+            //property bool selected: zoolMap3D.zm3d.cbi===n.bi
             property int bi: -1
             property int drz: 0 //Distancia de la rueda zodiacal
             property int alt: 0
@@ -194,9 +194,9 @@ Model {
             property int altBase: 0
             onSelectedChanged: {
                 //                if(selected){
-                //                    n.position=Qt.vector3d(0-zm3d.d+150+80, 0, -50)
+                //                    n.position=Qt.vector3d(0-zoolMap3D.zm3d.d+150+80, 0, -50)
                 //                }else{
-                //                    n.position=Qt.vector3d(0-zm3d.d+150+drz, 0, n.alt)
+                //                    n.position=Qt.vector3d(0-zoolMap3D.zm3d.d+150+drz, 0, n.alt)
                 //                }
             }
             Model {
@@ -217,18 +217,18 @@ Model {
                 onIsPickedChanged: {
                     if(view.camera===cameraGiro)return
                     if(isPicked){
-                        zm3d.chi=n.hi
-                        zm3d.cbi=n.bi
+                        zoolMap3D.zm3d.chi=n.hi
+                        zoolMap3D.zm3d.cbi=n.bi
                         /*camera.visible=false
                         cameraLocal.visible=true*/
                         //view.cCam=cameraLocal
-                        let nz=zm3d.getObjZGdec(n.rotation.z)
+                        let nz=zoolMap3D.zm3d.getObjZGdec(n.rotation.z)
                         //log.lv('nz:'+nz)
                         ncg.gdec=nz
-                        //app.setRotCamSen(-90-zm3d.currentSignRot-1+parseInt(n.gdec))
+                        //app.setRotCamSen(-90-zoolMap3D.zm3d.currentSignRot-1+parseInt(n.gdec))
                     }else{
-                        zm3d.chi=-1
-                        zm3d.cbi=-4
+                        zoolMap3D.zm3d.chi=-1
+                        zoolMap3D.zm3d.cbi=-4
                         camera.visible=true
                         cameraLocal.visible=false
                         view.cCam=camera
@@ -380,16 +380,16 @@ Model {
                 running: !n.selected
                 PropertyAnimation {
                     duration: 500
-                    to: Qt.vector3d(0-zm3d.d+150+drz, 0, n.alt)
-                    from: Qt.vector3d(0-zm3d.d+150-140, 0, n.altBase)
+                    to: Qt.vector3d(0-zoolMap3D.zm3d.d+150+drz, 0, n.alt)
+                    from: Qt.vector3d(0-zoolMap3D.zm3d.d+150-140, 0, n.altBase)
                 }
             }
             SequentialAnimation on position{
                 running: n.selected
                 PropertyAnimation {
                     duration: 500
-                    from: Qt.vector3d(0-zm3d.d+150+drz, 0, n.alt)
-                    to: Qt.vector3d(0-zm3d.d+150-140, 0, n.altBase)
+                    from: Qt.vector3d(0-zoolMap3D.zm3d.d+150+drz, 0, n.alt)
+                    to: Qt.vector3d(0-zoolMap3D.zm3d.d+150-140, 0, n.altBase)
                 }
             }
             Component.onCompleted:{
@@ -405,7 +405,7 @@ Model {
                 if(n.tipo==='transpersonal'){
                     n.alt=160
                 }
-                position=Qt.vector3d(0-zm3d.d+150+drz, 0, n.alt)
+                position=Qt.vector3d(0-zoolMap3D.zm3d.d+150+drz, 0, n.alt)
             }
         }
     }
@@ -413,7 +413,7 @@ Model {
         id: compExtraBodie
         Node{
             id: n
-            //position: Qt.vector3d(0-zm3d.d+130+n.drz, 0, -100)
+            //position: Qt.vector3d(0-zoolMap3D.zm3d.d+130+n.drz, 0, -100)
             //rotation: Qt.vector3d(0, 90, 0)
             property string extraBodie: 'hiron'
             property int bi: -1
@@ -422,21 +422,21 @@ Model {
             property int hBase: 0
             property int altBase: 0
             property real s: 0.5
-            property bool selected: zm3d.cbi===n.bi
+            property bool selected: zoolMap3D.zm3d.cbi===n.bi
             Model {
                 id: m
                 source: "#Cube"
                 //scale: Qt.vector3d(0.5, 0.5, 0.5)
                 scale: Qt.vector3d(n.s, n.s, n.s)
                 rotation.z:-90
-                position: Qt.vector3d(0-zm3d.d+130+n.drz, 0, -100)
+                position: Qt.vector3d(0-zoolMap3D.zm3d.d+130+n.drz, 0, -100)
 //                rotation: Qt.vector3d(0, 90, 0)
                 materials: [
                     DefaultMaterial {
                         id: cubeMaterial
                         diffuseColor: 'white'
                         diffuseMap: Texture {
-                            source: "/home/ns/nsp/zool3d/modules/ZM3D/ZM3DBodiesCircle/imgs_white_trans/"+n.extraBodie+".png"
+                            source: "../ZM3D/ZM3DBodiesCircle/imgs_white_trans/"+n.extraBodie+".png"
                             scaleU: 1.0
                             scaleV: 1.0
                             //rotationUV: -90
@@ -449,18 +449,18 @@ Model {
                     running: !n.selected
                     PropertyAnimation {
                         duration: 500
-                        //to: Qt.vector3d(0-zm3d.d+150+drz, 0, n.alt)
-                        to: Qt.vector3d(0-zm3d.d+130+n.drz, 0, -100)
-                        from: Qt.vector3d(0-zm3d.d+150-140, 0, n.altBase)
+                        //to: Qt.vector3d(0-zoolMap3D.zm3d.d+150+drz, 0, n.alt)
+                        to: Qt.vector3d(0-zoolMap3D.zm3d.d+130+n.drz, 0, -100)
+                        from: Qt.vector3d(0-zoolMap3D.zm3d.d+150-140, 0, n.altBase)
                     }
                 }
                 SequentialAnimation on position{
                     running: n.selected
                     PropertyAnimation {
                         duration: 500
-                        //from: Qt.vector3d(0-zm3d.d+150+drz, 0, n.alt)
-                        from: Qt.vector3d(0-zm3d.d+130+n.drz, 0, -100)
-                        to: Qt.vector3d(0-zm3d.d+150-140, 0, n.altBase)
+                        //from: Qt.vector3d(0-zoolMap3D.zm3d.d+150+drz, 0, n.alt)
+                        from: Qt.vector3d(0-zoolMap3D.zm3d.d+130+n.drz, 0, -100)
+                        to: Qt.vector3d(0-zoolMap3D.zm3d.d+150-140, 0, n.altBase)
                     }
                 }
                 Node{
@@ -525,7 +525,7 @@ Model {
         Model {
             source: "#Cube"
             scale: Qt.vector3d(0.5, 0.5, 0.5)
-            position: Qt.vector3d(0-zm3d.d+150, 0, 0)
+            position: Qt.vector3d(0-zoolMap3D.zm3d.d+150, 0, 0)
             rotation: Qt.vector3d(0, 90, 0)
             materials: [
                 DefaultMaterial {
@@ -550,7 +550,7 @@ Model {
             id: m
             source: "#Cone"
             scale: Qt.vector3d(1.0, 1.0, 1.0)
-            position: Qt.vector3d(0-zm3d.d+80, 0, -50)
+            position: Qt.vector3d(0-zoolMap3D.zm3d.d+80, 0, -50)
             rotation: Qt.vector3d(-90, 90, 0)
             property int t: 0
             materials:DefaultMaterial {

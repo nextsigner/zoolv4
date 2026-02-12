@@ -427,7 +427,7 @@ ApplicationWindow {
         sequence: 'Up'
         onActivated: {
             if(app.show3D){
-                if(zoolMap3D.view.camera===cameraGiro){
+                if(zoolMap3D.view.camera===zoolMap3D.cameraGiro){
                     if(zoolMap3D.zm3d.cbi<zm3d.aBodies.length-1){
                         zoolMap3D.zm3d.cbi++
                     }else{
@@ -463,7 +463,7 @@ ApplicationWindow {
         sequence: 'Ctrl+Up'
         onActivated: {
             if(app.show3D){
-                if(zoolMap3D.view.camera===cameraGiro){
+                if(zoolMap3D.view.camera===zoolMap3D.cameraGiro){
                     if(zoolMap3D.zm3d.cbi<zoolMap3D.zm3d.aBodies.length-1){
                         zoolMap3D.zm3d.cbi++
                     }else{
@@ -577,7 +577,7 @@ ApplicationWindow {
         //enabled: !menuBar.expanded
         onActivated:{
             if(app.show3D){
-                if(zoolMap3D.view.camera===cameraGiro){
+                if(zoolMap3D.view.camera===zoolMap3D.cameraGiro){
                     if(zoolMap3D.zm3d.cbi>-1){
                         zoolMap3D.zm3d.cbi--
                     }else{
@@ -1172,15 +1172,15 @@ ApplicationWindow {
         sequence: 'c'
         onActivated: {
             if(app.show3D){
-                if(zoolMap3D.view.camera===cameraGiro){
-                    zoolMap3D.view.camera=camera
-                    zoolMap3D.view.cCam=camera
-                }else if(view.camera===camera){
-                    zoolMap3D.view.camera=cameraLeft
-                    zoolMap3D.view.cCam=cameraLeft
+                if(zoolMap3D.view.camera===zoolMap3D.cameraGiro){
+                    zoolMap3D.view.camera=zoolMap3D.camera
+                    zoolMap3D.view.cCam=zoolMap3D.camera
+                }else if(zoolMap3D.view.camera===zoolMap3D.camera){
+                    zoolMap3D.view.camera=zoolMap3D.cameraLeft
+                    zoolMap3D.view.cCam=zoolMap3D.cameraLeft
                 }else{
-                    zoolMap3D.view.camera=cameraGiro
-                    zoolMap3D.view.cCam=cameraGiro
+                    zoolMap3D.view.camera=zoolMap3D.cameraGiro
+                    zoolMap3D.view.cCam=zoolMap3D.cameraGiro
                 }
             }
             return

@@ -183,7 +183,7 @@ Model {
             property string objName: 'sin_nombre'
             property string tipo: 'ninguno'
             property int hi
-            property var aSources: ["../ZM3D/ZM3DBodiesCircle/imgs/sol/basecolor2.jpg", "../ZM3D/ZM3DBodiesCircle/imgs/sol/metallic.jpg", "../ZM3D/ZM3DBodiesCircle/maps/metallic/roughness.jpg", "../ZM3D/ZM3DBodiesCircle/imgs/sol/basecolor1.jpg", "../ZM3D/ZM3DBodiesCircle/imgs/sol/metallic.jpg"]
+            property var aSources: ["ZM3D/ZM3DBodiesCircle/imgs/sol/basecolor2.jpg", "ZM3D/ZM3DBodiesCircle/imgs/sol/metallic.jpg", "ZM3D/ZM3DBodiesCircle/maps/metallic/roughness.jpg", "ZM3D/ZM3DBodiesCircle/imgs/sol/basecolor1.jpg", "ZM3D/ZM3DBodiesCircle/imgs/sol/metallic.jpg"]
             property real s: 1.5
             property bool selected: parent.selected
             //property bool selected: zoolMap3D.zm3d.cbi===n.bi
@@ -423,6 +423,7 @@ Model {
             property int altBase: 0
             property real s: 0.5
             property bool selected: zoolMap3D.zm3d.cbi===n.bi
+            property var aSources: ["ZM3D/ZM3DBodiesCircle/imgs/sol/basecolor2.jpg", "ZM3D/ZM3DBodiesCircle/imgs/sol/metallic.jpg", "ZM3D/ZM3DBodiesCircle/maps/metallic/roughness.jpg", "ZM3D/ZM3DBodiesCircle/imgs/sol/basecolor1.jpg", "ZM3D/ZM3DBodiesCircle/imgs/sol/metallic.jpg"]
             Model {
                 id: m
                 source: "#Cube"
@@ -436,7 +437,7 @@ Model {
                         id: cubeMaterial
                         diffuseColor: 'white'
                         diffuseMap: Texture {
-                            source: "../ZM3D/ZM3DBodiesCircle/imgs_white_trans/"+n.extraBodie+".png"
+                            source: "../../ZM3D/ZM3DBodiesCircle/imgs_white_trans/"+n.extraBodie+".png"
                             scaleU: 1.0
                             scaleV: 1.0
                             //rotationUV: -90

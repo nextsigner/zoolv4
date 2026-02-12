@@ -15,7 +15,10 @@ Item {
     visible: app.show3D
     property color c: 'white'
     property alias zm3d: zm3d
-    property alias view: view0
+    property alias view: view
+    property alias cameraGiro: cameraGiro
+    property alias camera: camera
+    property alias cameraLeft: cameraLeft
 
     Row {
         anchors.left: parent.left
@@ -229,7 +232,7 @@ Item {
                     height: width
                     //rotation: 90
                     //source: "imgs/"+sen.ciSignSen+".png"
-                    source: "ZM3D/ZM3DSignCircle/ZM3DSignArc/imgs/"+sen.ciSignSen+".png"
+                    source: "../ZM3D/ZM3DSignCircle/ZM3DSignArc/imgs/"+sen.ciSignSen+".png"
                     anchors.verticalCenter: parent.verticalCenter
                 }
                 Text{
@@ -241,33 +244,35 @@ Item {
         }
     }
     View3D {
-        id: view0
+        id: view
         anchors.fill: parent
-
         // IMPORTANTE: En 5.14, esto suele ser obligatorio
         // para que el View3D sepa qué renderizar.
         importScene: rootNode
-
-        // ASIGNACIÓN DE CÁMARA: Sin esto, la pantalla suele quedarse negra.
-        //camera: camera0
-        camera: cameraGiro
-
+        renderMode: View3D.Underlay
+        property var cCam: camera//Giro
+        camera: cCam
         environment: SceneEnvironment {
+            probeBrightness: 0//250
+            //clearColor: "#848895"
+            clearColor: "#000"
+
+            backgroundMode: SceneEnvironment.Color
+            lightProbe: Texture {
+                source: "maps/OpenfootageNET_garage-1024.hdr"
+            }
+        }
+        /*environment: SceneEnvironment {
             clearColor: "black"
             backgroundMode: SceneEnvironment.Color
             //antialiasingMode: SceneEnvironment.SSAA
             //antialiasingQuality: SceneEnvironment.High
-        }
+        }*/
 
         Node {
             id: rootNode
             Luces{}
             ZM3D{id: zm3d}
-
-            PerspectiveCamera {
-                id: camera0
-                z: -6000
-            }
             Node{
                 id: ncg
                 rotation.z: gdec
@@ -360,33 +365,124 @@ Item {
                 //Behavior on rotation.z{NumberAnimation{duration: 2000}}
             }
 
-            // Esfera Roja
-            Model {
-                id: sphere
-                position: Qt.vector3d(-150, 0, 0)
-                source: "#Sphere"
-                materials: [
-                    DefaultMaterial {
-                        diffuseColor: "red"
-                    }
-                ]
-            }
-
-            // Cubo Azul
-            Model {
-                id: cube
-                position: Qt.vector3d(150, 0, 0)
-                source: "#Cube"
-                // Si eulerRotation falla, usa 'rotation' con Quaternion
-                // o déjalo sin rotar para probar.
-                materials: [
-                    DefaultMaterial {
-                        diffuseColor: "blue"
-                    }
-                ]
+        }
+        Model {
+            source: "#Sphere"
+            scale: Qt.vector3d(2.0, 2.0, 2.0)
+            position: Qt.vector3d(0, 0, -100)
+            rotation: Qt.vector3d(0, 0, 0)
+            materials: [ PrincipledMaterial {
+                    metalness: 0.0
+                    roughness: 0.0
+                    specularAmount: 0.0
+                    indexOfRefraction: 1.0
+                    opacity: 1.0
+                    //baseColorMap: Texture { source: "ZM3D/ZM3DBodiesCircle/imgs/mundo.jpg" }
+                    baseColorMap: Texture { source: u.currentFolderPath()+"/modules/ZM3D/ZM3DBodiesCircle/imgs/mundo.jpg" }
+                }
+            ]
+            SequentialAnimation on rotation {
+                loops: Animation.Infinite
+                running: true
+                PropertyAnimation {
+                    duration: 5000
+                    to: Qt.vector3d(0, 90, 0)
+                    from: Qt.vector3d(360, 90, 0)
+                }
             }
         }
         Sen{id: sen}
+    }
+    MouseArea {
+        acceptedButtons: Qt.AllButtons;
+        anchors.fill: view
+        onClicked: {
+            if (mouse.button === Qt.RightButton) {
+                menuView3D.popup()
+            }else{
+                // Get screen coordinates of the click
+                pickPosition.text = "(" + mouse.x + ", " + mouse.y + ")"
+                var result = view.pick(mouse.x, mouse.y);
+                if (result.objectHit) {
+                    var pickedObject = result.objectHit;
+                    // Toggle the isPicked property for the model
+                    pickedObject.isPicked = !pickedObject.isPicked;
+                    // Get picked model name
+                    pickName.text = pickedObject.objectName;
+                    //                var object = result.node;
+                    //                if (object) {
+                    //                    log.lv("Posición absoluta del objeto seleccionado:", object.position);
+                    //                }
+                    //                log.lv('result.position: '+pickedObject.parent.position)
+                    //                log.lv('result.position: '+pickedObject.node)
+                    //view.cCam.position=result.position
+                    // Get other pick specifics
+                    uvPosition.text = "("
+                            + result.uvPosition.x.toFixed(2) + ", "
+                            + result.uvPosition.y.toFixed(2) + ")";
+                    //view.cCam.position.x=result.uvPosition.x
+                    distance.text = result.distance.toFixed(2);
+                    scenePosition.text = "("
+                            + result.scenePosition.x.toFixed(2) + ", "
+                            + result.scenePosition.y.toFixed(2) + ", "
+                            + result.scenePosition.z.toFixed(2) + ")";
+                    localPosition.text = "("
+                            + result.position.x.toFixed(2) + ", "
+                            + result.position.y.toFixed(2) + ", "
+                            + result.position.z.toFixed(2) + ")";
+                    worldNormal.text = "("
+                            + result.sceneNormal.x.toFixed(2) + ", "
+                            + result.sceneNormal.y.toFixed(2) + ", "
+                            + result.sceneNormal.z.toFixed(2) + ")";
+                    localNormal.text = "("
+                            + result.normal.x.toFixed(2) + ", "
+                            + result.normal.y.toFixed(2) + ", "
+                            + result.normal.z.toFixed(2) + ")";
+                } else {
+                    pickName.text = "None";
+                    uvPosition.text = "";
+                    distance.text = "";
+                    scenePosition.text = "";
+                    localPosition.text = "";
+                    worldNormal.text = "";
+                    localNormal.text = "";
+                }
+            }
+        }
+        onDoubleClicked: {
+            view.cCam.position=Qt.vector3d(0, 0, (0-zm3d.d)*2)
+            view.cCam.rotation=Qt.vector3d(0, 0, 0)
+        }
+        onWheel: {
+            let cz=view.cCam.position.z
+            if (wheel.modifiers & Qt.ControlModifier) {
+                if(wheel.angleDelta.y>=0){
+                    cz+=40
+                }else{
+                    cz-=40
+                }
+            }else if (wheel.modifiers & Qt.ShiftModifier){
+
+            }else{
+                if(wheel.angleDelta.y>=0){
+                    //                    if(reSizeAppsFs.fs<app.fs*2){
+                    //                        reSizeAppsFs.fs+=reSizeAppsFs.fs*0.1
+                    //                    }else{
+                    //                        reSizeAppsFs.fs=app.fs
+                    //                    }
+                    pointerPlanet.pointerRot+=45
+                }else{
+                    //                    if(reSizeAppsFs.fs>app.fs){
+                    //                        reSizeAppsFs.fs-=reSizeAppsFs.fs*0.1
+                    //                    }else{
+                    //                        reSizeAppsFs.fs=app.fs*2
+                    //                    }
+                    //pointerPlanet.pointerRot-=45
+                }
+            }
+            //reSizeAppsFs.restart()
+            view.cCam.position.z=cz
+        }
     }
     Component.onCompleted: zoolMap3D=r
     function rotCam(stepSize, dir){

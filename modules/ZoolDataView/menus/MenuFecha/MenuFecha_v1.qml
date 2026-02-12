@@ -5,8 +5,8 @@ import ZoolMenus 1.0
 ZoolMenus{
     id: r
     title: 'Menu General'
-    w: app.fs*40
-    scaleExpandWidh: 0.65
+    //w: app.fs*40
+    //scaleExpandWidh: 0.65
     property int parentX: 0
     Action {
         text: qsTr("Modificar Fecha")

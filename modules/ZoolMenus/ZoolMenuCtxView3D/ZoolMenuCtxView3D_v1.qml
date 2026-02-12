@@ -10,6 +10,12 @@ ZoolMenus {
     property bool isBack: false
     title: 'Menu '+zm.aBodies[r.currentIndexPlanet]
     Action {
+        text: qsTr("Ver como 2D")
+        onTriggered: {
+            zoolMap3D.view.camera=zoolMap3D.camera
+        }
+    }
+    Action {
         text: qsTr("Salir de 3D")
         onTriggered: {
             app.show3D=false

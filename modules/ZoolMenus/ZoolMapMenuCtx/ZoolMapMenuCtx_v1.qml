@@ -8,7 +8,7 @@ import ZoolMenus.ZoolMenuHelp 1.0
 ZoolMenus{
     id: r
     title: 'Menu General'
-    w: app.fs*40
+    //w: app.fs*40
     Action {
         enabled: app.t==='rs'
         text: qsTr("Guardar Revolución")
@@ -40,7 +40,7 @@ ZoolMenus{
     ZoolMenuView{}
     ZoolMenus{
         title: 'Sabianos'
-        w: r.w
+        //w: r.w
         Action {text: qsTr("Simbología del grado del Ascendente"); onTriggered: {
                 log.visible=false
                 //zsm.currentIndex=4
@@ -106,7 +106,7 @@ ZoolMenus{
     }
     ZoolMenus{
         title: 'Capturar'
-        w: r.w
+        //w: r.w
         Action {text: qsTr("Capturar todo rápido"); onTriggered: {
                 zm.zmc.msChangeBodieOrHouse=500
                 zm.zmc.startMultiCap()
@@ -128,7 +128,7 @@ ZoolMenus{
     }
     ZoolMenus{
         title: 'Configurar'
-        w: r.w
+        //w: r.w
         Action {text: !apps.enableWheelAspCircle?"Habilitar Rotar con Mouse":"Deshabilitar Rotar con Mouse"; onTriggered: {
                 apps.enableWheelAspCircle=!apps.enableWheelAspCircle
             }

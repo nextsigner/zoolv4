@@ -5,7 +5,7 @@ import ZoolMenus 1.0
 ZoolMenus{
     id: r
     title: 'Ayuda'
-    w: r.w
+    //w: r.w
     isContainer: true
     /*Action {
         text: qsTr("Manual de Ayuda de Zool")

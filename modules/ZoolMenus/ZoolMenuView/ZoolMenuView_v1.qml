@@ -5,12 +5,18 @@ import ZoolMenus 1.0
 ZoolMenus{
     id: r
     title: 'Ver'
-    w: r.w
+    //w: r.w
     isContainer: true
     Action {
         text: "Cambiar Colores"//apps.fontColor==='white'?qsTr("Tema Claro"):qsTr("Tema Oscuro")
         onTriggered: {
             zm.nextTheme()
+        }
+    }
+    Action {
+        text: qsTr("Ver en 3D")
+        onTriggered: {
+            app.show3D=true
         }
     }
     Action {

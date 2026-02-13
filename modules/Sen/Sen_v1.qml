@@ -19,6 +19,7 @@ Node{
         let gs=(r.currentDegSen-(r.ciSignSen*30))//-1
         r.ciDegSen=gs
     }
+    DefaultMaterial{id: mat1; diffuseColor: 'red'}
     Node{
         id: ejeCarteles
         //rotation.z:view.cCam.rotation.y
@@ -32,11 +33,7 @@ Node{
                 position.y:90
                 scale: Qt.vector3d(0.25, 1.85, 0.25)
 
-                materials: [
-                    DefaultMaterial {
-                        diffuseColor: 'white'
-                    }
-                ]
+                materials: [mat1]
 
             }
             Model {
@@ -46,14 +43,14 @@ Node{
                 rotation.x: 90
                 position.z:-60
                 position.y: 100 //Distancia hacia la rueda
-                materials: baseDePerno.materials
+                materials: [mat1]
                 Model {
                     id: senGira
                     source: "#Cube"
                     scale: Qt.vector3d(1.5, 0.25, 1.5)
                     position.y:-36
                     rotation.y:45
-                    materials: baseDePerno.materials
+                    materials: mat1
                     SequentialAnimation on rotation.y{
                         loops: Animation.Infinite
                         //running: false

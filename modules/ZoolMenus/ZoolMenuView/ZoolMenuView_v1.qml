@@ -16,6 +16,12 @@ ZoolMenus{
     Action {
         text: qsTr("Ver en 3D")
         onTriggered: {
+            if(!zoolMap3D){
+                let c=''
+                c+='import ZoolMap3D 1.0\n'
+                c+='ZoolMap3D{}\n'
+                var objZM3D=Qt.createQmlObject(c, app, 'zm3dcode')
+            }
             app.show3D=true
         }
     }

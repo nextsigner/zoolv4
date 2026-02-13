@@ -20,6 +20,9 @@ Item {
     property alias camera: camera
     property alias cameraLeft: cameraLeft
 
+    onVisibleChanged: {
+
+    }
     Row {
         anchors.left: parent.left
         anchors.leftMargin: 8
@@ -232,7 +235,7 @@ Item {
                     height: width
                     //rotation: 90
                     //source: "imgs/"+sen.ciSignSen+".png"
-                    source: "../ZM3D/ZM3DSignCircle/ZM3DSignArc/imgs/"+sen.ciSignSen+".png"
+                    source: sen.ciSignSen>=0?"../ZM3D/ZM3DSignCircle/ZM3DSignArc/imgs/"+sen.ciSignSen+".png":""
                     anchors.verticalCenter: parent.verticalCenter
                 }
                 Text{
@@ -484,7 +487,11 @@ Item {
             view.cCam.position.z=cz
         }
     }
-    Component.onCompleted: zoolMap3D=r
+    Component.onCompleted: {
+        app.zoolMap3D=r
+        let j=zm.currentJson
+        zoolMap3D.zm3d.loadData(j)
+    }
     function rotCam(stepSize, dir){
         if(dir==='l'){
             if(view.camera===cameraGiro){

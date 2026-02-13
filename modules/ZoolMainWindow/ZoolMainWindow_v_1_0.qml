@@ -1334,6 +1334,9 @@ ApplicationWindow {
             //zpn.log('zm.listCotasShowing: '+zm.listCotasShowing.toString())
 
             app.show3D=!app.show3D
+
+
+
         }
     }
 

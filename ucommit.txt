@@ -1,1 +1,1 @@
-i7: Se optimiza ZoolMenus
+i7: Se agrega ZoolMap3D como objeto creado dinamicamente.

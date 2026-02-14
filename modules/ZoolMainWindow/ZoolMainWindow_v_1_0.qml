@@ -428,7 +428,7 @@ ApplicationWindow {
         onActivated: {
             if(app.show3D){
                 if(zoolMap3D.view.camera===zoolMap3D.cameraGiro){
-                    if(zoolMap3D.zm3d.cbi<zm3d.aBodies.length-1){
+                    if(zoolMap3D.zm3d.cbi<zoolMap3D.zm3d.aBodies.length-1){
                         zoolMap3D.zm3d.cbi++
                     }else{
                         zoolMap3D.zm3d.cbi=-1

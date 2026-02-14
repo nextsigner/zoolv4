@@ -23,95 +23,108 @@ Item {
     onVisibleChanged: {
 
     }
-    Row {
-        anchors.left: parent.left
-        anchors.leftMargin: 8
-        spacing: 10
-        Column {
-            Label {
-                color: r.c
-                font.pointSize: 14
-                text: "Last Pick:"
-            }
-            Label {
-                color: r.c
-                font.pointSize: 14
-                text: "Screen Position:"
-            }
-            Label {
-                color: r.c
-                font.pointSize: 14
-                text: "UV Position:"
-            }
-            Label {
-                color: r.c
-                font.pointSize: 14
-                text: "Distance:"
-            }
-            Label {
-                color: r.c
-                font.pointSize: 14
-                text: "World Position:"
-            }
-            Label {
-                color: r.c
-                font.pointSize: 14
-                text: "Local Position:"
-            }
-
-            Label {
-                color: r.c
-                font.pointSize: 14
-                text: "World Normal:"
-            }
-            Label {
-                color: r.c
-                font.pointSize: 14
-                text: "Local Normal:"
-            }
+    Column{
+        Label {
+            text: '<b>Zool 3D</b>'
+            color: r.c
+            font.pointSize: app.fs*0.5
         }
-        Column {
-            Label {
-                id: pickName
-                color: r.c
-                font.pointSize: 14
-            }
-            Label {
-                id: pickPosition
-                color: r.c
-                font.pointSize: 14
-            }
-            Label {
-                id: uvPosition
-                color: r.c
-                font.pointSize: 14
-            }
-            Label {
-                id: distance
-                color: r.c
-                font.pointSize: 14
-            }
-            Label {
-                id: scenePosition
-                color: r.c
-                font.pointSize: 14
-            }
-            Label {
-                id: localPosition
-                color: r.c
-                font.pointSize: 14
-            }
-            Label {
-                id: worldNormal
-                color: r.c
-                font.pointSize: 14
-            }
-            Label {
-                id: localNormal
-                color: r.c
-                font.pointSize: 14
-            }
+        Label {
+            text: '<b>Creado por: </b>Ricardo M. Pizarro'
+            color: r.c
+            font.pointSize: app.fs*0.25
+        }
+        Row {
+            anchors.left: parent.left
+            anchors.leftMargin: 8
+            spacing: 10
+            visible: app.dev
+            Column {
+                Label {
+                    color: r.c
+                    font.pointSize: 14
+                    text: "Last Pick:"
+                }
+                Label {
+                    color: r.c
+                    font.pointSize: 14
+                    text: "Screen Position:"
+                }
+                Label {
+                    color: r.c
+                    font.pointSize: 14
+                    text: "UV Position:"
+                }
+                Label {
+                    color: r.c
+                    font.pointSize: 14
+                    text: "Distance:"
+                }
+                Label {
+                    color: r.c
+                    font.pointSize: 14
+                    text: "World Position:"
+                }
+                Label {
+                    color: r.c
+                    font.pointSize: 14
+                    text: "Local Position:"
+                }
 
+                Label {
+                    color: r.c
+                    font.pointSize: 14
+                    text: "World Normal:"
+                }
+                Label {
+                    color: r.c
+                    font.pointSize: 14
+                    text: "Local Normal:"
+                }
+            }
+            Column {
+                Label {
+                    id: pickName
+                    color: r.c
+                    font.pointSize: 14
+                }
+                Label {
+                    id: pickPosition
+                    color: r.c
+                    font.pointSize: 14
+                }
+                Label {
+                    id: uvPosition
+                    color: r.c
+                    font.pointSize: 14
+                }
+                Label {
+                    id: distance
+                    color: r.c
+                    font.pointSize: 14
+                }
+                Label {
+                    id: scenePosition
+                    color: r.c
+                    font.pointSize: 14
+                }
+                Label {
+                    id: localPosition
+                    color: r.c
+                    font.pointSize: 14
+                }
+                Label {
+                    id: worldNormal
+                    color: r.c
+                    font.pointSize: 14
+                }
+                Label {
+                    id: localNormal
+                    color: r.c
+                    font.pointSize: 14
+                }
+
+            }
         }
     }
     Row{

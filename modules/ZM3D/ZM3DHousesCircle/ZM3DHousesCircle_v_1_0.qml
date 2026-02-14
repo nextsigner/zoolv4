@@ -42,7 +42,7 @@ Model {
         }
         for(i=0;i<12;i++){
             let obj=compHouse.createObject(xHouses, {deg: i})
-            obj.rotation=Qt.vector3d(0, 0, parseFloat(aDegs[i])-2)
+            obj.rotation=Qt.vector3d(0, 0, parseFloat(aDegs[i])-1)
             obj.ih=parseInt(i + 1)
         }
     }

@@ -1,1 +1,1 @@
-i7: Se crea primera versión 3D Zool v6.2.13.0
+i7: Se crean los instaladores con 3D v6.2.20.0

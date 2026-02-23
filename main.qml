@@ -76,10 +76,6 @@ import ZoolMap3D 1.0
 
 import QtQuick3D 1.14
 import ZoolLogView 1.0
-import ZM3D 1.0
-import Luces 1.0
-import Sen 1.0
-
 
 ZoolMainWindow{
     id: app

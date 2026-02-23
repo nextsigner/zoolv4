@@ -3,10 +3,10 @@ import QtQuick.Controls 2.12
 import QtQuick.Window 2.14
 import QtQuick3D 1.14
 
-import Cartel 1.0
-import Sen 1.0
-import Luces 1.0
-import ZM3D 1.0
+import ZoolMap3D.Cartel 1.0
+import ZoolMap3D.Sen 1.0
+import ZoolMap3D.Luces 1.0
+import ZoolMap3D.ZM3D 1.0
 
 Item {
     id: r
@@ -394,7 +394,7 @@ Item {
                     indexOfRefraction: 1.0
                     opacity: 1.0
                     //baseColorMap: Texture { source: "ZM3D/ZM3DBodiesCircle/imgs/mundo.jpg" }
-                    baseColorMap: Texture { source: u.currentFolderPath()+"/modules/ZM3D/ZM3DBodiesCircle/imgs/mundo.jpg" }
+                    baseColorMap: Texture { source: u.currentFolderPath()+"/modules/ZoolMap3D/ZM3D/ZM3DBodiesCircle/imgs/mundo.jpg" }
                 }
             ]
             SequentialAnimation on rotation {

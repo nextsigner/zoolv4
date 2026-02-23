@@ -1,6 +1,6 @@
 import QtQuick 2.14
 import QtQuick3D 1.14
-import ZM3D.ZM3DHousesCircle.ZM3DHouse 1.0
+import ZoolMap3D.ZM3D.ZM3DHousesCircle.ZM3DHouse 1.0
 
 Model {
     id: r

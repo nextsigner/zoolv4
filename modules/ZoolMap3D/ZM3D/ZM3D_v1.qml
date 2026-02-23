@@ -1,9 +1,9 @@
 import QtQuick 2.0
 import QtQuick 2.14
 import QtQuick3D 1.14
-import ZM3D.ZM3DSignCircle 1.0
-import ZM3D.ZM3DHousesCircle 1.0
-import ZM3D.ZM3DBodiesCircle 1.0
+import ZoolMap3D.ZM3D.ZM3DSignCircle 1.0
+import ZoolMap3D.ZM3D.ZM3DHousesCircle 1.0
+import ZoolMap3D.ZM3D.ZM3DBodiesCircle 1.0
 
 Node{
     id: r

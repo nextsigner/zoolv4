@@ -435,7 +435,7 @@ Model {
                         id: cubeMaterial
                         diffuseColor: 'white'
                         diffuseMap: Texture {
-                            source: u.currentFolderPath()+"/modules/ZM3D/ZM3DBodiesCircle/imgs_white_trans/"+n.extraBodie+".png"
+                            source: u.currentFolderPath()+"/modules/ZoolMap3D/ZM3D/ZM3DBodiesCircle/imgs_white_trans/"+n.extraBodie+".png"
                             scaleU: 1.0
                             scaleV: 1.0
                             //rotationUV: -90

@@ -16,6 +16,12 @@ ZoolMenus {
         }
     }
     Action {
+        text: zoolMap3D.soloLuzDelSol?qsTr("Iluminar todo"):qsTr("Iluminar con el sol")
+        onTriggered: {
+            zoolMap3D.soloLuzDelSol=!zoolMap3D.soloLuzDelSol
+        }
+    }
+    Action {
         text: qsTr("Salir de 3D")
         onTriggered: {
             app.show3D=false

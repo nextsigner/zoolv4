@@ -2,6 +2,7 @@ import QtQuick 2.14
 import QtQuick.Controls 2.12
 import QtQuick.Window 2.14
 import QtQuick3D 1.14
+import Qt.labs.settings 1.1
 
 import ZoolMap3D.Cartel 1.0
 import ZoolMap3D.Sen 1.0
@@ -15,13 +16,23 @@ Item {
     visible: app.show3D
     property color c: 'white'
     property alias zm3d: zm3d
+    property alias cfg: cfg
     property alias view: view
     property alias cameraGiro: cameraGiro
     property alias camera: camera
     property alias cameraLeft: cameraLeft
 
+
+    property bool soloLuzDelSol: false
+
     onVisibleChanged: {
 
+    }
+    Settings{
+        id: cfg
+        fileName: u.currentFolderPath()+'/zoolMap3D.cfg'
+        property int v1: 100
+        property int intensidadBrilloSolar: 25000
     }
     Column{
         Label {
@@ -248,7 +259,7 @@ Item {
                     height: width
                     //rotation: 90
                     //source: "imgs/"+sen.ciSignSen+".png"
-                    source: sen.ciSignSen>=0?"../ZM3D/ZM3DSignCircle/ZM3DSignArc/imgs/"+sen.ciSignSen+".png":""
+                    source: sen.ciSignSen>=0?"../ZoolMap3D/ZM3D/ZM3DSignCircle/ZM3DSignArc/imgs/"+sen.ciSignSen+".png":""
                     anchors.verticalCenter: parent.verticalCenter
                 }
                 Text{
@@ -287,7 +298,7 @@ Item {
 
         Node {
             id: rootNode
-            Luces{}
+            Luces{visible: !r.soloLuzDelSol}
             ZM3D{id: zm3d}
             Node{
                 id: ncg
@@ -498,6 +509,43 @@ Item {
             }
             //reSizeAppsFs.restart()
             view.cCam.position.z=cz
+        }
+    }
+    Row{
+        visible: false
+        spacing: app.fs
+        anchors.horizontalCenter: parent.horizontalCenter
+        Row{
+            Text{
+                text: 'Altura Solar: '+slider1.value
+                font.pixelSize: app.fs*0.5
+                color: 'white'
+            }
+            Slider{
+                id: slider1
+                width: app.fs*5
+                value: cfg.v1
+                from: 100
+                to: 500
+                stepSize: 10
+                onValueChanged: cfg.v1=value
+            }
+        }
+        Row{
+            Text{
+                text: 'Brillo Solar: '+slider2.value
+                font.pixelSize: app.fs*0.5
+                color: 'white'
+            }
+            Slider{
+                id: slider2
+                width: app.fs*5
+                value: cfg.intensidadBrilloSolar
+                from: 100
+                to: 2500
+                stepSize: 100
+                onValueChanged: cfg.intensidadBrilloSolar=value
+            }
         }
     }
     Component.onCompleted: {

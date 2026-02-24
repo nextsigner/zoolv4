@@ -3,6 +3,7 @@ import QtQuick3D 1.14
 
 Node{
     id: r
+    property bool soloLuzDelSol: false
     property alias l: l4
     property int intensidadDeLasLuces: 50
     property bool verPosicionDeCamara: false
@@ -43,8 +44,8 @@ Node{
         brightness: r.intensidadDeLasLuces
     }
     Node{
-        position: l.position
-        rotation: l.rotation
+        position: l1.position
+        rotation: l1.rotation
         visible: r.verPosicionDeCamara
         Model {
             id: esferaFoco

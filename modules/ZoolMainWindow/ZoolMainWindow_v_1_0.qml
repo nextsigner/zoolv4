@@ -1333,7 +1333,15 @@ ApplicationWindow {
             //zpn.log('zm.listCotasShowingBack: '+zm.listCotasShowingBack.toString())
             //zpn.log('zm.listCotasShowing: '+zm.listCotasShowing.toString())
 
-            app.show3D=!app.show3D
+            if(!zoolMap3D){
+                let c=''
+                c+='import ZoolMap3D 1.0\n'
+                c+='ZoolMap3D{}\n'
+                var objZM3D=Qt.createQmlObject(c, app, 'zm3dcode')
+            }
+            app.show3D=true
+            zoolMap3D.cbi=9
+            zoolMap3D.soloLuzDelSol=true/!zoolMap3D.soloLuzDelSol
 
 
 

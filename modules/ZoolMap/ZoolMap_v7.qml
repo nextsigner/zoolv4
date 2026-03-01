@@ -1851,6 +1851,33 @@ Rectangle{
 
         zfdm.mkFileAndLoad(json, true)
     }
+    function loadTransFromCurrentMap(){
+        let nd = new Date(Date.now())
+        let p=zfdm.getJsonAbsParams(false)
+        let t='trans'
+        let hsys=apps.currentHsys
+        let d=nd.getDate()
+        let m=nd.getMonth()+1
+        let a=nd.getFullYear()
+        let h=nd.getHours()
+        let min=nd.getMinutes()
+
+        let gmt=p.gmt
+
+        let lat=p.lat
+        let lon=p.lon
+        let alt=p.alt
+        //log.lv('loadTransFromCurrentMap()...\nlat: '+lat+' lon:'+lon)
+        //return
+        let vCiudad=p.c.replace(/_/g, ' ')
+
+        let nom='Tránsito '+d+'.'+m+'.'+a+' '+h+'.'+min+' GMT.'+gmt+' '+p.c
+
+        let strEdad='Edad: '+zm.getEdad(d, m, a, h, min)+' años'
+        let aR=[]
+        zm.loadBackFromArgs(nom, d, m, a, h, min, gmt, lat, lon, alt, vCiudad, strEdad, t, hsys, -1, aR)
+        zpn.logTemp('Transito: '+d+'/'+m+'/'+a+' '+h+':'+min+'hs', 10000)
+    }
     function loadFromArgs(d, m, a, h, min, gmt, lat, lon, alt, nom, ciudad, data, tipo, isExt){
         //zpn.log('loadFromArgs()...')
         r.dirPrimRot=0

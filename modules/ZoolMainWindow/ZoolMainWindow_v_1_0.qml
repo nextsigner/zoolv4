@@ -93,12 +93,12 @@ ApplicationWindow {
     //<---Cap
 
     //--->GUI
-    Shortcut{
-        sequence: 't'
+    /*Shortcut{
+        sequence: ''
         onActivated: {
-            zm.nextTheme()
+
         }
-    }
+    }*/
     //<--GUI
 
     Shortcut{
@@ -428,7 +428,8 @@ ApplicationWindow {
         onActivated: {
             if(app.show3D){
                 if(zoolMap3D.view.camera===zoolMap3D.cameraGiro){
-                    if(zoolMap3D.zm3d.cbi<zoolMap3D.zm3d.aBodies.length-1){
+                    if(
+                            zoolMap3D.zm3d.cbi<zoolMap3D.zm3d.aBodies.length-1){
                         zoolMap3D.zm3d.cbi++
                     }else{
                         zoolMap3D.zm3d.cbi=-1
@@ -1312,6 +1313,12 @@ ApplicationWindow {
             app.visibility=app.visibility===ApplicationWindow.FullScreen?ApplicationWindow.Maximized:ApplicationWindow.FullScreen
         }
     }
+    Shortcut{
+        sequence: 't'
+        onActivated: {
+
+        }
+    }
     property int rv: 0
     Shortcut{
         sequence: '*'
@@ -1333,7 +1340,9 @@ ApplicationWindow {
             //zpn.log('zm.listCotasShowingBack: '+zm.listCotasShowingBack.toString())
             //zpn.log('zm.listCotasShowing: '+zm.listCotasShowing.toString())
 
-            if(!zoolMap3D){
+
+            //ZoolMap3D
+            /*if(!zoolMap3D){
                 let c=''
                 c+='import ZoolMap3D 1.0\n'
                 c+='ZoolMap3D{}\n'
@@ -1342,6 +1351,8 @@ ApplicationWindow {
             app.show3D=true
             zoolMap3D.cbi=9
             zoolMap3D.soloLuzDelSol=true/!zoolMap3D.soloLuzDelSol
+            */
+            zm.loadTransFromCurrentMap()
 
 
 

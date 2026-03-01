@@ -54,9 +54,15 @@ argar archivo interior")
         }
     }
     Action {
-        text: qsTr("Cargar Tránsitos de Ahora")
+        text: qsTr("Cargar Int. Tránsitos de Ahora")
         onTriggered: {
             zm.loadNow()
+        }
+    }
+    Action {
+        text: qsTr("Cargar Ext. Tránsitos de Ahora")
+        onTriggered: {
+            zm.loadTransFromCurrentMap()
         }
     }
     Action {

@@ -1340,6 +1340,7 @@ ApplicationWindow {
             //zpn.log('zm.listCotasShowingBack: '+zm.listCotasShowingBack.toString())
             //zpn.log('zm.listCotasShowing: '+zm.listCotasShowing.toString())
 
+            //zm.loadTransFromCurrentMap()
 
             //ZoolMap3D
             /*if(!zoolMap3D){
@@ -1352,7 +1353,10 @@ ApplicationWindow {
             zoolMap3D.cbi=9
             zoolMap3D.soloLuzDelSol=true/!zoolMap3D.soloLuzDelSol
             */
-            zm.loadTransFromCurrentMap()
+
+            app.visible = false;
+            app.visible = true;
+
 
 
 

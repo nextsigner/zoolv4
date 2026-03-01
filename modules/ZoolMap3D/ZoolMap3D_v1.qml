@@ -4,6 +4,8 @@ import QtQuick.Window 2.14
 import QtQuick3D 1.14
 import Qt.labs.settings 1.1
 
+import "../../comps" as Comps
+
 import ZoolMap3D.Cartel 1.0
 import ZoolMap3D.Sen 1.0
 import ZoolMap3D.Luces 1.0
@@ -11,8 +13,10 @@ import ZoolMap3D.ZM3D 1.0
 
 Item {
     id: r
+    //width: cfg.showFullWindow?Screen.width:xMed.width
     width: Screen.width
     height: Screen.height
+    //parent: cfg.showFullWindow?app:xMed
     visible: app.show3D
     property color c: 'white'
     property alias zm3d: zm3d
@@ -22,8 +26,9 @@ Item {
     property alias camera: camera
     property alias cameraLeft: cameraLeft
 
-
     property bool soloLuzDelSol: false
+
+    property alias mat1: mat1
 
     onVisibleChanged: {
 
@@ -31,6 +36,7 @@ Item {
     Settings{
         id: cfg
         fileName: u.currentFolderPath()+'/zoolMap3D.cfg'
+        property bool showFullWindow: true
         property int v1: 100
         property int intensidadBrilloSolar: 25000
     }
@@ -138,6 +144,9 @@ Item {
             }
         }
     }
+
+    DefaultMaterial{id: mat1; diffuseColor: 'red'}
+
     Row{
         anchors.right: parent.right
         Column{
@@ -548,6 +557,21 @@ Item {
             }
         }
     }
+    /*Column{
+        id: colBtns
+        anchors.right: parent.right
+        Comps.ButtonIcon{
+            id: botSearchCoords
+            text: cfg.showFullWindow?"\uf066":"\uf065"
+            width: app.fs
+            height: width
+            //anchors.centerIn: parent
+            //anchors.verticalCenter: parent.verticalCenter
+            onClicked: {
+                cfg.showFullWindow=!cfg.showFullWindow
+            }
+        }
+    }*/
     Component.onCompleted: {
         app.zoolMap3D=r
         let j=zm.currentJson

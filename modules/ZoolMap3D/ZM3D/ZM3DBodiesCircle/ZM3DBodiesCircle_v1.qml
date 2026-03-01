@@ -365,7 +365,7 @@ Model {
                 Model {
                     id: ejeVertical
                     source: "#Cylinder"
-                    materials: baseEjeVertical.materials
+                    materials:[zoolMap3d.mat1]
                     SequentialAnimation on position {
                         loops: Animation.Infinite
                         running: false//true
@@ -418,7 +418,7 @@ Model {
                             baseColorMap: Texture {source: n.aSources[3]}
                             //Metalizar
                             metalness: 0.1 //De 0.0 a 1.0
-                            metalnessMap: Texture { source: r.aSources[4]}//Metalicidad
+                            metalnessMap: Texture { source: r.aSources[1]}//Metalicidad
                             //Arrugar
                             roughnessMap: Texture { source: "maps/metallic/roughness.jpg" }//Rugosidad
                             roughness: 0.0 //De 0.0 a 1.0
@@ -587,7 +587,7 @@ Model {
                     Model {
                         id: ejeVertical
                         source: "#Cylinder"
-                        materials: baseEjeVertical.materials
+                        materials:[zoolMap3d.mat1]
                         SequentialAnimation on position {
                             loops: Animation.Infinite
                             running: false//true

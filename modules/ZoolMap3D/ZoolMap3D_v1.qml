@@ -30,6 +30,9 @@ Item {
 
     property alias mat1: mat1
 
+    property var model1
+    property var model2
+
     onVisibleChanged: {
 
     }
@@ -282,6 +285,7 @@ Item {
     View3D {
         id: view
         anchors.fill: parent
+        readonly property real ringRadius: zm3d.d*2//*0.5
         // IMPORTANTE: En 5.14, esto suele ser obligatorio
         // para que el View3D sepa qué renderizar.
         importScene: rootNode
@@ -572,10 +576,18 @@ Item {
             }
         }
     }*/
+
     Component.onCompleted: {
         app.zoolMap3D=r
         let j=zm.currentJson
         zoolMap3D.zm3d.loadData(j)
+        //createAspect(0, 90, "green");
+
+        if(true){
+            log.parent=r
+            log.anchors.bottomMargin=app.fs*3
+            log.lv('LogView en 3D')
+        }
     }
     function rotCam(stepSize, dir){
         if(dir==='l'){
@@ -645,4 +657,39 @@ Item {
         gcRZ=parseInt(gcRZ + 1)
         sen.currentDegSen=gcRZ
     }
+    function crearAspEstela(scene, modelOrigen, modelDestino, colorAsp) {
+        if (!scene || !modelOrigen || !modelDestino) {
+            console.error("crearCuboVolador: faltan parámetros");
+            return;
+        }
+
+        var component = Qt.createComponent("AspEstela.qml");
+
+        if (component.status !== Component.Ready) {
+            console.error("Error cargando CuboVolador.qml:", component.errorString());
+            return;
+        }
+
+        // === CÁLCULO DE POSICIÓN ABSOLUTA EN LA ESCENA ===
+        // Esto funciona aunque las esferas estén dentro de otros Model{} o Node{}
+        var posOrigen  = scene.mapPositionFromNode(modelOrigen,  Qt.vector3d(0, 0, 0));
+        var posDestino = scene.mapPositionFromNode(modelDestino, Qt.vector3d(0, 0, 0));
+
+        // Creamos el cubo como hijo del nodo raíz de la escena
+        var cubo = component.createObject(scene, {
+            startPos:   posOrigen,
+            endPos:     posDestino,
+            // Puedes sobreescribir valores si quieres:
+            // durationMs: 2500,
+            cubeColor:  colorAsp
+        });
+
+        if (cubo) {
+            console.log("Cubo volador creado → desde", posOrigen, "hasta", posDestino);
+        }
+    }
+
+
 }
+
+

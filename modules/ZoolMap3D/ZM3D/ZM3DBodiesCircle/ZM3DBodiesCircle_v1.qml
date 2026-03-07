@@ -24,6 +24,8 @@ Model {
             id: xModel
             source: "#Sphere"
             scale: Qt.vector3d(1.0, 1.0, 1.0)
+            objectName: zm.aBodies[bi]
+            property var bodie
             property int bi
             property int hi
             property var aIHs: []
@@ -150,60 +152,67 @@ Model {
                     }else if(i===10){//Nodo Norte
                         drz=50
                         altBase=0-(100*1.5)
-                        let obj=compExtraBodie.createObject(xModel, {drz: drz, extraBodie: 'ns', bi: xModel.bi, hi: xModel.hi, altBase: altBase})
+                        xModel.bodie=compExtraBodie.createObject(xModel, {drz: drz, extraBodie: 'ns', bi: xModel.bi, hi: xModel.hi, altBase: altBase})
                         return
                     }else if(i===11){//Nodo Sur
                         drz=50
                         altBase=0-(100*1.5)
-                        let obj=compExtraBodie.createObject(xModel, {drz: drz, extraBodie: 'nn', bi: xModel.bi, hi: xModel.hi, altBase: altBase})
+                        xModel.bodie=compExtraBodie.createObject(xModel, {drz: drz, extraBodie: 'nn', bi: xModel.bi, hi: xModel.hi, altBase: altBase})
                         return
                     }else if(i===12){//Quirón
                         drz=0
                         altBase=0-(100*1.5)
-                        let obj=compExtraBodie.createObject(xModel, {drz: drz, bi: xModel.bi, hi: xModel.hi, altBase: altBase})
+                        xModel.bodie=compExtraBodie.createObject(xModel, {drz: drz, bi: xModel.bi, hi: xModel.hi, altBase: altBase})
                         return
                     }else if(i===13){//Selena
                         drz=50
                         altBase=0-(100*1.5)
-                        let obj=compExtraBodie.createObject(xModel, {drz: drz, extraBodie: 'selena', bi: xModel.bi, hi: xModel.hi, altBase: altBase})
+                        xModel.bodie=compExtraBodie.createObject(xModel, {drz: drz, extraBodie: 'selena', bi: xModel.bi, hi: xModel.hi, altBase: altBase})
                         return
                     }else if(i===14){//Lilith
                         drz=100
                         altBase=0-(100*1.5)
-                        let obj=compExtraBodie.createObject(xModel, {drz: drz, extraBodie: 'lilith', bi: xModel.bi, hi: xModel.hi, altBase: altBase})
+                        xModel.bodie=compExtraBodie.createObject(xModel, {drz: drz, extraBodie: 'lilith', bi: xModel.bi, hi: xModel.hi, altBase: altBase})
                         return
                     }else if(i===15){//Pholus
                         drz=150
                         altBase=0-(100*1.5)
-                        let obj=compExtraBodie.createObject(xModel, {drz: drz, extraBodie: 'pholus', bi: xModel.bi, hi: xModel.hi, altBase: altBase})
+                        xModel.bodie=compExtraBodie.createObject(xModel, {drz: drz, extraBodie: 'pholus', bi: xModel.bi, hi: xModel.hi, altBase: altBase})
                         return
                     }else if(i===16){//Ceres
                         drz=200
                         altBase=0-(100*1.5)
-                        let obj=compExtraBodie.createObject(xModel, {drz: drz, extraBodie: 'ceres', bi: xModel.bi, hi: xModel.hi, altBase: altBase})
+                        xModel.bodie=compExtraBodie.createObject(xModel, {drz: drz, extraBodie: 'ceres', bi: xModel.bi, hi: xModel.hi, altBase: altBase})
                         return
                     }else if(i===17){//Pallas
                         drz=250
                         altBase=0-(100*1.5)
-                        let obj=compExtraBodie.createObject(xModel, {drz: drz, extraBodie: 'pallas', bi: xModel.bi, hi: xModel.hi, altBase: altBase})
+                        xModel.bodie=compExtraBodie.createObject(xModel, {drz: drz, extraBodie: 'pallas', bi: xModel.bi, hi: xModel.hi, altBase: altBase})
                         return
                     }else if(i===18){//Juno
                         drz=300
                         altBase=0-(100*1.5)
-                        let obj=compExtraBodie.createObject(xModel, {drz: drz, extraBodie: 'juno', bi: xModel.bi, hi: xModel.hi, altBase: altBase})
+                        xModel.bodie=compExtraBodie.createObject(xModel, {drz: drz, extraBodie: 'juno', bi: xModel.bi, hi: xModel.hi, altBase: altBase})
                         return
                     }else if(i===19){//Vesta
                         drz=350
                         altBase=0-(100*1.5)
-                        let obj=compExtraBodie.createObject(xModel, {drz: drz, extraBodie: 'vesta', bi: xModel.bi, hi: xModel.hi, altBase: altBase})
+                        xModel.bodie=compExtraBodie.createObject(xModel, {drz: drz, extraBodie: 'vesta', bi: xModel.bi, hi: xModel.hi, altBase: altBase})
                         return
                     }else{
                         s=0.4
                     }
-                    let obj=c1.createObject(xModel, {tipo: tipo, aIHs: xModel.aIHs, gdec: xModel.gdec, objName: objName, drz: drz, s: s, altBase: altBase, bi: i, hi: xModel.hi, aSources: aS})
+                    xModel.bodie=c1.createObject(xModel, {tipo: tipo, aIHs: xModel.aIHs, gdec: xModel.gdec, objName: objName, drz: drz, s: s, altBase: altBase, bi: i, hi: xModel.hi, aSources: aS})
+                    /*if(i===0){
+                        zoolMap3D.model1=obj
+                    }
+                    if(i===1){
+                        zoolMap3D.model2=obj
+                    }*/
                 }else{
-                    let obj=c2.createObject(xModel, {hi: xModel.hi})
+                    xModel.bodie=c2.createObject(xModel, {hi: xModel.hi})
                 }
+
             }
         }
     }
@@ -287,10 +296,66 @@ Model {
                 //                }
             }
             Model {
+                id: nucleo
                 source: "#Sphere"
                 scale: Qt.vector3d(n.s-0.06, n.s-0.06, n.s-0.06)
                 materials:DefaultMaterial{
                     diffuseColor: 'yellow'
+                }
+            }
+            Timer{
+                running: zm3d.cbi===n.bi
+                repeat: true
+                interval: 5000
+                onTriggered: {
+                    log.lv('bi: '+n.bi+'->Procesando aspectos:')
+                    let jsonAsps=zm.objAspsCircle.getAsps(zm.currentJson)
+                    //let asps=zm.currentJson
+                    //log.lv(JSON.stringify(jsonAsps, null, 2))
+                    let cantAsps=Object.keys(jsonAsps.asps).length
+                    //log.lv('Cantidad de aspectos:'+Object.keys(jsonAsps.asps).length)
+                    for(var i=0;i<cantAsps;i++){
+                        let o=jsonAsps.asps['asp'+parseInt(i + 1)]
+                        //log.lv('\n'+JSON.stringify(o, null, 2))
+                        if(o.ic1===n.bi){
+                            log.lv('c1: '+o.c1+' ic1:'+o.ic1)
+                            log.lv('c2:'+o.c2+' ic2:'+o.ic2)
+                            log.lv(''+o.ia)
+                            //log.lv('\n')
+                            let modelDes=getModelFromName(zm.aBodies[o.ic2])
+                            log.lv('Model.objName:::'+modelDes.objectName)
+                            log.lv('\n')
+                            let colorAsp='gray'
+                            if(o.ia===-1){
+                                colorAsp='gray'
+                            }
+                            if(o.ia===0){
+                                colorAsp='red'
+                            }
+                            if(o.ia===1){
+                                colorAsp='#ff8833'
+                            }
+                            if(o.ia===2){
+                                colorAsp='green'
+                            }
+                            if(o.ia===3){
+                                colorAsp='blue'
+                            }
+                            if(o.ia===4){
+                                colorAsp='#90EE90'
+                            }
+                            if(o.ia===5){
+                                colorAsp='#FFC0CB'
+                            }
+                            if(o.ia===6){
+                                colorAsp='#EE82EE'
+                            }
+                            zoolMap3D.crearAspEstela(zoolMap3D.view.scene, nucleo, modelDes.bodie, zm.objAspsCircle.aAspsColors[o.ia])
+                        }
+
+                        //log.lv('asp'+i+':'+o.ic1)
+                    }
+
                 }
             }
             Model {
@@ -304,6 +369,7 @@ Model {
                 onIsPickedChanged: {
                     if(view.camera===cameraGiro)return
                     if(isPicked){
+                        //log.lv('Picked! '+n.bi)
                         zm3d.chi=n.hi
                         zm3d.cbi=n.bi
                         /*camera.visible=false
@@ -365,7 +431,7 @@ Model {
                 Model {
                     id: ejeVertical
                     source: "#Cylinder"
-                    materials:[zoolMap3d.mat1]
+                    materials:[zoolMap3D.mat1]
                     SequentialAnimation on position {
                         loops: Animation.Infinite
                         running: false//true
@@ -493,6 +559,8 @@ Model {
                     n.alt=160
                 }
                 position=Qt.vector3d(0-zm3d.d+150+drz, 0, n.alt)
+
+                parent.bodie=nucleo
             }
         }
     }
@@ -587,7 +655,7 @@ Model {
                     Model {
                         id: ejeVertical
                         source: "#Cylinder"
-                        materials:[zoolMap3d.mat1]
+                        materials:[zoolMap3D.mat1]
                         SequentialAnimation on position {
                             loops: Animation.Infinite
                             running: false//true
@@ -604,6 +672,9 @@ Model {
                         }
                     }
                 }
+            }
+            Component.onCompleted: {
+                parent.bodie=m
             }
         }
     }
@@ -644,6 +715,9 @@ Model {
                 diffuseColor: m.t===0?"red":"blue"
                 specularAmount: 0.0
                 indexOfRefraction:0.1
+            }
+            Component.onCompleted: {
+                parent.bodie=m
             }
         }
     }
@@ -688,6 +762,15 @@ Model {
         let difference = Math.abs(h1 - h2);
         let cyclicDifference = Math.min(difference, 12 - difference);
         return cyclicDifference >= 2;
+    }
+    function getModelFromName(bodieName){
+        for(var i=0;i<zm.aBodies.length;i++){
+            if(nb.children[i].objectName===bodieName){
+                return nb.children[i]
+            }
+        }
+
+
     }
 }
 

@@ -1354,14 +1354,24 @@ ApplicationWindow {
             zoolMap3D.soloLuzDelSol=true/!zoolMap3D.soloLuzDelSol
             */
 
-            app.visible = false;
-            app.visible = true;
+            //app.visible = false;
+            //app.visible = true;
+
+            //zoolMap3D.createAspectLine(0, ggg, "red");
+            //zoolMap3D.conectar(zoolMap3D.model1, zoolMap3D.model2, 'red', 0-ggg+zoolMap3D.zm3d.currentSignRot)
+            //ggg+=10.00
+            //zoolMap3D.createAspect(90, 180, "yellow");
+
+
+            zoolMap3D.crearAspEstela(zoolMap3D.view.scene, zoolMap3D.model1, zoolMap3D.model2)
+
 
 
 
 
         }
     }
+    property real ggg: 0.0
 
     /*
     //Plantilla Teclado

@@ -77,7 +77,7 @@ Rectangle {
                 TextInput {
                     id: txtDataSearch
                     //text: 'Archivos svIndex: '+r.svIndex+' itemIndex: '+r.itemIndex+' focus:'+focus
-                    text: 'Archivos'
+                    text: 'Escribir aquí el nombre'
                     font.pixelSize: app.fs*0.5
                     width: parent.width-app.fs
                     wrapMode: Text.WordWrap

@@ -7,6 +7,10 @@ import ZoolMap3D.ZM3D.ZM3DBodiesCircle 1.0
 
 Node{
     id: r
+
+    //Aliases
+    property alias bc: bc
+
     //Tamaños
     property int d: 1000
     property real anchoProfundoBandaSign: 0.15
@@ -62,7 +66,7 @@ Node{
     ZM3DHousesCircle{
         id: hc
         rotation.z:0-currentSignRot
-        //visible: false
+        visible: false
     }
     ZM3DBodiesCircle{
         id: bc

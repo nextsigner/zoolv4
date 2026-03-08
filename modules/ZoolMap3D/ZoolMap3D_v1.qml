@@ -583,7 +583,7 @@ Item {
         zoolMap3D.zm3d.loadData(j)
         //createAspect(0, 90, "green");
 
-        if(true){
+        if(false){
             log.parent=r
             log.anchors.bottomMargin=app.fs*3
             log.lv('LogView en 3D')

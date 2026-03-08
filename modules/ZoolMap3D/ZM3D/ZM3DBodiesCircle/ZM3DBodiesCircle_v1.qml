@@ -29,11 +29,28 @@ Model {
             property int bi
             property int hi
             property var aIHs: []
-            property real gdec: 0.0
+            property real gdec: -1.0
+            property var jsonAsps: ({})
             property bool selected: zm3d.cbi===bi
             onSelectedChanged: {
                 if(selected){
                     zoolMap3D.setRotCamSen(-90-zm3d.currentSignRot-1+parseInt(xModel.gdec))
+                }
+            }
+            onGdecChanged: {
+                updateJsonAsps()
+            }
+            function updateJsonAsps(){
+                jsonAsps={}
+                jsonAsps.asps=[]
+                let jsonAllAsps=zm.objAspsCircle.getAsps(zm.currentJson)
+                let cantAsps=Object.keys(jsonAllAsps.asps).length
+                for(var i=0;i<cantAsps;i++){
+                    let o=jsonAllAsps.asps['asp'+parseInt(i + 1)]
+                    //log.lv('\n'+JSON.stringify(o, null, 2))
+                    if(o.ic1===xModel.bi){
+                        jsonAsps.asps.push(o)
+                    }
                 }
             }
             PointLight {
@@ -69,6 +86,68 @@ Model {
                         to: Qt.vector3d(0, 0, 0)
                         from: Qt.vector3d(0, 0, -1000)
                     }
+                }
+            }
+            Timer{
+                running: zm3d.cbi===xModel.bi && jsonAsps.asps.length===0
+                repeat: true
+                interval: 1000
+                onTriggered: {
+                    //log.lv('updateJsonAsps() from timers...')
+                    updateJsonAsps()
+                }
+            }
+            Timer{
+                running: zm3d.cbi===xModel.bi
+                repeat: true
+                interval: 2500
+                property int lastAspShowedIndex: 0
+                onTriggered: {
+                    let cantAsps=jsonAsps.asps.length
+
+                    let o=jsonAsps.asps[lastAspShowedIndex]
+                    if(!o){
+                        lastAspShowedIndex=0
+                        return
+                    }
+                    //log.lv('Buscando bodie con nombre: '+zm.aBodies[o.ic2])
+                    let modelDes=findModelByObjectName(nb, zm.aBodies[o.ic2])//getModelFromName(zm.aBodies[o.ic2])
+                    let colorAsp='gray'
+                    if(o.ia===-1){
+                        colorAsp='gray'
+                    }
+                    if(o.ia===0){
+                        colorAsp='red'
+                    }
+                    if(o.ia===1){
+                        colorAsp='#ff8833'
+                    }
+                    if(o.ia===2){
+                        colorAsp='green'
+                    }
+                    if(o.ia===3){
+                        colorAsp='blue'
+                    }
+                    if(o.ia===4){
+                        colorAsp='#90EE90'
+                    }
+                    if(o.ia===5){
+                        colorAsp='#FFC0CB'
+                    }
+                    if(o.ia===6){
+                        colorAsp='#EE82EE'
+                    }
+                    zoolMap3D.crearAspEstela(zoolMap3D.view.scene, xModel.bodie, modelDes.bodie, zm.objAspsCircle.aAspsColors[o.ia])
+                    if(lastAspShowedIndex<cantAsps-1){
+                        lastAspShowedIndex++
+                    }else{
+                        lastAspShowedIndex=0
+                    }
+
+
+                    //log.lv('asp'+i+':'+o.ic1)
+                    //}
+
                 }
             }
             Component.onCompleted: {
@@ -296,76 +375,13 @@ Model {
                 //                }
             }
             Model {
-                id: nucleo
-                source: "#Sphere"
-                scale: Qt.vector3d(n.s-0.06, n.s-0.06, n.s-0.06)
-                materials:DefaultMaterial{
-                    diffuseColor: 'yellow'
-                }
-            }
-            Timer{
-                running: zm3d.cbi===n.bi
-                repeat: true
-                interval: 5000
-                onTriggered: {
-                    log.lv('bi: '+n.bi+'->Procesando aspectos:')
-                    let jsonAsps=zm.objAspsCircle.getAsps(zm.currentJson)
-                    //let asps=zm.currentJson
-                    //log.lv(JSON.stringify(jsonAsps, null, 2))
-                    let cantAsps=Object.keys(jsonAsps.asps).length
-                    //log.lv('Cantidad de aspectos:'+Object.keys(jsonAsps.asps).length)
-                    for(var i=0;i<cantAsps;i++){
-                        let o=jsonAsps.asps['asp'+parseInt(i + 1)]
-                        //log.lv('\n'+JSON.stringify(o, null, 2))
-                        if(o.ic1===n.bi){
-                            log.lv('c1: '+o.c1+' ic1:'+o.ic1)
-                            log.lv('c2:'+o.c2+' ic2:'+o.ic2)
-                            log.lv(''+o.ia)
-                            //log.lv('\n')
-                            let modelDes=getModelFromName(zm.aBodies[o.ic2])
-                            log.lv('Model.objName:::'+modelDes.objectName)
-                            log.lv('\n')
-                            let colorAsp='gray'
-                            if(o.ia===-1){
-                                colorAsp='gray'
-                            }
-                            if(o.ia===0){
-                                colorAsp='red'
-                            }
-                            if(o.ia===1){
-                                colorAsp='#ff8833'
-                            }
-                            if(o.ia===2){
-                                colorAsp='green'
-                            }
-                            if(o.ia===3){
-                                colorAsp='blue'
-                            }
-                            if(o.ia===4){
-                                colorAsp='#90EE90'
-                            }
-                            if(o.ia===5){
-                                colorAsp='#FFC0CB'
-                            }
-                            if(o.ia===6){
-                                colorAsp='#EE82EE'
-                            }
-                            zoolMap3D.crearAspEstela(zoolMap3D.view.scene, nucleo, modelDes.bodie, zm.objAspsCircle.aAspsColors[o.ia])
-                        }
-
-                        //log.lv('asp'+i+':'+o.ic1)
-                    }
-
-                }
-            }
-            Model {
                 id: m
                 source: "#Sphere"
                 scale: Qt.vector3d(n.s-0.05, n.s-0.05, n.s-0.05)
 
                 pickable: true
                 property bool isPicked: false
-                objectName: n.objName
+                //objectName: n.objName
                 onIsPickedChanged: {
                     if(view.camera===cameraGiro)return
                     if(isPicked){
@@ -560,7 +576,7 @@ Model {
                 }
                 position=Qt.vector3d(0-zm3d.d+150+drz, 0, n.alt)
 
-                parent.bodie=nucleo
+
             }
         }
     }
@@ -569,6 +585,7 @@ Model {
         Node{
             id: n
             //position: Qt.vector3d(0-zm3d.d+130+n.drz, 0, -100)
+            position: Qt.vector3d(0-zm3d.d+130+n.drz, 0, -100)
             //rotation: Qt.vector3d(0, 90, 0)
             property string extraBodie: 'hiron'
             property int bi: -1
@@ -578,13 +595,29 @@ Model {
             property int altBase: 0
             property real s: 0.5
             property bool selected: zm3d.cbi===n.bi
+            SequentialAnimation on position{
+                running: !n.selected
+                PropertyAnimation {
+                    duration: 500
+                    to: Qt.vector3d(0-zm3d.d+150+drz, 0, n.alt)
+                    from: Qt.vector3d(0-zm3d.d+150-140, 0, n.altBase)
+                }
+            }
+            SequentialAnimation on position{
+                running: n.selected
+                PropertyAnimation {
+                    duration: 500
+                    from: Qt.vector3d(0-zm3d.d+150+drz, 0, n.alt)
+                    to: Qt.vector3d(0-zm3d.d+150-140, 0, n.altBase)
+                }
+            }
             Model {
                 id: m
                 source: "#Cube"
                 //scale: Qt.vector3d(0.5, 0.5, 0.5)
                 scale: Qt.vector3d(n.s, n.s, n.s)
                 rotation.z:-90
-                position: Qt.vector3d(0-zm3d.d+130+n.drz, 0, -100)
+                //position: Qt.vector3d(0-zm3d.d+130+n.drz, 0, -100)
                 //                rotation: Qt.vector3d(0, 90, 0)
                 materials: [
                     DefaultMaterial {
@@ -601,7 +634,7 @@ Model {
                     }
                 ]
                 SequentialAnimation on position{
-                    running: !n.selected
+                    running: false//!n.selected
                     PropertyAnimation {
                         duration: 500
                         //to: Qt.vector3d(0-zm3d.d+150+drz, 0, n.alt)
@@ -610,7 +643,7 @@ Model {
                     }
                 }
                 SequentialAnimation on position{
-                    running: n.selected
+                    running: false//n.selected
                     PropertyAnimation {
                         duration: 500
                         //from: Qt.vector3d(0-zm3d.d+150+drz, 0, n.alt)
@@ -702,25 +735,26 @@ Model {
             }
         }
     }
-    Component{
-        id: cNodosNS
-        Model {
-            id: m
-            source: "#Cone"
-            scale: Qt.vector3d(1.0, 1.0, 1.0)
-            position: Qt.vector3d(0-zm3d.d+80, 0, -50)
-            rotation: Qt.vector3d(-90, 90, 0)
-            property int t: 0
-            materials:DefaultMaterial {
-                diffuseColor: m.t===0?"red":"blue"
-                specularAmount: 0.0
-                indexOfRefraction:0.1
-            }
-            Component.onCompleted: {
-                parent.bodie=m
-            }
-        }
-    }
+
+    //    Component{
+    //        id: cNodosNS
+    //        Model {
+    //            id: m
+    //            source: "#Cone"
+    //            scale: Qt.vector3d(1.0, 1.0, 1.0)
+    //            position: Qt.vector3d(0-zm3d.d+80, 0, -50)
+    //            rotation: Qt.vector3d(-90, 90, 0)
+    //            property int t: 0
+    //            materials:DefaultMaterial {
+    //                diffuseColor: m.t===0?"red":"blue"
+    //                specularAmount: 0.0
+    //                indexOfRefraction:0.1
+    //            }
+    //            Component.onCompleted: {
+    //                parent.bodie=m
+    //            }
+    //        }
+    //    }
 
     function load(j){
         for(var i=0;i<nb.children.length;i++){
@@ -763,7 +797,23 @@ Model {
         let cyclicDifference = Math.min(difference, 12 - difference);
         return cyclicDifference >= 2;
     }
-    function getModelFromName(bodieName){
+    function findModelByObjectName(parentItem, targetName) {
+        // Verificamos si el nodo actual es el que buscamos
+        if (parentItem.objectName === targetName) {
+            return parentItem;
+        }
+
+        // Recorremos los hijos del objeto
+        for (var i = 0; i < parentItem.children.length; ++i) {
+            var found = findModelByObjectName(parentItem.children[i], targetName);
+            if (found) {
+                return found;
+            }
+        }
+
+        return null;
+    }
+    /*function getModelFromName(bodieName){
         for(var i=0;i<zm.aBodies.length;i++){
             if(nb.children[i].objectName===bodieName){
                 return nb.children[i]
@@ -771,6 +821,6 @@ Model {
         }
 
 
-    }
+    }*/
 }
 

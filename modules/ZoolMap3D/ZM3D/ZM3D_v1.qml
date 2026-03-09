@@ -66,7 +66,7 @@ Node{
     ZM3DHousesCircle{
         id: hc
         rotation.z:0-currentSignRot
-        visible: false
+        //visible: false
     }
     ZM3DBodiesCircle{
         id: bc

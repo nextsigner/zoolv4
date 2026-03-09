@@ -3,7 +3,7 @@ import QtQuick3D 1.14
 
 Node{
     id: r
-    property bool soloLuzDelSol: false
+    property bool soloLuzDelSol: zoolMap3D.cfg.soloLuzDelSol
     property alias l: l4
     property int intensidadDeLasLuces: 50
     property bool verPosicionDeCamara: false

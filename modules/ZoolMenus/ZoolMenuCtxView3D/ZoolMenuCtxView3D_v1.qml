@@ -16,9 +16,9 @@ ZoolMenus {
         }
     }
     Action {
-        text: zoolMap3D.zm3d.soloLuzDelSol?qsTr("Iluminar todo"):qsTr("Iluminar con el sol")
+        text: zoolMap3D.zm3d.cfg.soloLuzDelSol?qsTr("Iluminar todo"):qsTr("Iluminar con el sol")
         onTriggered: {
-            zoolMap3D.zm3d.soloLuzDelSol=!zoolMap3D.zm3d.soloLuzDelSol
+            zoolMap3D.zm3d.cfg.soloLuzDelSol=!zoolMap3D.zm3d.cfg.soloLuzDelSol
         }
     }
     Action {

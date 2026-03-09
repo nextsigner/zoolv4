@@ -26,8 +26,6 @@ Item {
     property alias camera: camera
     property alias cameraLeft: cameraLeft
 
-    property bool soloLuzDelSol: false
-
     property alias mat1: mat1
 
     property var model1
@@ -40,6 +38,8 @@ Item {
         id: cfg
         fileName: u.currentFolderPath()+'/zoolMap3D.cfg'
         property bool showFullWindow: true
+        property bool showAsps: false
+        property bool soloLuzDelSol: false
         property int v1: 100
         property int intensidadBrilloSolar: 25000
     }
@@ -311,7 +311,7 @@ Item {
 
         Node {
             id: rootNode
-            Luces{visible: !r.soloLuzDelSol}
+            Luces{visible: !cfg.soloLuzDelSol}
             ZM3D{id: zm3d}
             Node{
                 id: ncg
@@ -561,10 +561,12 @@ Item {
             }
         }
     }
-    /*Column{
+    Column{
         id: colBtns
+        spacing: app.fs*0.25
         anchors.right: parent.right
-        Comps.ButtonIcon{
+        anchors.verticalCenter: parent.verticalCenter
+        /*Comps.ButtonIcon{
             id: botSearchCoords
             text: cfg.showFullWindow?"\uf066":"\uf065"
             width: app.fs
@@ -574,8 +576,101 @@ Item {
             onClicked: {
                 cfg.showFullWindow=!cfg.showFullWindow
             }
+        }*/
+        Comps.ButtonIcon{
+            text: "\uf185"
+            width: app.fs
+            height: width
+            //anchors.centerIn: parent
+            //anchors.verticalCenter: parent.verticalCenter
+            onClicked: {
+                cfg.soloLuzDelSol=!cfg.soloLuzDelSol
+            }
+            Rectangle{
+                width: parent.width*0.9
+                height: width
+                radius: width*0.5
+                color: 'transparent'
+                border.color: 'red'
+                border.width: 4
+                anchors.centerIn: parent
+                visible: !cfg.soloLuzDelSol
+                Rectangle{
+                    width: parent.width
+                    height: parent.border.width
+                    color: parent.border.color
+                    rotation: -45
+                    anchors.centerIn: parent
+                }
+            }
+
         }
-    }*/
+        Comps.ButtonIcon{
+            text: "A"
+            width: app.fs
+            height: width
+            onClicked: {
+                cfg.showAsps=!cfg.showAsps
+            }
+            Rectangle{
+                width: parent.width*0.9
+                height: width
+                radius: width*0.5
+                color: 'transparent'
+                border.color: 'red'
+                border.width: 4
+                anchors.centerIn: parent
+                visible: cfg.showAsps
+                Rectangle{
+                    width: parent.width
+                    height: parent.border.width
+                    color: parent.border.color
+                    rotation: -45
+                    anchors.centerIn: parent
+                }
+            }
+        }
+        Comps.ButtonIcon{
+            text: "\uf0d8"
+            width: app.fs
+            height: width
+            onClicked: {
+                if(zm3d.cbi<zm.aBodies.length){
+                    zm3d.cbi++
+                }else{
+                    zm3d.cbi=0
+                }
+            }
+        }
+        Comps.ButtonIcon{
+            text: "\uf0d8"
+            width: app.fs
+            height: width
+            rotation: 180
+            onClicked: {
+                if(zm3d.cbi>0){
+                    zm3d.cbi--
+                }else{
+                    zm3d.cbi=zm.aBodies.length-1
+                }
+            }
+        }
+        /*Comps.ButtonIcon{
+            text: "A"
+            width: app.fs
+            height: width
+            onClicked: {
+                log.parent=r
+                log.anchors.bottomMargin=app.fs*3
+                log.lv('LogView en 3D')
+                let j=zm.currentJson
+                //setRotCamSen(j.ph.h1.gdeg+zm3d.currentSignRot-(360-zm3d.currentSignRot)+1)
+                log.lv('--->'+JSON.stringify(j.ph.h1.gdeg, null, 2))
+                log.lv('zm3d.currentSignRot--->'+zm3d.currentSignRot)
+                setRotCamSen(j.ph.h1.gdeg+parseInt(zm3d.currentSignRot)-24+1)//zm3d.currentSignRot
+            }
+        }*/
+    }
 
     Component.onCompleted: {
         app.zoolMap3D=r
@@ -631,7 +726,7 @@ Item {
     function setRotCamSen(deg){
         view.camera=cameraGiro
         ncg.gdec=deg
-        sen.rot=deg
+        sen.rot=deg-1
         setCDS()
     }
     function setCDS(){
@@ -677,12 +772,12 @@ Item {
 
         // Creamos el cubo como hijo del nodo raíz de la escena
         var cubo = component.createObject(scene, {
-            startPos:   posOrigen,
-            endPos:     posDestino,
-            // Puedes sobreescribir valores si quieres:
-            // durationMs: 2500,
-            cubeColor:  colorAsp
-        });
+                                              startPos:   posOrigen,
+                                              endPos:     posDestino,
+                                              // Puedes sobreescribir valores si quieres:
+                                              // durationMs: 2500,
+                                              cubeColor:  colorAsp
+                                          });
 
         if (cubo) {
             console.log("Cubo volador creado → desde", posOrigen, "hasta", posDestino);

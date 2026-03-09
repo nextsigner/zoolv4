@@ -1,1 +1,1 @@
-i7: Se han creado los aspectos en ZoolMap3D
+i7: Se agregan botones a ZoolMap3D

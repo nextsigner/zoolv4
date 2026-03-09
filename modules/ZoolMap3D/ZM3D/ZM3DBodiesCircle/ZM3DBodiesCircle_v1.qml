@@ -55,7 +55,7 @@ Model {
             }
             PointLight {
                 id: sunLight
-                visible: xModel.bi === 0 && zoolMap3D.soloLuzDelSol
+                visible: xModel.bi === 0 && zoolMap3D.cfg.soloLuzDelSol
 
                 color: "#ffffff"
 
@@ -98,7 +98,7 @@ Model {
                 }
             }
             Timer{
-                running: zm3d.cbi===xModel.bi
+                running: zm3d.cbi===xModel.bi && zoolMap3D.cfg.showAsps
                 repeat: true
                 interval: 2500
                 property int lastAspShowedIndex: 0
@@ -307,7 +307,7 @@ Model {
             property bool showBoxPos: false
             property color colorLuzSolar: 'yellow'
             Node{
-                visible: zoolMap3D.soloLuzDelSol
+                visible: zoolMap3D.cfg.soloLuzDelSol
                 position.x: 0-zm3d.d+(zoolMap3D.zm3d.cbi===0?50:300)
                 position.y: 0
                 position.z: 0-600+370-500+1000-340-(zoolMap3D.zm3d.cbi===0?300:0)

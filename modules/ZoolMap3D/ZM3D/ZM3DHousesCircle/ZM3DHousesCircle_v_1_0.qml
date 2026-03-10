@@ -42,8 +42,29 @@ Model {
         }
         for(i=0;i<12;i++){
             let obj=compHouse.createObject(xHouses, {deg: i})
-            obj.rotation=Qt.vector3d(0, 0, parseFloat(aDegs[i])-1)
+            //obj.rotation=Qt.vector3d(0, 0, parseFloat(aDegs[i])-1)
+            obj.rotation=Qt.vector3d(0, 0, parseInt(aDegs[i])-1)
             obj.ih=parseInt(i + 1)
+            obj.objectName='house_'+parseInt(i + 1)
         }
+    }
+    function getModelHouse(h){
+        return findModelByObjectName(xHouses, 'house_'+h)
+    }
+    function findModelByObjectName(parentItem, targetName) {
+        // Verificamos si el nodo actual es el que buscamos
+        if (parentItem.objectName === targetName) {
+            return parentItem;
+        }
+
+        // Recorremos los hijos del objeto
+        for (var i = 0; i < parentItem.children.length; ++i) {
+            var found = findModelByObjectName(parentItem.children[i], targetName);
+            if (found) {
+                return found;
+            }
+        }
+
+        return null;
     }
 }

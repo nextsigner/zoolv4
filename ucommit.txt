@@ -1,1 +1,1 @@
-i7: Se agregan botones a ZoolMap3D
+i7: Se crea ZoolMap3D.Config

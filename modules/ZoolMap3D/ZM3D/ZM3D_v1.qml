@@ -10,6 +10,7 @@ Node{
 
     //Aliases
     property alias bc: bc
+    property alias hc: hc
 
     //Tamaños
     property int d: 1000

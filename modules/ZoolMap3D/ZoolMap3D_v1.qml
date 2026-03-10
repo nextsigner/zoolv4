@@ -15,7 +15,7 @@ Item {
     id: r
     //width: cfg.showFullWindow?Screen.width:xMed.width
     width: Screen.width
-    height: Screen.height
+    height: xApp.height
     //parent: cfg.showFullWindow?app:xMed
     visible: app.show3D
     property color c: 'white'
@@ -41,6 +41,7 @@ Item {
         property bool showAsps: false
         property bool soloLuzDelSol: false
         property int v1: 100
+        property int intensidadDeLasLuces: 40
         property int intensidadBrilloSolar: 25000
     }
     Column{
@@ -524,43 +525,6 @@ Item {
             view.cCam.position.z=cz
         }
     }
-    Row{
-        visible: false
-        spacing: app.fs
-        anchors.horizontalCenter: parent.horizontalCenter
-        Row{
-            Text{
-                text: 'Altura Solar: '+slider1.value
-                font.pixelSize: app.fs*0.5
-                color: 'white'
-            }
-            Slider{
-                id: slider1
-                width: app.fs*5
-                value: cfg.v1
-                from: 100
-                to: 500
-                stepSize: 10
-                onValueChanged: cfg.v1=value
-            }
-        }
-        Row{
-            Text{
-                text: 'Brillo Solar: '+slider2.value
-                font.pixelSize: app.fs*0.5
-                color: 'white'
-            }
-            Slider{
-                id: slider2
-                width: app.fs*5
-                value: cfg.intensidadBrilloSolar
-                from: 100
-                to: 2500
-                stepSize: 100
-                onValueChanged: cfg.intensidadBrilloSolar=value
-            }
-        }
-    }
     Column{
         id: colBtns
         spacing: app.fs*0.25
@@ -655,21 +619,54 @@ Item {
                 }
             }
         }
-        /*Comps.ButtonIcon{
-            text: "A"
+        Comps.ButtonIcon{
+            text: "Asc"
+            fontSize: app.fs*0.5
             width: app.fs
             height: width
             onClicked: {
-                log.parent=r
-                log.anchors.bottomMargin=app.fs*3
-                log.lv('LogView en 3D')
-                let j=zm.currentJson
-                //setRotCamSen(j.ph.h1.gdeg+zm3d.currentSignRot-(360-zm3d.currentSignRot)+1)
-                log.lv('--->'+JSON.stringify(j.ph.h1.gdeg, null, 2))
-                log.lv('zm3d.currentSignRot--->'+zm3d.currentSignRot)
-                setRotCamSen(j.ph.h1.gdeg+parseInt(zm3d.currentSignRot)-24+1)//zm3d.currentSignRot
+                toHouse(1)
             }
-        }*/
+        }
+        Comps.ButtonIcon{
+            text: "Fc"
+            fontSize: app.fs*0.5
+            width: app.fs
+            height: width
+            onClicked: {
+                toHouse(4)
+            }
+        }
+        Comps.ButtonIcon{
+            text: "Desc"
+            fontSize: app.fs*0.4
+            width: app.fs
+            height: width
+            onClicked: {
+                toHouse(7)
+            }
+        }
+        Comps.ButtonIcon{
+            text: "Mc"
+            fontSize: app.fs*0.5
+            width: app.fs
+            height: width
+            onClicked: {
+                toHouse(10)
+            }
+        }
+        Comps.ButtonIcon{
+            text: "\uf013"
+            fontSize: app.fs*0.5
+            width: app.fs
+            height: width
+            onClicked: {
+                let c='import QtQuick 2.0\n'
+                c+='import ZoolMap3D.Config 1.0\n'
+                c+='Config{}\n'
+                let obj=Qt.createQmlObject(c, r, 'config3d-code')
+            }
+        }
     }
 
     Component.onCompleted: {
@@ -726,7 +723,7 @@ Item {
     function setRotCamSen(deg){
         view.camera=cameraGiro
         ncg.gdec=deg
-        sen.rot=deg-1
+        sen.rot=deg//-1
         setCDS()
     }
     function setCDS(){
@@ -780,11 +777,13 @@ Item {
                                           });
 
         if (cubo) {
-            console.log("Cubo volador creado → desde", posOrigen, "hasta", posDestino);
+            //console.log("Cubo volador creado → desde", posOrigen, "hasta", posDestino);
         }
     }
-
-
+    function toHouse(h){
+        zoolMap3D.zm3d.cbi=0-h
+        zoolMap3D.setRotCamSen(-90-zoolMap3D.zm3d.currentSignRot-1+parseInt(zm.currentJson.ph['h'+h].gdec))
+    }
 }
 
 

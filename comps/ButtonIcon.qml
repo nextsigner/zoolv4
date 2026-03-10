@@ -4,7 +4,7 @@ import QtQuick.Controls 2.12
 Item {
     id: r
     property alias text: t.text
-    property alias fontSize: b.font.pixelSize
+    property alias fontSize: t.font.pixelSize
     signal clicked
     Button{
         id: b

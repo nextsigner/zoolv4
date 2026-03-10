@@ -5,7 +5,6 @@ Node{
     id: r
     property bool soloLuzDelSol: zoolMap3D.cfg.soloLuzDelSol
     property alias l: l4
-    property int intensidadDeLasLuces: 50
     property bool verPosicionDeCamara: false
     //Luz desde el centro hacia arriba
     DirectionalLight {
@@ -14,7 +13,7 @@ Node{
         position.y: 0
         position.z: -1000
         rotation: Qt.vector3d(-50, 0, 0)
-        brightness: r.intensidadDeLasLuces
+        brightness: cfg.intensidadDeLasLuces
     }
     //Luz desde el centro hacia abajo
     DirectionalLight {
@@ -23,7 +22,7 @@ Node{
         position.y: 0
         position.z: -1000
         rotation: Qt.vector3d(50, 0, 0)
-        brightness: r.intensidadDeLasLuces
+        brightness: cfg.intensidadDeLasLuces
     }
     //Luz desde el centro hacia la derecha
     DirectionalLight {
@@ -32,7 +31,7 @@ Node{
         position.y: 0
         position.z: -1000
         rotation: Qt.vector3d(0, 50, 0)
-        brightness: r.intensidadDeLasLuces
+        brightness: cfg.intensidadDeLasLuces
     }
     //Luz desde el centro hacia la izquierda
     DirectionalLight {
@@ -41,7 +40,7 @@ Node{
         position.y: 0
         position.z: -1000
         rotation: Qt.vector3d(0, -50, 0)
-        brightness: r.intensidadDeLasLuces
+        brightness: cfg.intensidadDeLasLuces
     }
     Node{
         position: l1.position

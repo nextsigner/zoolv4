@@ -789,6 +789,40 @@ Model {
             obj.rotation=Qt.vector3d(0, 0, parseInt(aDegs[i])-1)
         }
     }
+    function reload(j){
+        for(var i=0;i<nb.children.length;i++){
+            nb.children[i].destroy()
+        }
+        return
+        let aDegs=[]
+        let aIHs=[]
+
+        //Estas variables p1 y p2 son para probar las distancias
+        //Para desactivarlas hay que poner p2=-1
+        let p1=12
+        let p2=-14
+
+        for(i=0;i<20;i++){
+            let jb=j['c'+parseInt(i)]
+            if(i===p2){
+                aDegs.push(aDegs[p1]+0)
+            }else{
+                aDegs.push(jb.gdec)
+            }
+
+
+            aIHs.push(jb.ih)
+        }
+
+        for(i=0;i<zm.aBodies.length;i++){
+            if(i===0){
+                let objLuzSolar=compLuzSolar.createObject(nb, {bi: -1, hi: aIHs[0], aIHs: aIHs, gdec: 30.0})
+                objLuzSolar.rotation=Qt.vector3d(0, 0, parseInt(aDegs[i])-1)
+            }
+            let obj=compBodie.createObject(nb, {bi: i, hi: aIHs[i], aIHs: aIHs, gdec: aDegs[i]})
+            obj.rotation=Qt.vector3d(0, 0, parseInt(aDegs[i])-1)
+        }
+    }
     function estanA2OMasCasaDeDiferencia(h1, h2) {
         if (h1 < 1 || h1 > 12 || h2 < 1 || h2 > 12) {
             return false

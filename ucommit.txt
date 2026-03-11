@@ -1,1 +1,1 @@
-i7: Se agrega botón cámara a ZoolMap3D
+i7: Se soluciona crasheo en zoolMap3D.loadData()

@@ -67,4 +67,7 @@ Model {
 
         return null;
     }
+    function getHousesLength(){
+        return xHouses.children.length
+    }
 }

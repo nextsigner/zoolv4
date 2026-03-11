@@ -3,6 +3,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Window 2.14
 import QtQuick3D 1.14
 import Qt.labs.settings 1.1
+import ZoolMenus.ZoolMenuCtxView3D 1.0
 
 import "../../comps" as Comps
 
@@ -31,8 +32,18 @@ Item {
     property var model1
     property var model2
 
+    Component.onDestruction: {
+        console.log("El objeto está siendo destruido, realizando limpieza...");
+        //zoolMap3D = null;
+        // Forzar repintado de la ventana padre
+        //app.update();
+    }
     onVisibleChanged: {
-
+        if(visible){
+            //let j=zm.currentJson
+            //zoolMap3D.zm3d.loadData(j)
+            //setMapData()
+        }
     }
     Settings{
         id: cfg
@@ -52,6 +63,13 @@ Item {
         }
         Label {
             text: '<b>Creado por: </b>Ricardo M. Pizarro'
+            color: r.c
+            font.pointSize: app.fs*0.25
+        }
+        Item{width: 1; height: app.fs*0.5}
+        Label {
+            id: txtMapData
+            text: ''
             color: r.c
             font.pointSize: app.fs*0.25
         }
@@ -153,6 +171,7 @@ Item {
 
     Row{
         anchors.right: parent.right
+        visible: app.dev
         Column{
             Label {
                 text: "rot:"+parseFloat(zm3d.currentSignRot).toFixed(2)
@@ -542,6 +561,23 @@ Item {
             }
         }*/
         Comps.ButtonIcon{
+            text: "\uf030"
+            width: app.fs
+            height: width
+            onClicked: {
+                if(zoolMap3D.view.camera===zoolMap3D.cameraGiro){
+                    zoolMap3D.view.camera=zoolMap3D.camera
+                    zoolMap3D.view.cCam=zoolMap3D.camera
+                }else if(zoolMap3D.view.camera===zoolMap3D.camera){
+                    zoolMap3D.view.camera=zoolMap3D.cameraLeft
+                    zoolMap3D.view.cCam=zoolMap3D.cameraLeft
+                }else{
+                    zoolMap3D.view.camera=zoolMap3D.cameraGiro
+                    zoolMap3D.view.cCam=zoolMap3D.cameraGiro
+                }
+            }
+        }
+        Comps.ButtonIcon{
             text: "\uf185"
             width: app.fs
             height: width
@@ -667,12 +703,23 @@ Item {
                 let obj=Qt.createQmlObject(c, r, 'config3d-code')
             }
         }
+        Comps.ButtonIcon{
+            text: "X"
+            fontSize: app.fs*0.5
+            width: app.fs
+            height: width
+            onClicked: {
+                app.show3D=false
+            }
+        }
     }
-
+    ZoolMenuCtxView3D{id: menuView3D}
     Component.onCompleted: {
         app.zoolMap3D=r
         let j=zm.currentJson
         zoolMap3D.zm3d.loadData(j)
+        setMapData()
+
         //createAspect(0, 90, "green");
 
         if(false){
@@ -748,6 +795,15 @@ Item {
         }
         gcRZ=parseInt(gcRZ + 1)
         sen.currentDegSen=gcRZ
+    }
+    function setMapData(){
+        let p=zfdm.getJsonAbs().params
+        let s=''
+        s+='<b>'+p.n+'</b>'
+        s+='<br><b>Fecha: </b>'+p.d+'/'+p.m+'/'+p.a+' '+p.h+':'+p.min+'hs <b>GMT: </b>'+p.gmt
+        s+='<br><b>Lugar: </b>'+p.c
+        s+='<br><b>Ubicación: </b> <b>Lat. </b>'+parseFloat(p.lat).toFixed(2)+' <b>Lon. </b>'+parseFloat(p.lon).toFixed(2)+' <b>Alt. </b>'+p.alt
+        txtMapData.text=s
     }
     function crearAspEstela(scene, modelOrigen, modelDestino, colorAsp) {
         if (!scene || !modelOrigen || !modelDestino) {

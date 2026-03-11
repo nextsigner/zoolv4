@@ -500,7 +500,7 @@ Model {
                             baseColorMap: Texture {source: n.aSources[3]}
                             //Metalizar
                             metalness: 0.1 //De 0.0 a 1.0
-                            metalnessMap: Texture { source: r.aSources[1]}//Metalicidad
+                            //metalnessMap: Texture { source: r.aSources[1]}//Metalicidad
                             //Arrugar
                             roughnessMap: Texture { source: "maps/metallic/roughness.jpg" }//Rugosidad
                             roughness: 0.0 //De 0.0 a 1.0

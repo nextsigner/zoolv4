@@ -25,6 +25,7 @@ ZoolMenus {
         text: qsTr("Salir de 3D")
         onTriggered: {
             app.show3D=false
+            app.update();
         }
     }
     Action {

@@ -39,7 +39,6 @@ import ZoolMenus.ZoolMenuCtxAs 1.0
 import ZoolMenus.ZoolMapMenuCtx 1.0
 import ZoolMenuCtxPlanetsAsc 1.0
 import ZoolMenuCtxHouses 1.0
-import ZoolMenus.ZoolMenuCtxView3D 1.0
 //<--Menus
 
 
@@ -679,7 +678,7 @@ ZoolMainWindow{
     ZoolMapMenuCtx{id: menuRuedaZodiacal}
     ZoolMenuPlanetsCtxAsc{id: menuPlanetsCtxAsc}
     ZoolMenuCtxHouses{id: menuCtxHouses}
-    ZoolMenuCtxView3D{id: menuView3D}
+    //ZoolMenuCtxView3D{id: menuView3D}
     //ZoolMediaLive{id: zoolMediaLive;parent: zoolDataBodies}
 
     //Este esta en el centro

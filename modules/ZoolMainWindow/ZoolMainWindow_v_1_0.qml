@@ -1363,7 +1363,8 @@ ApplicationWindow {
             //zoolMap3D.createAspect(90, 180, "yellow");
 
 
-            zoolMap3D.crearAspEstela(zoolMap3D.view.scene, zoolMap3D.model1, zoolMap3D.model2)
+            //zoolMap3D.crearAspEstela(zoolMap3D.view.scene, zoolMap3D.model1, zoolMap3D.model2)
+            app.update();
 
 
 

@@ -304,7 +304,11 @@ Item{
         return obj
     }
     function getPanelObject(index){
-        return xPanels.children[Math.abs(xPanels.children.length-1-index)].children[0]
+        if(xPanels.children[Math.abs(xPanels.children.length-1-index)]){
+            return xPanels.children[Math.abs(xPanels.children.length-1-index)].children[0]
+        }else{
+            return xPanels.children[0]
+        }
     }
     function showPanel(typeOfSection){
         //let newCi=-1

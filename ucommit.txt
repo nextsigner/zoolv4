@@ -1,1 +1,1 @@
-i7: Se crea ZoolMap3D.Config
+i7: Se agrega botón cámara a ZoolMap3D
